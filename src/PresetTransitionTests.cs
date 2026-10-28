@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Text;using System.Collections.Generic;using F=System.Windows.Forms;
+﻿using System;using System.IO;using System.Linq;using System.Text;using System.Collections.Generic;using F=System.Windows.Forms;
 namespace GearLab {
  static class PresetTransitionTests {
   static int checks;internal static void Check(bool ok,string message){checks++;if(!ok)throw new Exception(message);}

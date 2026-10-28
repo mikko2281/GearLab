@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Text.RegularExpressions;using System.Collections.Generic;using System.Windows;using System.Windows.Media.Media3D;
+﻿using System;using System.Linq;using System.Text.RegularExpressions;using System.Collections.Generic;using System.Windows;using System.Windows.Media.Media3D;
 namespace GearLab {
  public sealed class PartMotion {
   public string Kind="fixed";public int Stage,Planet;public Point3D Centre;public double Radius,Location;public Result Result;

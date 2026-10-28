@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Collections.Generic;using System.Drawing;using F=System.Windows.Forms;using System.Windows.Forms.Integration;
+﻿using System;using System.Linq;using System.Collections.Generic;using System.Drawing;using F=System.Windows.Forms;using System.Windows.Forms.Integration;
 namespace GearLab {
  public sealed class ComponentTree:F.TreeView{
   protected override F.CreateParams CreateParams{get{var p=base.CreateParams;p.Style|=0x8000;return p;}}

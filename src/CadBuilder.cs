@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Drawing;using System.Collections.Generic;
+﻿using System;using System.Linq;using System.Drawing;using System.Collections.Generic;
 namespace GearLab {
  public sealed partial class CadBuilder {
   CadAssembly model=new CadAssembly();Parameters p;Result r;int serial;Color steel=Color.FromArgb(155,169,184),housing=Color.FromArgb(105,135,158),fixedColor=Color.FromArgb(51,136,116),blue=Color.FromArgb(47,139,199),orange=Color.FromArgb(221,148,58);

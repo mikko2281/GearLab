@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Drawing;using System.Collections.Generic;
+﻿using System;using System.Linq;using System.Drawing;using System.Collections.Generic;
 namespace GearLab {
  public static partial class Engine {
   public static string[] PresetNames={"Пользовательские размеры","NEMA 17 · компактный 60 мм","NEMA 17 · базовый 80 мм","NEMA 17 · большой 120 мм","NEMA 23 · базовый 120 мм","Micro 20:1 · NEMA 17 · 42 мм"};

@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Text;using System.Linq;using System.Collections.Generic;
+﻿using System;using System.IO;using System.Text;using System.Linq;using System.Collections.Generic;
 namespace GearLab {
  public sealed class StepExport {
   StringBuilder data=new StringBuilder();int next;Dictionary<string,int> points=new Dictionary<string,int>(),vertices=new Dictionary<string,int>(),edges=new Dictionary<string,int>();

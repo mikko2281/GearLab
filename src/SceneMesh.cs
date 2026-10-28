@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Collections.Generic;using System.Threading;using System.Windows.Media;using System.Windows.Media.Media3D;using LibTessDotNet.Double;
+﻿using System;using System.Linq;using System.Collections.Generic;using System.Threading;using System.Windows.Media;using System.Windows.Media.Media3D;using LibTessDotNet.Double;
 namespace GearLab {
  public sealed class SceneMesh {
   public Point3D[] Points;public Vector3D[] Normals;public int[] Indices;

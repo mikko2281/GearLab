@@ -1,4 +1,4 @@
-using System;using System.IO;using System.IO.Compression;using System.Linq;using System.Text;using System.Threading;using System.Drawing;using System.Collections.Generic;using System.Windows.Forms;using System.Windows.Media.Media3D;
+﻿using System;using System.IO;using System.IO.Compression;using System.Linq;using System.Text;using System.Threading;using System.Drawing;using System.Collections.Generic;using System.Windows.Forms;using System.Windows.Media.Media3D;
 namespace GearLab {
  public static class PrintExport {
   public static bool Candidate(CadPart p){return !p.Reference&&(p.Role=="housing"||p.Role=="gear"||p.Role=="fixed"||(p.Role=="shaft"&&p.Id.Contains("CARRIER")));}

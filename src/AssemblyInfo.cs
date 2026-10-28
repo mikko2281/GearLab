@@ -1,4 +1,4 @@
-using System.Reflection;using System.Runtime.InteropServices;
+﻿using System.Reflection;using System.Runtime.InteropServices;
 [assembly:AssemblyTitle("Gear Lab — Калькулятор редукторов")]
 [assembly:AssemblyDescription("Геометрический и кинематический калькулятор четырёх типов передач")]
 [assembly:AssemblyProduct("Gear Lab")]

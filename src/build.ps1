@@ -1,4 +1,4 @@
-param([string]$OutputFolder='Windows')
+﻿param([string]$OutputFolder='Windows')
 $ErrorActionPreference = 'Stop'
 $gearRoot = Split-Path -Parent $PSScriptRoot
 $gearOutput = Join-Path $gearRoot $OutputFolder

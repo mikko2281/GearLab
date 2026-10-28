@@ -1,4 +1,4 @@
-using System;using System.IO;using System.IO.Compression;using System.Linq;using System.Text;using System.Threading;using System.Collections.Generic;using System.Windows.Forms;
+﻿using System;using System.IO;using System.IO.Compression;using System.Linq;using System.Text;using System.Threading;using System.Collections.Generic;using System.Windows.Forms;
 namespace GearLab {
  static class PrintTests {
   static int checks;static void Check(bool ok,string message){checks++;if(!ok)throw new Exception(message);}

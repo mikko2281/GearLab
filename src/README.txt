@@ -1,4 +1,4 @@
-Gear Lab 1.5.0
+﻿Gear Lab 1.5.0
 Build: powershell -ExecutionPolicy Bypass -File .\build.ps1
 .NET Framework 4.8; WinForms/WPF; vendored LibTessDotNet with license.
 Tests: --self-test, --preset-test, --micro-test, --print-test, --visibility-test, --viewer-test, --cad-test, --ui-test <folder>.

@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Drawing;using System.Drawing.Drawing2D;using System.Windows.Forms;
+﻿using System;using System.Linq;using System.Drawing;using System.Drawing.Drawing2D;using System.Windows.Forms;
 namespace GearLab {
  public class Canvas:Control {
   System.Drawing.PointF[] ringContour;Result result;int view;bool hideHousing;GearViewerControl viewer;

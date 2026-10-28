@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Drawing;using System.Collections.Generic;
+﻿using System;using System.Linq;using System.Drawing;using System.Collections.Generic;
 namespace GearLab {
  public static class IntegratedRing {
   public static double Bridge(Parameters p){return p.RingBridge>0?p.RingBridge:p.Roller*.45;}

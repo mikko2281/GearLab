@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Text;using System.Windows;using System.Windows.Media.Media3D;using F=System.Windows.Forms;
+﻿using System;using System.IO;using System.Linq;using System.Text;using System.Windows;using System.Windows.Media.Media3D;using F=System.Windows.Forms;
 namespace GearLab {
  static class PlacementTests {
   static int checks;static void Check(bool ok,string message){checks++;if(!ok)throw new Exception(message);}

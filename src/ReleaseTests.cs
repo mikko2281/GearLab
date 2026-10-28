@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.Collections.Generic;using System.Windows.Forms;
+﻿using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.Collections.Generic;using System.Windows.Forms;
 namespace GearLab {
  public sealed class TestDialogs:IUserDialogs {
   public Queue<string> SavePaths=new Queue<string>(),OpenPaths=new Queue<string>();public Queue<DialogResult> Answers=new Queue<DialogResult>();public List<string> Messages=new List<string>();public int Helps,UnsavedCalls;

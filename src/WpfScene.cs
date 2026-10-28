@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Collections.Generic;using System.Diagnostics;using System.Threading;using System.Threading.Tasks;using System.Windows;using System.Windows.Controls;using System.Windows.Input;using System.Windows.Media;using System.Windows.Media.Media3D;using System.Windows.Media.Imaging;
+﻿using System;using System.IO;using System.Linq;using System.Collections.Generic;using System.Diagnostics;using System.Threading;using System.Threading.Tasks;using System.Windows;using System.Windows.Controls;using System.Windows.Input;using System.Windows.Media;using System.Windows.Media.Media3D;using System.Windows.Media.Imaging;
 namespace GearLab {
  public sealed class SceneNode {
   public CadPart Part;public SceneMesh Source,Marker;public MeshGeometry3D Frozen,MarkerFrozen;public PartMotion Motion;public Model3DGroup Group;public GeometryModel3D Surface,Cap,Mark;public MatrixTransform3D Transform;

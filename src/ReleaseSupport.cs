@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Text;using System.Linq;using System.Drawing;using System.Collections.Generic;using System.Globalization;using System.Reflection;using System.Windows.Forms;using System.Web.Script.Serialization;
+﻿using System;using System.IO;using System.Text;using System.Linq;using System.Drawing;using System.Collections.Generic;using System.Globalization;using System.Reflection;using System.Windows.Forms;using System.Web.Script.Serialization;
 namespace GearLab {
  public interface IUserDialogs {
   string Save(IWin32Window owner,string extension,string suggested);string Open(IWin32Window owner);DialogResult Unsaved(IWin32Window owner);void Info(IWin32Window owner,string text,string title);void Help(IWin32Window owner);

@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Text;using System.Linq;using System.Drawing;using System.Globalization;using System.Collections.Generic;using System.Windows.Forms;using System.Web.Script.Serialization;
+﻿using System;using System.IO;using System.Text;using System.Linq;using System.Drawing;using System.Globalization;using System.Collections.Generic;using System.Windows.Forms;using System.Web.Script.Serialization;
 
 namespace GearLab {
  public class SafeNumber:NumericUpDown {

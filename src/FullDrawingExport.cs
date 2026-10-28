@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Text;using System.Drawing;using System.Linq;using System.Collections.Generic;
+﻿using System;using System.IO;using System.Text;using System.Drawing;using System.Linq;using System.Collections.Generic;
 namespace GearLab {
  public static class FullDrawingExport {
   public const double PxPerMm=96.0/25.4;

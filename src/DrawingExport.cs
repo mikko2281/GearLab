@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Text;using System.Linq;using System.Drawing;using System.Collections.Generic;
+﻿using System;using System.IO;using System.Text;using System.Linq;using System.Drawing;using System.Collections.Generic;
 namespace GearLab {
  public class SketchLoop {public string Name;public PointF[] Points;public SketchLoop(string name,PointF[] points){Name=name;Points=points;}}
  public class SketchCircle {public string Name;public double X,Y,R;public SketchCircle(string name,double x,double y,double r){Name=name;X=x;Y=y;R=r;}}
