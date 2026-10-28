@@ -1,0 +1,5 @@
+Windows/
+test-results/
+*.zip
+*.user
+.vs/

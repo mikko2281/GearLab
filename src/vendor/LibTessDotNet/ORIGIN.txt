@@ -1,0 +1,3 @@
+https://github.com/speps/LibTessDotNet
+Commit: bdc0b0f94904dd94c3edfb2c25aa358695276e09
+License: SGI Free Software License B 2.0

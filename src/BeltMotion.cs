@@ -1,0 +1,10 @@
+using System;using System.Linq;using System.Collections.Generic;using System.Windows.Media.Media3D;
+namespace GearLab {
+ // Small coloured patches move along the pitch line. CAD belt remains a static envelope.
+ public sealed class BeltMotion {
+  readonly List<GeometryModel3D> marks=new List<GeometryModel3D>();readonly List<MatrixTransform3D> transforms=new List<MatrixTransform3D>();readonly Model3DGroup group=new Model3DGroup();System.Drawing.PointF[] path;double[] lengths;double total,radius,z;public string PartId;
+  public void Build(Result r,System.Windows.Media.Media3D.Material material){marks.Clear();transforms.Clear();group.Children.Clear();PartId=null;if(r.P.Kind!=2)return;var part=r.Model.Parts.FirstOrDefault(p=>p.Id.Contains("BELT_REFERENCE"));if(part==null||r.BeltPath==null||r.BeltPath.Length<3)return;PartId=part.Id;path=r.BeltPath;lengths=new double[path.Length+1];for(int i=0;i<path.Length;i++)lengths[i+1]=lengths[i]+CadLoop.Length(path[i],path[(i+1)%path.Length]);total=lengths.Last();radius=r.P.Pitch*r.Z1/Engine.Tau;z=part.Sections.Last().Top+.04;double half=r.P.ModelBeltThickness*.38;var mesh=new SceneMesh{Points=new[]{new Point3D(-1,-half,0),new Point3D(1,-half,0),new Point3D(1,half,0),new Point3D(-1,half,0)},Normals=Enumerable.Repeat(new Vector3D(0,0,1),4).ToArray(),Indices=new[]{0,1,2,0,2,3}}.Geometry();for(int i=0;i<12;i++){var t=new MatrixTransform3D();var m=new GeometryModel3D(mesh,material){Transform=t};transforms.Add(t);marks.Add(m);group.Children.Add(m);}}
+  public void Update(double phase,double explode){if(PartId==null)return;for(int i=0;i<marks.Count;i++){double d=((total*i/marks.Count-radius*phase)%total+total)%total;int j=Array.BinarySearch(lengths,d);if(j<0)j=~j-1;j=Math.Min(path.Length-1,j);double t=(d-lengths[j])/Math.Max(1e-9,lengths[j+1]-lengths[j]);var a=path[j];var b=path[(j+1)%path.Length];double angle=Math.Atan2(b.Y-a.Y,b.X-a.X);transforms[i].Matrix=PartMotion.Around(angle,new Point3D(),new Point3D(a.X+(b.X-a.X)*t,a.Y+(b.Y-a.Y)*t,0),z+explode);}}
+  public Model3DGroup Group{get{return group;}}
+ }
+}

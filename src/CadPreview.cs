@@ -1,0 +1,4 @@
+using System;using System.Drawing;using System.IO;
+namespace GearLab { public static class CadPreview {
+ public static void Draw(Graphics g,CadAssembly model,int width,int height,double yaw,double pitch,double zoom,bool exploded,bool hide){if(model==null||!model.Valid)return;using(var scene=new WpfScene()){scene.Root.Measure(new System.Windows.Size(width,height));scene.Root.Arrange(new System.Windows.Rect(0,0,width,height));scene.Camera.Yaw=yaw;scene.Camera.Pitch=pitch;scene.SetResult(new Result{P=new Parameters(),Model=model},false);scene.HideHousing=hide;scene.RefreshVisibility();scene.SetExploded(exploded);scene.Fit();scene.Camera.Width/=zoom;scene.Camera.Update();string path=Path.Combine(Path.GetTempPath(),"gearlab-"+Guid.NewGuid().ToString("N")+".png");try{scene.SavePng(path,width,height);using(var image=Image.FromFile(path))g.DrawImage(image,0,0,width,height);}finally{if(File.Exists(path))File.Delete(path);}}}
+}}

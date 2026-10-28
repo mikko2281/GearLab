@@ -1,0 +1,25 @@
+name: Windows build and tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and test
+        shell: powershell
+        run: ./test.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: GearLab-Windows-and-reports
+          path: |
+            Windows/
+            test-results/**/*results.txt
+            test-results/**/*error*.txt
