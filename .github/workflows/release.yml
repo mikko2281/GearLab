@@ -1,49 +1,49 @@
-name: Package verified Windows release
-on:
-  workflow_dispatch:
-    inputs:
-      draft_release_id:
-        description: Existing draft release ID (published releases are refused)
-        required: true
-        type: string
-permissions:
-  contents: read
-concurrency:
-  group: gearlab-release-packaging
-  cancel-in-progress: false
-jobs:
-  package:
-    runs-on: windows-latest
-    timeout-minutes: 20
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12.10'
-          architecture: x64
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Build pinned portable dependencies
-        shell: powershell
-        run: ./tools/ci_build.ps1
-      - name: Verify executable and native CAD
-        shell: powershell
-        run: ./tools/ci_verify.ps1
-      - name: Package, verify and attach to the existing draft
-        shell: powershell
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GEARLAB_DRAFT_ID: ${{ inputs.draft_release_id }}
-        run: ./tools/ci_release.ps1 -ReleaseId $env:GEARLAB_DRAFT_ID
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: GearLab-release-verification
-          path: |
-            test-results-ci/**/*results.*
-            test-results-ci/**/*error*.txt
-            dist/*.sha256
-            dist/GearLab_5.5/build-info.json
+name: Package verified Windows release
+on:
+  workflow_dispatch:
+    inputs:
+      draft_release_id:
+        description: Existing draft release ID (published releases are refused)
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: gearlab-release-packaging
+  cancel-in-progress: false
+jobs:
+  package:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.10'
+          architecture: x64
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build pinned portable dependencies
+        shell: powershell
+        run: ./tools/ci_build.ps1
+      - name: Verify executable and native CAD
+        shell: powershell
+        run: ./tools/ci_verify.ps1
+      - name: Package, verify and attach to the existing draft
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GEARLAB_DRAFT_ID: ${{ inputs.draft_release_id }}
+        run: ./tools/ci_release.ps1 -ReleaseId $env:GEARLAB_DRAFT_ID
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: GearLab-release-verification
+          path: |
+            test-results-ci/**/*results.*
+            test-results-ci/**/*error*.txt
+            dist/*.sha256
+            dist/GearLab_5.6/build-info.json

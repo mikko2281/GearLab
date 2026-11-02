@@ -1,4 +1,4 @@
-﻿param([string]$OutputFolder='Windows',[string]$ResultsFolder='test-results',[switch]$NoBuild,[switch]$SkipProceduralKernel,[string[]]$Suites=@('reducer55','author-view','controller','self','mechanism','step','placement','preset','micro','print'))
+﻿param([string]$OutputFolder='Windows',[string]$ResultsFolder='test-results',[switch]$NoBuild,[switch]$SkipProceduralKernel,[string[]]$Suites=@('reducer56','author-view','controller','self','mechanism','step','placement','preset','micro','print'))
 $ErrorActionPreference = 'Stop'
 Push-Location $PSScriptRoot
 try {

@@ -1,0 +1,12 @@
+{
+  "Wave56-full.step": {
+    "solids": 19,
+    "valid": true,
+    "volume_mm3": 180637.15696831988
+  },
+  "Wave56-print.step": {
+    "solids": 3,
+    "valid": true,
+    "volume_mm3": 49170.20477110187
+  }
+}

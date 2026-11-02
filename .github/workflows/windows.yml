@@ -1,35 +1,35 @@
-name: Windows build and native checks
-on:
-  push:
-    branches: [main]
-  pull_request:
-  workflow_dispatch:
-permissions:
-  contents: read
-jobs:
-  test:
-    runs-on: windows-latest
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12.10'
-          architecture: x64
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Build pinned native dependencies and executable
-        shell: powershell
-        run: ./tools/ci_build.ps1
-      - name: Verify executable and CAD without interactive desktop windows
-        shell: powershell
-        run: ./tools/ci_verify.ps1
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: GearLab-build-and-native-reports
-          path: |
-            Windows/
-            test-results-ci/**/*results.*
-            test-results-ci/**/*error*.txt
+name: Windows build and native checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.10'
+          architecture: x64
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build pinned native dependencies and executable
+        shell: powershell
+        run: ./tools/ci_build.ps1
+      - name: Verify executable and CAD without interactive desktop windows
+        shell: powershell
+        run: ./tools/ci_verify.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: GearLab-build-and-native-reports
+          path: |
+            Windows/
+            test-results-ci/**/*results.*
+            test-results-ci/**/*error*.txt

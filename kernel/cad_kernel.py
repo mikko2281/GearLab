@@ -537,7 +537,12 @@ def handle(request):
         return dict(Ok=True,Sketch=sketch,ConstraintStatus=status)
     bodies,result=build_document(request['Document'],folder,request.get('Marker'),mode in {'build','native'})
     if mode in {'export_step','export_stl','native'}:
-        selected=request.get('Body');s=bodies[selected] if selected else compound(list(bodies.values()))
+        selected=request.get('Body')
+        if request.get('Parts') is not None:
+            keys=request['Parts']
+            if not keys or any(key not in bodies for key in keys):raise ValueError('Недопустимый состав STEP-экспорта.')
+            s=compound([bodies[key] for key in keys])
+        else:s=bodies[selected] if selected else compound(list(bodies.values()))
         path=request.get('Path') or str(Path(folder)/'result.step')
         if mode=='export_stl':
             # OCCT's Windows STL writer does not reliably accept Unicode paths.

@@ -1,13 +1,26 @@
 ﻿using System;using System.IO;using System.Text;using System.Diagnostics;using System.Collections.Generic;using System.Windows.Forms;
+
 namespace GearLab {
- public sealed class CADKernel:IDisposable {
+
+ public sealed class CADKernel:IDisposable {public static int StartedWorkers;
+
   public event Action<string> Progress;readonly object gate=new object();Process worker;bool disposed;public readonly string Folder;
+
   public CADKernel(){Folder=Path.Combine(AppSettings.Folder,"CAD","cache-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(Folder);}
+
   static string Root{get{return Path.GetDirectoryName(Application.ExecutablePath);}}
+
   static string Find(string name){var path=Path.Combine(Root,name);if(File.Exists(path))return path;path=Path.Combine(Path.GetDirectoryName(Root),name);if(File.Exists(path))return path;throw new Exception("В комплекте отсутствует "+name+". Распакуйте полный CAD-комплект программы.");}
-  void Start(){if(worker!=null&&!worker.HasExited)return;if(worker!=null)worker.Dispose();var info=new ProcessStartInfo{FileName=Find("runtime/python.exe"),Arguments="-I \""+Find("kernel/cad_kernel.py")+"\" --serve",UseShellExecute=false,CreateNoWindow=true,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true,StandardOutputEncoding=Encoding.UTF8,StandardErrorEncoding=Encoding.UTF8};worker=new Process{StartInfo=info};worker.Start();try{worker.PriorityClass=ProcessPriorityClass.BelowNormal;}catch{}worker.BeginErrorReadLine();}
+
+  void Start(){if(worker!=null&&!worker.HasExited)return;if(worker!=null)worker.Dispose();var info=new ProcessStartInfo{FileName=Find("runtime/python.exe"),Arguments="-I \""+Find("kernel/cad_kernel.py")+"\" --serve",UseShellExecute=false,CreateNoWindow=true,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true,StandardOutputEncoding=Encoding.UTF8,StandardErrorEncoding=Encoding.UTF8};worker=new Process{StartInfo=info};worker.Start();System.Threading.Interlocked.Increment(ref StartedWorkers);try{worker.PriorityClass=ProcessPriorityClass.BelowNormal;}catch{}worker.BeginErrorReadLine();}
+
   public CADKernelResult Run(CADDocument document,string mode="build",string path=null,string body=null,int? marker=null,Dictionary<string,object> additional=null){lock(gate){if(disposed)throw new ObjectDisposedException("CADKernel");document.Validate();Start();var request=new Dictionary<string,object>{{"Mode",mode},{"Document",document},{"Folder",Path.Combine(Folder,Guid.NewGuid().ToString("N"))}};if(path!=null)request["Path"]=path;if(body!=null)request["Body"]=body;if(marker.HasValue)request["Marker"]=marker.Value;if(additional!=null)foreach(var pair in additional)request[pair.Key]=pair.Value;worker.StandardInput.WriteLine(CADDocument.Serializer().Serialize(request));worker.StandardInput.Flush();string line;while((line=worker.StandardOutput.ReadLine())!=null){if(line.StartsWith("GEARLAB_PROGRESS:",StringComparison.Ordinal)){if(Progress!=null)Progress(line.Substring(17));continue;}int replyAt=line.IndexOf("GEARLAB_REPLY:",StringComparison.Ordinal);if(replyAt<0)continue;line=line.Substring(replyAt);var result=CADDocument.Serializer().Deserialize<CADKernelResult>(line.Substring(14));if(!result.Ok)throw new Exception(result.Error??"Ошибка CAD-ядра.");return result;}throw new Exception("CAD-ядро завершилось. Изменение не применено; можно повторить операцию.");}}
+
   public void Cancel(){var p=worker;if(p!=null)try{if(!p.HasExited)p.Kill();}catch{} }
+
   public void Dispose(){disposed=true;Cancel();if(worker!=null)worker.Dispose();}
+
  }
+
 }
+

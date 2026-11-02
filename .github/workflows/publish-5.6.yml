@@ -1,0 +1,56 @@
+name: Publish verified GearLab 5.6
+on:
+  push:
+    branches: [main]
+    paths: ['docs/RELEASE_5.6.md']
+permissions:
+  contents: read
+concurrency:
+  group: gearlab-release-packaging
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.repository == 'mikko2281/GearLab'
+    runs-on: windows-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.10'
+          architecture: x64
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build pinned runtime and executable
+        shell: powershell
+        run: ./tools/ci_build.ps1
+      - name: Verify fast preview, native geometry and calculations
+        shell: powershell
+        run: ./tools/ci_verify.ps1
+      - name: Prepare only the 5.6 draft
+        id: draft
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -X utf8 tools/publish_56.py draft
+      - name: Package and verify both archives
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GEARLAB_DRAFT_ID: ${{ steps.draft.outputs.release_id }}
+        run: ./tools/ci_release.ps1 -ReleaseId $env:GEARLAB_DRAFT_ID
+      - name: Publish verified 5.6
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -X utf8 tools/publish_56.py publish ${{ steps.draft.outputs.release_id }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: GearLab-5.6-verification
+          path: |
+            test-results-ci/**/*results.*
+            test-results-ci/**/*error*.txt
+            dist/*.sha256
+            dist/GearLab_5.6/build-info.json
