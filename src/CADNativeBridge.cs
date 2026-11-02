@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.IO.Compression;using System.Collections.Generic;using System.Windows.Media.Media3D;
+﻿using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.IO.Compression;using System.Collections.Generic;using System.Windows.Media.Media3D;
 namespace GearLab {
  public static class CADMeshCodec {
   public static string Encode(SceneMesh mesh){using(var memory=new MemoryStream()){using(var compressed=new DeflateStream(memory,CompressionLevel.Optimal,true))using(var writer=new BinaryWriter(compressed)){writer.Write(0x344D5043);writer.Write(mesh.Points.Length);writer.Write(mesh.Indices.Length);for(int i=0;i<mesh.Points.Length;i++){var p=mesh.Points[i];var n=mesh.Normals[i];writer.Write((float)p.X);writer.Write((float)p.Y);writer.Write((float)p.Z);writer.Write((float)n.X);writer.Write((float)n.Y);writer.Write((float)n.Z);}foreach(int i in mesh.Indices)writer.Write(i);}return Convert.ToBase64String(memory.ToArray());}}

@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Windows;using System.Windows.Controls;using System.Windows.Media;
+﻿using System;using System.Linq;using System.Windows;using System.Windows.Controls;using System.Windows.Media;
 namespace GearLab {
  public sealed partial class CADStudioForm {
   readonly Border startCard=new Border();

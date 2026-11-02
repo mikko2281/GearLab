@@ -1,4 +1,4 @@
-param([string]$OutputFolder='Windows',[string]$ResultsFolder='test-results-ci')
+﻿param([string]$OutputFolder='Windows',[string]$ResultsFolder='test-results-ci')
 $ErrorActionPreference='Stop'
 $gearRoot=Split-Path -Parent $PSScriptRoot
 Push-Location $gearRoot
@@ -14,7 +14,7 @@ try {
         if($gearProcess.ExitCode -ne 0){throw ('Native project cache check failed: '+$gearName)}
         Get-Content -LiteralPath (Join-Path $gearFolder 'cache-results.txt')
     }
-    foreach($gearTest in @('cad_kernel','body_motion','loads_controls','robot_step_edit')) {
+    foreach($gearTest in @('cad_kernel','body_motion','loads_controls','robot_step_edit','wave_flat')) {
         & ./runtime/python.exe -B -X utf8 -I ('./tools/test_'+$gearTest+'.py') (Join-Path $ResultsFolder $gearTest)
         if($LASTEXITCODE -ne 0){throw ('Native check failed: '+$gearTest)}
     }

@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Collections.Generic;using System.IO;using System.Windows.Forms;using System.Windows.Media.Media3D;
+﻿using System;using System.Linq;using System.Collections.Generic;using System.IO;using System.Windows.Forms;using System.Windows.Media.Media3D;
 namespace GearLab {
  public static class RobotConnections {
   static Point3D Point(double[] p){return new Point3D(p[0],p[1],p[2]);}

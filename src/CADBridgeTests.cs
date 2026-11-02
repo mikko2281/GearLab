@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Collections.Generic;using System.Windows.Media.Media3D;
+﻿using System;using System.IO;using System.Linq;using System.Collections.Generic;using System.Windows.Media.Media3D;
 namespace GearLab {
  public static class CADBridgeTests {
   static void Check(bool v,string name){if(!v)throw new Exception("CAD integration: "+name);}static void Near(double a,double b,string name){Check(Math.Abs(a-b)<1e-5*Math.Max(1,Math.Abs(b)),name);}

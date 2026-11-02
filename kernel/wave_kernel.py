@@ -7,6 +7,13 @@ from OCP.BRepOffsetAPI import BRepOffsetAPI_ThruSections
 CACHE={}
 
 def make_wave(values,ev,k):
+    if values.get('Layout')=='flat':
+        from wave_flat import make_flat
+        flat_key='flat:'+hashlib.sha256(json.dumps({key:(value if key=='Layout' else ev(value)) for key,value in values.items()},sort_keys=True).encode()).hexdigest()
+        if flat_key not in CACHE:
+            CACHE[flat_key]=make_flat(values,ev,k)
+            if len(CACHE)>10:CACHE.pop(next(iter(CACHE)))
+        return CACHE[flat_key]
     value=lambda key,default:ev(values.get(key,default))
     ratio=int(value('Ratio',50));module=value('Module',.6);depth=value('CupDepth',25);width=value('Thickness',8);wall=value('Wall',.8);ringwall=value('RingWall',4);bore=value('Bore',5);output=value('OutputBore',8);gap=value('Clearance',.15);bearing=value('BearingWall',1.5);phase=math.radians(value('Phase',0))
     if not 20<=ratio<=120 or not .15<=module<=2 or not 10<=depth<=100 or not 3<=width<=40 or not .3<=wall<=3 or not 2<=ringwall<=15 or not .05<=gap<=.5 or not .5<=bearing<=4:raise ValueError('Волновой редуктор: i 20–120, модуль 0,15–2, глубина чашки 10–100, венец 3–40, стенка чашки 0,3–3 мм.')

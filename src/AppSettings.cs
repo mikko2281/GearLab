@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Drawing;using System.ComponentModel;using System.Windows.Forms;using System.Windows.Forms.Integration;using System.Web.Script.Serialization;
+﻿using System;using System.IO;using System.Linq;using System.Drawing;using System.ComponentModel;using System.Windows.Forms;using System.Windows.Forms.Integration;using System.Web.Script.Serialization;
 namespace GearLab {
  public enum GearTheme {Светлая,Тёмная}
  public enum GearQuality {Быстрый,Обычный,Подробный}

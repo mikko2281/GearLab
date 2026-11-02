@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Drawing;using System.Drawing.Drawing2D;using System.Collections.Generic;using System.Windows.Forms;
+﻿using System;using System.Linq;using System.Drawing;using System.Drawing.Drawing2D;using System.Collections.Generic;using System.Windows.Forms;
 namespace GearLab {
  public sealed class CADSketchCanvas:Control {
   public CADSketch Sketch=new CADSketch();public Dictionary<string,double> Parameters=new Dictionary<string,double>();public string Tool="select";public readonly List<string> Selected=new List<string>();public bool Snap=true;public double Step=1;public event Action Changed,SelectionChanged;public event Action<string> Status;double scale=7;PointF pan;Point previous;bool panning,drawing;double[] first,last;readonly List<double[]> chain=new List<double[]>();string dragged;int dragPoint=-1;readonly Dictionary<string,int> pointSelection=new Dictionary<string,int>();

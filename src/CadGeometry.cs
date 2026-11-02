@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Drawing;using System.Collections.Generic;
+﻿using System;using System.Linq;using System.Drawing;using System.Collections.Generic;
 namespace GearLab {
  using System.Windows.Media.Media3D;
  public class CadLoop {

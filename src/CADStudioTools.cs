@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Drawing;using System.Collections.Generic;using System.Threading.Tasks;using System.Windows.Forms;using System.Windows.Media.Media3D;
+﻿using System;using System.IO;using System.Linq;using System.Drawing;using System.Collections.Generic;using System.Threading.Tasks;using System.Windows.Forms;using System.Windows.Media.Media3D;
 using Wpf=System.Windows;using Media=System.Windows.Media;using WControls=System.Windows.Controls;using WInput=System.Windows.Input;using Shapes=System.Windows.Shapes;
 namespace GearLab {
  public sealed partial class CADStudioForm {

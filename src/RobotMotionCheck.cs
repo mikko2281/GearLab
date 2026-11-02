@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Collections.Generic;using System.Threading.Tasks;using System.Windows.Forms;using System.Windows.Media.Media3D;
+﻿using System;using System.IO;using System.Linq;using System.Collections.Generic;using System.Threading.Tasks;using System.Windows.Forms;using System.Windows.Media.Media3D;
 namespace GearLab {
  public sealed class RobotMotionCollision {public string A{get;set;}public string B{get;set;}public double[] Position{get;set;}public double Volume{get;set;}public Dictionary<string,double> Values{get;set;}}
  public sealed class RobotMotionReport {public string Status{get;set;}public int Visited{get;set;}public int CertifiedRegions{get;set;}public int UnresolvedRegions{get;set;}public double Seconds{get;set;}public string Scope{get;set;}public List<RobotMotionCollision> Collisions{get;set;}}

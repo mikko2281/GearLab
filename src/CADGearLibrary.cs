@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Drawing;using System.Drawing.Drawing2D;using System.Collections.Generic;using System.Threading.Tasks;using System.Windows.Forms;using System.Windows.Forms.Integration;
+﻿using System;using System.Linq;using System.Drawing;using System.Drawing.Drawing2D;using System.Collections.Generic;using System.Threading.Tasks;using System.Windows.Forms;using System.Windows.Forms.Integration;
 namespace GearLab {
  public sealed class CADGearPreset {public string Name,Group,Description;public Dictionary<string,string> Values;public override string ToString(){return Name;}}
  public static class CADGearCatalog {

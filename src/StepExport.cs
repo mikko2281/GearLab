@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Text;using System.Linq;using System.Collections.Generic;
+﻿using System;using System.IO;using System.Text;using System.Linq;using System.Collections.Generic;
 namespace GearLab {
  using System.Windows.Media.Media3D;
  public sealed class StepExport {
@@ -46,7 +46,7 @@ namespace GearLab {
    foreach(var part in model.Parts){int solid=Solid(part),rep=Add("ADVANCED_BREP_SHAPE_REPRESENTATION("+Text(part.Id)+",("+Ref(origin)+","+Ref(solid)+"),"+Ref(context)+")"),product=Add("PRODUCT("+Text(part.Id)+","+Text(part.Id)+",'',("+Ref(pc)+"))"),form=Add("PRODUCT_DEFINITION_FORMATION('','',"+Ref(product)+")"),pd=Add("PRODUCT_DEFINITION('design','',"+Ref(form)+","+Ref(pdc)+")"),shape=Add("PRODUCT_DEFINITION_SHAPE('','',"+Ref(pd)+")");Add("SHAPE_DEFINITION_REPRESENTATION("+Ref(shape)+","+Ref(rep)+")");int usage=Add("NEXT_ASSEMBLY_USAGE_OCCURRENCE("+Text(part.Id)+","+Text(part.Id)+",'',"+Ref(rootPD)+","+Ref(pd)+",$)"),usageShape=Add("PRODUCT_DEFINITION_SHAPE('','',"+Ref(usage)+")"),transform=Add("ITEM_DEFINED_TRANSFORMATION('','',"+Ref(origin)+","+Ref(origin)+")"),relation=Add("(REPRESENTATION_RELATIONSHIP('','',"+Ref(rootRep)+","+Ref(rep)+") REPRESENTATION_RELATIONSHIP_WITH_TRANSFORMATION("+Ref(transform)+") SHAPE_REPRESENTATION_RELATIONSHIP())");Add("CONTEXT_DEPENDENT_SHAPE_REPRESENTATION("+Ref(relation)+","+Ref(usageShape)+")");
     int color=Add("COLOUR_RGB('',"+CadNumbers.F(part.Color.R/255.0)+","+CadNumbers.F(part.Color.G/255.0)+","+CadNumbers.F(part.Color.B/255.0)+")"),fill=Add("FILL_AREA_STYLE_COLOUR('',"+Ref(color)+")"),style=Add("FILL_AREA_STYLE('',("+Ref(fill)+"))"),surface=Add("SURFACE_STYLE_FILL_AREA("+Ref(style)+")"),side=Add("SURFACE_SIDE_STYLE('',("+Ref(surface)+"))"),use=Add("SURFACE_STYLE_USAGE(.BOTH.,"+Ref(side)+")"),assign=Add("PRESENTATION_STYLE_ASSIGNMENT(("+Ref(use)+"))"),item=Add("STYLED_ITEM('',("+Ref(assign)+"),"+Ref(solid)+")");Add("MECHANICAL_DESIGN_GEOMETRIC_PRESENTATION_REPRESENTATION('',("+Ref(item)+"),"+Ref(context)+")");
    }
-   string header="ISO-10303-21;\r\nHEADER;\r\nFILE_DESCRIPTION(('GearLab complete geometric assembly; units mm; profile tolerance 0.002 mm'),'2;1');\r\nFILE_NAME('GearLab.step','"+DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss")+"',(''),(''),'GearLab 5.4.0','GearLab','');\r\nFILE_SCHEMA(('AUTOMOTIVE_DESIGN'));\r\nENDSEC;\r\nDATA;\r\n";ReleaseSupport.WriteText(path,header+data+"ENDSEC;\r\nEND-ISO-10303-21;\r\n",Encoding.ASCII);
+   string header="ISO-10303-21;\r\nHEADER;\r\nFILE_DESCRIPTION(('GearLab complete geometric assembly; units mm; profile tolerance 0.002 mm'),'2;1');\r\nFILE_NAME('GearLab.step','"+DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss")+"',(''),(''),'GearLab 5.5.0','GearLab','');\r\nFILE_SCHEMA(('AUTOMOTIVE_DESIGN'));\r\nENDSEC;\r\nDATA;\r\n";ReleaseSupport.WriteText(path,header+data+"ENDSEC;\r\nEND-ISO-10303-21;\r\n",Encoding.ASCII);
   }
  }
 }

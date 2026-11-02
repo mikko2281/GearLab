@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Text;using System.Globalization;using System.Collections.Generic;using System.Web.Script.Serialization;using System.Windows.Media.Media3D;
+﻿using System;using System.IO;using System.Linq;using System.Text;using System.Globalization;using System.Collections.Generic;using System.Web.Script.Serialization;using System.Windows.Media.Media3D;
 namespace GearLab {
  public sealed class MeshVertex {public double X{get;set;}public double Y{get;set;}public double Z{get;set;}public MeshVertex(){}public MeshVertex(double x,double y,double z){X=x;Y=y;Z=z;}public Point3D Point(){return new Point3D(X,Y,Z);}}
  public sealed class MeshFace {public int A{get;set;}public int B{get;set;}public int C{get;set;}public MeshFace(){}public MeshFace(int a,int b,int c){A=a;B=b;C=c;}public int[] Vertices(){return new[]{A,B,C};}}

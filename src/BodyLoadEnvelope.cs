@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Collections.Generic;using System.Windows.Media.Media3D;
+﻿using System;using System.Linq;using System.Collections.Generic;using System.Windows.Media.Media3D;
 namespace GearLab {
  public sealed class BodyLoadBounds {public double MomentNmm,ForceN,MassKg;public string Method="path-offset-centres-1";}
  public static class BodyLoadEnvelope {

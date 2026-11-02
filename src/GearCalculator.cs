@@ -236,7 +236,7 @@ namespace GearLab {
  }
  static class Program {
   [STAThread] static int Main(string[] args){
-   if(args.Length>0&&(args[0]=="--cad"||args[0].EndsWith(".cad.json",StringComparison.OrdinalIgnoreCase))){string file=args[0]=="--cad"?(args.Length>1?args[1]:null):args[0];return RunWindow(()=>new CADStudioForm(file==null?null:CADDocument.Parse(File.ReadAllText(file)),null));}
+   if(args.Length>0&&(args[0]=="--cad"||args[0].EndsWith(".cad.json",StringComparison.OrdinalIgnoreCase))){MessageBox.Show("CAD-моделирование удалено из этой версии. Сохранённые файлы не изменены.");return 2;}
    if(args.Length>0&&args[0]=="--wave")return RunWindow(()=>{var r=new ReducerWorkspaceForm();r.SelectWave();return r;});
    if(args.Length>0&&args[0]=="--cache-test"){return JointPreviewTests.Cache(args[1]);}
    if(args.Length>0&&args[0]=="--joint-preview-test"){return JointPreviewTests.Run(args[1]);}
@@ -251,7 +251,7 @@ namespace GearLab {
    if(args.Length>0&&args[0]=="--cad-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return CADStudioTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
    if(args.Length>0&&args[0]=="--robot-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return RoboticsTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
    if(args.Length>0&&(args[0]=="--robot"||args[0].EndsWith(".robot.json",StringComparison.OrdinalIgnoreCase))){string file=args[0]=="--robot"?(args.Length>1?args[1]:null):args[0];return RunWindow(()=>new RobotDesignerForm(file));}
-   if(args.Length>0&&(args[0]=="--polygon"||args[0].EndsWith(".mesh.json",StringComparison.OrdinalIgnoreCase))){string file=args[0]=="--polygon"?(args.Length>1?args[1]:null):args[0];return RunWindow(()=>new PolygonForm(file==null?MeshDocument.Cube():MeshDocument.Import(file),null));}
+   if(args.Length>0&&(args[0]=="--polygon"||args[0].EndsWith(".mesh.json",StringComparison.OrdinalIgnoreCase))){MessageBox.Show("Полигональное моделирование удалено из этой версии. Сохранённые файлы не изменены.");return 2;}
    if(args.Length>0&&args[0]=="--settings")return RunWindow(()=>new SettingsForm(null));
    if(args.Length>0&&args[0]=="--mechanism-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return MechanismTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
    if(args.Length>0&&(args[0]=="--mechanism"||args[0].EndsWith(".mechanism.json",StringComparison.OrdinalIgnoreCase))){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);string file=args[0]=="--mechanism"?(args.Length>1?args[1]:null):args[0];Application.Run(new WorkspaceShell(new MechanismForm(file)));return 0;}
@@ -265,7 +265,8 @@ namespace GearLab {
    if(args.Length>0&&args[0]=="--step-test")return StepTests.Run(args.Length>1?args[1]:Path.GetTempPath());
    if(args.Length>0&&args[0]=="--legacy-cad-test")return CadTests.Run(args.Length>1?args[1]:Path.GetTempPath());
    if(args.Length>0&&args[0]=="--self-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Tests.Run(args.Length>1?args[1]:Path.GetTempPath());}
-   if(args.Length==0)return RunWindow(()=>new CADStudioForm());
+   if(args.Length>0&&args[0]=="--reducer55-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Reducer55Tests.Run(args.Length>1?args[1]:Path.GetTempPath());}
+   if(args.Length==0)return RunWindow(()=>new ReducerWorkspaceForm());
    if(args.Length>0&&args[0]=="--reducer")return RunWindow(()=>new ReducerWorkspaceForm());
    Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);Application.ThreadException+=(sender,e)=>ReleaseSupport.Report(e.Exception);AppDomain.CurrentDomain.UnhandledException+=(sender,e)=>ReleaseSupport.Report(e.ExceptionObject as Exception);Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);try{var form=new MainForm();if(args.Length>0)form.LoadProjectFile(args[0]);if(args.Length>1&&args[1]=="--3d")form.ShowFullModel();Application.Run(new WorkspaceShell(form));return 0;}catch(Exception ex){ReleaseSupport.Report(ex);return 1;}
   }

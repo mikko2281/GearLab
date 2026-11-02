@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Collections.Generic;using System.Windows.Media.Media3D;
+﻿using System;using System.Linq;using System.Collections.Generic;using System.Windows.Media.Media3D;
 namespace GearLab {
  // Small coloured patches move along the pitch line. CAD belt remains a static envelope.
  public sealed class BeltMotion {

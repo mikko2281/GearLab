@@ -1,4 +1,4 @@
-using System;using System.Threading.Tasks;using System.Drawing;using System.Windows.Forms;
+﻿using System;using System.Threading.Tasks;using System.Drawing;using System.Windows.Forms;
 namespace GearLab {
  public sealed class ReducerWorkspaceForm:Form,IWorkspaceDocument {
   readonly ComboBox family=new ComboBox();readonly Panel surface=new Panel();MainForm ordinary;WaveReducerForm wave;Form active;
@@ -10,6 +10,6 @@ namespace GearLab {
   public bool WorkspaceCanClose(){foreach(var form in new Form[]{ordinary,wave}){var doc=form as IWorkspaceDocument;if(doc!=null&&!doc.WorkspaceCanClose())return false;}return true;}
   public void WorkspaceApproveClose(){foreach(var form in new Form[]{ordinary,wave}){var doc=form as IWorkspaceDocument;if(doc!=null)doc.WorkspaceApproveClose();}}
   public void WorkspaceActivate(bool value){var doc=active as IWorkspaceDocument;if(doc!=null)doc.WorkspaceActivate(value);if(value&&active!=null){active.Show();active.BringToFront();}}
-  internal WaveReducerForm WaveView{get{return wave;}}internal void SelectOrdinary(){family.SelectedIndex=0;}
+  internal void TestSelect(int index){family.SelectedIndex=index;}internal WaveReducerForm WaveView{get{return wave;}}internal void SelectOrdinary(){family.SelectedIndex=0;}
  }
 }

@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Drawing;using System.Collections.Generic;
+﻿using System;using System.Linq;using System.Drawing;using System.Collections.Generic;
 namespace GearLab {
  public static class MicroPreset {
   public const string Source="https://www.sweepdynamics.com/products/7960572428322";

@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Drawing;using System.Collections;using System.Collections.Generic;using System.Threading.Tasks;using System.Windows.Forms;using System.Windows.Media.Media3D;using Microsoft.Web.WebView2.Core;using Microsoft.Web.WebView2.WinForms;
+﻿using System;using System.IO;using System.Linq;using System.Drawing;using System.Collections;using System.Collections.Generic;using System.Threading.Tasks;using System.Windows.Forms;using System.Windows.Media.Media3D;using Microsoft.Web.WebView2.Core;using Microsoft.Web.WebView2.WinForms;
 namespace GearLab {
  public sealed class RobotWebViewport:UserControl {
   readonly WebView2 browser=new WebView2();readonly Label status=new Label();bool initialized,disposed;public bool Ready{get;private set;}public event Action ReadyChanged;public event Action<Dictionary<string,object>> Message;readonly Queue<string> pending=new Queue<string>();

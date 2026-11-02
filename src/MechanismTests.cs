@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.Collections.Generic;using System.Threading;using System.Windows.Forms;using System.Windows.Media.Media3D;
+﻿using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.Collections.Generic;using System.Threading;using System.Windows.Forms;using System.Windows.Media.Media3D;
 namespace GearLab {
  public static class MechanismTests {
   static int checks;static void Check(bool value,string name){checks++;if(!value)throw new Exception(name);}static void Near(double a,double b,string name){Check(Math.Abs(a-b)<=1e-7*Math.Max(1,Math.Abs(b)),name+": "+a+" != "+b);}

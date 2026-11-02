@@ -1,11 +1,11 @@
 {
   "format_version": 1,
-  "program_version": "5.4.0",
+  "program_version": "5.5.0",
   "language": "ru-RU",
-  "purpose": "Справочный конфиг GearLab 5.4: корпус по референсу, управление, параметры, формулы и границы расчётов.",
+  "purpose": "Справочный конфиг GearLab 5.5: корпус по референсу, управление, параметры, формулы и границы расчётов.",
   "loaded_by_application": false,
   "editing_rules": [
-    "Этот файл описывает реализацию 5.3. Программа не загружает из него формулы и коэффициенты. Правка этого файла сама по себе не меняет расчёты.",
+    "Этот файл описывает реализацию 5.5. Программа не загружает из него формулы и коэффициенты. Правка этого файла сама по себе не меняет расчёты.",
     "Настройки интерфейса меняются в разделе Настройки и сохраняются в %LOCALAPPDATA%/GearLab/settings.json. Пример settings.example.json лежит рядом; существующие настройки пользователя не заменены.",
     "Размеры, нагрузки и моторы меняются в свойствах проекта; сохраняйте свой проект через интерфейс. Изменение геометрии требует перестроения корпуса перед экспортом.",
     "Для изменения алгоритма редактируют указанные исходники и пересобирают программу. Поле source относится к каталогу исходного выпуска, а не к установленным системным библиотекам.",
@@ -104,7 +104,7 @@
   "modules": [
     {
       "id": "cad",
-      "title": "Параметрический CAD",
+      "title": "Внутреннее ядро B-rep (самостоятельный редактор удалён)",
       "source": [
         "src/CADModel.cs",
         "src/CADExpression.cs",
@@ -275,10 +275,13 @@
       "title": "Волновой редуктор",
       "source": [
         "src/WaveReducer.cs",
-        "kernel/wave_kernel.py"
+        "src/WaveReducerView.cs",
+        "src/WaveDiagram.cs",
+        "kernel/wave_kernel.py",
+        "kernel/wave_flat.py"
       ],
       "workflow": [
-        "Открыть Редукторы → Волновой; жёсткий венец закреплён, генератор волн — вход, гибкая чашка — выход.",
+        "Открыть Редукторы → Волновой; жёсткий венец закреплён, генератор волн — вход, плоский гибкий венец связывает неподвижный и выходной ряды зубьев.",
         "По передаточному числу выбрать зубья и построить заданную эллиптическую деформацию.",
         "Показать кинематическую анимацию и расчёт выхода при заданном КПД."
       ],
@@ -286,7 +289,7 @@
         "defaults": {
           "Ratio": 50,
           "Module": 0.6,
-          "CupDepth": 25,
+          "Flat": true,
           "Thickness": 8,
           "Wall": 0.8,
           "RingWall": 4,
@@ -567,15 +570,15 @@
         "motion_scope": "Крепёж, проводка и внутренние движения пользовательских передач исключены; внутренние движения препятствуют выдаче полного clear.",
         "native_STL_meshing": "OCCT линейное отклонение 0.03 мм и угловое 0.12 рад в ветке export_stl; другие экспортеры имеют собственную дискретизацию.",
         "history_formats": [
-          ".cad.json",
+          ".wave.json",
           ".robot.json",
-          "JSON проекта механизма",
-          "JSON полигональной модели"
+          "JSON проекта механизма"
         ],
         "exchange_formats": [
           "STEP",
           "STL",
-          "OBJ для полигональной модели"
+          "SVG",
+          "DXF"
         ]
       },
       "limitations": [
@@ -1135,7 +1138,7 @@
         "P_in=T_in*n_in*pi/30"
       ],
       "symbols": {
-        "zf": "зубья гибкой чашки",
+        "zf": "зубья гибкого колеса",
         "zc": "зубья жёсткого венца",
         "i": "положительная величина отношения",
         "T": "Н·м",
@@ -1143,14 +1146,17 @@
       },
       "source": [
         "src/WaveReducer.cs",
-        "kernel/wave_kernel.py"
+        "src/WaveReducerView.cs",
+        "src/WaveDiagram.cs",
+        "kernel/wave_kernel.py",
+        "kernel/wave_flat.py"
       ],
       "notes": ""
     },
     {
       "id": "wave.deformation",
       "module": "wave",
-      "title": "Заданная деформация чашки",
+      "title": "Заданная деформация гибкого колеса",
       "equations": [
         "r_pitch=m*zf/2",
         "deformation=m",
@@ -1158,7 +1164,8 @@
         "scale_x=1+kappa",
         "scale_y=1-kappa",
         "theta_out=-theta_generator/i",
-        "floor_thickness=max(1.5,2*wall)"
+        "flat: z_dynamic=zf; omega_dynamic=omega_flex",
+        "cup legacy: floor_thickness=max(1.5,2*wall)"
       ],
       "symbols": {
         "m": "модуль, мм",
@@ -1169,7 +1176,7 @@
         "kernel/wave_kernel.py",
         "src/WaveReducer.cs"
       ],
-      "notes": "В предпросмотре деформация плавно нарастает к венцу по высоте. Это заданное преобразование, не решение уравнений упругости."
+      "notes": "Плоский вариант деформируется одинаково по обоим рядам зубьев. В старой чашечной схеме деформация нарастала к венцу. Это заданное преобразование, не решение уравнений упругости."
     },
     {
       "id": "robot.kinematics",
@@ -1855,34 +1862,37 @@
     "kernel/procedural_body.py": "4E0509D9410D38E7BDA8AD6EFE9090AD307E6B3DED39811FB72B09D4A10E47A0",
     "kernel/reference_enclosure.py": "4D91082B23A0BD55B110219CF76B1DE4DB2C371D9E492DF0574AB2A2EB7D8D39",
     "kernel/sketch_solver.py": "811868CF7145277FFA469A981845208C32E7BEBBE038C7C3ACE8F1654D75E740",
-    "kernel/wave_kernel.py": "F6CD24DAE88C3E259648936B64B6934C5202E406B62B8CB2ECA01D736ECFDA2B",
-    "src/AppSettings.cs": "65074AE6F42F679805D74319088FF68CC758157AA0887D8AFAB42191B3FB0BA4",
-    "src/BodyLoadEnvelope.cs": "BF8876F300F8B49CA3F81906B234757750A547EC356231851477A7FF0079F6AD",
-    "src/CADExpression.cs": "4B1914F09B0AA12E74741CCADFC5B9B6AE59E393DB786A52BE49BC8DD56D7A40",
-    "src/CADGearLibrary.cs": "F64C689E723F42BF30D68D1486E7697EC32CCEBEC222F7F4CA9A516620C3B8B6",
-    "src/CADKernel.cs": "08AB478F38B4028BE8485F2EA44E933A1447D26A923BDADB65CF863AF5FB8D9F",
-    "src/CADModel.cs": "0E94149F85392F57AA68AE8F32D950520330D4F45DC50B569C82BA82682C37CC",
-    "src/CadBuilder.cs": "B54F73E9DD1AB93F9622922C793DF43ADD605F30768CA0A064B749FAEDE7FC12",
-    "src/GearCalculator.cs": "7B55368605B957512E552E10BBD55ADAD91CBD9F0763236507BF32B06683AEB6",
-    "src/MechanismCad.cs": "CD5E808782BECA6755241B1C31AC1D9D11B01A50F69EDDCD4F0DC553576BED8C",
-    "src/MechanismModel.cs": "E216E3B7AF6A4D5B9FD09EB69AB0AC0CD568730F1C7C0F22693A94665E150178",
-    "src/MechanismSolver.cs": "6E5EF636CC92D31E9A8A99FA7408F909376CE56E500F41EA89D5083EF3FB7158",
-    "src/MeshDocument.cs": "25B1C241029B356D87305DD59AA0306E8054526D79B9F45C9CC3B00C751F7E33",
-    "src/PlanetaryTrain.cs": "B8098D4A939DBFA37A8C9E94EF36DB1C7BEB89A7C61E8B2E605AEFF73E6F1C92",
-    "src/PrintExport.cs": "4354812532050A9DF340B827D572DBF2F393F358A5595E1D696BC747A9EFFA76",
-    "src/ProceduralBodyForm.cs": "B49056BEBE7A283503C89FDF5F4C8B3BA1D364CE5E24116F8DEE83F5C2068F63",
+    "kernel/wave_flat.py": "CEEEBE9F31DBC5974B2568D6E8FE61BE053F66363D46A9A787721547D25B9A06",
+    "kernel/wave_kernel.py": "8D1FF154FF04CFDB25284540BC05E362FA26BA33D83C252CC47A246B446D63EA",
+    "src/AppSettings.cs": "9D043D3772B874AD570AA48DA8ACA2AE6B12A662276201CFB01CC93B7305831D",
+    "src/BodyLoadEnvelope.cs": "71ACC94AF18B811BCCFAD11FEAD0A750DB087CD8DF9AE4FE656AEA70CBACF5A4",
+    "src/CADExpression.cs": "ADC34809553E2651A3F49CBD1C7481D6AFF7B711388A88FBAEF07DCB7A4D965B",
+    "src/CADGearLibrary.cs": "958E97F0F29B4E0A105B899BAB12C11B4FF9932A63B801EC69C55F837C2869BD",
+    "src/CADKernel.cs": "D31815372648DB0CE3A3E81D307561D8E9E4A3121AD0D657FCA0DE6AE00089CA",
+    "src/CADModel.cs": "6A6FF56E04D34B389BC9D76B9539424B7673948FDA986F8AB5F0F79E7B5187C0",
+    "src/CadBuilder.cs": "0375A9450560F29BE59DC86A8932DCCBC7DE959C1110D020BB06BDAF03882259",
+    "src/GearCalculator.cs": "B1328C0C8A2819EEF48EED14F0FC34D30774C06311856EE78F373F96CACFF384",
+    "src/MechanismCad.cs": "0682B604344E9E37496C7EFECACED3342A0E43B6C5DF3E3E2A88E380F43037A1",
+    "src/MechanismModel.cs": "9062AF7C4612E9A78E6D285084CF4C052EFEA6EFA6DEC258457FC397A463800B",
+    "src/MechanismSolver.cs": "67355D813C814D68C496B7AD7DD91F27CB6B8F3524B8BC64F4FDCC8E1D580B57",
+    "src/MeshDocument.cs": "E471AD62EAB39D277A29211DAAC0BD3E4400825FB1BBB11932849E9D42B7E086",
+    "src/PlanetaryTrain.cs": "43C0718105FA0E75CE24DFB7232A7C1F1D9A735B086072574E4B354F405106D5",
+    "src/PrintExport.cs": "487E95F4A3CEFB52DE4A6181E9A64277FA156F25EE3ABDBBC0876A40972B1830",
+    "src/ProceduralBodyForm.cs": "2D9427D30EB0D41EBE87D98DD6BDF62C572344882A6A35EC25AA11B0648509BE",
     "src/ProceduralBodyModel.cs": "DEB0F3F0AA096354C75E036CFBEBC1916157671DD7F463090AA3B68DAA3DE212",
     "src/ReferenceRobotDesign.cs": "C272112169A9D37DCC3DEE89E56C2F701B53739CC2ED709372FF87DD4FA41829",
-    "src/RobotCad.cs": "28F63B77CEED2B901EE7BA0A04AE09E0A9941EBF13350C5FB6B5664CEE08ABA2",
-    "src/RobotConnections.cs": "BB63EAA994E156FEDBA4F1E10118B33AB6F47F601947FB221ADCEFC2B213A15A",
-    "src/RobotJointControllers.cs": "96661D0DD41060D6C7FA8F8A4E6AD5F4319FFB54969391449991A7522DFB1368",
+    "src/RobotCad.cs": "9AF15EC9425B8CF6B77DFF7F49C99A0F0CD0D0850B7D9FFC280B45E0D30D8E34",
+    "src/RobotConnections.cs": "58AE3104D4230225C5A4CBD7C518CA644E4628C63764361E2152A8F7F1631F05",
+    "src/RobotJointControllers.cs": "516B398005A3AE53167519D26A5F1DDF9E7937F35F4763A43B666345AC7D40DD",
     "src/RobotModel.cs": "CF24C1D641115B1E88F46A297148BE5EE43D6846F3D97A2BD7AB59DB7A628553",
-    "src/RobotMotionCheck.cs": "3CB2DB337526A3CE0303D2B97E942C46B3F0532C97C4C3D0CA83046960C9DE14",
-    "src/RobotProceduralWorkspace.cs": "1C295A34CE71DE0BC3228A7C8E80222BDAF54180797C0F2AAFC3447C9A2EC27C",
-    "src/RobotSolver.cs": "2CAAF82B9DB82E7725B15F3532E0C8340CE483EE5A263BBFFBFFF6F1D10F47A8",
-    "src/RobotWorkspaceUX.cs": "D2D334EAF3A7E0901D8EBB6E35CB0A3D87ADC337A0DD883CAA07E9F19A82550F",
-    "src/SceneMotion.cs": "6189CC9106D0C5C257ACD51DD62D0E35114276FC8CD9C69943225500A214D254",
-    "src/WaveReducer.cs": "1B569CDED6276150CA63244068B789949D4CFC6EAE9AC65613EE0AA028B5B9B9",
+    "src/RobotMotionCheck.cs": "D4476F5DE1A32083560C776EF8143E353C9F6AD22FA3E11B380718BB4C031DAE",
+    "src/RobotProceduralWorkspace.cs": "03D6D2850001E0B91214536840A40E9DB7E65492F81A785AFED7CFC42D216AF6",
+    "src/RobotSolver.cs": "141783EB04D75E4C4CA673E23A396AD0BB59839B21242A98E9CD11B2DA99ABF2",
+    "src/RobotWorkspaceUX.cs": "E255D99A2C517A50C5F38A98A0FCB5E6F7DCB4E692476AB6EC75B94C31A93B47",
+    "src/SceneMotion.cs": "08DBC32E1A1D93032DC5640608FF31D5EF8CAC396063F81091F2D2F1498F9BE8",
+    "src/WaveDiagram.cs": "7AC0701D5DBEBE927E382779E27A7E116EB2C97B7084106C8A73E6233282BE1C",
+    "src/WaveReducer.cs": "2D1914405B74308A6E2BB78A1B23B1AA6DB6D156F059701B62D8723097A18709",
+    "src/WaveReducerView.cs": "BDCF9A06A5766B7A8CB587874D3A8440519BF2A22E38C2C0D637ADD2BE87F1DE",
     "web/index.html": "D381908313F6F3EE4D876A82C5CCA045D07B6B0B76A1F6CC56B47382C953C2B9",
     "web/joint-controller.js": "126A8061AB5455EE66872927ADF3697529E44D0ADD98C0E47B335D4E6EF99ABB",
     "web/scene.js": "652299E084257C805B0D34128B176E2DD5A4B38E728FA7A4E01C2C73F085B3BD"

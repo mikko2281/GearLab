@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Text;using System.Diagnostics;using System.Collections.Generic;using System.Windows.Forms;
+﻿using System;using System.IO;using System.Text;using System.Diagnostics;using System.Collections.Generic;using System.Windows.Forms;
 namespace GearLab {
  public sealed class CADKernel:IDisposable {
   public event Action<string> Progress;readonly object gate=new object();Process worker;bool disposed;public readonly string Folder;

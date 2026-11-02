@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Drawing;using System.Collections.Generic;
+﻿using System;using System.Linq;using System.Drawing;using System.Collections.Generic;
 namespace GearLab {
  public static class MechanismCad {
   public static bool Finite(double x){return !double.IsNaN(x)&&!double.IsInfinity(x);}

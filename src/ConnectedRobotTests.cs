@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Text;using System.Threading;using System.Threading.Tasks;using System.Collections.Generic;using System.Windows.Forms;using System.Windows.Media.Media3D;
+﻿using System;using System.IO;using System.Linq;using System.Text;using System.Threading;using System.Threading.Tasks;using System.Collections.Generic;using System.Windows.Forms;using System.Windows.Media.Media3D;
 namespace GearLab {
  public static class ConnectedRobotTests {
   static int checks;static void Check(bool value,string text){checks++;if(!value)throw new Exception(text);}static void Wait(Func<bool> ready,string text,int seconds=240){var watch=System.Diagnostics.Stopwatch.StartNew();while(!ready()&&watch.Elapsed.TotalSeconds<seconds){Application.DoEvents();Thread.Sleep(20);}Check(ready(),text);}static T Get<T>(Task<T> task){Wait(()=>task.IsCompleted,"worker completion");return task.GetAwaiter().GetResult();}

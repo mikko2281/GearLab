@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Drawing;using System.Collections.Generic;using System.Windows.Forms;using System.Windows.Forms.Integration;using System.Windows.Media.Media3D;
+﻿using System;using System.IO;using System.Linq;using System.Drawing;using System.Collections.Generic;using System.Windows.Forms;using System.Windows.Forms.Integration;using System.Windows.Media.Media3D;
 namespace GearLab {
  public sealed partial class PolygonForm:Form {
   internal MeshDocument Document;internal readonly WpfScene Scene=new WpfScene();readonly ElementHost host=new ElementHost();readonly DataGridView vertices=new DataGridView();readonly ListBox faces=new ListBox();readonly ComboBox mode=new ComboBox();readonly SafeNumber distance=new SafeNumber(),step=new SafeNumber();readonly Label info=new Label();readonly Stack<string> undo=new Stack<string>(),redo=new Stack<string>();string saved,path,checkpoint;int selectedVertex=-1,selectedFace=-1;bool syncing,disposed,allowClose;System.Windows.Point mouse;Func<MeshDocument,bool> accept;ToolStripButton apply;

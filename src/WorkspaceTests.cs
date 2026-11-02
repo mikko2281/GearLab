@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.Threading;using System.Windows.Forms;
+﻿using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.Threading;using System.Windows.Forms;
 namespace GearLab {
  public static class WorkspaceTests {
   static int checks;static void Check(bool v,string text){checks++;if(!v)throw new Exception(text);}static void Wait(Func<bool> f,string text){var clock=System.Diagnostics.Stopwatch.StartNew();while(!f()&&clock.Elapsed.TotalSeconds<120){Application.DoEvents();Thread.Sleep(15);}Check(f(),text);}

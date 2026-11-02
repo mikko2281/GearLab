@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;
+﻿using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;
 namespace GearLab {
  public static class StepTests {
   static void Check(bool value,string message){if(!value)throw new Exception(message);}

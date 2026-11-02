@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Collections.Generic;using System.Threading.Tasks;using System.Windows.Forms;using System.Windows.Media.Media3D;
+﻿using System;using System.IO;using System.Linq;using System.Collections.Generic;using System.Threading.Tasks;using System.Windows.Forms;using System.Windows.Media.Media3D;
 namespace GearLab {
  public sealed partial class RobotDesignerForm {
   readonly CADKernel bodyKernel=new CADKernel();readonly Timer bodyDelay=new Timer();readonly Dictionary<string,string> failedBodies=new Dictionary<string,string>();bool bodyBusy;readonly RobotWebViewport robotWeb=new RobotWebViewport();bool webFit=true;

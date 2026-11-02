@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Text;using System.Linq;using System.Diagnostics;using System.Threading;using System.Windows;using System.Windows.Media.Media3D;
+﻿using System;using System.IO;using System.Text;using System.Linq;using System.Diagnostics;using System.Threading;using System.Windows;using System.Windows.Media.Media3D;
 namespace GearLab {
  static class ViewerTests {
   static void Check(bool ok,string message){if(!ok)throw new Exception(message);}

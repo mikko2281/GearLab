@@ -1,9 +1,9 @@
-using System;using System.Linq;using System.Text.RegularExpressions;using System.Collections.Generic;using System.Windows;using System.Windows.Media.Media3D;
+﻿using System;using System.Linq;using System.Text.RegularExpressions;using System.Collections.Generic;using System.Windows;using System.Windows.Media.Media3D;
 namespace GearLab {
  public sealed class PartMotion {
   public string Kind="fixed";public int Stage,Planet;public Point3D Centre;public double Radius,Location,CustomRatio;public Result Result;public string RobotPartId;public Matrix3D RobotInverse=Matrix3D.Identity;
   public static PartMotion Bind(Result result,CadPart part){var motion=new PartMotion{Result=result};var p=result.P;string id=part.Id;var first=part.Sections[0];var centre=first.Outer.Center();motion.Centre=new Point3D(centre.X,centre.Y,0);
-   if(result.Wave!=null){motion.Centre=new Point3D();motion.Kind=id.EndsWith("_flex")?"waveFlex":id.EndsWith("_generator")||id.EndsWith("_bearing")?"input":"fixed";return motion;}if(result.Robot!=null){motion.Kind="robot";motion.RobotPartId=part.Id;motion.RobotInverse=part.Placement;motion.RobotInverse.Invert();return motion;}if(result.Mechanism!=null){var item=result.Mechanism.Find(part.Id);var shaft=result.Mechanism.Shaft(item);MechanismShaftState state;if(item!=null&&item.Kind!="bearing"&&shaft!=null&&result.MechanismSolution!=null&&result.MechanismSolution.Valid&&result.MechanismSolution.Shafts.TryGetValue(shaft.Id,out state)&&state.Connected){motion.Kind="mechanism";motion.CustomRatio=state.SpeedRatio;motion.Centre=new Point3D(shaft.X,shaft.Y,0);}return motion;}
+   if(result.Wave!=null){motion.Centre=new Point3D();motion.Kind=id.EndsWith("_output")||id.Contains("_output_bolt")?"waveOutput":id.EndsWith("_flex")?"waveFlex":id.EndsWith("_generator")||id.EndsWith("_bearing")?"input":"fixed";return motion;}if(result.Robot!=null){motion.Kind="robot";motion.RobotPartId=part.Id;motion.RobotInverse=part.Placement;motion.RobotInverse.Invert();return motion;}if(result.Mechanism!=null){var item=result.Mechanism.Find(part.Id);var shaft=result.Mechanism.Shaft(item);MechanismShaftState state;if(item!=null&&item.Kind!="bearing"&&shaft!=null&&result.MechanismSolution!=null&&result.MechanismSolution.Valid&&result.MechanismSolution.Shafts.TryGetValue(shaft.Id,out state)&&state.Connected){motion.Kind="mechanism";motion.CustomRatio=state.SpeedRatio;motion.Centre=new Point3D(shaft.X,shaft.Y,0);}return motion;}
    if(p.Kind==0){
     if(id.Contains("CYCLOID_DISC_")){motion.Kind=id.Contains("DISC_B")?"discB":"discA";motion.Centre=new Point3D(motion.Kind=="discA"?p.Eccentric:-p.Eccentric,0,0);}
     else if(id.Contains("ECCENTRIC_SHAFT")||id.Contains("ECCENTRIC_BEARING"))motion.Kind="input";
@@ -26,7 +26,7 @@ namespace GearLab {
   Result StageResult(){return Result.Stages.Count>0?Result.Stages[Stage]:Result;}
   public bool Moving{get{return Kind!="fixed";}}
   public Matrix3D At(double phase,double explode){if(Kind=="robot")return RobotInverse*Result.Robot.Pose(RobotPartId,phase,true);var p=Result.P;double angle=0,x=Centre.X,y=Centre.Y;
-   if(Kind=="waveFlex")angle=-phase/Result.Wave.Ratio;
+   if(Kind=="waveFlex"||Kind=="waveOutput")angle=-phase/Result.Wave.Ratio;
    else if(Kind=="mechanism")angle=phase*CustomRatio;
    else if(Kind=="input")angle=phase;
    else if(Kind=="ring")angle=Engine.RingAngle(p,phase);

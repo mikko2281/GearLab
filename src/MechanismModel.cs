@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.ComponentModel;using System.Collections.Generic;using System.Web.Script.Serialization;using System.Text;
+﻿using System;using System.IO;using System.Linq;using System.ComponentModel;using System.Collections.Generic;using System.Web.Script.Serialization;using System.Text;
 namespace GearLab {
  public sealed class MechanismPoint {public double X{get;set;}public double Y{get;set;}public MechanismPoint(){}public MechanismPoint(double x,double y){X=x;Y=y;}}
  public sealed class MechanismHole {

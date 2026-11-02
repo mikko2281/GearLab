@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Collections.Generic;
+﻿using System;using System.Linq;using System.Collections.Generic;
 namespace GearLab {
  public sealed class MechanismShaftState {public string Id;public double SpeedRatio,Rpm,PathEfficiency=1,AvailableTorque,RequiredTorque,LoadPower,RequiredPower;public string Parent;public MechanismLink ParentLink;public bool Connected;}
  public sealed class MechanismMeshState {public string LinkId,DriverId,DrivenId;public double Ratio,Efficiency,Torque,TangentialForce,RadialForce,AxialForce,CapacityForce;}

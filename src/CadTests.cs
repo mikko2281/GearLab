@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.Collections.Generic;using System.Web.Script.Serialization;
+﻿using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.Collections.Generic;using System.Web.Script.Serialization;
 namespace GearLab {
  static class CadTests {
   static void SaveManifest(CadAssembly model,string file,int kind){var manifest=new {kind=kind,parts=model.Parts.Select(part=>new {id=part.Id,label=part.Label,role=part.Role,volume=part.Volume(),reference=part.Reference}).ToArray(),bounds=model.Bounds(),notes=model.Notes};ReleaseSupport.WriteText(file+".manifest.json",new JavaScriptSerializer().Serialize(manifest),Encoding.UTF8);}

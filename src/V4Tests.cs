@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.Collections.Generic;using System.Web.Script.Serialization;
+﻿using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.Collections.Generic;using System.Web.Script.Serialization;
 namespace GearLab {
  static class V4Tests {
   static int checks;

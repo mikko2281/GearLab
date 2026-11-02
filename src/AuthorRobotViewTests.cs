@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Text;using System.Threading;using System.Threading.Tasks;using System.Windows.Forms;
+﻿using System;using System.IO;using System.Linq;using System.Text;using System.Threading;using System.Threading.Tasks;using System.Windows.Forms;
 namespace GearLab {
  public static class AuthorRobotViewTests {
   static int checks;static void Check(bool x,string s){checks++;if(!x)throw new Exception(s);}

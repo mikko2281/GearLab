@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Collections.Generic;using System.Windows;using System.Windows.Media.Media3D;
+﻿using System;using System.Linq;using System.Collections.Generic;using System.Windows;using System.Windows.Media.Media3D;
 namespace GearLab {
  public sealed partial class WpfScene {
   readonly Dictionary<string,Vector3D> offsets=new Dictionary<string,Vector3D>();

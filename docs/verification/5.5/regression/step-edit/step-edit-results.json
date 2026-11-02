@@ -1,0 +1,8 @@
+{
+  "passed": 6,
+  "faces_before": 69,
+  "volume_before_mm3": 457214.5452658874,
+  "volume_after_mm3": 457048.54669010086,
+  "drilled_mm3": 165.99857589256817,
+  "scope": "Native OCCT STEP import, analytic torus, new hole, solid continuity and STEP roundtrip; Fusion UI was not automated."
+}

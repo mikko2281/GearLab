@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Drawing;using System.Collections.Generic;using System.Threading;using System.Windows.Media.Media3D;
+﻿using System;using System.Linq;using System.Drawing;using System.Collections.Generic;using System.Threading;using System.Windows.Media.Media3D;
 namespace GearLab {
  public sealed class RobotCadEntry {
   public string Id,JointId,OwnerId,Category;public MechanismPart Shape;public CadPart Part;public Matrix3D Local=Matrix3D.Identity,NativeBasePlacement=Matrix3D.Identity;public bool InputSide,Guide,Printable;public double Density=1250,MassOverride=-1;public PartMotion NativeMotion;public double NativeRatio=1;

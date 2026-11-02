@@ -1,4 +1,4 @@
-using System;using System.Collections.Generic;using System.Globalization;
+﻿using System;using System.Collections.Generic;using System.Globalization;
 namespace GearLab {
  public sealed class CADExpression {
   readonly string s;readonly IDictionary<string,double> parameters;int pos;

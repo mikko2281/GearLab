@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Collections.Generic;using System.Windows.Media.Media3D;
+﻿using System;using System.Linq;using System.Collections.Generic;using System.Windows.Media.Media3D;
 namespace GearLab {
  public static class MechanismCopies {public static MechanismPart CloneShape(this MechanismPart p){return CADDocument.Serializer().Deserialize<MechanismPart>(CADDocument.Serializer().Serialize(p));}}
  public sealed class RobotJointLoad {public string Id,Unit,Message;public double SignedEffort,Required,Available,MotorRequired,MotorRpm,Margin;public bool Enough,SpeedKnown;}

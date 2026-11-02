@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Text;using System.Threading;using System.Threading.Tasks;using System.Collections.Generic;using System.Windows.Forms;
+﻿using System;using System.IO;using System.Linq;using System.Text;using System.Threading;using System.Threading.Tasks;using System.Collections.Generic;using System.Windows.Forms;
 namespace GearLab {
  public static class ProceduralBodyTests {
   static int checks;static void Check(bool v,string label){checks++;if(!v)throw new Exception(label);}static void Wait(Func<bool> f,string label,int seconds=180){var time=System.Diagnostics.Stopwatch.StartNew();while(!f()&&time.Elapsed.TotalSeconds<seconds){Application.DoEvents();Thread.Sleep(15);}Check(f(),label);}static T Result<T>(Task<T> task){Wait(()=>task.IsCompleted,"asynchronous operation completes",240);return task.GetAwaiter().GetResult();}

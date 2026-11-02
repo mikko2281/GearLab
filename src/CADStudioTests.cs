@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.Threading;using System.Collections.Generic;using System.Threading.Tasks;using System.Windows.Forms;
+﻿using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.Threading;using System.Collections.Generic;using System.Threading.Tasks;using System.Windows.Forms;
 namespace GearLab {
  public static class CADStudioTests {
   static int checks;static void Check(bool value,string name){checks++;if(!value)throw new Exception(name);}static void Near(double actual,double expected,string name,double tolerance=1e-5){Check(Math.Abs(actual-expected)<=tolerance*Math.Max(1,Math.Abs(expected)),name+": "+actual+" != "+expected);}

@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Collections.Generic;using System.Windows;using System.Windows.Controls;using System.Windows.Media;using System.Windows.Media.Media3D;
+﻿using System;using System.Linq;using System.Collections.Generic;using System.Windows;using System.Windows.Controls;using System.Windows.Media;using System.Windows.Media.Media3D;
 namespace GearLab {
  public sealed partial class WpfScene {
   readonly ModelVisual3D environment=new ModelVisual3D(),construction=new ModelVisual3D();SceneMesh constructionMesh;

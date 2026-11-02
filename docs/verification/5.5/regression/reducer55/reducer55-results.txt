@@ -1,0 +1,1 @@
+﻿PASS 24 assertions: removed modeler navigation, one reducer workspace, immediate live scheme, correct ratios, SVG/DXF and flat native 3D.

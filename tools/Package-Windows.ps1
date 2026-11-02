@@ -12,8 +12,8 @@ $gearSignature = Get-AuthenticodeSignature -LiteralPath $gearExe
 if ($RequireTrustedSignature -and $gearSignature.Status -ne 'Valid') { throw ('Trusted release requires Valid Authenticode signature; found ' + $gearSignature.Status) }
 New-Item -ItemType Directory -Force -Path $OutputDirectory | Out-Null
 $gearOutput = (Resolve-Path -LiteralPath $OutputDirectory).Path
-$gearStage = Join-Path $gearOutput 'GearLab_5.4'
-$gearZip = Join-Path $gearOutput 'GearLab_5.4_Windows.zip'
+$gearStage = Join-Path $gearOutput 'GearLab_5.5'
+$gearZip = Join-Path $gearOutput 'GearLab_5.5_Windows.zip'
 if (Test-Path -LiteralPath $gearZip) { throw 'Archive already exists. Select a new output directory.' }
 if (Test-Path -LiteralPath $gearStage) {
     if (-not $ResumeIncomplete -or (Test-Path -LiteralPath (Join-Path $gearStage 'build-info.json'))) { throw 'Output exists; only an incomplete build can be resumed explicitly.' }
@@ -33,12 +33,12 @@ $gearTools = New-Item -ItemType Directory -Force -Path (Join-Path $gearStage 'to
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'Check-Windows.ps1') -Destination $gearTools.FullName
 $gearLicenses = Get-Item -LiteralPath (Join-Path $gearStage 'licenses')
 Copy-Item -LiteralPath (Join-Path $gearRoot 'src/vendor/LibTessDotNet/LICENSE.txt'),(Join-Path $gearRoot 'src/vendor/LibTessDotNet/ORIGIN.txt') -Destination $gearLicenses.FullName
-$gearModes = @{ 'Reducers'='--reducer'; 'Robotics'='--robot'; 'Mechanisms'='--mechanism'; 'Polygon'='--polygon'; 'Settings'='--settings' }
+$gearModes = @{ 'Reducers'='--reducer'; 'Robotics'='--robot'; 'Mechanisms'='--mechanism'; 'Settings'='--settings' }
 foreach ($gearName in $gearModes.Keys) {
     $gearCommand = '@echo off' + "`r`n" + 'start "" "%~dp0GearLab.exe" ' + $gearModes[$gearName] + "`r`n"
     [IO.File]::WriteAllText((Join-Path $gearStage ($gearName + '.cmd')), $gearCommand, [Text.Encoding]::ASCII)
 }
-$gearStatus = [ordered]@{Version='5.4.0';BuiltUtc=[DateTime]::UtcNow.ToString('o');Signature=[string]$gearSignature.Status;Sha256=(Get-FileHash -LiteralPath $gearExe -Algorithm SHA256).Hash;Requirement='Windows 10/11 x64, .NET Framework 4.8; bundled isolated Python/OCCT; Three.js uses WebView2 Runtime with WPF fallback';TrustedLaunchGuaranteed=$false}
+$gearStatus = [ordered]@{Version='5.5.0';BuiltUtc=[DateTime]::UtcNow.ToString('o');Signature=[string]$gearSignature.Status;Sha256=(Get-FileHash -LiteralPath $gearExe -Algorithm SHA256).Hash;Requirement='Windows 10/11 x64, .NET Framework 4.8; bundled isolated Python/OCCT; Three.js uses WebView2 Runtime with WPF fallback';TrustedLaunchGuaranteed=$false}
 $gearStatus | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $gearStage 'build-info.json') -Encoding UTF8
 $gearHashes = Get-ChildItem -LiteralPath $gearStage -Recurse -File | Sort-Object FullName | ForEach-Object { (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash + '  ' + $_.FullName.Substring($gearStage.Length+1).Replace('\','/') }
 $gearHashes | Set-Content -LiteralPath (Join-Path $gearStage 'SHA256SUMS.txt') -Encoding UTF8

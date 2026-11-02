@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Collections.Generic;
+﻿using System;using System.Linq;using System.Collections.Generic;
 namespace GearLab {
  public static partial class Engine {
   sealed class ToothSet {public int Ring,Planet;public double Ratio;}

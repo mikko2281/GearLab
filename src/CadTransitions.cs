@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Collections.Generic;
+﻿using System;using System.Linq;using System.Collections.Generic;
 namespace GearLab {
  public sealed class CadFacePlan {public CadLoop Outer;public List<CadLoop> Holes;public bool Up;public CadFacePlan(CadLoop outer,IEnumerable<CadLoop> holes,bool up){Outer=outer;Holes=holes.ToList();Up=up;}}
  public static class CadTransitions {

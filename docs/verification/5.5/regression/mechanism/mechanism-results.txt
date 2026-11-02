@@ -1,0 +1,6 @@
+﻿PASS single pair: n=-100 rpm, capacity=5.82 Nm, reflected load, Ft/Fr and power balance.
+PASS compound 6:1, both efficiencies and output direction.
+PASS branch power/torque conservation; overload with two loads and recovery.
+PASS CAD: stepped shaft, extruded sketch, through hole, blind pocket, mesh volume, persistence, detach, invalid geometry rejection.
+PASS native UI: new document, parameter panel, scene, persisted mouse placement, sample and render.
+PASS 61 mechanism assertions.

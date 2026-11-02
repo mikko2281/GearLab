@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Linq;using System.Text;using System.Threading;using System.Collections.Generic;using System.Web.Script.Serialization;using F=System.Windows.Forms;
+﻿using System;using System.IO;using System.Linq;using System.Text;using System.Threading;using System.Collections.Generic;using System.Web.Script.Serialization;using F=System.Windows.Forms;
 namespace GearLab {
  static class MicroTests {
   static int checks;static void Check(bool ok,string message){checks++;if(!ok)throw new Exception(message);}

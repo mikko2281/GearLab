@@ -6,12 +6,12 @@ root=Path(__file__).resolve().parents[1]
 
 data={
  'format_version':1,
- 'program_version':'5.3.0',
+ 'program_version':'5.5.0',
  'language':'ru-RU',
  'purpose':'Справочный конфиг: устройство программы, реальные параметры, формулы и границы расчётов.',
  'loaded_by_application':False,
  'editing_rules':[
-  'Этот файл описывает реализацию 5.3. Программа не загружает из него формулы и коэффициенты. Правка этого файла сама по себе не меняет расчёты.',
+  'Этот файл описывает реализацию 5.5. Программа не загружает из него формулы и коэффициенты. Правка этого файла сама по себе не меняет расчёты.',
   'Настройки интерфейса меняются в разделе Настройки и сохраняются в %LOCALAPPDATA%/GearLab/settings.json. Пример settings.example.json лежит рядом; существующие настройки пользователя не заменены.',
   'Размеры, нагрузки и моторы меняются в свойствах проекта; сохраняйте свой проект через интерфейс. Изменение геометрии требует перестроения корпуса перед экспортом.',
   'Для изменения алгоритма редактируют указанные исходники и пересобирают программу. Поле source относится к каталогу исходного выпуска, а не к установленным системным библиотекам.',
@@ -53,7 +53,7 @@ def module(id,title,source,flow,parameters,limitations):
 def formula(id,module,title,equations,symbols,source,notes=''):
  data['formulas'].append(dict(id=id,module=module,title=title,equations=equations,symbols=symbols,source=source,notes=notes))
 
-module('cad','Параметрический CAD',
+module('cad','Внутреннее ядро B-rep (самостоятельный редактор удалён)',
  ['src/CADModel.cs','src/CADExpression.cs','src/CADKernel.cs','kernel/cad_kernel.py','kernel/sketch_solver.py'],
  ['Проект содержит параметры, эскизы и упорядоченную историю операций.',
   'Формулы вычисляются с проверкой имён, конечности чисел и циклических зависимостей.',
@@ -114,11 +114,11 @@ module('gear_library','Библиотека зубчатых CAD-деталей'
   'Геометрия шеврона идеализирована; компенсация осевой силы в решателе не учитывает ошибки изготовления.'])
 
 module('wave','Волновой редуктор',
- ['src/WaveReducer.cs','kernel/wave_kernel.py'],
- ['Открыть Редукторы → Волновой; жёсткий венец закреплён, генератор волн — вход, гибкая чашка — выход.',
+ ['src/WaveReducer.cs','src/WaveReducerView.cs','src/WaveDiagram.cs','kernel/wave_kernel.py','kernel/wave_flat.py'],
+ ['Открыть Редукторы → Волновой; жёсткий венец закреплён, генератор волн — вход, плоский гибкий венец связывает неподвижный и выходной ряды зубьев.',
   'По передаточному числу выбрать зубья и построить заданную эллиптическую деформацию.',
   'Показать кинематическую анимацию и расчёт выхода при заданном КПД.'],
- {'defaults':{'Ratio':50,'Module':0.6,'CupDepth':25,'Thickness':8,'Wall':0.8,'RingWall':4,'Bore':5,'OutputBore':8,'Clearance':0.15,'BearingWall':1.5,'InputTorque':0.35,'InputRpm':60,'Efficiency':0.7,'LoadTorque':5},
+ {'defaults':{'Ratio':50,'Module':0.6,'Flat':True,'Thickness':8,'Wall':0.8,'RingWall':4,'Bore':5,'OutputBore':8,'Clearance':0.15,'BearingWall':1.5,'InputTorque':0.35,'InputRpm':60,'Efficiency':0.7,'LoadTorque':5},
   'ratio_range_integer':[20,120],'presets':[50,80,100],'module_mm':[0.15,2],'cup_depth_mm':[10,100],'cup_wall_mm':[0.3,3]},
  ['Эллиптическая форма задана геометрически. Упругость, контакт зубьев, допустимый момент, усталость и ресурс чашки не рассчитаны.',
   'OutputTorque — пересчёт заданного входного момента по КПД, а не подтверждённая несущая способность.'])
@@ -174,8 +174,8 @@ module('checks_export','Проверки, сохранение и экспорт
   'motion_statuses':{'clear':'Разделение подтверждено для включённых в проверку деталей во всём заданном диапазоне.','collision':'Найдено конкретное точное пересечение с позой.','unknown':'Бюджет исчерпан или остаётся неопределённость; отсутствие столкновений не подтверждено.'},
   'motion_scope':'Крепёж, проводка и внутренние движения пользовательских передач исключены; внутренние движения препятствуют выдаче полного clear.',
   'native_STL_meshing':'OCCT линейное отклонение 0.03 мм и угловое 0.12 рад в ветке export_stl; другие экспортеры имеют собственную дискретизацию.',
-  'history_formats':['.cad.json','.robot.json','JSON проекта механизма','JSON полигональной модели'],
-  'exchange_formats':['STEP','STL','OBJ для полигональной модели']},
+  'history_formats':['.wave.json','.robot.json','JSON проекта механизма'],
+  'exchange_formats':['STEP','STL','SVG','DXF']},
  ['Точность сетки предпросмотра, допуск булевой операции и производственный допуск — разные параметры.',
   'Конечный набор поз и отсутствие грубых сближений не доказывают отсутствие всех столкновений.',
   'STL не восстанавливает параметрическую историю. Геометрическая валидность не подтверждает прочность.'])
@@ -252,11 +252,11 @@ formula('cycloid.undercut','reducers','Проверка локального п�
 
 formula('wave.ratio','wave','Зубья, направление, момент и мощность',
  ['zf=2*i','zc=zf+2','i=zf/(zc-zf)','n_out=-n_in/i','T_out=T_in*i*eta','T_in_required=T_load/(i*eta)','P_in=T_in*n_in*pi/30'],
- {'zf':'зубья гибкой чашки','zc':'зубья жёсткого венца','i':'положительная величина отношения','T':'Н·м','n':'об/мин'},['src/WaveReducer.cs','kernel/wave_kernel.py'])
-formula('wave.deformation','wave','Заданная деформация чашки',
- ['r_pitch=m*zf/2','deformation=m','kappa=deformation/r_pitch=1/i','scale_x=1+kappa','scale_y=1-kappa','theta_out=-theta_generator/i','floor_thickness=max(1.5,2*wall)'],
+ {'zf':'зубья гибкого колеса','zc':'зубья жёсткого венца','i':'положительная величина отношения','T':'Н·м','n':'об/мин'},['src/WaveReducer.cs','src/WaveReducerView.cs','src/WaveDiagram.cs','kernel/wave_kernel.py','kernel/wave_flat.py'])
+formula('wave.deformation','wave','Заданная деформация гибкого колеса',
+ ['r_pitch=m*zf/2','deformation=m','kappa=deformation/r_pitch=1/i','scale_x=1+kappa','scale_y=1-kappa','theta_out=-theta_generator/i','flat: z_dynamic=zf; omega_dynamic=omega_flex', 'cup legacy: floor_thickness=max(1.5,2*wall)'],
  {'m':'модуль, мм','wall':'стенка чашки, мм','theta':'рад'},['kernel/wave_kernel.py','src/WaveReducer.cs'],
- 'В предпросмотре деформация плавно нарастает к венцу по высоте. Это заданное преобразование, не решение уравнений упругости.')
+ 'Плоский вариант деформируется одинаково по обоим рядам зубьев. В старой чашечной схеме деформация нарастала к венцу. Это заданное преобразование, не решение уравнений упругости.')
 
 formula('robot.kinematics','robot','Прямая кинематика',
  ['B_j = Translate(offset_j)*End_parent','Output_j = Motion(axis_j,q_j)*B_j','End_j = Translate(end_vector_j)*Output_j','p_world = Transform(p_local, pose_matrix)'],
@@ -428,8 +428,8 @@ data['verification_scope']={'controller_load_suite':'Проверки реаль
  'section_sketch':'20 проверок: аналитические изгиб/кручение/осевая сила/совместное напряжение, рост сечения, ошибка невозможного сечения и вырожденные направления эскизов.',
  'manufacturing':'Проверки программной реализации не сертифицируют прочность или изготовленный робот.'}
 
-data['program_version']='5.4.0'
-data['purpose']='Справочный конфиг GearLab 5.4: корпус по референсу, управление, параметры, формулы и границы расчётов.'
+data['program_version']='5.5.0'
+data['purpose']='Справочный конфиг GearLab 5.5: корпус по референсу, управление, параметры, формулы и границы расчётов.'
 modules={m['id']:m for m in data['modules']};formulas={f['id']:f for f in data['formulas']}
 modules['body']['parameters']['engine']='gearlab-blender-elbow-2'
 modules['body']['parameters']['native_revision']='blender-elbow-2'
@@ -541,7 +541,7 @@ json_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding=
 settings={p['key']:p['default'] for p in data['runtime_settings']['parameters']}
 (docs/'settings.example.json').write_text(json.dumps(settings,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 
-lines=['# GearLab 5.4 — конфиг, устройство и формулы','',
+lines=['# GearLab 5.5 — конфиг, устройство и формулы','',
  'Основной структурированный файл: [GearLab.config.json](GearLab.config.json). Эта памятка создана из него.',
  '', '## Что можно менять','',*['- '+s for s in data['editing_rules']],
  '', '## Единицы','', '| Величина | Единицы |','|---|---|',
@@ -571,7 +571,7 @@ for e in data['worked_examples']:
  lines+=['### '+e['id'],'',e['description'],'','```json',json.dumps({'input':e['input'],'expected':e['expected']},ensure_ascii=False,indent=2),'```','']
  if e.get('note'):lines+=[e['note'],'']
 lines+=['## Актуальность описания','',
- 'Сверено с исходниками выпуска 5.4.0, генератор `gearlab-blender-elbow-2` / `blender-elbow-2`. '
+ 'Сверено с исходниками выпуска 5.5.0, генератор `gearlab-blender-elbow-2` / `blender-elbow-2`. '
  'В `source_snapshot` основного JSON записаны SHA-256 использованных файлов: после изменения кода формулы и описание нужно проверить заново.',
  '', 'Справочник описывает существующую программу. Он не включает ещё не реализованные возможности из пожеланий и не является допуском к изготовлению робота.','']
 (docs/'КОНФИГ_И_ФОРМУЛЫ.md').write_text('\n'.join(lines),encoding='utf-8')
