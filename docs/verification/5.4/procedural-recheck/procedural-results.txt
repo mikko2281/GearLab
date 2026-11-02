@@ -1,0 +1,1 @@
+﻿PASS 19 procedural integration assertions: native OCCT housing, STEP drilling, persistence, real Three.js viewport and one-window workspace.

@@ -1,0 +1,10 @@
+{
+  "Theme": 0,
+  "Quality": 1,
+  "OrbitSensitivity": 9,
+  "SnapEnabled": true,
+  "SnapStep": 1,
+  "AnimationScale": 0.1,
+  "AutoSave": true,
+  "AutoSaveSeconds": 60
+}

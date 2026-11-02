@@ -1,0 +1,34 @@
+using System;using System.IO;using System.Linq;using System.Drawing;using System.ComponentModel;using System.Windows.Forms;using System.Windows.Forms.Integration;using System.Web.Script.Serialization;
+namespace GearLab {
+ public enum GearTheme {Светлая,Тёмная}
+ public enum GearQuality {Быстрый,Обычный,Подробный}
+ public sealed class AppSettings {
+  public static AppSettings Current=Load();
+  [Category("Интерфейс"),DisplayName("Тема")]public GearTheme Theme{get;set;}
+  [Category("3D"),DisplayName("Качество предпросмотра")]public GearQuality Quality{get;set;}
+  [Category("3D"),DisplayName("Чувствительность вращения камеры")]public double OrbitSensitivity{get;set;}
+  [Category("Моделирование"),DisplayName("Привязка перемещения к сетке")]public bool SnapEnabled{get;set;}
+  [Category("Моделирование"),DisplayName("Шаг сетки / перемещения, мм")]public double SnapStep{get;set;}
+  [Category("Анимация"),DisplayName("Скорость показа по умолчанию ×")]public double AnimationScale{get;set;}
+  [Category("Сохранение"),DisplayName("Автосохранение рабочих проектов")]public bool AutoSave{get;set;}
+  [Category("Сохранение"),DisplayName("Интервал автосохранения, с")]public int AutoSaveSeconds{get;set;}
+  public AppSettings(){Theme=GearTheme.Светлая;Quality=GearQuality.Обычный;OrbitSensitivity=9;SnapEnabled=true;SnapStep=1;AnimationScale=.1;AutoSave=true;AutoSaveSeconds=60;}
+  public static string Folder{get{return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"GearLab");}}
+  public static string SettingsPath{get{return Path.Combine(Folder,"settings.json");}}
+  public void Validate(){if(!Enum.IsDefined(typeof(GearTheme),Theme)||!Enum.IsDefined(typeof(GearQuality),Quality)||!MechanismCad.Finite(SnapStep)||SnapStep<.01||SnapStep>100||!MechanismCad.Finite(OrbitSensitivity)||OrbitSensitivity<1||OrbitSensitivity>30||!MechanismCad.Finite(AnimationScale)||AnimationScale<.01||AnimationScale>10||AutoSaveSeconds<15||AutoSaveSeconds>600)throw new Exception("Шаг 0,01–100 мм; чувствительность 1–30; анимация 0,01–10; автосохранение 15–600 с.");}
+  static AppSettings Load(){return LoadFrom(SettingsPath);}
+  public static AppSettings LoadFrom(string path){try{if(File.Exists(path)&&new FileInfo(path).Length<65536){var s=new JavaScriptSerializer().Deserialize<AppSettings>(File.ReadAllText(path));s.Validate();return s;}}catch{}return new AppSettings();}
+  public AppSettings Clone(){return new JavaScriptSerializer().Deserialize<AppSettings>(new JavaScriptSerializer().Serialize(this));}
+  public void Save(){SaveTo(SettingsPath);}public void SaveTo(string path){Validate();Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path)));ReleaseSupport.WriteText(path,new JavaScriptSerializer().Serialize(this),System.Text.Encoding.UTF8);}
+  public static double Snap(double v){return Current.SnapEnabled?Math.Round(v/Current.SnapStep)*Current.SnapStep:v;}
+  static readonly string RecoverySession=Guid.NewGuid().ToString("N");
+  internal static void SaveRecoveryTo(string folder,string kind,string key,string text){if(!new[]{"robot","mechanism","cad"}.Contains(kind)||string.IsNullOrEmpty(key)||key.Any(c=>!char.IsLetterOrDigit(c)))throw new Exception("Неверный идентификатор автосохранения.");Directory.CreateDirectory(folder);ReleaseSupport.WriteText(Path.Combine(folder,"recovery-"+kind+"-"+key+".json"),text,System.Text.Encoding.UTF8);}
+  public static void Recovery(string kind,string text,string key=null){if(Current.AutoSave)SaveRecoveryTo(Folder,kind,key??RecoverySession,text);}
+  public static string ReadRecovery(string kind){var files=Directory.Exists(Folder)?Directory.GetFiles(Folder,"recovery-"+kind+"*.json").OrderByDescending(File.GetLastWriteTimeUtc).ToArray():new string[0];if(files.Length==0)throw new Exception("Автосохранение пока не создано.");string path=files[0];if(files.Length>1)using(var dialog=new OpenFileDialog{Title="Выберите восстановительную копию (дата изменения — время сохранения)",InitialDirectory=Folder,Filter="Копии проектов|recovery-"+kind+"*.json",FileName=Path.GetFileName(path)}){if(dialog.ShowDialog()!=DialogResult.OK)throw new Exception("Восстановление отменено.");path=dialog.FileName;}return File.ReadAllText(path);}
+  public static void Apply(Control root){bool dark=Current.Theme==GearTheme.Тёмная;Action<Control> apply=null;apply=c=>{if(c is ElementHost){var grid=((ElementHost)c).Child as System.Windows.Controls.Grid;if(grid!=null){grid.Background=new System.Windows.Media.SolidColorBrush(dark?System.Windows.Media.Color.FromRgb(34,42,55):System.Windows.Media.Color.FromRgb(246,249,252));foreach(var text in grid.Children.OfType<System.Windows.Controls.TextBlock>())text.Foreground=dark?System.Windows.Media.Brushes.LightGray:System.Windows.Media.Brushes.SlateGray;}}else{c.BackColor=dark?Color.FromArgb(39,48,63):Color.FromArgb(246,249,252);c.ForeColor=dark?Color.FromArgb(231,236,243):Color.FromArgb(32,46,65);var g=c as DataGridView;if(g!=null){g.BackgroundColor=c.BackColor;g.DefaultCellStyle.BackColor=c.BackColor;g.DefaultCellStyle.ForeColor=c.ForeColor;g.AlternatingRowsDefaultCellStyle.BackColor=dark?Color.FromArgb(48,58,74):Color.FromArgb(237,243,249);g.ColumnHeadersDefaultCellStyle.BackColor=c.BackColor;g.ColumnHeadersDefaultCellStyle.ForeColor=c.ForeColor;g.EnableHeadersVisualStyles=!dark;}var p=c as PropertyGrid;if(p!=null){p.ViewBackColor=c.BackColor;p.ViewForeColor=c.ForeColor;p.HelpBackColor=c.BackColor;p.HelpForeColor=c.ForeColor;p.CategoryForeColor=c.ForeColor;p.LineColor=dark?Color.FromArgb(65,77,96):Color.FromArgb(220,230,241);}}foreach(Control child in c.Controls)apply(child);};apply(root);}
+ }
+ public sealed class SettingsForm:Form {
+  public SettingsForm(Control owner){Text="Настройки GearLab";Size=new Size(610,590);StartPosition=FormStartPosition.CenterParent;Font=new Font("Segoe UI",10);var copy=AppSettings.Current.Clone();var grid=new PropertyGrid{Dock=DockStyle.Fill,SelectedObject=copy,ToolbarVisible=false};Controls.Add(grid);var panel=new FlowLayoutPanel{Dock=DockStyle.Bottom,Height=55,Padding=new Padding(10)};Controls.Add(panel);var save=new Button{Text="Применить",Width=130,Height=32};save.Click+=(s,e)=>{try{copy.Validate();copy.Save();AppSettings.Current=copy;if(owner!=null)AppSettings.Apply(owner);var shell=WorkspaceHost.Find(this);if(shell!=null)shell.ApplyWorkspaceSettings();DialogResult=DialogResult.OK;if(!Modal)Text="Настройки GearLab · сохранены";}catch(Exception ex){MessageBox.Show(this,ex.Message);}};var reset=new Button{Text="Стандартные",Width=140,Height=32};reset.Click+=(s,e)=>{copy=new AppSettings();grid.SelectedObject=copy;};var cancel=new Button{Text="Отмена",Width=110,Height=32,DialogResult=DialogResult.Cancel};panel.Controls.AddRange(new Control[]{save,reset,cancel});cancel.Click+=(s,e)=>{if(!Modal)Close();};CancelButton=cancel;AppSettings.Apply(this);}
+ }
+}
+

@@ -1,7 +1,7 @@
-﻿using System.Reflection;using System.Runtime.InteropServices;
-[assembly:AssemblyTitle("Gear Lab — Калькулятор редукторов")]
-[assembly:AssemblyDescription("Геометрический и кинематический калькулятор четырёх типов передач")]
+using System.Reflection;using System.Runtime.InteropServices;
+[assembly:AssemblyTitle("GearLab — CAD и робототехника")]
+[assembly:AssemblyDescription("Параметрический CAD, механизмы, волновой редуктор и робототехника")]
 [assembly:AssemblyProduct("Gear Lab")]
-[assembly:AssemblyVersion("1.5.0.0")]
-[assembly:AssemblyFileVersion("1.5.0.0")]
+[assembly:AssemblyVersion("5.4.0.0")]
+[assembly:AssemblyFileVersion("5.4.0.0")]
 [assembly:ComVisible(false)]

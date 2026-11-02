@@ -1,0 +1,157 @@
+[
+  {
+    "component": "OCP-Apache-2.0",
+    "url": "https://raw.githubusercontent.com/CadQuery/OCP/master/LICENSE",
+    "sha256": "a13caea71627202ad33cc4cafafdd18e667e16716488f8d9c568127121fb89fd"
+  },
+  {
+    "component": "OCCT-LGPL-2.1",
+    "url": "https://raw.githubusercontent.com/Open-Cascade-SAS/OCCT/V8_0_1/LICENSE_LGPL_21.txt",
+    "sha256": "e237fa56668030e928551ddd60f05df5fe957f75eab874bbd017e085ed722e7c"
+  },
+  {
+    "component": "OCCT-exception-notice",
+    "url": "https://raw.githubusercontent.com/Open-Cascade-SAS/OCCT/V8_0_1/dox/license.md",
+    "sha256": "8bd471f4dc05b39ef292ce8817a2adfc7636b7ff268b96446f10d5b0f36813f4"
+  },
+  {
+    "component": "FreeImage-FIPL",
+    "url": "https://raw.githubusercontent.com/WinMerge/freeimage/master/license-fi.txt",
+    "sha256": "0bb9a3123297c73ae6e19c70459fb0e58f313f67ca63176fd43f8e77668b8243"
+  },
+  {
+    "component": "FreeType",
+    "url": "https://raw.githubusercontent.com/freetype/freetype/master/docs/FTL.TXT",
+    "sha256": "5a5ee54c5001bbad1cdc1a57cc3dd4c42199b2da09d39c7ee41fab002d02967f"
+  },
+  {
+    "component": "OpenEXR",
+    "url": "https://raw.githubusercontent.com/AcademySoftwareFoundation/openexr/main/LICENSE.md",
+    "sha256": "84853c91d4c2e0310741d4773469d98bb93e61029608e0ba0882a3fffdf330bd"
+  },
+  {
+    "component": "Imath",
+    "url": "https://raw.githubusercontent.com/AcademySoftwareFoundation/Imath/main/LICENSE.md",
+    "sha256": "c20236d3b39fd20eba8e3d1fb3b892a5483df2e7d8d61bf43f165d3fac22f601"
+  },
+  {
+    "component": "libjpeg-turbo",
+    "url": "https://raw.githubusercontent.com/libjpeg-turbo/libjpeg-turbo/main/LICENSE.md",
+    "sha256": "ba6bceebcba0fdd35488477c2cca8c4632ce82c74dbfbc87d886ce6fc4433579"
+  },
+  {
+    "component": "lcms",
+    "url": "https://raw.githubusercontent.com/mm2/Little-CMS/master/LICENSE",
+    "sha256": "6dbd60437f8ef91d8de1f08ad75882547fd4931bfcc3566a0735f28db1484d31"
+  },
+  {
+    "component": "Lerc",
+    "url": "https://raw.githubusercontent.com/Esri/lerc/master/LICENSE",
+    "sha256": "77a8b761727c75e2167b15bfdf61b2c0bcf8792271228bebe80779106ad00671"
+  },
+  {
+    "component": "XZ",
+    "url": "https://raw.githubusercontent.com/tukaani-project/xz/master/COPYING",
+    "sha256": "616a3ad264ce29b8f1cb97e53037b139d406899ca8d1f799651e17bfa09830b8"
+  },
+  {
+    "component": "libpng",
+    "url": "https://raw.githubusercontent.com/pnggroup/libpng/libpng16/LICENSE",
+    "sha256": "bdb0a645ea18c60507d0368379b1ac5474b92255fcc2d115e07486a7672ba526"
+  },
+  {
+    "component": "libwebp",
+    "url": "https://raw.githubusercontent.com/webmproject/libwebp/main/COPYING",
+    "sha256": "5aec868f669e384a22372a4e8a1a6cd7d44c64cd451f960ca69cc170d1e13acf"
+  },
+  {
+    "component": "OpenJPEG",
+    "url": "https://raw.githubusercontent.com/uclouvain/openjpeg/master/LICENSE",
+    "sha256": "a6af136f3e15038a666b61f376612a07d9a4e48cb7c01adbf3e33b3f14ab49b6"
+  },
+  {
+    "component": "OpenJPH",
+    "url": "https://raw.githubusercontent.com/aous72/OpenJPH/master/LICENSE",
+    "sha256": "5ddf5177863dfc9ab65fa129d587db651241f00e21ed2427b218bea997591f98"
+  },
+  {
+    "component": "LibRaw-LGPL",
+    "url": "https://raw.githubusercontent.com/LibRaw/LibRaw/master/LICENSE.LGPL",
+    "sha256": "eea173a556abac0370461e57e12aab266894ea6be3874c2be05fd87871f75449"
+  },
+  {
+    "component": "LibRaw-copyright",
+    "url": "https://raw.githubusercontent.com/LibRaw/LibRaw/master/COPYRIGHT",
+    "sha256": "574c88f5dd59414cfc896293a63defbc2d525a418ed413d7ab7dcc43cf79c509"
+  },
+  {
+    "component": "TIFF",
+    "url": "https://raw.githubusercontent.com/libsdl-org/libtiff/master/LICENSE.md",
+    "sha256": "0e27c2382d7b8147972bbb746e04059a1152c8d0fda9d03ef1399d1a433c4ade"
+  },
+  {
+    "component": "zlib",
+    "url": "https://raw.githubusercontent.com/madler/zlib/develop/LICENSE",
+    "sha256": "e32ff4e00d9d94930537635291da39e7e612703334bf6fde8c7f1686fe8a45a2"
+  },
+  {
+    "component": "zstd",
+    "url": "https://raw.githubusercontent.com/facebook/zstd/dev/LICENSE",
+    "sha256": "7055266497633c9025b777c78eb7235af13922117480ed5c674677adc381c9d8"
+  },
+  {
+    "component": "libdeflate",
+    "url": "https://raw.githubusercontent.com/ebiggers/libdeflate/master/COPYING",
+    "sha256": "4ad69099cb4374836fd27583d9991e2838cd86b6e4666ab26b2d32582c91e73a"
+  },
+  {
+    "component": "VTK",
+    "url": "https://raw.githubusercontent.com/Kitware/VTK/v9.6.2/Copyright.txt",
+    "sha256": "11232448be82e0ea2c2c66219c2e36389f42249894070ee10c549ff182fc08b6"
+  },
+  {
+    "component": "Viskores",
+    "url": "https://raw.githubusercontent.com/Viskores/viskores/main/LICENSE.txt",
+    "sha256": "013bc007960b8902193e4397826d042b52435acf4b278daf9748d8dd6a138b1b"
+  },
+  {
+    "component": "OpenXR",
+    "url": "https://raw.githubusercontent.com/KhronosGroup/OpenXR-SDK/main/LICENSE",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  {
+    "component": "DoubleConversion",
+    "url": "https://raw.githubusercontent.com/google/double-conversion/master/LICENSE",
+    "sha256": "4af93c12062c58058378de2397dc1c92bbff9ddfb1d583a01c84127557ce97ca"
+  },
+  {
+    "component": "expat",
+    "url": "https://raw.githubusercontent.com/libexpat/libexpat/master/expat/COPYING",
+    "sha256": "31b15de82aa19a845156169a17a5488bf597e561b2c318d159ed583139b25e87"
+  },
+  {
+    "component": "fmt",
+    "url": "https://raw.githubusercontent.com/fmtlib/fmt/master/LICENSE",
+    "sha256": "a65fcc5a1095fc33cc37e4fff69366e49d7e92f613558a2b95ed1b70e33758b4"
+  },
+  {
+    "component": "pugixml",
+    "url": "https://raw.githubusercontent.com/zeux/pugixml/master/LICENSE.md",
+    "sha256": "90974fbb120e966b452654eaae3ba6ee55f3647db3b28918a7649733ee99da97"
+  },
+  {
+    "component": "LZ4",
+    "url": "https://raw.githubusercontent.com/lz4/lz4/dev/LICENSE",
+    "sha256": "4bc9c403f6b679cc076dee210e0e21c27b4e8f6d3fb43d85364c76657bfaaac5"
+  },
+  {
+    "component": "utf8cpp",
+    "url": "https://raw.githubusercontent.com/nemtrif/utfcpp/master/LICENSE",
+    "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
+  },
+  {
+    "component": "Python",
+    "url": "https://raw.githubusercontent.com/python/cpython/v3.12.14/LICENSE",
+    "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+  }
+]

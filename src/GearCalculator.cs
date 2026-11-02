@@ -35,7 +35,7 @@ namespace GearLab {
   public PointF[] Profile; public List<string> Errors=new List<string>(),Notes=new List<string>();
   public List<Item> Items=new List<Item>(); public List<string[]> Metrics=new List<string[]>();
   public HashSet<string> BadFields=new HashSet<string>();
-  public PointF[] Gear1,Gear2,PlanetGear,BeltPath;public double Width,Height,Depth;public List<Result> Stages=new List<Result>();public CadAssembly Model;
+  public PointF[] Gear1,Gear2,PlanetGear,BeltPath;public double Width,Height,Depth;public List<Result> Stages=new List<Result>();public CadAssembly Model;public MechanismProject Mechanism;public MechanismSolution MechanismSolution;public RobotBuild Robot;public WaveParameters Wave;
   public bool Valid {get{return Errors.Count==0;}}
   public void Metric(string a,string b){Metrics.Add(new[]{a,b});}
   public void Add(string n,string s,string q,string status){Items.Add(new Item(n,s,q,status));}
@@ -236,6 +236,25 @@ namespace GearLab {
  }
  static class Program {
   [STAThread] static int Main(string[] args){
+   if(args.Length>0&&(args[0]=="--cad"||args[0].EndsWith(".cad.json",StringComparison.OrdinalIgnoreCase))){string file=args[0]=="--cad"?(args.Length>1?args[1]:null):args[0];return RunWindow(()=>new CADStudioForm(file==null?null:CADDocument.Parse(File.ReadAllText(file)),null));}
+   if(args.Length>0&&args[0]=="--wave")return RunWindow(()=>{var r=new ReducerWorkspaceForm();r.SelectWave();return r;});
+   if(args.Length>0&&args[0]=="--cache-test"){return JointPreviewTests.Cache(args[1]);}
+   if(args.Length>0&&args[0]=="--joint-preview-test"){return JointPreviewTests.Run(args[1]);}
+   if(args.Length>0&&args[0]=="--author-view-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return AuthorRobotViewTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
+   if(args.Length>0&&args[0]=="--blender-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return BlenderReferenceTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
+   if(args.Length>0&&args[0]=="--reference-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return ReferenceDesignTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
+   if(args.Length>0&&args[0]=="--controller-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return ControllerTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
+   if(args.Length>0&&args[0]=="--connected-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return ConnectedRobotTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
+   if(args.Length>0&&args[0]=="--procedural-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return ProceduralBodyTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
+   if(args.Length>0&&args[0]=="--workspace-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return WorkspaceTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
+   if(args.Length>0&&args[0]=="--wave-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return WaveTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
+   if(args.Length>0&&args[0]=="--cad-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return CADStudioTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
+   if(args.Length>0&&args[0]=="--robot-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return RoboticsTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
+   if(args.Length>0&&(args[0]=="--robot"||args[0].EndsWith(".robot.json",StringComparison.OrdinalIgnoreCase))){string file=args[0]=="--robot"?(args.Length>1?args[1]:null):args[0];return RunWindow(()=>new RobotDesignerForm(file));}
+   if(args.Length>0&&(args[0]=="--polygon"||args[0].EndsWith(".mesh.json",StringComparison.OrdinalIgnoreCase))){string file=args[0]=="--polygon"?(args.Length>1?args[1]:null):args[0];return RunWindow(()=>new PolygonForm(file==null?MeshDocument.Cube():MeshDocument.Import(file),null));}
+   if(args.Length>0&&args[0]=="--settings")return RunWindow(()=>new SettingsForm(null));
+   if(args.Length>0&&args[0]=="--mechanism-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return MechanismTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
+   if(args.Length>0&&(args[0]=="--mechanism"||args[0].EndsWith(".mechanism.json",StringComparison.OrdinalIgnoreCase))){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);string file=args[0]=="--mechanism"?(args.Length>1?args[1]:null):args[0];Application.Run(new WorkspaceShell(new MechanismForm(file)));return 0;}
    if(args.Length>0&&args[0]=="--placement-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return PlacementTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
    if(args.Length>0&&args[0]=="--preset-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return PresetTransitionTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
    if(args.Length>0&&args[0]=="--micro-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return MicroTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
@@ -243,10 +262,14 @@ namespace GearLab {
    if(args.Length>0&&args[0]=="--ui-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return PrintTests.Ui(args.Length>1?args[1]:Path.GetTempPath());}
    if(args.Length>0&&args[0]=="--print-test")return PrintTests.Run(args.Length>1?args[1]:Path.GetTempPath());
    if(args.Length>0&&args[0]=="--viewer-test")return ViewerTests.Run(args.Length>1?args[1]:Path.GetTempPath());
-   if(args.Length>0&&args[0]=="--cad-test")return CadTests.Run(args.Length>1?args[1]:Path.GetTempPath());
+   if(args.Length>0&&args[0]=="--step-test")return StepTests.Run(args.Length>1?args[1]:Path.GetTempPath());
+   if(args.Length>0&&args[0]=="--legacy-cad-test")return CadTests.Run(args.Length>1?args[1]:Path.GetTempPath());
    if(args.Length>0&&args[0]=="--self-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Tests.Run(args.Length>1?args[1]:Path.GetTempPath());}
-   Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);Application.ThreadException+=(sender,e)=>ReleaseSupport.Report(e.Exception);AppDomain.CurrentDomain.UnhandledException+=(sender,e)=>ReleaseSupport.Report(e.ExceptionObject as Exception);Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);try{var form=new MainForm();if(args.Length>0)form.LoadProjectFile(args[0]);if(args.Length>1&&args[1]=="--3d")form.ShowFullModel();Application.Run(form);return 0;}catch(Exception ex){ReleaseSupport.Report(ex);return 1;}
+   if(args.Length==0)return RunWindow(()=>new CADStudioForm());
+   if(args.Length>0&&args[0]=="--reducer")return RunWindow(()=>new ReducerWorkspaceForm());
+   Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);Application.ThreadException+=(sender,e)=>ReleaseSupport.Report(e.Exception);AppDomain.CurrentDomain.UnhandledException+=(sender,e)=>ReleaseSupport.Report(e.ExceptionObject as Exception);Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);try{var form=new MainForm();if(args.Length>0)form.LoadProjectFile(args[0]);if(args.Length>1&&args[1]=="--3d")form.ShowFullModel();Application.Run(new WorkspaceShell(form));return 0;}catch(Exception ex){ReleaseSupport.Report(ex);return 1;}
   }
+  static int RunWindow(Func<Form> create){Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);Application.ThreadException+=(s,e)=>ReleaseSupport.Report(e.Exception);Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);try{Application.Run(new WorkspaceShell(create()));return 0;}catch(Exception ex){ReleaseSupport.Report(ex);return 1;}}
  }
  static class Tests {
   static void Assert(bool x,string s){if(!x)throw new Exception(s);}
@@ -318,3 +341,5 @@ namespace GearLab {
   static Result CalculateCase(Parameters p){return Engine.Calculate(p);}
  }
 }
+
+

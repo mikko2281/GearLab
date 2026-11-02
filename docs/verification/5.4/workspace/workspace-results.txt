@@ -1,0 +1,1 @@
+﻿PASS 21 workspace assertions: one-window navigation, sketch display, empty scene, state preservation, manual robot pose, limits and loads.

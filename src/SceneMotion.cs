@@ -1,8 +1,9 @@
-﻿using System;using System.Linq;using System.Text.RegularExpressions;using System.Collections.Generic;using System.Windows;using System.Windows.Media.Media3D;
+using System;using System.Linq;using System.Text.RegularExpressions;using System.Collections.Generic;using System.Windows;using System.Windows.Media.Media3D;
 namespace GearLab {
  public sealed class PartMotion {
-  public string Kind="fixed";public int Stage,Planet;public Point3D Centre;public double Radius,Location;public Result Result;
+  public string Kind="fixed";public int Stage,Planet;public Point3D Centre;public double Radius,Location,CustomRatio;public Result Result;public string RobotPartId;public Matrix3D RobotInverse=Matrix3D.Identity;
   public static PartMotion Bind(Result result,CadPart part){var motion=new PartMotion{Result=result};var p=result.P;string id=part.Id;var first=part.Sections[0];var centre=first.Outer.Center();motion.Centre=new Point3D(centre.X,centre.Y,0);
+   if(result.Wave!=null){motion.Centre=new Point3D();motion.Kind=id.EndsWith("_flex")?"waveFlex":id.EndsWith("_generator")||id.EndsWith("_bearing")?"input":"fixed";return motion;}if(result.Robot!=null){motion.Kind="robot";motion.RobotPartId=part.Id;motion.RobotInverse=part.Placement;motion.RobotInverse.Invert();return motion;}if(result.Mechanism!=null){var item=result.Mechanism.Find(part.Id);var shaft=result.Mechanism.Shaft(item);MechanismShaftState state;if(item!=null&&item.Kind!="bearing"&&shaft!=null&&result.MechanismSolution!=null&&result.MechanismSolution.Valid&&result.MechanismSolution.Shafts.TryGetValue(shaft.Id,out state)&&state.Connected){motion.Kind="mechanism";motion.CustomRatio=state.SpeedRatio;motion.Centre=new Point3D(shaft.X,shaft.Y,0);}return motion;}
    if(p.Kind==0){
     if(id.Contains("CYCLOID_DISC_")){motion.Kind=id.Contains("DISC_B")?"discB":"discA";motion.Centre=new Point3D(motion.Kind=="discA"?p.Eccentric:-p.Eccentric,0,0);}
     else if(id.Contains("ECCENTRIC_SHAFT")||id.Contains("ECCENTRIC_BEARING"))motion.Kind="input";
@@ -24,8 +25,10 @@ namespace GearLab {
   }
   Result StageResult(){return Result.Stages.Count>0?Result.Stages[Stage]:Result;}
   public bool Moving{get{return Kind!="fixed";}}
-  public Matrix3D At(double phase,double explode){var p=Result.P;double angle=0,x=Centre.X,y=Centre.Y;
-   if(Kind=="input")angle=phase;
+  public Matrix3D At(double phase,double explode){if(Kind=="robot")return RobotInverse*Result.Robot.Pose(RobotPartId,phase,true);var p=Result.P;double angle=0,x=Centre.X,y=Centre.Y;
+   if(Kind=="waveFlex")angle=-phase/Result.Wave.Ratio;
+   else if(Kind=="mechanism")angle=phase*CustomRatio;
+   else if(Kind=="input")angle=phase;
    else if(Kind=="ring")angle=Engine.RingAngle(p,phase);
    else if(Kind=="carrier")angle=Engine.DiscAngle(p,phase);
    else if(Kind=="pairOutput")angle=-phase/Result.Actual;
@@ -40,13 +43,13 @@ namespace GearLab {
   public static Matrix3D Around(double angle,Point3D centre,Point3D target,double z){double c=Math.Cos(angle),s=Math.Sin(angle);return new Matrix3D(c,s,0,0,-s,c,0,0,0,0,1,0,target.X-centre.X*c+centre.Y*s,target.Y-centre.X*s-centre.Y*c,z,1);}
  }
  public sealed class OrbitCamera {
-  public Point3D Target;public double Yaw=-Math.PI/4,Pitch=Math.PI/5,Width=150,Span=100;public OrthographicCamera Camera=new OrthographicCamera();
+  public event Action Changed;public Point3D Target;public double Yaw=-Math.PI/4,Pitch=Math.PI/5,Width=150,Span=100;public OrthographicCamera Camera=new OrthographicCamera();
   public Vector3D Direction{get{return new Vector3D(Math.Cos(Pitch)*Math.Cos(Yaw),Math.Cos(Pitch)*Math.Sin(Yaw),Math.Sin(Pitch));}}
   public Vector3D Right{get{var r=Vector3D.CrossProduct(-Direction,new Vector3D(0,0,1));r.Normalize();return r;}}
   public Vector3D Up{get{var u=Vector3D.CrossProduct(Right,-Direction);u.Normalize();return u;}}
-  public void Update(){Camera.Position=Target+Direction*Math.Max(Span*3,10);Camera.LookDirection=-Direction;Camera.UpDirection=Up;Camera.Width=Width;Camera.NearPlaneDistance=.01;Camera.FarPlaneDistance=Math.Max(1000,Span*15);}
+  public void Update(){Camera.Position=Target+Direction*Math.Max(Span*3,10);Camera.LookDirection=-Direction;Camera.UpDirection=Up;Camera.Width=Width;Camera.NearPlaneDistance=.01;Camera.FarPlaneDistance=Math.Max(1000,Span*15);if(Changed!=null)Changed();}
   public void Fit(Rect3D bounds,double aspect){if(bounds.IsEmpty)return;Target=new Point3D(bounds.X+bounds.SizeX/2,bounds.Y+bounds.SizeY/2,bounds.Z+bounds.SizeZ/2);Span=Math.Max(1,Math.Sqrt(bounds.SizeX*bounds.SizeX+bounds.SizeY*bounds.SizeY+bounds.SizeZ*bounds.SizeZ));double horizontal=0,vertical=0;for(int i=0;i<8;i++){var corner=new Point3D(bounds.X+((i&1)!=0?bounds.SizeX:0),bounds.Y+((i&2)!=0?bounds.SizeY:0),bounds.Z+((i&4)!=0?bounds.SizeZ:0));var delta=corner-Target;horizontal=Math.Max(horizontal,Math.Abs(Vector3D.DotProduct(delta,Right)));vertical=Math.Max(vertical,Math.Abs(Vector3D.DotProduct(delta,Up)));}Width=Math.Max(1,2*Math.Max(horizontal,vertical*aspect))*1.12;Update();}
-  public void Orbit(double dx,double dy){Yaw-=dx*.009;Pitch=Math.Max(-Math.PI/2+.025,Math.Min(Math.PI/2-.025,Pitch+dy*.009));Update();}
+  public void Orbit(double dx,double dy){Yaw-=dx*AppSettings.Current.OrbitSensitivity/1000;Pitch=Math.Max(-Math.PI/2+.025,Math.Min(Math.PI/2-.025,Pitch+dy*AppSettings.Current.OrbitSensitivity/1000));Update();}
   public void Pan(double dx,double dy,double pixelsWide){double scale=Width/Math.Max(1,pixelsWide);Target+=Right*(-dx*scale)+Up*(dy*scale);Update();}
   public void Zoom(double wheel,double x,double y,double pixelsWide,double pixelsHigh){double old=Width;Width=Math.Max(Span*.015,Math.Min(Span*30,Width*Math.Exp(-wheel*.0014)));double difference=(old-Width)/Math.Max(1,pixelsWide);Target+=Right*((x-pixelsWide/2)*difference)+Up*((pixelsHigh/2-y)*difference);Update();}
   public Point3D ScreenPoint(double x,double y,double width,double height){return Target+Right*((x-width/2)*Width/width)+Up*((height/2-y)*Width/width);}

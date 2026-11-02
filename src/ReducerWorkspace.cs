@@ -1,0 +1,15 @@
+using System;using System.Threading.Tasks;using System.Drawing;using System.Windows.Forms;
+namespace GearLab {
+ public sealed class ReducerWorkspaceForm:Form,IWorkspaceDocument {
+  readonly ComboBox family=new ComboBox();readonly Panel surface=new Panel();MainForm ordinary;WaveReducerForm wave;Form active;
+  public ReducerWorkspaceForm(){Text="Редукторы";Font=new Font("Segoe UI",10);Size=new Size(1500,980);var bar=new FlowLayoutPanel{Dock=DockStyle.Top,Height=43,Padding=new Padding(6)};bar.Controls.Add(new Label{Text="Тип редуктора",AutoSize=true,Padding=new Padding(0,5,8,0)});family.DropDownStyle=ComboBoxStyle.DropDownList;family.Width=340;family.Items.AddRange(new[]{"Циклоидальный","Зубчатая пара","Зубчатый ремень","Планетарный","Волновой"});bar.Controls.Add(family);surface.Dock=DockStyle.Fill;Controls.Add(surface);Controls.Add(bar);family.SelectedIndexChanged+=(s,e)=>ActivateFamily();Shown+=(s,e)=>{if(family.SelectedIndex<0)family.SelectedIndex=0;else ActivateFamily();};}
+  public void ConfigureTarget(CADKernel kernel,Func<CADFeature,Task<bool>> insert,Action done){SelectWave();if(wave==null){wave=new WaveReducerForm();Embed(wave);}wave.ConfigureTarget(kernel,insert,done);}
+  public void SelectWave(){family.SelectedIndex=4;if(Visible)ActivateFamily();}
+  void ActivateFamily(){if(!Visible)return;var previous=active as IWorkspaceDocument;if(previous!=null)previous.WorkspaceActivate(false);if(active!=null)active.Hide();if(family.SelectedIndex==4){if(wave==null){wave=new WaveReducerForm();Embed(wave);}active=wave;}else{if(ordinary==null){ordinary=new MainForm();ordinary.ConfigureHostedKind();Embed(ordinary);}ordinary.SetHostedKind(Math.Max(0,family.SelectedIndex));active=ordinary;}active.Show();active.BringToFront();active.PerformLayout();var current=active as IWorkspaceDocument;if(current!=null)current.WorkspaceActivate(true);Text=family.SelectedIndex==4?"Редукторы · Волновой":"Редукторы · Расчёт передачи";}
+  void Embed(Form form){form.TopLevel=false;form.FormBorderStyle=FormBorderStyle.None;form.MinimumSize=Size.Empty;form.Dock=DockStyle.Fill;surface.Controls.Add(form);}
+  public bool WorkspaceCanClose(){foreach(var form in new Form[]{ordinary,wave}){var doc=form as IWorkspaceDocument;if(doc!=null&&!doc.WorkspaceCanClose())return false;}return true;}
+  public void WorkspaceApproveClose(){foreach(var form in new Form[]{ordinary,wave}){var doc=form as IWorkspaceDocument;if(doc!=null)doc.WorkspaceApproveClose();}}
+  public void WorkspaceActivate(bool value){var doc=active as IWorkspaceDocument;if(doc!=null)doc.WorkspaceActivate(value);if(value&&active!=null){active.Show();active.BringToFront();}}
+  internal WaveReducerForm WaveView{get{return wave;}}internal void SelectOrdinary(){family.SelectedIndex=0;}
+ }
+}

@@ -1,5 +1,12 @@
 Windows/
+Windows-*/
+dist/
 test-results/
 *.zip
 *.user
 .vs/
+runtime/
+__pycache__/
+*.pyc
+
+test-results-*/

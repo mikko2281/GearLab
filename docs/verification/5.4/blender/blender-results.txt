@@ -1,0 +1,1 @@
+﻿PASS author model: 800 mm scale, six actual interfaces, signed axes, native L elbows, mounting/collision/movement/STEP/STL checks in connected-results.txt.

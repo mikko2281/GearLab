@@ -1,0 +1,17 @@
+﻿8:1: 9 pins; valid; R=26
+9:1: 10 pins; valid; R=25
+20:1: 21 pins; valid; R=24
+30:1: 31 pins; valid; R=24
+60:1: 61 pins; valid; R=45.02
+120:1: 121 pins; valid; R=89.27
+Ring output 8:1: 8 rollers, 7 lobes; no disc spin; moving-ring collision check passed.
+Ring output 20:1: 20 rollers, 19 lobes; no disc spin; moving-ring collision check passed.
+Ring output 30:1: 30 rollers, 29 lobes; no disc spin; moving-ring collision check passed.
+Ring output 60:1: 60 rollers, 59 lobes; no disc spin; moving-ring collision check passed.
+Ring output 120:1: 120 rollers, 119 lobes; no disc spin; moving-ring collision check passed.
+PASS v4: 1659071 assertions, 16 preset/type combinations, overall fit/failure preservation, 8 twin-disc configurations at 5 phases, bearing no-slip contacts, planetary tooth phases, all-kind exports and renderings.
+PASS release UI: 405 checks; all toolbar and menu buttons, 5 ratios, all presets/views/tabs, stage selection, save/load/exports/cancel/overwrite/errors, unsaved close/reset, invalid controls, help/about. File-dialog paths supplied by test dialogs; native common-dialog observations recorded in the release report.
+PASS release engine: 370 checks; exact 60:1 screenshot, 27 ratio/planet combinations, 3 stages, invalid JSON, export layers, speed cascade, package/render checks.
+PASS bug regressions: screenshot, NaN/Infinity, shaft/gear fit, invalid DXF gate, UI parsing/commit/limits/legacy projects.
+Autosize grid: 156 valid, 4 unavailable; failed attempts preserve inputs.
+PASS: geometry/collision, fractional ratios, 2-disc counts, pair rounding, belt, planetary constraints, project roundtrip, CSV/SVG/DXF.

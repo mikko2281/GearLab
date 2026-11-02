@@ -1,0 +1,75 @@
+{
+  "source_file": "РОБОТ1.blend",
+  "source_sha256": "88cd374d774b2e0975aa305b5d2578be346b3f3108f1b31c8fa7a610cdc3a2b7",
+  "original_units": "Blender units; file unit setting METERS",
+  "original_bounds": [
+    [
+      -0.2128414809703827,
+      -0.5045670866966248,
+      -2.1889286041259766
+    ],
+    [
+      0.2128414809703827,
+      0.5971148014068604,
+      2.1876449584960938
+    ]
+  ],
+  "target_nominal_height_mm": 800,
+  "scale_mm_per_blender_unit": 182.79139800879025,
+  "nominal_tube_diameter_mm": 77.81118373250274,
+  "axes": [
+    "+Z",
+    "-Y",
+    "+Y",
+    "-Y",
+    "+Z",
+    "+Y"
+  ],
+  "seams_yz": [
+    [
+      0.2247911543,
+      -1.718
+    ],
+    [
+      -0.015015,
+      -1.30153
+    ],
+    [
+      -0.0142,
+      -0.16128
+    ],
+    [
+      0.0004,
+      0.97973
+    ],
+    [
+      -0.2536,
+      1.265
+    ],
+    [
+      0.13045,
+      1.97443
+    ]
+  ],
+  "adaptations_mm": {
+    "base_axis_raise": 10,
+    "first_link_vertical_compensation": -10,
+    "wrist_lateral_clearance": 16.6,
+    "frame_wall": 6.4,
+    "skin_wall": 2,
+    "minimum_wall": 2.4
+  },
+  "motor": {
+    "frame": 41.9,
+    "length": 37.5,
+    "shaft": 4.65,
+    "shaft_projection": 23.2,
+    "pitch": 31.3
+  },
+  "notes": [
+    "The author mesh supplies external proportions, not printable solids or verified internal mechanisms.",
+    "Six physical seams are used; three horizontal helper bones encode offsets, not additional motors.",
+    "Original BLEND is unchanged and is not included in the public software distribution.",
+    "All dimensions are rebuilt as analytic B-rep bodies. Mount clearance may enlarge the actuator barrels."
+  ]
+}

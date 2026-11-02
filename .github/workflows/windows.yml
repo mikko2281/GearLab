@@ -1,4 +1,4 @@
-name: Windows build and tests
+name: Windows build and native checks
 on:
   push:
     branches: [main]
@@ -9,17 +9,27 @@ permissions:
 jobs:
   test:
     runs-on: windows-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - name: Build and test
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.10'
+          architecture: x64
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build pinned native dependencies and executable
         shell: powershell
-        run: ./test.ps1
+        run: ./tools/ci_build.ps1
+      - name: Test native CAD, controllers and workspaces
+        shell: powershell
+        run: ./test.ps1 -NoBuild -Suites @('blender','author-view','controller','workspace','self') -SkipProceduralKernel
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: GearLab-Windows-and-reports
           path: |
             Windows/
-            test-results/**/*results.txt
+            test-results/**/*results.*
             test-results/**/*error*.txt

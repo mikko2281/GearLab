@@ -1,7 +1,8 @@
-﻿using System;using System.Linq;using System.Drawing;using System.Collections.Generic;
+using System;using System.Linq;using System.Drawing;using System.Collections.Generic;
 namespace GearLab {
+ using System.Windows.Media.Media3D;
  public class CadLoop {
-  public bool Circle;public double X,Y,R;public PointF[] Points;
+  public bool Circle,SmoothSides;public double X,Y,R;public PointF[] Points;
   public static CadLoop Round(double x,double y,double r){return new CadLoop{Circle=true,X=x,Y=y,R=r};}
   public static CadLoop Polygon(PointF[] points){var clean=new List<PointF>();foreach(var v in points)if(clean.Count==0||Length(v,clean.Last())>1e-6)clean.Add(v);if(clean.Count>2&&Length(clean[0],clean.Last())<1e-6)clean.RemoveAt(clean.Count-1);if(clean.Count<3)throw new Exception("Вырожденный CAD-контур.");if(Area(clean.ToArray())<0)clean.Reverse();return new CadLoop{Points=clean.ToArray()};}
   public PointF[] Sample(int count){if(!Circle)return Points;return Enumerable.Range(0,count).Select(i=>new PointF((float)(X+R*Math.Cos(Engine.Tau*i/count)),(float)(Y+R*Math.Sin(Engine.Tau*i/count)))).ToArray();}
@@ -16,8 +17,9 @@ namespace GearLab {
  }
  public static class CadNumbers {public static string F(double x){if(Math.Abs(x)<1e-10)x=0;string s=x.ToString("0.#########",System.Globalization.CultureInfo.InvariantCulture);return s.Contains(".")?s:s+".";}}
  public class CadSection {public double Bottom,Top;public CadLoop Outer;public List<CadLoop> Holes=new List<CadLoop>();public CadSection(double bottom,double top,CadLoop outer,IEnumerable<CadLoop> holes){Bottom=bottom;Top=top;Outer=outer;if(holes!=null)Holes.AddRange(holes);}}
- public class CadPart {public string Id,Label,Role,Note;public Color Color;public bool Reference;public List<CadSection> Sections=new List<CadSection>();public CadPart(string id,string label,string role,Color color){Id=id;Label=label;Role=role;Color=color;}
-  public double Volume(){return Sections.Sum(s=>(s.Outer.SurfaceArea()-s.Holes.Sum(h=>h.SurfaceArea()))*(s.Top-s.Bottom));}
+ public class CadPart {public double[] PrintAngles;public string Id,Label,Role,Note;public Color Color;public bool Reference;public Matrix3D Placement=Matrix3D.Identity;public SceneMesh MeshOverride;public string NativeStep;public double NativeVolume=-1;public Point3D NativeCentre;public List<CadSection> Sections=new List<CadSection>();public CadPart(string id,string label,string role,Color color){Id=id;Label=label;Role=role;Color=color;}
+  public double Volume(){if(NativeStep!=null&&NativeVolume>=0)return NativeVolume;return MeshOverride==null?Sections.Sum(s=>(s.Outer.SurfaceArea()-s.Holes.Sum(h=>h.SurfaceArea()))*(s.Top-s.Bottom)):Math.Abs(MeshOverride.SignedVolume());}
  }
- public class CadAssembly {public List<CadPart> Parts=new List<CadPart>();public List<string> Errors=new List<string>(),Notes=new List<string>();public bool Valid{get{return Errors.Count==0&&Parts.Count>0;}}public double[] Bounds(){var b=Parts.SelectMany(p=>p.Sections).ToList();return new[]{b.Min(s=>s.Outer.Bounds()[0]),b.Max(s=>s.Outer.Bounds()[1]),b.Min(s=>s.Outer.Bounds()[2]),b.Max(s=>s.Outer.Bounds()[3]),b.Min(s=>s.Bottom),b.Max(s=>s.Top)};}}
+ public class CadAssembly {public List<CadPart> Parts=new List<CadPart>();public List<string> Errors=new List<string>(),Notes=new List<string>();public bool Valid{get{return Errors.Count==0&&Parts.Count>0;}}public double[] Bounds(){var all=new List<Point3D>();foreach(var p in Parts){if(p.MeshOverride!=null){all.AddRange(p.MeshOverride.Points.Select(v=>p.Placement.Transform(v)));continue;}foreach(var s in p.Sections){var b=s.Outer.Bounds();for(int i=0;i<8;i++)all.Add(p.Placement.Transform(new Point3D((i&1)==0?b[0]:b[1],(i&2)==0?b[2]:b[3],(i&4)==0?s.Bottom:s.Top)));}}if(all.Count==0)return new double[6];return new[]{all.Min(v=>v.X),all.Max(v=>v.X),all.Min(v=>v.Y),all.Max(v=>v.Y),all.Min(v=>v.Z),all.Max(v=>v.Z)};}}
 }
+

@@ -1,0 +1,1 @@
+﻿PASS 22 author view assertions: default cached model, clear bent pose, real studio views, six controllers, negative-axis articulation without regeneration, actual fingertip TCP.

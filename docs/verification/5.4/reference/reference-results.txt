@@ -1,0 +1,1 @@
+﻿PASS 58 reference-design assertions: distinct CAD topology, inset covers, matching tool mount, persistence, live jaw opening, studio/native views, custom skeleton preservation and undo.

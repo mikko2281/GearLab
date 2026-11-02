@@ -1,0 +1,17 @@
+[
+  {
+    "file": "OCCT-8.0.1.zip",
+    "url": "https://codeload.github.com/Open-Cascade-SAS/OCCT/zip/refs/tags/V8_0_1",
+    "sha256": "7c033d917ee8f040c0512d289dcc5f02c148889d5bac17c3e25639accb44f0da"
+  },
+  {
+    "file": "LibRaw-0.22.2.zip",
+    "url": "https://codeload.github.com/LibRaw/LibRaw/zip/refs/tags/0.22.2",
+    "sha256": "02275a04cf0d1477ab9fd7ee231ddea59e7b14497458da6e3ba957517d6655c7"
+  },
+  {
+    "file": "OCP-build-8.0.1.1.0.zip",
+    "url": "https://codeload.github.com/CadQuery/ocp-build-system/zip/refs/tags/v8.0.1.1.0",
+    "sha256": "1ab550592a4dd816067ecebe0b6aef5d34dff1127c191a935c43e128cee5f903"
+  }
+]
