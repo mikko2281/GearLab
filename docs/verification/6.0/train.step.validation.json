@@ -1,0 +1,371 @@
+{
+  "Ok": true,
+  "Parts": [
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_001_MOTOR_REFERENCE",
+      "Volume_mm3": 83875.29760355807,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_002_CASE_BACK",
+      "Volume_mm3": 74390.06578869883,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_003_CASE_FRONT",
+      "Volume_mm3": 64859.018310967316,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_004_MOTOR_SCREW",
+      "Volume_mm3": 173.24928440381018,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_005_MOTOR_SCREW",
+      "Volume_mm3": 173.24928440381018,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_006_MOTOR_SCREW",
+      "Volume_mm3": 173.24928440381018,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_007_MOTOR_SCREW",
+      "Volume_mm3": 173.24928440381018,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_008_CASE_WALL",
+      "Volume_mm3": 30473.41881955135,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_009_INPUT_BEARING_1",
+      "Volume_mm3": 907.1348787240527,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_010_OUTPUT_BEARING_1",
+      "Volume_mm3": 2309.0706003884975,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_011_INPUT_BEARING_2",
+      "Volume_mm3": 907.1348787240527,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_012_OUTPUT_BEARING_2",
+      "Volume_mm3": 2309.0706003884975,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_013_INPUT_SHAFT",
+      "Volume_mm3": 1001.3826583317468,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_014_OUTPUT_SHAFT",
+      "Volume_mm3": 2161.415745669778,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_015_DRIVE_PULLEY_REFERENCE",
+      "Volume_mm3": 568.5986655218735,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_016_DRIVEN_PULLEY_REFERENCE",
+      "Volume_mm3": 2831.9880108582115,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_017_BELT_REFERENCE",
+      "Volume_mm3": 1285.1911690262073,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_018_CASE_BOLT",
+      "Volume_mm3": 319.3792856202293,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_019_CASE_NUT",
+      "Volume_mm3": 45.908844037070175,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_020_CASE_BOLT",
+      "Volume_mm3": 319.3792856202293,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_021_CASE_NUT",
+      "Volume_mm3": 45.908844037070175,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_022_CASE_BOLT",
+      "Volume_mm3": 319.3792635903525,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_023_CASE_NUT",
+      "Volume_mm3": 45.908818860068216,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_024_CASE_BOLT",
+      "Volume_mm3": 319.3792635903525,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "5185b44a123540b29f211d8c6b084a18_025_CASE_NUT",
+      "Volume_mm3": 45.908818860068216,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_COUPLING",
+      "Volume_mm3": 1903.8051480754145,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_002_FIXED_CASE_BACK",
+      "Volume_mm3": 79086.52967650721,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_003_MOTOR_SCREW",
+      "Volume_mm3": 159.11211746265607,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_004_MOTOR_SCREW",
+      "Volume_mm3": 159.11211746265607,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_005_MOTOR_SCREW",
+      "Volume_mm3": 159.11211746265604,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_006_MOTOR_SCREW",
+      "Volume_mm3": 159.11211746265604,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_007_INPUT_BEARING_1",
+      "Volume_mm3": 907.1348787240529,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_008_INPUT_BEARING_2",
+      "Volume_mm3": 907.1348787240529,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_009_FIXED_CASE_WALL",
+      "Volume_mm3": 52439.95153112055,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_010_FIXED_CASE_FRONT",
+      "Volume_mm3": 90221.77364424703,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_011_OUTPUT_BEARING_1",
+      "Volume_mm3": 2309.0706003884975,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_012_OUTPUT_BEARING_2",
+      "Volume_mm3": 2309.0706003884975,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_013_ECCENTRIC_SHAFT",
+      "Volume_mm3": 1135.68574427271,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_014_CYCLOID_DISC_A",
+      "Volume_mm3": 19826.80986591217,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_015_ECCENTRIC_BEARING",
+      "Volume_mm3": 2309.070600388497,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_016_CYCLOID_DISC_B",
+      "Volume_mm3": 19826.809762908135,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_017_ECCENTRIC_BEARING",
+      "Volume_mm3": 2309.0706003884975,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_018_OUTPUT_CARRIER_SHAFT",
+      "Volume_mm3": 9886.511656075148,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_019_OUTPUT_PIN",
+      "Volume_mm3": 382.88160465625594,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_020_OUTPUT_PIN",
+      "Volume_mm3": 382.88160465625594,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_021_OUTPUT_PIN",
+      "Volume_mm3": 382.88160465625594,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_022_OUTPUT_PIN",
+      "Volume_mm3": 382.88160465625594,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_023_OUTPUT_PIN",
+      "Volume_mm3": 382.88160465625594,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_024_OUTPUT_PIN",
+      "Volume_mm3": 382.88160465625594,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_067_CASE_BOLT",
+      "Volume_mm3": 407.7365569725658,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_068_CASE_NUT",
+      "Volume_mm3": 45.90881886006826,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_069_CASE_BOLT",
+      "Volume_mm3": 407.73657074123827,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_070_CASE_NUT",
+      "Volume_mm3": 45.90883459569449,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_071_CASE_BOLT",
+      "Volume_mm3": 407.73655697256555,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_072_CASE_NUT",
+      "Volume_mm3": 45.908818860068266,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_073_CASE_BOLT",
+      "Volume_mm3": 407.73655697256555,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_074_CASE_NUT",
+      "Volume_mm3": 45.908818860068266,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_075_CASE_BOLT",
+      "Volume_mm3": 407.73657074123827,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_076_CASE_NUT",
+      "Volume_mm3": 45.90883459569449,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_077_CASE_BOLT",
+      "Volume_mm3": 407.7365569725658,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "66a86fab61254da38303fda97bca05c1_078_CASE_NUT",
+      "Volume_mm3": 45.90881886006826,
+      "Valid": true,
+      "Solids": 1
+    }
+  ]
+}

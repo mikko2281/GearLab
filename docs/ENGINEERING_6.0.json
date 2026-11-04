@@ -1,0 +1,113 @@
+{
+  "Version": "6.0-preview.1",
+  "LoadedByApplication": false,
+  "Units": {
+    "length": "mm",
+    "torque": "N*m",
+    "force": "N",
+    "power": "W",
+    "stress": "MPa",
+    "speed": "rpm; rack mm/s"
+  },
+  "Formulas": [
+    {
+      "Id": "worm",
+      "Expression": "i=z2/starts; d1=q*m; d2=z2*m; a=(d1+d2)/2; gamma=atan(starts/q)",
+      "Qualification": "Геометрически рассчитано"
+    },
+    {
+      "Id": "worm.losses",
+      "Expression": "rho=atan(mu/cos(alpha)); eta=tan(gamma)/tan(gamma+rho); self_lock_estimate=(cos(alpha)*tan(gamma)<=mu)",
+      "Qualification": "Приближённая оценка контакта; без подшипников/смазки, не гарантирует удержание"
+    },
+    {
+      "Id": "bevel",
+      "Expression": "delta1=atan2(sin(Sigma),z2/z1+cos(Sigma)); delta2=Sigma-delta1; R=m*z1/(2*sin(delta1)); b<=R/3",
+      "Qualification": "Пересекающиеся оси, оба конуса острые"
+    },
+    {
+      "Id": "bevel.forces",
+      "Expression": "dm1=m*z1-b*sin(delta1); Ft=2000*T1/dm1; Fr1=Ft*tan(alpha)*cos(delta1); Fa1=Ft*tan(alpha)*sin(delta1)",
+      "Qualification": "Приближённая статическая оценка; гипоидный случай только эквивалентная коническая оценка"
+    },
+    {
+      "Id": "rv",
+      "Expression": "i=1+(z2/z1)*N; nout=nin/i; ncrank=ncarrier-(nin-ncarrier)*z1/z2",
+      "Qualification": "Корпус закреплён, выход — водило; НЕ независимое произведение ступеней"
+    },
+    {
+      "Id": "compound.willis",
+      "Expression": "zr=zs+za+zb; k=zr*za/(zs*zb); (ws-wc)+k*(wr-wc)=0; wc=(ws+k*wr)/(1+k)",
+      "Qualification": "Составные соосные сателлиты A/B, одинаковый модуль"
+    },
+    {
+      "Id": "compound.phase",
+      "Expression": "(zs*zb+zr*za) mod (gcd(za,zb)*planet_count)=0",
+      "Qualification": "Условие равномерной установки; не контактный анализ"
+    },
+    {
+      "Id": "magnetic",
+      "Expression": "segments=p1+p2; nout=-nin*p1/p2",
+      "Qualification": "Модулятор неподвижен; предельный момент неизвестен без FEA"
+    },
+    {
+      "Id": "rack",
+      "Expression": "r=m*z/2; v_mm_s=n*pi*m*z/60; F_N=1000*T*eta/r",
+      "Qualification": "Момент в Н·м, радиус в мм; усилие в Н"
+    },
+    {
+      "Id": "power",
+      "Expression": "Pin=T*abs(n)*pi/30; Pout=Pin*eta; Tout=T*abs(i)*eta",
+      "Qualification": "Теоретический момент не является допустимым рабочим"
+    },
+    {
+      "Id": "train",
+      "Expression": "n_child=n_parent*gain; T_child=T_parent*power_share*abs(i)*eta; sum(outgoing_power_share)<=1",
+      "Qualification": "Граф без циклов. После рейки вращательная ступень отклоняется"
+    },
+    {
+      "Id": "train.two_input",
+      "Expression": "Tr=k*Ts; wc=(ws+k*wr)/(1+k); Pout=(P1+P2)*eta",
+      "Qualification": "Требуется совместимый баланс входных моментов; циркулирующая мощность отклоняется"
+    },
+    {
+      "Id": "bearings",
+      "Expression": "R2=F*(load_z-bearing1_z)/(bearing2_z-bearing1_z); R1=F-R2",
+      "Qualification": "Балочная статическая оценка. Не расчёт ресурса/преднатяга"
+    },
+    {
+      "Id": "lewis",
+      "Expression": "Y=pi*(0.154-0.912/z); sigma_MPa=Ft*K/(b*m*Y); safety=allowable_MPa/sigma_MPa",
+      "Qualification": "Только стандартная внешняя прямозубая 20°, z>=17; allowable=0 означает неизвестно"
+    },
+    {
+      "Id": "mass",
+      "Expression": "mass_kg=volume_mm3*1e-9*density_kg_m3; COM=sum(volume_i*COM_i)/sum(volume_i)",
+      "Qualification": "Геометрическая оценка, габаритные моторы имеют заданную пользователем массу"
+    }
+  ],
+  "Sources": {
+    "TransmissionMath.cs": "src/TransmissionMath.cs",
+    "TransmissionGeometry.cs": "src/TransmissionGeometry.cs",
+    "TransmissionLoads.cs": "src/TransmissionLoads.cs",
+    "TransmissionTrain.cs": "src/TransmissionTrain.cs",
+    "TransmissionHousing.cs": "src/TransmissionHousing.cs",
+    "TransmissionAudit.cs": "src/TransmissionAudit.cs",
+    "TransmissionSizing.cs": "src/TransmissionSizing.cs",
+    "RobotTransmission60.cs": "src/RobotTransmission60.cs",
+    "RobotTrainIntegration.cs": "src/RobotTrainIntegration.cs"
+  },
+  "SHA256": {
+    "TransmissionMath.cs": "ea2081f30d3cc8ee4a7037d072b549b17fbb830ba8965a605692cad3d8009b30",
+    "TransmissionGeometry.cs": "b48fb5c741a5375540afab81c183a05d0406427fea49fa0a5977db5014e33ba0",
+    "TransmissionLoads.cs": "673d8310eb3e74fe12840c69daadf09e8c3c4ccb8b1f92ec2bc5dae050483cf3",
+    "TransmissionTrain.cs": "3f3303e19f0ee97f314364c9889d9ee127a4647e97be24ac0941522e4eb49508",
+    "TransmissionHousing.cs": "0e3635bea266ae23d13bd986870eaf96f8178819195a1cf6f31208bd3733c314",
+    "TransmissionAudit.cs": "f3b679f26fe18032909389f73e1af94f785d05d482147520589e0b78935b41bd",
+    "TransmissionSizing.cs": "8c1b89e6fb6b0e4bcebaef67db6a8c5d1287c155e02db72fa5d0a953a62421d1",
+    "RobotTransmission60.cs": "c6bf86ed40167a3aa597f19a0a989e03221a12e9af0042541766e980f2dfc152",
+    "RobotTrainIntegration.cs": "7ff4dbd70239b4121427d090aa7e1a0cb4b4cf1f38eb6350273cd19fca0b56b4"
+  },
+  "SpecializedValidation": false,
+  "RatedTorqueKnown": false
+}

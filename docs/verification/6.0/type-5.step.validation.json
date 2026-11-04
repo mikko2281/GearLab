@@ -1,0 +1,179 @@
+{
+  "Ok": true,
+  "Parts": [
+    {
+      "Id": "T_WHEEL",
+      "Volume_mm3": 2048.934987976496,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_WORM",
+      "Volume_mm3": 1441.9202789875162,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_INPUT_SHAFT",
+      "Volume_mm3": 1043.2589344326816,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_OUTPUT_SHAFT",
+      "Volume_mm3": 1759.2918860102843,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BEARING_IN0",
+      "Volume_mm3": 907.1348787240527,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BEARING_IN1",
+      "Volume_mm3": 907.1348787240527,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BEARING_OUT0",
+      "Volume_mm3": 753.9822368615504,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BEARING_OUT1",
+      "Volume_mm3": 753.9822368615504,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_IN0",
+      "Volume_mm3": 2755.0902469909356,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_IN0-1",
+      "Volume_mm3": 28.274333882308138,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_IN01",
+      "Volume_mm3": 28.274333882308138,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_IN1",
+      "Volume_mm3": 2755.090246990935,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_IN1-1",
+      "Volume_mm3": 28.274333882308138,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_IN11",
+      "Volume_mm3": 28.27433388230814,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_OUT0",
+      "Volume_mm3": 2755.090246990935,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_OUT0-1",
+      "Volume_mm3": 28.27433388230814,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_OUT01",
+      "Volume_mm3": 28.274333882308138,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_OUT1",
+      "Volume_mm3": 2755.090246990935,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_OUT1-1",
+      "Volume_mm3": 28.27433388230814,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_OUT11",
+      "Volume_mm3": 28.274333882308138,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BASE",
+      "Volume_mm3": 11732.10770649254,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_RIB0",
+      "Volume_mm3": 1333.3635095214845,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_RIB1",
+      "Volume_mm3": 1333.3635095214845,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_IN0_FOOT",
+      "Volume_mm3": 201.59999999999974,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_IN1_FOOT",
+      "Volume_mm3": 201.60000000000014,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_OUT0_FOOT",
+      "Volume_mm3": 166.40000000000012,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_OUT1_FOOT",
+      "Volume_mm3": 2086.4000000000005,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_MOTOR_PLATE",
+      "Volume_mm3": 6849.616943541466,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "MOTOR_REFERENCE",
+      "Volume_mm3": 84943.43910577857,
+      "Valid": true,
+      "Solids": 1
+    }
+  ]
+}

@@ -31,16 +31,17 @@ namespace GearLab {
  }
 
  public partial class MainForm:Form {
+  internal event Action<int> HostedKindChanged;
 
   internal void ConfigureHostedKind(){kind.Visible=false;foreach(Control c in controls.Controls)if(c is Label&&c.Text=="Тип передачи")c.Visible=false;}
 
-  internal void SetHostedKind(int index){if(index>=0&&index<5&&kind.SelectedIndex!=index)kind.SelectedIndex=index;}
+  internal void SetHostedKind(int index){if(index>=0&&index<TransmissionCatalog.All.Length&&kind.SelectedIndex!=index)kind.SelectedIndex=index;}
 
 
 
   Parameters p=Engine.Starter(0);Result result;string modelKey,fitKey;CadAssembly cachedModel;bool lastFitFailed;
 
-  static string GeometryKey(Parameters value){var copy=Engine.Clone(value);copy.InputRpm=30;copy.InputTorque=.35;copy.Efficiency=.7;copy.LoadTorque=5;copy.ExportScope=0;copy.AutoFit=false;return ReleaseSupport.Serialize(copy);}bool updating,dirty;FlowLayoutPanel controls;readonly Dictionary<int,Parameters> layoutState=new Dictionary<int,Parameters>();readonly Dictionary<int,Parameters> kindState=new Dictionary<int,Parameters>();System.Diagnostics.Stopwatch playback=System.Diagnostics.Stopwatch.StartNew();double lastTick;
+  static string GeometryKey(Parameters value){var copy=Engine.Clone(value);if(copy.Kind!=8||copy.FixedMember!=3)copy.InputRpm=30;copy.InputTorque=.35;copy.Efficiency=.7;copy.LoadTorque=5;copy.AllowableBendingMPa=0;copy.ServiceFactor=1.5;copy.ExportScope=0;copy.AutoFit=false;return ReleaseSupport.Serialize(copy);}bool updating,dirty;FlowLayoutPanel controls;readonly Dictionary<int,Parameters> layoutState=new Dictionary<int,Parameters>();readonly Dictionary<int,Parameters> kindState=new Dictionary<int,Parameters>();System.Diagnostics.Stopwatch playback=System.Diagnostics.Stopwatch.StartNew();double lastTick;
 
   readonly Dictionary<string,SafeNumber> numbers=new Dictionary<string,SafeNumber>();
 
@@ -48,7 +49,7 @@ namespace GearLab {
 
   readonly Dictionary<string,SafeSlider> sliders=new Dictionary<string,SafeSlider>();
 
-  readonly string[] kinds={"Циклоидальный","Зубчатая пара","Зубчатый ремень","Планетарный","Волновой"};
+  readonly string[] kinds=TransmissionCatalog.Names;
 
   ComboBox kind,scheme,cycleLayout,preset,view,bearingPreset,stageMode,stageView,exportScope;CheckBox modelSettings,hideHousing;Label stageLabel;readonly IUserDialogs dialogs;string savedState,currentFile;bool closingApproved;Label schemeLabel,cycleLayoutLabel,title,banner,footer;CheckBox auto,dual,bearings,motor,integratedRing;Canvas canvas;DataGridView metrics,bom;TextBox notes;
 
@@ -56,20 +57,21 @@ namespace GearLab {
 
   public MainForm():this(new UserDialogs()){}
 
-  public void ConfigureForRobot(Parameters seed,Func<Parameters,bool> accept){Apply(seed,true);ShowFullModel();var button=new Button{Text="Использовать редуктор в роботе",Width=285,Height=40,BackColor=Color.FromArgb(41,126,91),ForeColor=Color.White};button.Click+=(s,e)=>{if(!ReadControls())return;Recalculate();if(!result.Valid||!result.Model.Valid){dialogs.Info(this,"Исправьте геометрию перед применением.","Робот");return;}if(accept(Engine.Clone(p))){closingApproved=true;Close();}};controls.Controls.Add(button);controls.Controls.SetChildIndex(button,0);}
+  public void ConfigureForRobot(Parameters seed,Func<Parameters,bool> accept){robotContext=true;seed=Engine.Clone(seed);seed.UseUniversalBase=false;Apply(seed,seed.AutoFit);ShowFullModel();var button=new Button{Text="Использовать редуктор в роботе",Width=285,Height=40,BackColor=Color.FromArgb(41,126,91),ForeColor=Color.White};button.Click+=(s,e)=>{if(!ReadControls())return;Recalculate();if(!result.Valid||!result.Model.Valid){dialogs.Info(this,"Исправьте геометрию перед применением.","Робот");return;}if(accept(Engine.Clone(p))){closingApproved=true;Close();}};controls.Controls.Add(button);controls.Controls.SetChildIndex(button,0);}
 
   public MainForm(IUserDialogs userDialogs){dialogs=userDialogs;Icon=Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-   Text="Gear Lab 5.6.0 · Калькулятор редукторов";Font=new Font("Segoe UI",10);Size=new Size(1460,980);MinimumSize=new Size(980,650);AutoScaleDimensions=new SizeF(96,96);StartPosition=FormStartPosition.CenterScreen;AutoScaleMode=AutoScaleMode.Dpi;BackColor=Color.White;
+   Text="Gear Lab 6.0 Preview 1 · Калькулятор редукторов";Font=new Font("Segoe UI",10);Size=new Size(1460,980);MinimumSize=new Size(980,650);AutoScaleDimensions=new SizeF(96,96);StartPosition=FormStartPosition.CenterScreen;AutoScaleMode=AutoScaleMode.Dpi;BackColor=Color.White;
 
    var menu=new MenuStrip{BackColor=Color.FromArgb(239,244,249)};var project=new ToolStripMenuItem("Проект");saveMenu=new ToolStripMenuItem("Сохранить…",null,(a,b)=>SaveProject()){ShortcutKeys=Keys.Control|Keys.S};saveAsMenu=new ToolStripMenuItem("Сохранить как…",null,(a,b)=>SaveProject(true)){ShortcutKeys=Keys.Control|Keys.Shift|Keys.S};openMenu=new ToolStripMenuItem("Открыть…",null,(a,b)=>OpenProject()){ShortcutKeys=Keys.Control|Keys.O};resetMenu=new ToolStripMenuItem("Сбросить текущий тип",null,(a,b)=>{if(ConfirmChanges())Apply(Engine.Starter(p.Kind),true);});project.DropDownItems.AddRange(new ToolStripItem[]{saveMenu,saveAsMenu,openMenu,resetMenu});
 
    var export=new ToolStripMenuItem("Экспорт");csvMenu=new ToolStripMenuItem("Список деталей CSV…",null,(a,b)=>Export("csv"));svgMenu=new ToolStripMenuItem("Эскиз SVG…",null,(a,b)=>Export("svg"));dxfMenu=new ToolStripMenuItem("Эскиз DXF…",null,(a,b)=>Export("dxf"));stepMenu=new ToolStripMenuItem("Полная 3D сборка STEP…",null,(a,b)=>Export("step"));export.DropDownItems.AddRange(new ToolStripItem[]{stepMenu,new ToolStripMenuItem("Детали для 3D-печати…",null,(a,b)=>ExportPrint()),csvMenu,svgMenu,dxfMenu});
 
-   helpMenu=new ToolStripMenuItem("Как пользоваться",null,(a,b)=>dialogs.Help(this)){ShortcutKeys=Keys.F1};aboutMenu=new ToolStripMenuItem("О программе",null,(a,b)=>dialogs.Info(this,"Gear Lab "+ReleaseSupport.Version+"\nГеометрия и кинематика пяти типов передач.\nWindows 10/11, .NET Framework 4.8. Работа без интернета.\nПолная инструкция, примеры и отчёт проверок — в папке релиза.","О программе"));menu.Items.AddRange(new ToolStripItem[]{project,export,helpMenu,aboutMenu});MainMenuStrip=menu;
+   helpMenu=new ToolStripMenuItem("Как пользоваться",null,(a,b)=>dialogs.Help(this)){ShortcutKeys=Keys.F1};aboutMenu=new ToolStripMenuItem("О программе",null,(a,b)=>dialogs.Info(this,"Gear Lab "+ReleaseSupport.Version+"\nГеометрия и кинематика механических передач.\nWindows 10/11, .NET Framework 4.8. Работа без интернета.\nПолная инструкция, примеры и отчёт проверок — в папке релиза.","О программе"));menu.Items.AddRange(new ToolStripItem[]{project,export,helpMenu,aboutMenu});MainMenuStrip=menu;
 
    var mechanismMenu=new ToolStripMenuItem("Конструктор механизмов",null,(a,b)=>WorkspaceHost.Navigate(this,"mechanism")){ShortcutKeys=Keys.Control|Keys.M};menu.Items.Insert(1,mechanismMenu);
 
+   menu.Items.Add(new ToolStripMenuItem("Конструктор ступеней",null,(a,b)=>WorkspaceHost.Navigate(this,"train")));
    menu.Items.Insert(2,new ToolStripMenuItem("Робототехника",null,(a,b)=>WorkspaceHost.Navigate(this,"robot")));menu.Items.Add(new ToolStripMenuItem("Настройки",null,(a,b)=>{using(var f=new SettingsForm(this))f.ShowDialog(this);}));
 
    var body=new TableLayoutPanel{Dock=DockStyle.Fill,ColumnCount=2,RowCount=2};body.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute,340));body.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,100));body.RowStyles.Add(new RowStyle(SizeType.Percent,100));body.RowStyles.Add(new RowStyle(SizeType.Absolute,34));
@@ -141,6 +143,7 @@ namespace GearLab {
 
    AddNumber("ModelCover","3D: толщина крышек, мм",3,50,2,.5m,false);AddNumber("ModelFlange","3D: монтажный пояс снаружи, мм",2,40,2,.5m,false);AddNumber("ModelGap","3D: осевой зазор, мм",.05m,10,2,.05m,false);AddNumber("ModelBolt","3D: стяжной крепёж Ø, мм",1,10,2,.5m,false);AddNumber("ModelBoltCount","3D: болтов круглого корпуса, шт.",3,16,0,1,false);AddNumber("ModelShaftExtension","3D: выступ вала, мм",2,100,2,1,false);AddNumber("ModelInputBearingD","3D: входная опора D, мм",5,150,2,.5m,false);AddNumber("ModelInputBearingB","3D: входная опора B, мм",2,50,2,.5m,false);AddNumber("ModelCaseInner","3D: выходная опора d (0=авто), мм",0,500,2,.5m,false);AddNumber("ModelCaseOuter","3D: выходная опора D (0=авто), мм",0,700,2,.5m,false);AddNumber("ModelCaseBearingB","3D: выходная опора B, мм",2,100,2,.5m,false);AddNumber("ModelRollerAxle","3D: ось ролика Ø, мм",.5m,20,2,.1m,false);AddNumber("ModelBeltThickness","3D: толщина ленты ремня, мм",.2m,10,2,.1m,false);AddNumber("ModelBushWall","3D: стенка втулки сателлита, мм",.2m,10,2,.1m,false);
 
+   AddTransmissionFields();
    var right=new TableLayoutPanel{Dock=DockStyle.Fill,RowCount=4,ColumnCount=1,Padding=new Padding(12,8,12,4)};right.RowStyles.Add(new RowStyle(SizeType.Absolute,48));right.RowStyles.Add(new RowStyle(SizeType.Absolute,88));right.RowStyles.Add(new RowStyle(SizeType.AutoSize));right.RowStyles.Add(new RowStyle(SizeType.Percent,100));
 
    title=new Label{Dock=DockStyle.Fill,Font=new Font("Segoe UI",14,FontStyle.Bold),ForeColor=Color.FromArgb(24,61,93),TextAlign=ContentAlignment.MiddleLeft,AutoEllipsis=true};right.Controls.Add(title,0,0);
@@ -177,9 +180,9 @@ namespace GearLab {
 
    body.Controls.Add(controls,0,0);body.Controls.Add(right,1,0);body.Controls.Add(footer,0,1);body.SetColumnSpan(footer,2);Controls.Add(body);Controls.Add(menu);
 
-   animation=new Timer{Interval=33};animation.Tick+=(s,e)=>{double now=playback.Elapsed.TotalSeconds,dt=Math.Min(.15,now-lastTick);lastTick=now;if(canvas.ShowMotion&&!dirty&&result!=null&&result.Valid&&WindowState!=FormWindowState.Minimized&&tabs.SelectedIndex==0){canvas.Phase+=dt*p.InputRpm*Engine.Tau/60;canvas.PresentFrame();}};animation.Start();FormClosed+=(s,e)=>{animation.Dispose();tips.Dispose();};
+   animation=new Timer{Interval=33};animation.Tick+=(s,e)=>{double now=playback.Elapsed.TotalSeconds,dt=Math.Min(.15,now-lastTick);lastTick=now;if(canvas.ShowMotion&&!dirty&&result!=null&&result.Valid&&WindowState!=FormWindowState.Minimized&&tabs.SelectedIndex==0){canvas.Phase+=dt*TransmissionSizing.MotionRpm(p)*Engine.Tau/60;canvas.PresentFrame();}};animation.Start();FormClosed+=(s,e)=>{animation.Dispose();tips.Dispose();};
 
-   InitializeWaveExport();Apply(p,true);savedState=ReleaseSupport.Serialize(p);
+   InitializeWaveExport();InitializeTransmissionTools();Apply(p,true);savedState=ReleaseSupport.Serialize(p);
 
    Shown+=(a,b)=>{var area=Screen.FromControl(this).WorkingArea;if(Width>area.Width||Height>area.Height){Size=new Size(Math.Min(Width,area.Width),Math.Min(Height,area.Height));Location=area.Location;}};FormClosing+=(a,b)=>{if(!closingApproved&&!ConfirmChanges())b.Cancel=true;};
 
@@ -191,7 +194,7 @@ namespace GearLab {
 
   void ScrollSide(int delta){int y=-controls.AutoScrollPosition.Y;controls.AutoScrollPosition=new Point(0,Math.Max(0,y-delta));}
 
-  bool VisibleField(string key){if(key.StartsWith("Wave")||new[]{"InputTorque","Efficiency","LoadTorque"}.Contains(key))return p.Kind==4;if(p.Kind==4)return new[]{"Ratio","Overall","Shaft","OutputShaft","Module","Thickness","Wall","Clearance","InputRpm","MotorFrame","MotorMount","MotorPilot","MotorHole","MotorLength"}.Contains(key);if(key.StartsWith("Micro"))return p.Kind==0&&p.CycloidLayout==1;if(key=="RingBridge")return p.Kind==0&&p.IntegratedRing;if(key.StartsWith("Model"))return modelSettings!=null&&modelSettings.Checked;return new[]{"Ratio","Overall","Shaft","Thickness","Wall","InputRpm","MotorFrame","MotorMount","MotorPilot","MotorHole","MotorLength"}.Contains(key)||(p.Kind==0&&new[]{"Radius","Roller","Eccentric","Clearance","Bore","OutputPins","OutputPin","OutputRadius","Web","Segments"}.Contains(key))||(p.Kind==0&&p.Discs==2&&key=="DiscGap")||(p.BearingSimulation&&new[]{"Bore","BearingInner","BearingWidth","BallDiameter","BallCount"}.Contains(key))||(p.Kind>0&&(key=="Teeth"||key=="OutputShaft"))||((p.Kind==1||p.Kind==3||p.Kind==4)&&key=="Module")||(p.Kind==2&&(key=="Pitch"||key=="Center"))||(p.Kind==3&&new[]{"Planets","PlanetPin","RatioTolerance","StageGap","IntermediateShaft"}.Contains(key));}
+  bool VisibleField(string key){if(key=="AllowableBendingMPa"||key=="ServiceFactor")return true;if(p.Kind>=5)return TransmissionField(key);if(new[]{"WormStarts","WormDiameterFactor","Friction","PressureAngle","ShaftAngle","AxisOffset","SpiralAngle","GloboidDepth","RvPins","CrankCount","PlanetTeeth","SecondPlanetTeeth","FixedMember","SecondInputRpm","InnerPolePairs","OuterPolePairs","MagnetThickness","AirGap","RackLength","RackTravel","RackPosition"}.Contains(key))return false;if(key.StartsWith("Wave")||new[]{"InputTorque","Efficiency","LoadTorque"}.Contains(key))return p.Kind==4;if(p.Kind==4)return new[]{"Ratio","Overall","Shaft","OutputShaft","Module","Thickness","Wall","Clearance","InputRpm","MotorFrame","MotorMount","MotorPilot","MotorHole","MotorLength"}.Contains(key);if(key.StartsWith("Micro"))return p.Kind==0&&p.CycloidLayout==1;if(key=="RingBridge")return p.Kind==0&&p.IntegratedRing;if(key.StartsWith("Model"))return modelSettings!=null&&modelSettings.Checked;return new[]{"Ratio","Overall","Shaft","Thickness","Wall","InputRpm","MotorFrame","MotorMount","MotorPilot","MotorHole","MotorLength"}.Contains(key)||(p.Kind==0&&new[]{"Radius","Roller","Eccentric","Clearance","Bore","OutputPins","OutputPin","OutputRadius","Web","Segments"}.Contains(key))||(p.Kind==0&&p.Discs==2&&key=="DiscGap")||(p.BearingSimulation&&new[]{"Bore","BearingInner","BearingWidth","BallDiameter","BallCount"}.Contains(key))||(p.Kind>0&&(key=="Teeth"||key=="OutputShaft"))||((p.Kind==1||p.Kind==3||p.Kind==4)&&key=="Module")||(p.Kind==2&&(key=="Pitch"||key=="Center"))||(p.Kind==3&&new[]{"Planets","PlanetPin","RatioTolerance","StageGap","IntermediateShaft"}.Contains(key));}
 
   void AddNumber(string key,string titleText,decimal min,decimal max,int digits,decimal step,bool slider){
 
@@ -225,21 +228,21 @@ namespace GearLab {
 
   void RefreshFields(){
 
-   bool old=updating;updating=true;int scroll=-controls.AutoScrollPosition.Y;controls.SuspendLayout();kind.SelectedIndex=p.Kind;scheme.SelectedIndex=p.RingOutput?1:0;scheme.Visible=p.Kind==0;schemeLabel.Visible=p.Kind==0;scheme.Enabled=p.CycloidLayout==0;cycleLayout.Visible=cycleLayoutLabel.Visible=p.Kind==0;cycleLayout.SelectedIndex=p.CycloidLayout;dual.Enabled=p.CycloidLayout==0;auto.Visible=true;exportScope.SelectedIndex=p.ExportScope;preset.SelectedIndex=p.MotorPreset;dual.Visible=p.Kind==0;dual.Checked=p.Discs==2;integratedRing.Visible=p.Kind==0;integratedRing.Checked=p.IntegratedRing;bearings.Checked=p.BearingSimulation;bearings.Visible=p.Kind!=4;bearingPreset.Visible=p.Kind!=4&&p.BearingSimulation;modelSettings.Visible=p.Kind!=4;bearingPreset.SelectedIndex=p.BearingInner==8&&p.Bore==22&&p.BearingWidth==7?1:p.BearingInner==5&&p.Bore==16&&p.BearingWidth==5?2:0;stageMode.Visible=p.Kind==3;stageLabel.Visible=p.Kind==3;stageMode.SelectedIndex=p.PlanetStages;
+   bool old=updating;updating=true;int scroll=-controls.AutoScrollPosition.Y;if(HostedKindChanged!=null)HostedKindChanged(p.Kind);controls.SuspendLayout();kind.SelectedIndex=p.Kind;universalBase.Checked=p.UseUniversalBase;scheme.SelectedIndex=p.RingOutput?1:0;scheme.Visible=p.Kind==0;schemeLabel.Visible=p.Kind==0;scheme.Enabled=p.CycloidLayout==0;cycleLayout.Visible=cycleLayoutLabel.Visible=p.Kind==0;cycleLayout.SelectedIndex=p.CycloidLayout;dual.Enabled=p.CycloidLayout==0;auto.Visible=true;exportScope.SelectedIndex=p.ExportScope;preset.SelectedIndex=p.MotorPreset;dual.Visible=p.Kind==0||p.Kind==7;dual.Checked=p.Discs==2;integratedRing.Visible=p.Kind==0;integratedRing.Checked=p.IntegratedRing;bearings.Checked=p.BearingSimulation;bearings.Visible=p.Kind<4;bearingPreset.Visible=p.Kind<4&&p.BearingSimulation;modelSettings.Visible=p.Kind!=4;bearingPreset.SelectedIndex=p.BearingInner==8&&p.Bore==22&&p.BearingWidth==7?1:p.BearingInner==5&&p.Bore==16&&p.BearingWidth==5?2:0;stageMode.Visible=p.Kind==3;stageLabel.Visible=p.Kind==3;stageMode.SelectedIndex=p.PlanetStages;
 
    foreach(var quick in ratioButtons)quick.Value.Text=(p.Kind==4?WaveQuickRatio(quick.Key):quick.Key)+":1";RefreshViews();
 
-   foreach(var kv in numbers){string key=kv.Key;var n=kv.Value;double value=Convert.ToDouble(typeof(Parameters).GetProperty(key).GetValue(p,null));if(value<(double)n.Minimum||value>(double)n.Maximum)throw new InvalidOperationException("Размер "+key+" вне допустимого диапазона.");n.Commit((decimal)value);boxes[key].Visible=VisibleField(key);bool enabled=!(auto.Checked&&((p.Kind==0&&new[]{"Radius","Eccentric","OutputRadius"}.Contains(key))||(p.Overall>0&&((p.Kind==1||p.Kind==3||p.Kind==4)&&key=="Module"||p.Kind==2&&key=="Center"))));if(p.CycloidLayout==1&&(key=="ModelFlange"||key=="ModelBoltCount"))enabled=false;n.Enabled=enabled;if(sliders.ContainsKey(key)){var t=sliders[key];t.Enabled=enabled;t.Value=(int)((decimal)value*(n.DecimalPlaces==0?1:100));}}
+   foreach(var kv in numbers){string key=kv.Key;var n=kv.Value;double value=Convert.ToDouble(typeof(Parameters).GetProperty(key).GetValue(p,null));if(key=="InputRpm"){n.Minimum=p.Kind>=5?-100000:.1m;n.Maximum=p.Kind>=5?100000:3000;}if(value<(double)n.Minimum||value>(double)n.Maximum)throw new InvalidOperationException("Размер "+key+" вне допустимого диапазона.");n.Commit((decimal)value);boxes[key].Visible=VisibleField(key);bool enabled=!(auto.Checked&&((p.Kind==0&&new[]{"Radius","Eccentric","OutputRadius"}.Contains(key))||(p.Overall>0&&((p.Kind==1||p.Kind==3||p.Kind==4)&&key=="Module"||p.Kind==2&&key=="Center"))));if(p.CycloidLayout==1&&(key=="ModelFlange"||key=="ModelBoltCount"))enabled=false;n.Enabled=enabled;if(sliders.ContainsKey(key)){var t=sliders[key];t.Enabled=enabled;t.Value=(int)((decimal)value*(n.DecimalPlaces==0?1:100));}}
 
    controls.ResumeLayout();controls.AutoScrollPosition=new Point(0,scroll);updating=old;
 
   }
 
-  void Apply(Parameters value,bool autoMode){int keepView=canvas.View>=5?canvas.View:0;updating=true;p=Engine.Clone(value);p.AutoFit=autoMode;auto.Checked=autoMode;dirty=false;updating=false;canvas.Phase=0;canvas.StageIndex=0;canvas.View=0;canvas.ShowMotion=false;run.Text="Запустить";RefreshFields();Recalculate();if(keepView>=5)ShowModelView(keepView);}
+  void Apply(Parameters value,bool autoMode){if(robotContext)value.UseUniversalBase=false;int keepView=canvas.View>=5?canvas.View:0;updating=true;p=Engine.Clone(value);p.AutoFit=autoMode;auto.Checked=autoMode;dirty=false;updating=false;canvas.Phase=0;canvas.StageIndex=0;canvas.View=0;canvas.ShowMotion=false;run.Text="Запустить";RefreshFields();Recalculate();if(keepView>=5)ShowModelView(keepView);}
 
   void Recalculate(bool fitWorking=true){
 
-   if(updating)return;p.AutoFit=auto.Checked;bool autoFailed=false;string beforeFit=GeometryKey(p);if(auto.Checked&&fitWorking){if(fitKey!=beforeFit){lastFitFailed=!Engine.FitOverall(p);fitKey=GeometryKey(p);}autoFailed=lastFitFailed;}else if(!auto.Checked)fitKey=null;result=Engine.Calculate(p);if(!fitWorking&&auto.Checked&&result.Valid){fitKey=GeometryKey(p);lastFitFailed=false;}string key=GeometryKey(p);if(key!=modelKey||cachedModel==null){cachedModel=CadBuilder.Build(result);modelKey=key;}result.Model=cachedModel;if(autoFailed)result.Error("Автоподбор не нашёл допустимую геометрию. Увеличьте общий габарит или измените отношение, вал, подшипник и размеры деталей.","Overall");
+   if(updating)return;p.AutoFit=auto.Checked;bool autoFailed=false;string beforeFit=GeometryKey(p);if(auto.Checked&&fitWorking){if(fitKey!=beforeFit){lastFitFailed=!Engine.FitOverall(p);fitKey=GeometryKey(p);}autoFailed=lastFitFailed;}else if(!auto.Checked)fitKey=null;result=Engine.Calculate(p);if(!fitWorking&&auto.Checked&&result.Valid){fitKey=GeometryKey(p);lastFitFailed=false;}string key=GeometryKey(p);if(key!=modelKey||cachedModel==null){cachedModel=CadBuilder.Build(result);modelKey=key;}result.Model=cachedModel;if(p.Kind>=5&&result.Valid&&cachedModel.Valid&&result.TransmissionMotions.Count==0)TransmissionGeometry.BindCached(result,cachedModel);if(autoFailed)result.Error("Автоподбор не нашёл допустимую геометрию. Увеличьте общий габарит или измените отношение, вал, подшипник и размеры деталей.","Overall");
 
    RefreshFields();dirty=false;canvas.Result=result;if(!result.Valid){canvas.ShowMotion=false;run.Text="Запустить";}canvas.Invalidate();
 
@@ -251,6 +254,7 @@ namespace GearLab {
 
    banner.Text=result.Valid?(p.Kind==0?Engine.Scheme(p)+". ":"Фактическое отношение: "+Engine.F(result.Actual)+":1. ")+"Габарит: "+Engine.F(result.Width)+" × "+Engine.F(result.Height)+" мм; пакет ≈ "+Engine.F(result.Depth)+" мм.\n"+(auto.Checked?"Геометрия подбирается под размер. ":"Ручные размеры. ")+"Проверки пройдены; прочность и ресурс не рассчитаны.":"Ошибки геометрии: "+result.Errors.Count+". Чертёж и экспорт выключены.\n"+string.Join("\n",result.Errors.Take(2));
 
+   if(result.Valid&&result.Engineering!=null&&result.Engineering.MultiInput){title.Text="Дифференциальный · два входа · Уиллис";banner.Text="Входы: "+Engine.F(p.InputRpm)+" / "+Engine.F(p.SecondInputRpm)+" об/мин. Выход: "+Engine.F(result.Engineering.OutputRpm)+" об/мин.\nОдного передаточного числа и входного момента недостаточно для определения двухвходовой мощности.";}
    if(result.Valid&&result.Model.Valid){var full=result.Model.Bounds();banner.Text+="\nПолная сборка с мотором: "+Engine.F(full[1]-full[0])+" × "+Engine.F(full[3]-full[2])+" × "+Engine.F(full[5]-full[4])+" мм. STEP — все детали в миллиметрах.";}else if(result.Valid){banner.BackColor=Color.FromArgb(255,244,216);banner.ForeColor=Color.FromArgb(115,75,12);banner.Text="Рабочие профили рассчитаны, но 3D-сборка не построена.\n"+string.Join(";",result.Model.Errors.Take(1))+"\nВыберите набор размеров заново или нажмите «Сбросить 3D» для параметров корпуса и опор.";}
 
    metrics.Rows.Clear();if(result.Model.Valid){var bounds=result.Model.Bounds();result.Metric("Полная 3D-сборка, с мотором",Engine.F(bounds[1]-bounds[0])+" × "+Engine.F(bounds[3]-bounds[2])+" × "+Engine.F(bounds[5]-bounds[4])+" мм");result.Metric("Компонентов 3D",result.Model.Parts.Count.ToString());}foreach(var row in result.Metrics)metrics.Rows.Add(row);bom.Rows.Clear();foreach(var item in result.Items)bom.Rows.Add(item.Name,item.Size,item.Qty,item.Status);metrics.ClearSelection();bom.ClearSelection();
@@ -275,13 +279,13 @@ namespace GearLab {
 
   bool HasChanges(){return savedState!=null&&(dirty||ReleaseSupport.Serialize(p)!=savedState);}
 
-  void UpdateCaption(){Text="Gear Lab 5.6.0 · "+(string.IsNullOrEmpty(currentFile)?"Новый проект":Path.GetFileName(currentFile))+(HasChanges()?" *":"");}
+  void UpdateCaption(){Text="Gear Lab 6.0 Preview 1 · "+(string.IsNullOrEmpty(currentFile)?"Новый проект":Path.GetFileName(currentFile))+(HasChanges()?" *":"");}
 
   bool ConfirmChanges(){if(!HasChanges())return true;var answer=dialogs.Unsaved(this);return answer==DialogResult.No||answer==DialogResult.Yes&&SaveProject();}
 
   bool SaveProject(bool saveAs=false){if(!ReadControls())return false;Recalculate();string path=!saveAs&&!string.IsNullOrEmpty(currentFile)?currentFile:dialogs.Save(this,"gear.json",string.IsNullOrEmpty(currentFile)?"Редуктор_"+kinds[p.Kind]+(p.CycloidLayout==1?"_Micro":"")+"_"+Engine.N(p.Ratio)+"к1.gear.json":Path.GetFileName(currentFile));if(path==null)return false;return Attempt(()=>{ReleaseSupport.WriteText(path,ReleaseSupport.Serialize(p),new UTF8Encoding(true));currentFile=path;savedState=ReleaseSupport.Serialize(p);UpdateCaption();footer.Text="Проект сохранён: "+path;});}
 
-  Parameters ParseProject(string text){var value=ReleaseSupport.Parse(text);foreach(var kv in numbers){var prop=typeof(Parameters).GetProperty(kv.Key);double v=Convert.ToDouble(prop.GetValue(value,null));if(double.IsNaN(v)||double.IsInfinity(v)||v<(double)kv.Value.Minimum||v>(double)kv.Value.Maximum||Math.Abs(Math.Round(v,kv.Value.DecimalPlaces)-v)>1e-8)throw new Exception("Параметр "+kv.Key+" вне диапазона/точности поля. Проект не изменён.");}return value;}
+  Parameters ParseProject(string text){var value=ReleaseSupport.Parse(text);foreach(var kv in numbers){var prop=typeof(Parameters).GetProperty(kv.Key);double v=Convert.ToDouble(prop.GetValue(value,null));if(double.IsNaN(v)||double.IsInfinity(v)||v<(kv.Key=="InputRpm"?(value.Kind>=5?-100000:.1):(double)kv.Value.Minimum)||v>(kv.Key=="InputRpm"?(value.Kind>=5?100000:3000):(double)kv.Value.Maximum)||Math.Abs(Math.Round(v,kv.Value.DecimalPlaces)-v)>1e-8)throw new Exception("Параметр "+kv.Key+" вне диапазона/точности поля. Проект не изменён.");}return value;}
 
   void OpenProject(){string path=dialogs.Open(this);if(path!=null)LoadProjectFile(path);}
 
@@ -293,7 +297,7 @@ namespace GearLab {
 
   bool Attempt(Action action){try{action();return true;}catch(Exception ex){dialogs.Info(this,ex.Message,"Не удалось выполнить действие");return false;}}
 
-  void Export(string type){if(p.Kind==4&&type=="step"){ExportWaveStep();return;}if(!ReadControls())return;Recalculate();if((type=="step"||p.ExportScope!=1)&&result.Valid&&!result.Model.Valid){dialogs.Info(this,"Полная модель не построена: "+string.Join(";",result.Model.Errors)+"\nУточните параметры 3D или выберите экспорт рабочих профилей.","Экспорт");return;}if(type!="csv"&&!result.Valid){dialogs.Info(this,"Эскиз доступен только после исправления ошибок геометрии.","Экспорт");return;}
+  void Export(string type){if(p.Kind>=5&&type=="step"){ExportTransmissionStep();return;}if(p.Kind==4&&type=="step"){ExportWaveStep();return;}if(!ReadControls())return;Recalculate();if((type=="step"||p.ExportScope!=1)&&result.Valid&&!result.Model.Valid){dialogs.Info(this,"Полная модель не построена: "+string.Join(";",result.Model.Errors)+"\nУточните параметры 3D или выберите экспорт рабочих профилей.","Экспорт");return;}if(type!="csv"&&!result.Valid){dialogs.Info(this,"Эскиз доступен только после исправления ошибок геометрии.","Экспорт");return;}
 
    string file=(result.Valid?"Редуктор_":"ЧЕРНОВИК_")+kinds[p.Kind]+(p.CycloidLayout==1?"_Micro":"")+"_"+Engine.N(p.Ratio)+"к1"+(p.Kind==0?(p.RingOutput?"_кольцо":"_центр"):"")+"."+type;string path=dialogs.Save(this,type,file);if(path!=null)Attempt(()=>{Cursor=Cursors.WaitCursor;try{ReleaseSupport.Export(result,type,path);}finally{Cursor=Cursors.Default;}footer.Text="Экспорт сохранён: "+path;});
 

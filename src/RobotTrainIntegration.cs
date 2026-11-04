@@ -1,0 +1,12 @@
+﻿using System;using System.Linq;using System.Drawing;using System.Windows.Forms;
+namespace GearLab {
+ public sealed partial class RobotDesignerForm {
+  void TrainTransmission(){var joint=Joint;if(joint==null)return;string id=joint.Id;var seed=joint.TrainSettings??TransmissionTrain.Example();var form=new TrainDesignerForm(seed);form.ConfigureForRobot((train,output)=>Mutate(()=>{var j=Document.Find(id);if(j==null)throw new Exception("Шарнир удалён.");RobotTrainIntegration.Apply(j,train,output);}));form.ShowWorkspace(this);}
+ }
+ public static class RobotTrainIntegration {
+  public static void Apply(RobotJoint j,TransmissionTrain train,string output){var solution=TrainSolver.Solve(train);TrainState state;if(!solution.Valid||!solution.States.TryGetValue(output,out state))throw new Exception("Граф не рассчитан.");if(train.Stages.Any(n=>n.PowerShare!=1||n.SecondParent!=null)||train.Stages.Count(n=>n.Parent==null)!=1||train.Stages.GroupBy(n=>n.Parent??"MOTOR").Any(g=>g.Count()>1))throw new Exception("Один сустав использует последовательную цепь с одним выходом. Разветвлённые графы остаются в конструкторе механизмов.");RobotTransmission60.ValidateJoint(j,state.Result);j.TrainSettings=CADDocument.Serializer().Deserialize<TransmissionTrain>(CADDocument.Serializer().Serialize(train));j.TrainOutput=output;j.ReducerSettings=null;j.CustomTransmission=null;j.TransmissionOutput=null;j.Reduction=1/Math.Abs(j.Linear?state.InputGain:state.OutputGain);j.Efficiency=solution.States.Values.Aggregate(1.0,(v,n)=>v*n.Efficiency);if(state.Result.P.Kind==12)j.ScrewLead=Math.PI*state.Result.P.Module*state.Result.P.Teeth;j.GearboxLength=Math.Max(j.GearboxLength,solution.Scene.Model.Bounds()[5]-solution.Scene.Model.Bounds()[4]);if(j.GearboxLength>180)throw new Exception("Цепь длиннее 180 мм — текущий генератор сустава не может корректно разместить её. Измените компоновку в конструкторе ступеней.");}
+ }
+ public sealed partial class TrainDesignerForm {
+  public void ConfigureForRobot(Func<TransmissionTrain,string,bool> accept){var b=new Button{Text="Использовать цепь в суставе",Dock=DockStyle.Bottom,Height=40,BackColor=Color.FromArgb(39,128,98),ForeColor=Color.White};b.Click+=(s,e)=>{Calculate();if(solution==null||!solution.Valid)return;var leaves=solution.States.Values.Where(st=>!document.Stages.Any(n=>n.Parent==st.Id||n.SecondParent==st.Id)).ToList();if(leaves.Count!=1){status.Text="Для сустава нужен один выход.";return;}if(accept(document,leaves[0].Id)){approved=true;Close();}};Controls.Add(b);b.BringToFront();}
+ }
+}

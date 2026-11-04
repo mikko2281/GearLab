@@ -1,0 +1,8 @@
+﻿PASS analytic gravity: 1 kg / 100 mm / safety 1.5 = 1.4715 Nm; vertical lever 0; motor reduction/efficiency.
+PASS branched load projection, prismatic force, lead screw units and speed-characteristic limit.
+PASS robot tree FK, pose limits, three real CAD body variants, mounting-pattern relocation, persistence and oriented STEP assembly.
+PASS supplied STEP dimensions, independent torque/mass inputs, embedded custom gears and calculator reducer.
+PASS closed tubular body, independent service lids, motor envelope, screw/cable patterns, parametric sizing, watertight panel, persistence and native view.
+PASS polygon manifold/winding, extrusion, subdivision, STL/OBJ roundtrip and mesh override persistence; smooth STEP refusal explicit.
+PASS oriented CAD bounds and STEP, settings persistence, snapping, native robot and polygon UI, view/STEP pose agreement.
+PASS 1044 robotics assertions.

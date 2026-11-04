@@ -1,53 +1,106 @@
-﻿using System;using System.IO;using System.Text;using System.Linq;using System.Collections.Generic;
-namespace GearLab {
- using System.Windows.Media.Media3D;
- public sealed class StepExport {
-  StringBuilder data=new StringBuilder();int next;Dictionary<string,int> points=new Dictionary<string,int>(),vertices=new Dictionary<string,int>(),edges=new Dictionary<string,int>();
-  Dictionary<CadLoop,List<StepSpan>> profiles=new Dictionary<CadLoop,List<StepSpan>>();
-  Dictionary<string,int> curves=new Dictionary<string,int>();
-  Matrix3D placement=Matrix3D.Identity;
-  List<StepSpan> Profile(CadLoop loop){List<StepSpan> spans;if(!profiles.TryGetValue(loop,out spans)){spans=StepProfile.Build(loop);profiles[loop]=spans;}return spans;}
-  int Spline(StepSpan span,double z){string key=span.Key()+"@"+CadNumbers.F(z);int curve;if(!curves.TryGetValue(key,out curve)){curve=Add("B_SPLINE_CURVE_WITH_KNOTS('',3,"+Refs(Enumerable.Range(0,4).Select(i=>Point(span.X[i],span.Y[i],z)))+",.UNSPECIFIED.,.F.,.F.,(4,4),(0.,1.),.UNSPECIFIED.)");curves[key]=curve;}return curve;}
-  int ProfileEdge(StepSpan span,double z){if(span.Line)return LineEdge(new[]{span.X[0],span.Y[0],z},new[]{span.X[1],span.Y[1],z});int curve=Spline(span,z);string key="B:"+curve;int edge;if(!edges.TryGetValue(key,out edge)){edge=Add("EDGE_CURVE('',"+Ref(Vertex(span.X[0],span.Y[0],z))+","+Ref(Vertex(span.X[3],span.Y[3],z))+","+Ref(curve)+",.T.)");edges[key]=edge;}return edge;}
-  int Add(string entity){int n=++next;data.Append('#').Append(n).Append('=').Append(entity).Append(";\r\n");return n;}
-  static string Ref(int n){return "#"+n;}static string Refs(IEnumerable<int> ids){return "("+string.Join(",",ids.Select(Ref))+")";}static string Text(string s){return "'"+s.Replace("'","''")+"'";}
-  int Point(double x,double y,double z){var p=placement.Transform(new Point3D(x,y,z));string key=CadNumbers.F(p.X)+","+CadNumbers.F(p.Y)+","+CadNumbers.F(p.Z);int id;if(!points.TryGetValue(key,out id)){id=Add("CARTESIAN_POINT('',("+key+"))");points[key]=id;}return id;}
-  int Vertex(double x,double y,double z){int point=Point(x,y,z),id;if(!vertices.TryGetValue(point.ToString(),out id)){id=Add("VERTEX_POINT('',"+Ref(point)+")");vertices[point.ToString()]=id;}return id;}
-  int Direction(double x,double y,double z){var v=placement.Transform(new Vector3D(x,y,z));return Add("DIRECTION('',("+CadNumbers.F(v.X)+","+CadNumbers.F(v.Y)+","+CadNumbers.F(v.Z)+"))");}
-  int Axis(double x,double y,double z,double nx,double ny,double nz,double rx,double ry,double rz){return Add("AXIS2_PLACEMENT_3D('',"+Ref(Point(x,y,z))+","+Ref(Direction(nx,ny,nz))+","+Ref(Direction(rx,ry,rz))+")");}
-  int LineEdge(double[] a,double[] b){int va=Vertex(a[0],a[1],a[2]),vb=Vertex(b[0],b[1],b[2]);string key=va+":"+vb;int id;if(edges.TryGetValue(key,out id))return id;double dx=b[0]-a[0],dy=b[1]-a[1],dz=b[2]-a[2],length=Math.Sqrt(dx*dx+dy*dy+dz*dz);if(length<1e-8)throw new Exception("Нулевое ребро STEP.");int vector=Add("VECTOR('',"+Ref(Direction(dx/length,dy/length,dz/length))+",1.)"),line=Add("LINE('',"+Ref(Point(a[0],a[1],a[2]))+","+Ref(vector)+")");id=Add("EDGE_CURVE('',"+Ref(va)+","+Ref(vb)+","+Ref(line)+",.T.)");edges[key]=id;return id;}
-  int Oriented(int edge,bool same){return Add("ORIENTED_EDGE('',*,*,"+Ref(edge)+","+(same?".T.":".F.")+")");}
-  int Wire(CadLoop loop,double z){return Add("EDGE_LOOP('',"+Refs(LoopEdges(loop,z).Select(e=>Oriented(e,true)))+")");}
-  int[] LoopEdges(CadLoop loop,double z){
-   if(loop.Circle){int vertex=Vertex(loop.X+loop.R,loop.Y,z);string key="C:"+vertex+":"+CadNumbers.F(loop.R);int edge;if(!edges.TryGetValue(key,out edge)){int circle=Add("CIRCLE('',"+Ref(Axis(loop.X,loop.Y,z,0,0,1,1,0,0))+","+CadNumbers.F(loop.R)+")");edge=Add("EDGE_CURVE('',"+Ref(vertex)+","+Ref(vertex)+","+Ref(circle)+",.T.)");edges[key]=edge;}return new[]{edge};}
-   return Profile(loop).Select(span=>ProfileEdge(span,z)).ToArray();
-  }
-  int Cap(CadLoop outer,IEnumerable<CadLoop> holes,double z,bool up){var bounds=new List<int>{Add("FACE_OUTER_BOUND('',"+Ref(Wire(outer,z))+","+(up?".T.":".F.")+")")};foreach(var h in holes)bounds.Add(Add("FACE_BOUND('',"+Ref(Wire(h,z))+","+(up?".F.":".T.")+")"));var c=outer.Center();int plane=Add("PLANE('',"+Ref(Axis(c.X,c.Y,z,0,0,1,1,0,0))+")");return Add("ADVANCED_FACE('',"+Refs(bounds)+","+Ref(plane)+","+(up?".T.":".F.")+")");}
-  IEnumerable<int> Sides(CadLoop loop,double bottom,double top,bool hole){var lower=LoopEdges(loop,bottom);var upper=LoopEdges(loop,top);var spans=loop.Circle?null:Profile(loop);var pts=loop.Circle?new[]{new[]{loop.X+loop.R,loop.Y}}:spans.Select(v=>new[]{v.X[0],v.Y[0]}).ToArray();
-   for(int j=0;j<pts.Length;j++){int k=(j+1)%pts.Length;var a=pts[j];var b=pts[k];int right=LineEdge(new[]{b[0],b[1],bottom},new[]{b[0],b[1],top}),left=LineEdge(new[]{a[0],a[1],bottom},new[]{a[0],a[1],top});int wire=Add("EDGE_LOOP('',"+Refs(new[]{Oriented(lower[j],true),Oriented(right,true),Oriented(upper[j],false),Oriented(left,false)})+")"),bound=Add("FACE_OUTER_BOUND('',"+Ref(wire)+","+(hole?".F.":".T.")+")");int surface;
-    if(loop.Circle)surface=Add("CYLINDRICAL_SURFACE('',"+Ref(Axis(loop.X,loop.Y,0,0,0,1,1,0,0))+","+CadNumbers.F(loop.R)+")");else if(!spans[j].Line){int vector=Add("VECTOR('',"+Ref(Direction(0,0,1))+",1.)");surface=Add("SURFACE_OF_LINEAR_EXTRUSION('',"+Ref(Spline(spans[j],bottom))+","+Ref(vector)+")");}else{double dx=b[0]-a[0],dy=b[1]-a[1],length=Math.Sqrt(dx*dx+dy*dy);surface=Add("PLANE('',"+Ref(Axis(a[0],a[1],bottom,dy/length,-dx/length,0,dx/length,dy/length,0))+")");}
-    yield return Add("ADVANCED_FACE('',("+Ref(bound)+"),"+Ref(surface)+","+(hole?".F.":".T.")+")");
-   }
-  }
-  static bool Same(CadLoop a,CadLoop b){return a.Key()==b.Key();}
-  static bool Inside(CadLoop a,CadLoop b){return a.Sample(32).All(p=>b.Contains(p.X,p.Y));}
-  IEnumerable<int> Transition(CadSection a,CadSection b){double z=a.Top;
-   if(!Same(a.Outer,b.Outer)){
-    bool shrink=Inside(b.Outer,a.Outer),grow=Inside(a.Outer,b.Outer);if(!shrink&&!grow)throw new Exception("Сечения не вложены: нужен CAD Boolean.");var larger=shrink?a:b;var small=shrink?b.Outer:a.Outer;var holes=new List<CadLoop>{small};holes.AddRange(larger.Holes.Where(h=>{var c=h.Center();return !small.Contains(c.X,c.Y);}));yield return Cap(larger.Outer,holes,z,shrink);
-   }
-   foreach(var face in CadTransitions.HoleFaces(a,b))yield return Cap(face.Outer,face.Holes,z,face.Up);
-  }
-  int Solid(CadPart part){if(part.MeshOverride!=null)throw new Exception("Полигональная деталь экспортируется в STL/OBJ. Восстановите параметрическое тело для STEP: "+part.Label);placement=part.Placement;vertices.Clear();edges.Clear();curves.Clear();var faces=new List<int>();for(int j=0;j<part.Sections.Count;j++){var s=part.Sections[j];faces.AddRange(Sides(s.Outer,s.Bottom,s.Top,false));foreach(var h in s.Holes)faces.AddRange(Sides(h,s.Bottom,s.Top,true));if(j==0)faces.Add(Cap(s.Outer,s.Holes,s.Bottom,false));else faces.AddRange(Transition(part.Sections[j-1],s));if(j==part.Sections.Count-1)faces.Add(Cap(s.Outer,s.Holes,s.Top,true));}int shell=Add("CLOSED_SHELL('',"+Refs(faces)+")");int solid=Add("MANIFOLD_SOLID_BREP("+Text(part.Id)+","+Ref(shell)+")");placement=Matrix3D.Identity;return solid;}
-  public static void Write(CadAssembly assembly,string path){if(!assembly.Valid)throw new Exception("3D-модель недопустима: "+string.Join(";",assembly.Errors));if(assembly.Parts.Any(p=>p.NativeStep!=null)){CADNativeBridge.WriteAssembly(assembly,path);return;}new StepExport().Save(assembly,path);}
-  void Save(CadAssembly model,string path){
-   int app=Add("APPLICATION_CONTEXT('automotive design')");Add("APPLICATION_PROTOCOL_DEFINITION('international standard','automotive_design',2000,"+Ref(app)+")");int pc=Add("PRODUCT_CONTEXT('',"+Ref(app)+",'mechanical')"),pdc=Add("PRODUCT_DEFINITION_CONTEXT('part definition',"+Ref(app)+",'design')");
-   int mm=Add("(LENGTH_UNIT() NAMED_UNIT(*) SI_UNIT(.MILLI.,.METRE.))"),rad=Add("(NAMED_UNIT(*) PLANE_ANGLE_UNIT() SI_UNIT($,.RADIAN.))"),sr=Add("(NAMED_UNIT(*) SI_UNIT($,.STERADIAN.) SOLID_ANGLE_UNIT())"),tol=Add("UNCERTAINTY_MEASURE_WITH_UNIT(LENGTH_MEASURE(1.E-6),"+Ref(mm)+",'distance_accuracy_value','')"),context=Add("(GEOMETRIC_REPRESENTATION_CONTEXT(3) GLOBAL_UNCERTAINTY_ASSIGNED_CONTEXT(("+Ref(tol)+")) GLOBAL_UNIT_ASSIGNED_CONTEXT(("+Ref(mm)+","+Ref(rad)+","+Ref(sr)+")) REPRESENTATION_CONTEXT('',''))");
-   int origin=Axis(0,0,0,0,0,1,1,0,0);int rootProduct=Add("PRODUCT('GearLab','GearLab Assembly','Complete geometric assembly',("+Ref(pc)+"))"),rootForm=Add("PRODUCT_DEFINITION_FORMATION('','',"+Ref(rootProduct)+")"),rootPD=Add("PRODUCT_DEFINITION('design','',"+Ref(rootForm)+","+Ref(pdc)+")"),rootShape=Add("PRODUCT_DEFINITION_SHAPE('','',"+Ref(rootPD)+")"),rootRep=Add("SHAPE_REPRESENTATION('GearLab Assembly',("+Ref(origin)+"),"+Ref(context)+")");Add("SHAPE_DEFINITION_REPRESENTATION("+Ref(rootShape)+","+Ref(rootRep)+")");
-   foreach(var part in model.Parts){int solid=Solid(part),rep=Add("ADVANCED_BREP_SHAPE_REPRESENTATION("+Text(part.Id)+",("+Ref(origin)+","+Ref(solid)+"),"+Ref(context)+")"),product=Add("PRODUCT("+Text(part.Id)+","+Text(part.Id)+",'',("+Ref(pc)+"))"),form=Add("PRODUCT_DEFINITION_FORMATION('','',"+Ref(product)+")"),pd=Add("PRODUCT_DEFINITION('design','',"+Ref(form)+","+Ref(pdc)+")"),shape=Add("PRODUCT_DEFINITION_SHAPE('','',"+Ref(pd)+")");Add("SHAPE_DEFINITION_REPRESENTATION("+Ref(shape)+","+Ref(rep)+")");int usage=Add("NEXT_ASSEMBLY_USAGE_OCCURRENCE("+Text(part.Id)+","+Text(part.Id)+",'',"+Ref(rootPD)+","+Ref(pd)+",$)"),usageShape=Add("PRODUCT_DEFINITION_SHAPE('','',"+Ref(usage)+")"),transform=Add("ITEM_DEFINED_TRANSFORMATION('','',"+Ref(origin)+","+Ref(origin)+")"),relation=Add("(REPRESENTATION_RELATIONSHIP('','',"+Ref(rootRep)+","+Ref(rep)+") REPRESENTATION_RELATIONSHIP_WITH_TRANSFORMATION("+Ref(transform)+") SHAPE_REPRESENTATION_RELATIONSHIP())");Add("CONTEXT_DEPENDENT_SHAPE_REPRESENTATION("+Ref(relation)+","+Ref(usageShape)+")");
-    int color=Add("COLOUR_RGB('',"+CadNumbers.F(part.Color.R/255.0)+","+CadNumbers.F(part.Color.G/255.0)+","+CadNumbers.F(part.Color.B/255.0)+")"),fill=Add("FILL_AREA_STYLE_COLOUR('',"+Ref(color)+")"),style=Add("FILL_AREA_STYLE('',("+Ref(fill)+"))"),surface=Add("SURFACE_STYLE_FILL_AREA("+Ref(style)+")"),side=Add("SURFACE_SIDE_STYLE('',("+Ref(surface)+"))"),use=Add("SURFACE_STYLE_USAGE(.BOTH.,"+Ref(side)+")"),assign=Add("PRESENTATION_STYLE_ASSIGNMENT(("+Ref(use)+"))"),item=Add("STYLED_ITEM('',("+Ref(assign)+"),"+Ref(solid)+")");Add("MECHANICAL_DESIGN_GEOMETRIC_PRESENTATION_REPRESENTATION('',("+Ref(item)+"),"+Ref(context)+")");
-   }
-   string header="ISO-10303-21;\r\nHEADER;\r\nFILE_DESCRIPTION(('GearLab complete geometric assembly; units mm; profile tolerance 0.002 mm'),'2;1');\r\nFILE_NAME('GearLab.step','"+DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss")+"',(''),(''),'GearLab 5.6.0','GearLab','');\r\nFILE_SCHEMA(('AUTOMOTIVE_DESIGN'));\r\nENDSEC;\r\nDATA;\r\n";ReleaseSupport.WriteText(path,header+data+"ENDSEC;\r\nEND-ISO-10303-21;\r\n",Encoding.ASCII);
-  }
- }
-}
-
+﻿using System;using System.IO;using System.Text;using System.Linq;using System.Collections.Generic;
+
+namespace GearLab {
+
+ using System.Windows.Media.Media3D;
+
+ public sealed class StepExport {
+
+  StringBuilder data=new StringBuilder();int next;Dictionary<string,int> points=new Dictionary<string,int>(),vertices=new Dictionary<string,int>(),edges=new Dictionary<string,int>();
+
+  Dictionary<CadLoop,List<StepSpan>> profiles=new Dictionary<CadLoop,List<StepSpan>>();
+
+  Dictionary<string,int> curves=new Dictionary<string,int>();
+
+  Matrix3D placement=Matrix3D.Identity;
+
+  List<StepSpan> Profile(CadLoop loop){List<StepSpan> spans;if(!profiles.TryGetValue(loop,out spans)){spans=StepProfile.Build(loop);profiles[loop]=spans;}return spans;}
+
+  int Spline(StepSpan span,double z){string key=span.Key()+"@"+CadNumbers.F(z);int curve;if(!curves.TryGetValue(key,out curve)){curve=Add("B_SPLINE_CURVE_WITH_KNOTS('',3,"+Refs(Enumerable.Range(0,4).Select(i=>Point(span.X[i],span.Y[i],z)))+",.UNSPECIFIED.,.F.,.F.,(4,4),(0.,1.),.UNSPECIFIED.)");curves[key]=curve;}return curve;}
+
+  int ProfileEdge(StepSpan span,double z){if(span.Line)return LineEdge(new[]{span.X[0],span.Y[0],z},new[]{span.X[1],span.Y[1],z});int curve=Spline(span,z);string key="B:"+curve;int edge;if(!edges.TryGetValue(key,out edge)){edge=Add("EDGE_CURVE('',"+Ref(Vertex(span.X[0],span.Y[0],z))+","+Ref(Vertex(span.X[3],span.Y[3],z))+","+Ref(curve)+",.T.)");edges[key]=edge;}return edge;}
+
+  int Add(string entity){int n=++next;data.Append('#').Append(n).Append('=').Append(entity).Append(";\r\n");return n;}
+
+  static string Ref(int n){return "#"+n;}static string Refs(IEnumerable<int> ids){return "("+string.Join(",",ids.Select(Ref))+")";}static string Text(string s){return "'"+s.Replace("'","''")+"'";}
+
+  int Point(double x,double y,double z){var p=placement.Transform(new Point3D(x,y,z));string key=CadNumbers.F(p.X)+","+CadNumbers.F(p.Y)+","+CadNumbers.F(p.Z);int id;if(!points.TryGetValue(key,out id)){id=Add("CARTESIAN_POINT('',("+key+"))");points[key]=id;}return id;}
+
+  int Vertex(double x,double y,double z){int point=Point(x,y,z),id;if(!vertices.TryGetValue(point.ToString(),out id)){id=Add("VERTEX_POINT('',"+Ref(point)+")");vertices[point.ToString()]=id;}return id;}
+
+  int Direction(double x,double y,double z){var v=placement.Transform(new Vector3D(x,y,z));return Add("DIRECTION('',("+CadNumbers.F(v.X)+","+CadNumbers.F(v.Y)+","+CadNumbers.F(v.Z)+"))");}
+
+  int Axis(double x,double y,double z,double nx,double ny,double nz,double rx,double ry,double rz){return Add("AXIS2_PLACEMENT_3D('',"+Ref(Point(x,y,z))+","+Ref(Direction(nx,ny,nz))+","+Ref(Direction(rx,ry,rz))+")");}
+
+  int LineEdge(double[] a,double[] b){int va=Vertex(a[0],a[1],a[2]),vb=Vertex(b[0],b[1],b[2]);string key=va+":"+vb;int id;if(edges.TryGetValue(key,out id))return id;double dx=b[0]-a[0],dy=b[1]-a[1],dz=b[2]-a[2],length=Math.Sqrt(dx*dx+dy*dy+dz*dz);if(length<1e-8)throw new Exception("Нулевое ребро STEP.");int vector=Add("VECTOR('',"+Ref(Direction(dx/length,dy/length,dz/length))+",1.)"),line=Add("LINE('',"+Ref(Point(a[0],a[1],a[2]))+","+Ref(vector)+")");id=Add("EDGE_CURVE('',"+Ref(va)+","+Ref(vb)+","+Ref(line)+",.T.)");edges[key]=id;return id;}
+
+  int Oriented(int edge,bool same){return Add("ORIENTED_EDGE('',*,*,"+Ref(edge)+","+(same?".T.":".F.")+")");}
+
+  int Wire(CadLoop loop,double z){return Add("EDGE_LOOP('',"+Refs(LoopEdges(loop,z).Select(e=>Oriented(e,true)))+")");}
+
+  int[] LoopEdges(CadLoop loop,double z){
+
+   if(loop.Circle){int vertex=Vertex(loop.X+loop.R,loop.Y,z);string key="C:"+vertex+":"+CadNumbers.F(loop.R);int edge;if(!edges.TryGetValue(key,out edge)){int circle=Add("CIRCLE('',"+Ref(Axis(loop.X,loop.Y,z,0,0,1,1,0,0))+","+CadNumbers.F(loop.R)+")");edge=Add("EDGE_CURVE('',"+Ref(vertex)+","+Ref(vertex)+","+Ref(circle)+",.T.)");edges[key]=edge;}return new[]{edge};}
+
+   return Profile(loop).Select(span=>ProfileEdge(span,z)).ToArray();
+
+  }
+
+  int Cap(CadLoop outer,IEnumerable<CadLoop> holes,double z,bool up){var bounds=new List<int>{Add("FACE_OUTER_BOUND('',"+Ref(Wire(outer,z))+","+(up?".T.":".F.")+")")};foreach(var h in holes)bounds.Add(Add("FACE_BOUND('',"+Ref(Wire(h,z))+","+(up?".F.":".T.")+")"));var c=outer.Center();int plane=Add("PLANE('',"+Ref(Axis(c.X,c.Y,z,0,0,1,1,0,0))+")");return Add("ADVANCED_FACE('',"+Refs(bounds)+","+Ref(plane)+","+(up?".T.":".F.")+")");}
+
+  IEnumerable<int> Sides(CadLoop loop,double bottom,double top,bool hole){var lower=LoopEdges(loop,bottom);var upper=LoopEdges(loop,top);var spans=loop.Circle?null:Profile(loop);var pts=loop.Circle?new[]{new[]{loop.X+loop.R,loop.Y}}:spans.Select(v=>new[]{v.X[0],v.Y[0]}).ToArray();
+
+   for(int j=0;j<pts.Length;j++){int k=(j+1)%pts.Length;var a=pts[j];var b=pts[k];int right=LineEdge(new[]{b[0],b[1],bottom},new[]{b[0],b[1],top}),left=LineEdge(new[]{a[0],a[1],bottom},new[]{a[0],a[1],top});int wire=Add("EDGE_LOOP('',"+Refs(new[]{Oriented(lower[j],true),Oriented(right,true),Oriented(upper[j],false),Oriented(left,false)})+")"),bound=Add("FACE_OUTER_BOUND('',"+Ref(wire)+","+(hole?".F.":".T.")+")");int surface;
+
+    if(loop.Circle)surface=Add("CYLINDRICAL_SURFACE('',"+Ref(Axis(loop.X,loop.Y,0,0,0,1,1,0,0))+","+CadNumbers.F(loop.R)+")");else if(!spans[j].Line){int vector=Add("VECTOR('',"+Ref(Direction(0,0,1))+",1.)");surface=Add("SURFACE_OF_LINEAR_EXTRUSION('',"+Ref(Spline(spans[j],bottom))+","+Ref(vector)+")");}else{double dx=b[0]-a[0],dy=b[1]-a[1],length=Math.Sqrt(dx*dx+dy*dy);surface=Add("PLANE('',"+Ref(Axis(a[0],a[1],bottom,dy/length,-dx/length,0,dx/length,dy/length,0))+")");}
+
+    yield return Add("ADVANCED_FACE('',("+Ref(bound)+"),"+Ref(surface)+","+(hole?".F.":".T.")+")");
+
+   }
+
+  }
+
+  static bool Same(CadLoop a,CadLoop b){return a.Key()==b.Key();}
+
+  static bool Inside(CadLoop a,CadLoop b){return a.Sample(32).All(p=>b.Contains(p.X,p.Y));}
+
+  IEnumerable<int> Transition(CadSection a,CadSection b){double z=a.Top;
+
+   if(!Same(a.Outer,b.Outer)){
+
+    bool shrink=Inside(b.Outer,a.Outer),grow=Inside(a.Outer,b.Outer);if(!shrink&&!grow)throw new Exception("Сечения не вложены: нужен CAD Boolean.");var larger=shrink?a:b;var small=shrink?b.Outer:a.Outer;var holes=new List<CadLoop>{small};holes.AddRange(larger.Holes.Where(h=>{var c=h.Center();return !small.Contains(c.X,c.Y);}));yield return Cap(larger.Outer,holes,z,shrink);
+
+   }
+
+   foreach(var face in CadTransitions.HoleFaces(a,b))yield return Cap(face.Outer,face.Holes,z,face.Up);
+
+  }
+
+  int Solid(CadPart part){if(part.MeshOverride!=null)throw new Exception("Полигональная деталь экспортируется в STL/OBJ. Восстановите параметрическое тело для STEP: "+part.Label);placement=part.Placement;vertices.Clear();edges.Clear();curves.Clear();var faces=new List<int>();for(int j=0;j<part.Sections.Count;j++){var s=part.Sections[j];faces.AddRange(Sides(s.Outer,s.Bottom,s.Top,false));foreach(var h in s.Holes)faces.AddRange(Sides(h,s.Bottom,s.Top,true));if(j==0)faces.Add(Cap(s.Outer,s.Holes,s.Bottom,false));else faces.AddRange(Transition(part.Sections[j-1],s));if(j==part.Sections.Count-1)faces.Add(Cap(s.Outer,s.Holes,s.Top,true));}int shell=Add("CLOSED_SHELL('',"+Refs(faces)+")");int solid=Add("MANIFOLD_SOLID_BREP("+Text(part.Id)+","+Ref(shell)+")");placement=Matrix3D.Identity;return solid;}
+
+  public static void Write(CadAssembly assembly,string path){if(assembly.Parts.Any(p=>p.Loft!=null)){TransmissionExport.Write(assembly,path);return;}if(!assembly.Valid)throw new Exception("3D-модель недопустима: "+string.Join(";",assembly.Errors));if(assembly.Parts.Any(p=>p.NativeStep!=null)){CADNativeBridge.WriteAssembly(assembly,path);return;}new StepExport().Save(assembly,path);}
+
+  void Save(CadAssembly model,string path){
+
+   int app=Add("APPLICATION_CONTEXT('automotive design')");Add("APPLICATION_PROTOCOL_DEFINITION('international standard','automotive_design',2000,"+Ref(app)+")");int pc=Add("PRODUCT_CONTEXT('',"+Ref(app)+",'mechanical')"),pdc=Add("PRODUCT_DEFINITION_CONTEXT('part definition',"+Ref(app)+",'design')");
+
+   int mm=Add("(LENGTH_UNIT() NAMED_UNIT(*) SI_UNIT(.MILLI.,.METRE.))"),rad=Add("(NAMED_UNIT(*) PLANE_ANGLE_UNIT() SI_UNIT($,.RADIAN.))"),sr=Add("(NAMED_UNIT(*) SI_UNIT($,.STERADIAN.) SOLID_ANGLE_UNIT())"),tol=Add("UNCERTAINTY_MEASURE_WITH_UNIT(LENGTH_MEASURE(1.E-6),"+Ref(mm)+",'distance_accuracy_value','')"),context=Add("(GEOMETRIC_REPRESENTATION_CONTEXT(3) GLOBAL_UNCERTAINTY_ASSIGNED_CONTEXT(("+Ref(tol)+")) GLOBAL_UNIT_ASSIGNED_CONTEXT(("+Ref(mm)+","+Ref(rad)+","+Ref(sr)+")) REPRESENTATION_CONTEXT('',''))");
+
+   int origin=Axis(0,0,0,0,0,1,1,0,0);int rootProduct=Add("PRODUCT('GearLab','GearLab Assembly','Complete geometric assembly',("+Ref(pc)+"))"),rootForm=Add("PRODUCT_DEFINITION_FORMATION('','',"+Ref(rootProduct)+")"),rootPD=Add("PRODUCT_DEFINITION('design','',"+Ref(rootForm)+","+Ref(pdc)+")"),rootShape=Add("PRODUCT_DEFINITION_SHAPE('','',"+Ref(rootPD)+")"),rootRep=Add("SHAPE_REPRESENTATION('GearLab Assembly',("+Ref(origin)+"),"+Ref(context)+")");Add("SHAPE_DEFINITION_REPRESENTATION("+Ref(rootShape)+","+Ref(rootRep)+")");
+
+   foreach(var part in model.Parts){int solid=Solid(part),rep=Add("ADVANCED_BREP_SHAPE_REPRESENTATION("+Text(part.Id)+",("+Ref(origin)+","+Ref(solid)+"),"+Ref(context)+")"),product=Add("PRODUCT("+Text(part.Id)+","+Text(part.Id)+",'',("+Ref(pc)+"))"),form=Add("PRODUCT_DEFINITION_FORMATION('','',"+Ref(product)+")"),pd=Add("PRODUCT_DEFINITION('design','',"+Ref(form)+","+Ref(pdc)+")"),shape=Add("PRODUCT_DEFINITION_SHAPE('','',"+Ref(pd)+")");Add("SHAPE_DEFINITION_REPRESENTATION("+Ref(shape)+","+Ref(rep)+")");int usage=Add("NEXT_ASSEMBLY_USAGE_OCCURRENCE("+Text(part.Id)+","+Text(part.Id)+",'',"+Ref(rootPD)+","+Ref(pd)+",$)"),usageShape=Add("PRODUCT_DEFINITION_SHAPE('','',"+Ref(usage)+")"),transform=Add("ITEM_DEFINED_TRANSFORMATION('','',"+Ref(origin)+","+Ref(origin)+")"),relation=Add("(REPRESENTATION_RELATIONSHIP('','',"+Ref(rootRep)+","+Ref(rep)+") REPRESENTATION_RELATIONSHIP_WITH_TRANSFORMATION("+Ref(transform)+") SHAPE_REPRESENTATION_RELATIONSHIP())");Add("CONTEXT_DEPENDENT_SHAPE_REPRESENTATION("+Ref(relation)+","+Ref(usageShape)+")");
+
+    int color=Add("COLOUR_RGB('',"+CadNumbers.F(part.Color.R/255.0)+","+CadNumbers.F(part.Color.G/255.0)+","+CadNumbers.F(part.Color.B/255.0)+")"),fill=Add("FILL_AREA_STYLE_COLOUR('',"+Ref(color)+")"),style=Add("FILL_AREA_STYLE('',("+Ref(fill)+"))"),surface=Add("SURFACE_STYLE_FILL_AREA("+Ref(style)+")"),side=Add("SURFACE_SIDE_STYLE('',("+Ref(surface)+"))"),use=Add("SURFACE_STYLE_USAGE(.BOTH.,"+Ref(side)+")"),assign=Add("PRESENTATION_STYLE_ASSIGNMENT(("+Ref(use)+"))"),item=Add("STYLED_ITEM('',("+Ref(assign)+"),"+Ref(solid)+")");Add("MECHANICAL_DESIGN_GEOMETRIC_PRESENTATION_REPRESENTATION('',("+Ref(item)+"),"+Ref(context)+")");
+
+   }
+
+   string header="ISO-10303-21;\r\nHEADER;\r\nFILE_DESCRIPTION(('GearLab complete geometric assembly; units mm; profile tolerance 0.002 mm'),'2;1');\r\nFILE_NAME('GearLab.step','"+DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss")+"',(''),(''),'GearLab 5.6.0','GearLab','');\r\nFILE_SCHEMA(('AUTOMOTIVE_DESIGN'));\r\nENDSEC;\r\nDATA;\r\n";ReleaseSupport.WriteText(path,header+data+"ENDSEC;\r\nEND-ISO-10303-21;\r\n",Encoding.ASCII);
+
+  }
+
+ }
+
+}
+
+
+

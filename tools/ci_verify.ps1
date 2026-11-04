@@ -20,7 +20,7 @@ try {
 
         Copy-Item -LiteralPath ('examples/'+$gearName+'.robot.json') -Destination $gearProject
 
-        $gearProcess=Start-Process -FilePath (Join-Path $gearRoot ($OutputFolder+'/GearLab.exe')) -ArgumentList @('--cache-test',('"'+(Join-Path $gearRoot $gearProject)+'"')) -PassThru
+        $gearProcess=Start-Process -FilePath (Join-Path $gearRoot ($OutputFolder+'/GearLab.exe')) -ArgumentList @('--cache-test',('"'+(Join-Path $gearRoot $gearProject)+'"')) -PassThru -WindowStyle Hidden
 
         if(-not $gearProcess.WaitForExit(120000)) { $gearProcess.Kill();throw 'Non-UI executable cache check timed out.' }
 

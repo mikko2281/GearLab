@@ -1,0 +1,59 @@
+{
+  "Ok": true,
+  "Parts": [
+    {
+      "Id": "T_PINION",
+      "Volume_mm3": 2293.979230695867,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RACK",
+      "Volume_mm3": 4323.043428003793,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_GUIDE-1",
+      "Volume_mm3": 3455.751983642578,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_GUIDE1",
+      "Volume_mm3": 3455.751983642578,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_INPUT_SHAFT",
+      "Volume_mm3": 765.7632093125121,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BEARING_IN0",
+      "Volume_mm3": 907.1348787240527,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BEARING_IN1",
+      "Volume_mm3": 907.1348787240527,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_MOTOR_PLATE",
+      "Volume_mm3": 6849.616943541465,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "MOTOR_REFERENCE",
+      "Volume_mm3": 84943.43910577855,
+      "Valid": true,
+      "Solids": 1
+    }
+  ]
+}

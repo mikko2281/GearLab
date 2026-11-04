@@ -1,0 +1,245 @@
+{
+  "Ok": true,
+  "Parts": [
+    {
+      "Id": "T_SUN",
+      "Volume_mm3": 3392.3337961852567,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RING",
+      "Volume_mm3": 8543.461438533335,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_PLANET0_0",
+      "Volume_mm3": 1877.4896272199271,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_PLANET0_1",
+      "Volume_mm3": 1877.4896272199283,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_PLANET_PIN0",
+      "Volume_mm3": 301.5928947446202,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_PLANET1_0",
+      "Volume_mm3": 1877.4896231034104,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_PLANET1_1",
+      "Volume_mm3": 1877.4896231034108,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_PLANET_PIN1",
+      "Volume_mm3": 301.59289474462014,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_PLANET2_0",
+      "Volume_mm3": 1877.489627219931,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_PLANET2_1",
+      "Volume_mm3": 1877.4896272199303,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_PLANET_PIN2",
+      "Volume_mm3": 301.59289474462014,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_CARRIER",
+      "Volume_mm3": 5739.689778108552,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_DIFF_OUTPUT_CAP",
+      "Volume_mm3": 5739.689778108552,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_INPUT_SHAFT",
+      "Volume_mm3": 530.1437602932776,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_OUTPUT_SHAFT",
+      "Volume_mm3": 1299.3627215247386,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BEARING_IN0",
+      "Volume_mm3": 907.1348787240527,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BEARING_IN1",
+      "Volume_mm3": 907.1348787240527,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BEARING_OUT0",
+      "Volume_mm3": 753.9822368615503,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BEARING_OUT1",
+      "Volume_mm3": 753.9822368615504,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_IN0",
+      "Volume_mm3": 2755.090246990935,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_IN0-1",
+      "Volume_mm3": 28.27433388230814,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_IN01",
+      "Volume_mm3": 28.274333882308138,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_IN1",
+      "Volume_mm3": 2755.090246990935,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_IN1-1",
+      "Volume_mm3": 28.27433388230814,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_IN11",
+      "Volume_mm3": 28.274333882308138,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_OUT0",
+      "Volume_mm3": 2755.0902469909342,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_OUT0-1",
+      "Volume_mm3": 28.274333882308134,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_OUT01",
+      "Volume_mm3": 28.274333882308127,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_OUT1",
+      "Volume_mm3": 2755.090246990935,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_OUT1-1",
+      "Volume_mm3": 28.27433388230814,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_OUT11",
+      "Volume_mm3": 28.274333882308138,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BASE",
+      "Volume_mm3": 24512.15222400964,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_RIB0",
+      "Volume_mm3": 2562.2400000000002,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_RIB1",
+      "Volume_mm3": 2562.2400000000002,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_IN0_FOOT",
+      "Volume_mm3": 294.40000000000015,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_IN1_FOOT",
+      "Volume_mm3": 1446.4000000000005,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_OUT0_FOOT",
+      "Volume_mm3": 2288.0000000000005,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_OUT1_FOOT",
+      "Volume_mm3": 3622.400000000001,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_MOTOR_PLATE",
+      "Volume_mm3": 6849.616943541465,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "MOTOR_REFERENCE",
+      "Volume_mm3": 84943.43910577855,
+      "Valid": true,
+      "Solids": 1
+    }
+  ]
+}

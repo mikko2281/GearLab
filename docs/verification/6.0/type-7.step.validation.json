@@ -1,0 +1,389 @@
+{
+  "Ok": true,
+  "Parts": [
+    {
+      "Id": "T_RV_SUN",
+      "Volume_mm3": 555.0077794020788,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_CRANK_GEAR0",
+      "Volume_mm3": 6456.091964664587,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_CRANK0",
+      "Volume_mm3": 607.7096829104096,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_ECC_BEARING0_0",
+      "Volume_mm3": 267.66369408585047,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_ECC_BEARING0_1",
+      "Volume_mm3": 267.6636940858503,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_CRANK_GEAR1",
+      "Volume_mm3": 6456.091952792227,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_CRANK1",
+      "Volume_mm3": 607.7096829104096,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_ECC_BEARING1_0",
+      "Volume_mm3": 267.66369408585024,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_ECC_BEARING1_1",
+      "Volume_mm3": 267.66369408585024,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_CRANK_GEAR2",
+      "Volume_mm3": 6456.09195516864,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_CRANK2",
+      "Volume_mm3": 607.7096829104098,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_ECC_BEARING2_0",
+      "Volume_mm3": 267.6636940858501,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_ECC_BEARING2_1",
+      "Volume_mm3": 267.6636940858502,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_DISC0",
+      "Volume_mm3": 38126.78934782916,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_DISC1",
+      "Volume_mm3": 38126.78948299743,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN0",
+      "Volume_mm3": 251.3274122871835,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN1",
+      "Volume_mm3": 251.3274122871835,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN2",
+      "Volume_mm3": 251.32741228718348,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN3",
+      "Volume_mm3": 251.3274122871834,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN4",
+      "Volume_mm3": 251.32741228718334,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN5",
+      "Volume_mm3": 251.32741228718342,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN6",
+      "Volume_mm3": 251.32741228718336,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN7",
+      "Volume_mm3": 251.32741228718345,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN8",
+      "Volume_mm3": 251.32741228718345,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN9",
+      "Volume_mm3": 251.32741228718348,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN10",
+      "Volume_mm3": 251.3274122871835,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN11",
+      "Volume_mm3": 251.3274122871835,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN12",
+      "Volume_mm3": 251.32741228718348,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN13",
+      "Volume_mm3": 251.3274122871835,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN14",
+      "Volume_mm3": 251.3274122871834,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN15",
+      "Volume_mm3": 251.32741228718334,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN16",
+      "Volume_mm3": 251.32741228718336,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN17",
+      "Volume_mm3": 251.32741228718317,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN18",
+      "Volume_mm3": 251.32741228718345,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN19",
+      "Volume_mm3": 251.32741228718345,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_PIN20",
+      "Volume_mm3": 251.3274122871835,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_RV_CARRIER",
+      "Volume_mm3": 8690.399262066227,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_INPUT_SHAFT",
+      "Volume_mm3": 530.1437602932776,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "T_OUTPUT_SHAFT",
+      "Volume_mm3": 1005.3096491487339,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BEARING_IN0",
+      "Volume_mm3": 907.1348787240527,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BEARING_IN1",
+      "Volume_mm3": 907.1348787240527,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BEARING_OUT0",
+      "Volume_mm3": 753.9822368615504,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BEARING_OUT1",
+      "Volume_mm3": 753.9822368615504,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_IN0",
+      "Volume_mm3": 2755.090246990935,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_IN0-1",
+      "Volume_mm3": 28.27433388230814,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_IN01",
+      "Volume_mm3": 28.274333882308138,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_IN1",
+      "Volume_mm3": 2755.090246990935,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_IN1-1",
+      "Volume_mm3": 28.27433388230814,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_IN11",
+      "Volume_mm3": 28.274333882308138,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_OUT0",
+      "Volume_mm3": 2755.090246990935,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_OUT0-1",
+      "Volume_mm3": 28.27433388230814,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_OUT01",
+      "Volume_mm3": 28.274333882308138,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_OUT1",
+      "Volume_mm3": 2755.090246990935,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_OUT1-1",
+      "Volume_mm3": 28.27433388230814,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BOLT_OUT11",
+      "Volume_mm3": 28.274333882308138,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BASE",
+      "Volume_mm3": 36457.26336473693,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_RIB0",
+      "Volume_mm3": 3622.531547241211,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_RIB1",
+      "Volume_mm3": 3622.531547241211,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_IN0_FOOT",
+      "Volume_mm3": 294.40000000000015,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_IN1_FOOT",
+      "Volume_mm3": 1446.4000000000005,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_OUT0_FOOT",
+      "Volume_mm3": 3366.4000000000005,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_BLOCK_OUT1_FOOT",
+      "Volume_mm3": 4326.400000000001,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "H_MOTOR_PLATE",
+      "Volume_mm3": 6849.616943541465,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "MOTOR_REFERENCE",
+      "Volume_mm3": 84943.43910577855,
+      "Valid": true,
+      "Solids": 1
+    }
+  ]
+}

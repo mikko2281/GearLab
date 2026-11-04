@@ -1,0 +1,66 @@
+[
+  {
+    "Kind": 5,
+    "Ok": true,
+    "Solids": 29,
+    "Volume_mm3": 129688.104417977,
+    "STL_parts": 14,
+    "Seconds": 16.622523400001228
+  },
+  {
+    "Kind": 6,
+    "Ok": true,
+    "Solids": 29,
+    "Volume_mm3": 132669.41870297724,
+    "STL_parts": 14,
+    "Seconds": 15.706080100004328
+  },
+  {
+    "Kind": 7,
+    "Ok": true,
+    "Solids": 58,
+    "Volume_mm3": 272647.1206085051,
+    "STL_parts": 19,
+    "Seconds": 55.47141820000252
+  },
+  {
+    "Kind": 8,
+    "Ok": true,
+    "Solids": 40,
+    "Volume_mm3": 181064.07587559347,
+    "STL_parts": 22,
+    "Seconds": 15.581605800020043
+  },
+  {
+    "Kind": 9,
+    "Ok": true,
+    "Solids": 29,
+    "Volume_mm3": 132668.88183506514,
+    "STL_parts": 14,
+    "Seconds": 15.640536000020802
+  },
+  {
+    "Kind": 10,
+    "Ok": true,
+    "Solids": 29,
+    "Volume_mm3": 129225.34501798642,
+    "STL_parts": 14,
+    "Seconds": 19.471351599990157
+  },
+  {
+    "Kind": 11,
+    "Ok": true,
+    "Solids": 102,
+    "Volume_mm3": 234633.0339749511,
+    "STL_parts": 13,
+    "Seconds": 3.4181319000199437
+  },
+  {
+    "Kind": 12,
+    "Ok": true,
+    "Solids": 9,
+    "Volume_mm3": 107901.61564206085,
+    "STL_parts": 5,
+    "Seconds": 2.159482399991248
+  }
+]
