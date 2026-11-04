@@ -1,4 +1,4 @@
-GearLab 6.0 Preview 1
+GearLab 6.0 Preview 2
 
 Распакуйте весь архив. Запускайте GearLab.exe или Reducers.cmd.
 Stages.cmd — многоступенчатые редукторы; Robotics.cmd — роботы.

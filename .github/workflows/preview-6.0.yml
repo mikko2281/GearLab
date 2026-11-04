@@ -1,4 +1,4 @@
-name: Verify and publish GearLab 6.0 Preview 1
+name: Verify and publish GearLab 6.0 Preview 2
 on:
   push:
     branches: [codex/gearlab-6.0]
@@ -48,7 +48,7 @@ jobs:
         run: |
           python -X utf8 tools/package_preview60.py dist Windows $env:GITHUB_SHA
           if($LASTEXITCODE -ne 0){throw 'Packaging failed'}
-          python -X utf8 tools/verify_package.py dist/GearLab_6.0_preview_1 dist/GearLab_6.0_preview_1_Windows.zip
+          python -X utf8 tools/verify_package.py dist/GearLab_6.0_preview_2 dist/GearLab_6.0_preview_2_Windows.zip
           if($LASTEXITCODE -ne 0){throw 'Package verification failed'}
       - name: Publish preview without replacing latest stable
         env:
@@ -61,4 +61,4 @@ jobs:
           path: |
             docs/verification/6.0-ci/*results.json
             dist/*.sha256
-            dist/GearLab_6.0_preview_1/build-info.json
+            dist/GearLab_6.0_preview_2/build-info.json

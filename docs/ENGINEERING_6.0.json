@@ -1,5 +1,5 @@
 {
-  "Version": "6.0-preview.1",
+  "Version": "6.0-preview.2",
   "LoadedByApplication": false,
   "Units": {
     "length": "mm",
@@ -52,7 +52,7 @@
     },
     {
       "Id": "rack",
-      "Expression": "r=m*z/2; v_mm_s=n*pi*m*z/60; F_N=1000*T*eta/r",
+      "Expression": "r=m*z/2; v_mm_s=n*pi*m*z/60; Ft_input_N=1000*T/r; F_output_N=Ft_input_N*eta",
       "Qualification": "Момент в Н·м, радиус в мм; усилие в Н"
     },
     {
@@ -98,7 +98,7 @@
     "RobotTrainIntegration.cs": "src/RobotTrainIntegration.cs"
   },
   "SHA256": {
-    "TransmissionMath.cs": "ea2081f30d3cc8ee4a7037d072b549b17fbb830ba8965a605692cad3d8009b30",
+    "TransmissionMath.cs": "3802db9eafaa88fc690b67fb9dbcdba288621e36ab7a10b56a11866dadb7c9e5",
     "TransmissionGeometry.cs": "b48fb5c741a5375540afab81c183a05d0406427fea49fa0a5977db5014e33ba0",
     "TransmissionLoads.cs": "673d8310eb3e74fe12840c69daadf09e8c3c4ccb8b1f92ec2bc5dae050483cf3",
     "TransmissionTrain.cs": "3f3303e19f0ee97f314364c9889d9ee127a4647e97be24ac0941522e4eb49508",

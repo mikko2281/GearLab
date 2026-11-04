@@ -1,4 +1,4 @@
-# GearLab 6.0 Preview 1
+# GearLab 6.0 Preview 2
 
 Параметрические механические передачи, конструктор ступеней и робототехника для Windows 10/11 x64 (.NET Framework 4.8).
 

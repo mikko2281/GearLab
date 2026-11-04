@@ -61,7 +61,7 @@ namespace GearLab {
 
   public MainForm(IUserDialogs userDialogs){dialogs=userDialogs;Icon=Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-   Text="Gear Lab 6.0 Preview 1 · Калькулятор редукторов";Font=new Font("Segoe UI",10);Size=new Size(1460,980);MinimumSize=new Size(980,650);AutoScaleDimensions=new SizeF(96,96);StartPosition=FormStartPosition.CenterScreen;AutoScaleMode=AutoScaleMode.Dpi;BackColor=Color.White;
+   Text="Gear Lab 6.0 Preview 2 · Калькулятор редукторов";Font=new Font("Segoe UI",10);Size=new Size(1460,980);MinimumSize=new Size(980,650);AutoScaleDimensions=new SizeF(96,96);StartPosition=FormStartPosition.CenterScreen;AutoScaleMode=AutoScaleMode.Dpi;BackColor=Color.White;
 
    var menu=new MenuStrip{BackColor=Color.FromArgb(239,244,249)};var project=new ToolStripMenuItem("Проект");saveMenu=new ToolStripMenuItem("Сохранить…",null,(a,b)=>SaveProject()){ShortcutKeys=Keys.Control|Keys.S};saveAsMenu=new ToolStripMenuItem("Сохранить как…",null,(a,b)=>SaveProject(true)){ShortcutKeys=Keys.Control|Keys.Shift|Keys.S};openMenu=new ToolStripMenuItem("Открыть…",null,(a,b)=>OpenProject()){ShortcutKeys=Keys.Control|Keys.O};resetMenu=new ToolStripMenuItem("Сбросить текущий тип",null,(a,b)=>{if(ConfirmChanges())Apply(Engine.Starter(p.Kind),true);});project.DropDownItems.AddRange(new ToolStripItem[]{saveMenu,saveAsMenu,openMenu,resetMenu});
 
@@ -279,7 +279,7 @@ namespace GearLab {
 
   bool HasChanges(){return savedState!=null&&(dirty||ReleaseSupport.Serialize(p)!=savedState);}
 
-  void UpdateCaption(){Text="Gear Lab 6.0 Preview 1 · "+(string.IsNullOrEmpty(currentFile)?"Новый проект":Path.GetFileName(currentFile))+(HasChanges()?" *":"");}
+  void UpdateCaption(){Text="Gear Lab 6.0 Preview 2 · "+(string.IsNullOrEmpty(currentFile)?"Новый проект":Path.GetFileName(currentFile))+(HasChanges()?" *":"");}
 
   bool ConfirmChanges(){if(!HasChanges())return true;var answer=dialogs.Unsaved(this);return answer==DialogResult.No||answer==DialogResult.Yes&&SaveProject();}
 

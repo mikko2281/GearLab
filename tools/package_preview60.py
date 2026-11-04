@@ -2,7 +2,7 @@
 import hashlib,json,shutil,subprocess,sys,zipfile
 from pathlib import Path
 root=Path(__file__).resolve().parents[1];dest=Path(sys.argv[1]).resolve();binary=root/(sys.argv[2] if len(sys.argv)>2 else 'Windows-final')
-prefix='GearLab_6.0_preview_1';stage=dest/prefix
+prefix='GearLab_6.0_preview_2';stage=dest/prefix
 if stage.exists() or (dest/(prefix+'_Windows.zip')).exists():raise SystemExit('Preserve existing package; select a new output directory')
 dest.mkdir(parents=True,exist_ok=True);stage.mkdir()
 def include(p):
@@ -25,7 +25,7 @@ for name in ['LibTessDotNet','WebView2']:
     target=stage/'licenses'/name;target.mkdir(exist_ok=True)
     for p in (root/'src/vendor'/name).glob('*.txt'):shutil.copy2(p,target/p.name)
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper()
-info={'Version':'6.0.0-preview.1','Signature':'NotSigned','Sha256':sha(stage/'GearLab.exe'),'SourceCommit':sys.argv[3] if len(sys.argv)>3 else 'local working tree','TrustedLaunchGuaranteed':False,'ReleaseType':'Preview; see docs/PREVIEW_6.0.md','Evidence':'Local GUI results describe the tested desktop binary; CI runs headless/native tests separately.'}
+info={'Version':'6.0.0-preview.2','Signature':'NotSigned','Sha256':sha(stage/'GearLab.exe'),'SourceCommit':sys.argv[3] if len(sys.argv)>3 else 'local working tree','TrustedLaunchGuaranteed':False,'ReleaseType':'Preview; see docs/PREVIEW_6.0.md','Evidence':'Local GUI results describe the tested desktop binary; CI runs headless/native tests separately.'}
 (stage/'build-info.json').write_text(json.dumps(info,indent=2),encoding='utf-8')
 (stage/'SHA256SUMS.txt').write_text('\n'.join(sha(p)+'  '+p.relative_to(stage).as_posix() for p in sorted(stage.rglob('*')) if p.is_file())+'\n',encoding='utf-8')
 def archive(path,items,base,pref):
