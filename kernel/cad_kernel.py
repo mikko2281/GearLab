@@ -526,6 +526,9 @@ def handle(request):
     if mode=='body_motion':
         from body_motion import check
         return check(request['Spec'],sys.modules[__name__])
+    if mode in {'assembly_parametric','assembly_audit'}:
+        from transmission_assembly import generate
+        return generate(request,sys.modules[__name__])
     if mode=='body_generate' and request['Spec'].get('Connected'):
         from connected_body import generate
         return generate(request['Spec'],folder,sys.modules[__name__])

@@ -1,0 +1,162 @@
+[
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 3.9879775,
+    "Suite": "transmission60"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 1.0679229,
+    "Suite": "train60"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 1.0356408,
+    "Suite": "robot-transmission60"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 6.4377939,
+    "Suite": "ui60"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 18.3968629,
+    "Suite": "workspace"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 37.7056222,
+    "Suite": "self"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 2.9929085,
+    "Suite": "mechanism"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 28.8004163,
+    "Suite": "robot"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 4.6252042,
+    "Suite": "step"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 10.3802848,
+    "Suite": "placement"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 21.4490843,
+    "Suite": "preset"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 8.3369614,
+    "Suite": "micro"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 24.1344437,
+    "Suite": "print"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 34.566682,
+    "Suite": "controller"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 5.188328,
+    "Suite": "reducer56"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 9.4130011,
+    "Suite": "viewer"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 11.3939317,
+    "Suite": "visibility"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 98.8998986,
+    "Suite": "procedural"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 85.8057078,
+    "Suite": "author-view"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 69.3848075,
+    "Suite": "reference"
+  },
+  {
+    "Timeout": false,
+    "ExitCode": 0,
+    "Seconds": 23.8045617,
+    "Suite": "ui"
+  },
+  {
+    "ExitCode": 0,
+    "Seconds": 3.554921,
+    "Suite": "test_cad_kernel"
+  },
+  {
+    "ExitCode": 0,
+    "Seconds": 0.2526624,
+    "Suite": "test_loads_controls"
+  },
+  {
+    "ExitCode": 0,
+    "Seconds": 3.4708748,
+    "Suite": "test_body_motion"
+  },
+  {
+    "ExitCode": 0,
+    "Seconds": 4.4865758,
+    "Suite": "test_robot_step_edit"
+  },
+  {
+    "ExitCode": 0,
+    "Seconds": 105.6276787,
+    "Suite": "test_wave_flat"
+  },
+  {
+    "ExitCode": 0,
+    "Seconds": 2.0074539,
+    "Suite": "test_transmission_audit60"
+  },
+  {
+    "ExitCode": 0,
+    "Suite": "gizmo"
+  }
+]

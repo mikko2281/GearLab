@@ -1,7 +1,14 @@
-﻿using System.Reflection;using System.Runtime.InteropServices;
-[assembly:AssemblyTitle("GearLab — CAD и робототехника")]
-[assembly:AssemblyDescription("Параметрический CAD, механизмы, волновой редуктор и робототехника")]
-[assembly:AssemblyProduct("Gear Lab")]
-[assembly:AssemblyVersion("5.6.0.0")]
-[assembly:AssemblyFileVersion("5.6.0.0")]
-[assembly:ComVisible(false)]
+﻿using System.Reflection;using System.Runtime.InteropServices;
+
+[assembly:AssemblyTitle("GearLab — передачи и робототехника")]
+
+[assembly:AssemblyDescription("Параметрические передачи, конструктор ступеней и робототехника")]
+
+[assembly:AssemblyProduct("Gear Lab")]
+
+[assembly:AssemblyVersion("6.1.0.0")]
+
+[assembly:AssemblyFileVersion("6.1.0.0")]
+
+[assembly:ComVisible(false)]
+

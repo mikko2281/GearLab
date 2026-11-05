@@ -10,7 +10,7 @@ namespace GearLab {
 
   public static void SetPreset(Parameters p,int preset){
 
-   if(preset==5){MicroPreset.Configure(p);return;}p.MotorPreset=preset;if(preset==0)return;p.CycloidLayout=0;p.ModelCover=preset==4?6:4;
+   if(preset==5){MicroPreset.Configure(p);return;}int originalTeeth=p.Teeth;double originalWidth=p.Thickness;p.MotorPreset=preset;if(preset==0)return;p.CycloidLayout=0;p.ModelCover=preset==4?6:4;
 
    bool big=preset==4;p.MotorFrame=big?57.3:42.3;p.MotorMount=big?47.14:31;p.MotorPilot=big?38.1:22;p.MotorHole=big?5.2:3.3;p.MotorLength=big?76.5:preset==1?39:48;p.Shaft=big?6.35:5;
 
@@ -24,11 +24,11 @@ namespace GearLab {
 
    else{p.BearingInner=p.Shaft;p.Bore=big?19:16;p.BearingWidth=big?6:5;p.BallDiameter=big?3:2.5;p.BallCount=7;}
 
-   if(p.Kind==4)p.Wall=Math.Max(4,p.Wall);ResetCadSettings(p);
+   if(p.Kind>=5){p.Teeth=originalTeeth;p.Thickness=originalWidth;p.Overall=0;p.AutoFit=false;}if(p.Kind==4)p.Wall=Math.Max(4,p.Wall);ResetCadSettings(p);
 
   }
 
-  public static Parameters Starter(int kind){if(kind==4){var w=new Parameters{Kind=4,Ratio=50,Clearance=.15};SetPreset(w,2);w.Wall=4;w.AutoFit=true;FitOverall(w);return w;}var p=new Parameters{Kind=kind,RingOutput=true,IntegratedRing=kind==0,Ratio=kind==0?20:kind==3?4:2};SetPreset(p,2);p.AutoFit=true;FitOverall(p);return p;}
+  public static Parameters Starter(int kind){if(kind>=5)return TransmissionCatalog.Starter(kind);if(kind==4){var w=new Parameters{Kind=4,Ratio=50,Clearance=.15};SetPreset(w,2);w.Wall=4;w.AutoFit=true;FitOverall(w);return w;}var p=new Parameters{Kind=kind,RingOutput=true,IntegratedRing=kind==0,Ratio=kind==0?20:kind==3?4:2};SetPreset(p,2);p.AutoFit=true;FitOverall(p);return p;}
 
   public static double SecondDiscAngle(Parameters p,double input){return DiscAngle(p,input)-Math.PI/(PinCount(p)-1);}
 
@@ -40,7 +40,7 @@ namespace GearLab {
 
   public static double[] BearingAngles(Parameters p,double inner,double outer){double pitch=(p.Bore+p.BearingInner)/2,q=p.BallDiameter/pitch,cage=.5*((1-q)*inner+(1+q)*outer),spin=cage-pitch/(2*p.BallDiameter)*(1-q*q)*(inner-outer);return new[]{cage,spin};}
 
-  public static Result Calculate(Parameters input){if(input!=null&&input.Kind==4)return WaveFastModel.Calculate(input);
+  public static Result Calculate(Parameters input){if(input!=null){var invalid=new Result{P=Clone(input)};foreach(var field in typeof(Parameters).GetProperties().Where(f=>f.PropertyType==typeof(double)))if(!Finite((double)field.GetValue(input,null)))invalid.Error("Некорректное число в параметре "+field.Name+".",field.Name);if(!invalid.Valid)return invalid;}if(input!=null&&input.Kind>=5)return TransmissionMath.Calculate(input);if(input!=null&&input.Kind==4)return WaveFastModel.Calculate(input);
 
    var r=CalculateCore(input);if(input==null)return r;var p=r.P;
 
@@ -114,13 +114,13 @@ namespace GearLab {
 
    if(p.Kind==0&&p.CycloidLayout==1){r.Depth=MicroPreset.BodyHeight(p);r.Metric("Micro: номинальный пакет без адаптера и мотора",F(r.Depth)+" мм");r.Metric("Micro: входная шейка / моторный вал",F(p.MicroJournal)+" / "+F(p.Shaft)+" мм");r.Items[6].Size="d="+F(p.BearingInner)+", D="+F(p.Bore)+", B="+F(p.BearingWidth)+" мм";r.Items[7].Size=F(p.MicroJournal)+" × "+F(p.ModelInputBearingD)+" × "+F(p.ModelInputBearingB)+" мм";r.Items[8].Size=F(p.ModelCaseInner)+" × "+F(p.ModelCaseOuter)+" × "+F(p.ModelCaseBearingB)+" мм";r.Notes.Add("Micro — собственная параметрическая компоновка по открытому референсу "+MicroPreset.Source+". Публичные опоры и отношение приняты как ориентир; внутренние размеры назначены, характеристики оригинала не переносятся.");}
 
-   return r;
+   TransmissionLoads.Append(r);return r;
 
   }
 
   public static double[] Bounds(Result r){
 
-   var p=r.P;if(p.Kind==4){double radius=WaveFastModel.Radius(p);return new[]{-radius,radius,-radius,radius};}if(p.Kind==0&&p.CycloidLayout==1){double size=p.Radius+p.Roller/2+p.Wall;return new[]{-size,size,-size,size};}double motor=p.MotorFrame/2,bearing=p.BearingSimulation?p.Bore/2:0,w=p.Wall,left,right,half;
+   var p=r.P;if(p.Kind>=5){var b=TransmissionGeometry.Estimate(r);return new[]{b[0],b[1],b[2],b[3]};}if(p.Kind==4){double radius=WaveFastModel.Radius(p);return new[]{-radius,radius,-radius,radius};}if(p.Kind==0&&p.CycloidLayout==1){double size=p.Radius+p.Roller/2+p.Wall;return new[]{-size,size,-size,size};}double motor=p.MotorFrame/2,bearing=p.BearingSimulation?p.Bore/2:0,w=p.Wall,left,right,half;
 
    if(p.Kind==0){double radius=Math.Max(p.Radius+p.Roller/2,Math.Max(motor,bearing));return new[]{-radius-w,radius+w,-radius-w,radius+w};}
 
@@ -130,7 +130,7 @@ namespace GearLab {
 
   }
 
-  public static bool FitOverall(Parameters p){if(p.Kind==4)return WaveFastModel.Fit(p);
+  public static bool FitOverall(Parameters p){if(p.Kind>=5)return TransmissionSizing.Fit(p);if(p.Kind==4)return WaveFastModel.Fit(p);
 
    if(p.Overall<=0)return p.Kind==0?AutoSize(p):true;
 
@@ -176,9 +176,9 @@ namespace GearLab {
 
   }
 
-  public static PointF[] Involute(int z,double module,bool inner){
+  public static PointF[] Involute(int z,double module,bool inner,double pressureAngle=20){
 
-   if(z<3)return new PointF[0];var points=new List<PointF>();double rp=module*z/2,rb=rp*Math.Cos(20*Math.PI/180),tip=inner?rp-module:rp+module,root=inner?rp+1.25*module:Math.Max(.1,rp-1.25*module),invP=Inv(rp,rb),pitch=Tau/z;
+   if(z<3)return new PointF[0];var points=new List<PointF>();double rp=module*z/2,rb=rp*Math.Cos(pressureAngle*Math.PI/180),tip=inner?rp-module:rp+module,root=inner?rp+1.25*module:Math.Max(.1,rp-1.25*module),invP=Inv(rp,rb),pitch=Tau/z;
 
    Func<double,double> half=(radius)=>Math.PI/(2*z)+(inner?-1:1)*(invP-Inv(radius,rb));
 

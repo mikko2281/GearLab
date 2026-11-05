@@ -23,6 +23,12 @@ using System.Web.Script.Serialization;
 namespace GearLab {
 
  public class Parameters {
+  public bool UseUniversalBase{get;set;}
+  public double AllowableBendingMPa{get;set;} public double ServiceFactor{get;set;}
+  public int WormStarts{get;set;} public double WormDiameterFactor{get;set;} public double Friction{get;set;} public double PressureAngle{get;set;} public double ShaftAngle{get;set;} public double AxisOffset{get;set;} public double SpiralAngle{get;set;} public double GloboidDepth{get;set;}
+  public int RvPins{get;set;} public int CrankCount{get;set;} public int PlanetTeeth{get;set;} public int SecondPlanetTeeth{get;set;} public int FixedMember{get;set;} public double SecondInputRpm{get;set;}
+  public int InnerPolePairs{get;set;} public int OuterPolePairs{get;set;} public double MagnetThickness{get;set;} public double AirGap{get;set;} public double RackLength{get;set;} public double RackTravel{get;set;} public double RackPosition{get;set;}
+
   public double WaveWall{get;set;} public double WaveBearingWall{get;set;} public double InputTorque{get;set;} public double Efficiency{get;set;} public double LoadTorque{get;set;}
 
   public int Kind {get;set;} public bool RingOutput {get;set;} public double Ratio {get;set;} public double Radius {get;set;}
@@ -51,7 +57,7 @@ namespace GearLab {
 
   public int CycloidLayout {get;set;} public double MicroFrontExtension {get;set;} public double MicroJournal {get;set;} public double MicroRollerLength {get;set;} public double MicroAdapterHeight {get;set;} public bool IntegratedRing {get;set;} public double RingBridge {get;set;} public int ExportScope {get;set;} public double ModelCover {get;set;} public double ModelFlange {get;set;} public double ModelGap {get;set;} public double ModelBolt {get;set;} public int ModelBoltCount {get;set;} public double ModelShaftExtension {get;set;} public double ModelInputBearingD {get;set;} public double ModelInputBearingB {get;set;} public double ModelCaseInner {get;set;} public double ModelCaseOuter {get;set;} public double ModelCaseBearingB {get;set;} public double ModelRollerAxle {get;set;} public double ModelBeltThickness {get;set;} public double ModelBushWall {get;set;}
 
-  public Parameters(){WaveWall=.8;WaveBearingWall=1.5;InputTorque=.35;Efficiency=.7;LoadTorque=5;MicroFrontExtension=.5;MicroJournal=7;MicroRollerLength=10;MicroAdapterHeight=5;Ratio=20;Radius=35;Roller=4;Eccentric=.9;Clearance=.05;Bore=22;Shaft=5;Thickness=6;Discs=1;OutputPins=6;OutputPin=5;OutputRadius=17;Web=1.5;Segments=2400;Teeth=20;Module=1;Pitch=2;Center=80;Planets=3;Wall=3;OutputShaft=8;DiscGap=1;PlanetPin=4;BearingInner=8;BearingWidth=7;BallDiameter=3.5;BallCount=7;InputRpm=30;StageGap=3;IntermediateShaft=8;RatioTolerance=1;FormatVersion=1;ModelCover=4;ModelFlange=6;ModelGap=.5;ModelBolt=3;ModelBoltCount=6;ModelShaftExtension=8;ModelInputBearingD=16;ModelInputBearingB=5;ModelCaseBearingB=7;ModelRollerAxle=2;ModelBeltThickness=1.3;ModelBushWall=1.5;}
+  public Parameters(){ServiceFactor=1.5;WormStarts=1;WormDiameterFactor=10;Friction=.08;PressureAngle=20;ShaftAngle=90;AxisOffset=5;SpiralAngle=25;GloboidDepth=1;RvPins=21;CrankCount=3;PlanetTeeth=18;SecondPlanetTeeth=18;InnerPolePairs=4;OuterPolePairs=20;MagnetThickness=3;AirGap=.5;RackLength=160;RackTravel=60;WaveWall=.8;WaveBearingWall=1.5;InputTorque=.35;Efficiency=.7;LoadTorque=5;MicroFrontExtension=.5;MicroJournal=7;MicroRollerLength=10;MicroAdapterHeight=5;Ratio=20;Radius=35;Roller=4;Eccentric=.9;Clearance=.05;Bore=22;Shaft=5;Thickness=6;Discs=1;OutputPins=6;OutputPin=5;OutputRadius=17;Web=1.5;Segments=2400;Teeth=20;Module=1;Pitch=2;Center=80;Planets=3;Wall=3;OutputShaft=8;DiscGap=1;PlanetPin=4;BearingInner=8;BearingWidth=7;BallDiameter=3.5;BallCount=7;InputRpm=30;StageGap=3;IntermediateShaft=8;RatioTolerance=1;FormatVersion=1;ModelCover=4;ModelFlange=6;ModelGap=.5;ModelBolt=3;ModelBoltCount=6;ModelShaftExtension=8;ModelInputBearingD=16;ModelInputBearingB=5;ModelCaseBearingB=7;ModelRollerAxle=2;ModelBeltThickness=1.3;ModelBushWall=1.5;}
 
  }
 
@@ -65,6 +71,7 @@ namespace GearLab {
 
  public class Result {
 
+  public TransmissionTrain Train;public Dictionary<string,TrainMotion> TrainMotions=new Dictionary<string,TrainMotion>();public TransmissionEngineering Loads;public TransmissionEngineering Engineering; public Dictionary<string,TransmissionMotion> TransmissionMotions=new Dictionary<string,TransmissionMotion>();public System.Windows.Media.Media3D.Matrix3D InputFrame=System.Windows.Media.Media3D.Matrix3D.Identity,OutputFrame=System.Windows.Media.Media3D.Matrix3D.Identity;
   public Parameters P; public int Pins,Lobes,Z1,Z2,Zp; public double Actual,Spacing,Hole,Envelope,OutRadius;
 
   public PointF[] Profile; public List<string> Errors=new List<string>(),Notes=new List<string>();
@@ -474,6 +481,11 @@ namespace GearLab {
  static class Program {
 
   [STAThread] static int Main(string[] args){
+   if(args.Length>0&&args[0]=="--audit-fix-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return AuditFixTests.Run(args[1]);}
+   if(args.Length>0&&args[0]=="--ui60-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return TransmissionUi60Tests.Run(args[1]);}
+   if(args.Length>0&&args[0]=="--robot-transmission60-test")return RobotTransmission60Tests.Run(args[1]);
+   if(args.Length>0&&args[0]=="--train60-test")return Train60Tests.Run(args[1]);
+   if(args.Length>0&&args[0]=="--transmission60-test")return Transmission60Tests.Run(args[1]);
 
    if(args.Length>0&&(args[0]=="--cad"||args[0].EndsWith(".cad.json",StringComparison.OrdinalIgnoreCase))){MessageBox.Show("CAD-моделирование удалено из этой версии. Сохранённые файлы не изменены.");return 2;}
 
@@ -538,6 +550,7 @@ namespace GearLab {
    if(args.Length>0&&args[0]=="--reducer56-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Reducer56Tests.Run(args.Length>1?args[1]:Path.GetTempPath());}
    if(args.Length>0&&args[0]=="--wave56-export-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return WaveExport56Tests.Run(args.Length>1?args[1]:Path.GetTempPath());}
    if(args.Length>0&&args[0]=="--wave56-fast-test")return Wave56FastTests.Run(args.Length>1?args[1]:Path.GetTempPath());
+   if(args.Length>0&&(args[0]=="--train"||args[0].EndsWith(".train.json",StringComparison.OrdinalIgnoreCase)))return RunWindow(()=>new TrainDesignerForm(args[0]=="--train"?TransmissionTrain.Example():TransmissionTrain.Read(args[0])));
    if(args.Length==0)return RunWindow(()=>new ReducerWorkspaceForm());
 
    if(args.Length>0&&args[0]=="--reducer")return RunWindow(()=>new ReducerWorkspaceForm());

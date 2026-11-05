@@ -1,0 +1,64 @@
+name: Verify and publish GearLab 6.0 Preview 2
+on:
+  push:
+    branches: [codex/gearlab-6.0]
+    paths: [docs/PREVIEW_6.0.md]
+permissions:
+  contents: read
+concurrency:
+  group: gearlab-preview-6.0
+  cancel-in-progress: false
+jobs:
+  preview:
+    if: github.repository == 'mikko2281/GearLab'
+    runs-on: windows-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.10'
+          architecture: x64
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build executable and pinned native runtime
+        shell: powershell
+        run: ./tools/ci_build.ps1
+      - name: Check existing native functionality
+        shell: powershell
+        run: ./tools/ci_verify.ps1
+      - name: Check transmissions, graph, robot integration and actual exports
+        shell: powershell
+        run: |
+          foreach($gearTest in @('transmission60','train60','robot-transmission60')) {
+            $gearProcess=Start-Process -FilePath ./Windows/GearLab.exe -ArgumentList "--$gearTest-test docs/verification/6.0-ci" -PassThru -WindowStyle Hidden
+            if(-not $gearProcess.WaitForExit(120000)){$gearProcess.Kill();throw 'Preview test timeout'}
+            if($gearProcess.ExitCode -ne 0){throw ('Preview test failed: '+$gearTest)}
+          }
+          ./runtime/python.exe -I tools/test_transmissions60.py docs/verification/6.0-ci
+          if($LASTEXITCODE -ne 0){throw 'Native transmission export failed'}
+          ./runtime/python.exe -I tools/test_transmission_audit60.py docs/verification/6.0-ci
+          if($LASTEXITCODE -ne 0){throw 'Exact intersection audit failed'}
+          python -X utf8 tools/write_transmission_reference60.py
+      - name: Package and independently verify
+        shell: powershell
+        run: |
+          python -X utf8 tools/package_preview60.py dist Windows $env:GITHUB_SHA
+          if($LASTEXITCODE -ne 0){throw 'Packaging failed'}
+          python -X utf8 tools/verify_package.py dist/GearLab_6.0_preview_2 dist/GearLab_6.0_preview_2_Windows.zip
+          if($LASTEXITCODE -ne 0){throw 'Package verification failed'}
+      - name: Publish preview without replacing latest stable
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -X utf8 tools/publish_preview60.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: GearLab-6.0-preview-verification
+          path: |
+            docs/verification/6.0-ci/*results.json
+            dist/*.sha256
+            dist/GearLab_6.0_preview_2/build-info.json

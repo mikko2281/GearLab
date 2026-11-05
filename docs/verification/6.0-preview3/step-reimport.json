@@ -1,0 +1,32 @@
+[
+  {
+    "Name": "legacy-0",
+    "Solids": 55,
+    "Valid": true
+  },
+  {
+    "Name": "legacy-1",
+    "Solids": 24,
+    "Valid": true
+  },
+  {
+    "Name": "legacy-2",
+    "Solids": 25,
+    "Valid": true
+  },
+  {
+    "Name": "legacy-3",
+    "Solids": 34,
+    "Valid": true
+  },
+  {
+    "Name": "wave-full",
+    "Solids": 19,
+    "Valid": true
+  },
+  {
+    "Name": "wave-print",
+    "Solids": 3,
+    "Valid": true
+  }
+]

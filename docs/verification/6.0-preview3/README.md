@@ -1,0 +1,36 @@
+# Проверка Preview 3
+
+Все результаты этой папки относятся к EXE из build-verification.json.
+
+- transmission60: PASS (3.99 с)
+- train60: PASS (1.07 с)
+- robot-transmission60: PASS (1.04 с)
+- ui60: PASS (6.44 с)
+- workspace: PASS (18.40 с)
+- self: PASS (37.71 с)
+- mechanism: PASS (2.99 с)
+- robot: PASS (28.80 с)
+- step: PASS (4.63 с)
+- placement: PASS (10.38 с)
+- preset: PASS (21.45 с)
+- micro: PASS (8.34 с)
+- print: PASS (24.13 с)
+- controller: PASS (34.57 с)
+- reducer56: PASS (5.19 с)
+- viewer: PASS (9.41 с)
+- visibility: PASS (11.39 с)
+- procedural: PASS (98.90 с)
+- author-view: PASS (85.81 с)
+- reference: PASS (69.38 с)
+- ui: PASS (23.80 с)
+- test_cad_kernel: PASS (3.55 с)
+- test_loads_controls: PASS (0.25 с)
+- test_body_motion: PASS (3.47 с)
+- test_robot_step_edit: PASS (4.49 с)
+- test_wave_flat: PASS (105.63 с)
+- test_transmission_audit60: PASS (2.01 с)
+- gizmo: PASS (0.00 с)
+- connected: PASS (207.89 с)
+- blender: PASS (185.87 с)
+
+Нативный и GUI scope не подтверждает физическую прочность или сопряжение зубьев.

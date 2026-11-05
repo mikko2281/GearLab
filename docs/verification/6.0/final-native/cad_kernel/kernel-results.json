@@ -1,0 +1,12 @@
+{
+  "passed": [
+    "revolve annular solid",
+    "loft frustum volume",
+    "sweep circular profile along path",
+    "radial push pull",
+    "boolean join",
+    "boolean cut",
+    "boolean intersect",
+    "Unicode binary STL export"
+  ]
+}

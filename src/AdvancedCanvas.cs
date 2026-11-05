@@ -34,7 +34,7 @@ namespace GearLab {
 
    if(!r.Valid){using(var b=new SolidBrush(Color.FromArgb(255,243,239)))g.FillRectangle(b,22,20,Math.Max(100,Width-44),Math.Max(100,Height-40));using(var f=new Font("Segoe UI",14,FontStyle.Bold))g.DrawString("Геометрия не построена",f,Brushes.Firebrick,38,38);using(var f=new Font("Segoe UI",10))g.DrawString(string.Join("\n\n",r.Errors.Take(4))+"\n\nИсправьте выделенные параметры или задайте больший общий габарит.",f,Brushes.Maroon,new RectangleF(38,92,Width-76,Height-115));return;}
 
-   string head=p.Kind==4?"Волновая схема · генератор — вход, неподвижный венец закреплён":View==4?"Подшипник · идеальное качение без скольжения":View==3?"Осевая компоновка · условный разрез":p.Kind==0?Engine.Scheme(p):p.Kind==1?"Внешнее зацепление · эвольвентные боковые поверхности":p.Kind==2?"Открытый зубчатый ремень · движение по делительной линии":"Планетарная схема · солнце → водило, кольцо закреплено";
+   string head=p.Kind>=5?TransmissionCatalog.All[p.Kind].Name+" · "+TransmissionCatalog.All[p.Kind].Limit:p.Kind==4?"Волновая схема · генератор — вход, неподвижный венец закреплён":View==4?"Подшипник · идеальное качение без скольжения":View==3?"Осевая компоновка · условный разрез":p.Kind==0?Engine.Scheme(p):p.Kind==1?"Внешнее зацепление · эвольвентные боковые поверхности":p.Kind==2?"Открытый зубчатый ремень · движение по делительной линии":"Планетарная схема · солнце → водило, кольцо закреплено";
 
    if(p.Kind==3&&r.Stages.Count>1&&View==0)head="Ступень "+(Math.Min(StageIndex,r.Stages.Count-1)+1)+" из "+r.Stages.Count+" · суммарное i="+Engine.F(r.Actual)+" · ступени вдоль общей оси";
 
@@ -46,7 +46,8 @@ namespace GearLab {
 
    g.TranslateTransform(Width/2f-(float)mx*scale,(top+Height-bottom)/2f+(float)my*scale);g.ScaleTransform(scale,-scale);
 
-   if(p.Kind==4){waveDrawing.Phase=Phase;if(View==3)waveDrawing.DrawAxial(g,r.Wave,scale,WaveFastModel.Radius(p));else waveDrawing.DrawRadial(g,r.Wave,scale,WaveFastModel.Radius(p));}
+   if(p.Kind>=5){TransmissionDiagram.Draw(g,r,Phase,scale);}
+   else if(p.Kind==4){waveDrawing.Phase=Phase;if(View==3)waveDrawing.DrawAxial(g,r.Wave,scale,WaveFastModel.Radius(p));else waveDrawing.DrawRadial(g,r.Wave,scale,WaveFastModel.Radius(p));}
    else if(View==4){double outside=p.Kind==0?Engine.DiscAngle(p,Phase):0;Bearing(g,p,0,0,Phase,outside,scale);}
 
    else if(View==3){if(p.Kind==3)AxialTrain(g,r,scale);else Axial(g,r,scale);}
