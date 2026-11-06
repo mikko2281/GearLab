@@ -18,7 +18,7 @@ namespace GearLab {
   public void WorkspaceApproveClose(){if(ordinary!=null)((IWorkspaceDocument)ordinary).WorkspaceApproveClose();}
   public void WorkspaceActivate(bool value){if(ordinary!=null)((IWorkspaceDocument)ordinary).WorkspaceActivate(value);}
   void Choose(int id){syncing=true;family.Items.Clear();family.Items.AddRange(TransmissionCatalog.All);family.SelectedIndex=id;selectedKind=id;syncing=false;}
-  void Filter(){syncing=true;family.Items.Clear();foreach(var t in TransmissionCatalog.All)if((category.SelectedIndex==0||t.Category==category.Text)&&(t.Name.IndexOf(search.Text,StringComparison.OrdinalIgnoreCase)>=0))family.Items.Add(t);for(int i=0;i<family.Items.Count;i++)if(((TransmissionType)family.Items[i]).Id==selectedKind)family.SelectedIndex=i;syncing=false;}
+  void Filter(){syncing=true;family.Items.Clear();foreach(var t in TransmissionCatalog.All)if((category.SelectedIndex==0||t.Category==Convert.ToString(category.SelectedItem))&&((t.Name.IndexOf(search.Text,StringComparison.OrdinalIgnoreCase)>=0||I18n.T(t.Name).IndexOf(search.Text,StringComparison.OrdinalIgnoreCase)>=0)))family.Items.Add(t);for(int i=0;i<family.Items.Count;i++)if(((TransmissionType)family.Items[i]).Id==selectedKind)family.SelectedIndex=i;syncing=false;}
   internal void TestSelect(int index){Choose(index);ActivateFamily();}internal MainForm MainView{get{return ordinary;}}internal WaveReducerForm WaveView{get{return wave;}}internal void SelectOrdinary(){Choose(0);ActivateFamily();}
  }
 }

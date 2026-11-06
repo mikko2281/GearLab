@@ -10,25 +10,25 @@ namespace GearLab {
 
  public sealed class UserDialogs:IUserDialogs {
 
-  public string Save(IWin32Window owner,string extension,string suggested){using(var d=new SaveFileDialog{Filter=extension=="gear.json"?"Проект редуктора (*.gear.json)|*.gear.json":extension.ToUpper()+" (*."+extension+")|*."+extension,DefaultExt=extension,AddExtension=true,OverwritePrompt=true,RestoreDirectory=true,InitialDirectory=Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),FileName=suggested})return d.ShowDialog(owner)==DialogResult.OK?d.FileName:null;}
+  public string Save(IWin32Window owner,string extension,string suggested){using(var d=new SaveFileDialog{Filter=extension=="gear.json"?"Проект редуктора (*.gear.json)|*.gear.json":extension.ToUpper()+" (*."+extension+")|*."+extension,DefaultExt=extension,AddExtension=true,OverwritePrompt=true,RestoreDirectory=true,InitialDirectory=Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),FileName=suggested})return d.ShowLocalizedDialog(owner)==DialogResult.OK?d.FileName:null;}
 
-  public string Open(IWin32Window owner){string examples=Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Примеры");using(var d=new OpenFileDialog{Filter="Проект редуктора (*.gear.json;*.json)|*.gear.json;*.json",CheckFileExists=true,RestoreDirectory=true,InitialDirectory=Directory.Exists(examples)?examples:Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)})return d.ShowDialog(owner)==DialogResult.OK?d.FileName:null;}
+  public string Open(IWin32Window owner){string examples=Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Примеры");using(var d=new OpenFileDialog{Filter="Проект редуктора (*.gear.json;*.json)|*.gear.json;*.json",CheckFileExists=true,RestoreDirectory=true,InitialDirectory=Directory.Exists(examples)?examples:Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)})return d.ShowLocalizedDialog(owner)==DialogResult.OK?d.FileName:null;}
 
-  public DialogResult Unsaved(IWin32Window owner){return MessageBox.Show(owner,"Сохранить изменения текущего проекта?\n«Нет» продолжит без сохранения.","Несохранённый проект",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question);}
+  public DialogResult Unsaved(IWin32Window owner){return UiMessage.Show(owner,"Сохранить изменения текущего проекта?\n«Нет» продолжит без сохранения.","Несохранённый проект",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question);}
 
-  public void Info(IWin32Window owner,string text,string title){MessageBox.Show(owner,text,title,MessageBoxButtons.OK,MessageBoxIcon.Information);}
+  public void Info(IWin32Window owner,string text,string title){UiMessage.Show(owner,text,title,MessageBoxButtons.OK,MessageBoxIcon.Information);}
 
   public void Help(IWin32Window owner){using(var f=new Form{Text="Gear Lab — справка",Size=new Size(780,650),MinimumSize=new Size(550,400),StartPosition=FormStartPosition.CenterParent,ShowInTaskbar=false}){
 
-   var box=new TextBox{Dock=DockStyle.Fill,Multiline=true,ReadOnly=true,ScrollBars=ScrollBars.Vertical,WordWrap=true,Font=new Font("Segoe UI",11),BackColor=Color.White,Text=ReleaseSupport.HelpText};f.Controls.Add(box);f.ShowDialog(owner);}}
+   var box=new TextBox{Dock=DockStyle.Fill,Multiline=true,ReadOnly=true,ScrollBars=ScrollBars.Vertical,WordWrap=true,Font=new Font("Segoe UI",11),BackColor=Color.White,Text=I18n.English?ReleaseSupport.EnglishHelp:ReleaseSupport.HelpText};f.Controls.Add(box);f.ShowLocalizedDialog(owner);}}
 
  }
 
  public static class ReleaseSupport {
 
-  public const string Version="6.2.0";
+  public const string Version="6.3.0";
 
-  public const string HelpText=@"GEARLAB 6.2 — КАК ПОЛЬЗОВАТЬСЯ
+  public const string HelpText=@"GEARLAB 6.3 — КАК ПОЛЬЗОВАТЬСЯ
 
 РЕДУКТОРЫ
 В одной вкладке доступны 13 типов: циклоидальный, зубчатая пара, зубчатый ремень, планетарный, волновой, червячный, конический, RV, дифференциальный планетарный, гипоидный, глобоидный, магнитный и реечный. Используйте категории и поиск. Переключение типа сохраняет его текущие параметры.
@@ -45,7 +45,7 @@ namespace GearLab {
 Полная/разнесённая 3D-сборка, стандартные виды, дерево и поиск деталей, скрытие/изоляция и сечения доступны в общем просмотрщике. ЛКМ вращает камеру, СКМ или Shift+ЛКМ сдвигает, колесо масштабирует, F/Home вписывает. «Запустить»/«Пауза» управляют анимацией. Перемещение отдельной детали — режим просмотра: оно не изменяет расчётный проект или STEP/STL. Esc отменяет перемещение, «Вернуть» восстанавливает положение.
 
 ЭКСПОРТ
-Меню «Экспорт»: STEP, SVG, DXF, CSV и отдельные STL. Состав слева применяется к экспортам: все детали / рабочие профили / печатные заготовки. Для новых передач рабочие профили исключают корпус, опоры, мотор и отдельные валы. Диалог «Для печати…» позволяет выбрать конкретные детали. Каждый STL — одна деталь в мм, нижняя точка Z=0. Скрытие и экранное сечение не меняют состав экспорта.
+Меню «Экспорт»: STEP, SVG, DXF, CSV и отдельные STL. Состав в панели параметров справа применяется к экспортам: все детали / рабочие профили / печатные заготовки. Для новых передач рабочие профили исключают корпус, опоры, мотор и отдельные валы. Диалог «Для печати…» позволяет выбрать конкретные детали. Каждый STL — одна деталь в мм, нижняя точка Z=0. Скрытие и экранное сечение не меняют состав экспорта.
 
 Точный STEP создаётся в фоне и может занимать минуты; кнопка отмены останавливает операцию. Быстрый 3D-просмотр не требует запуска CAD-ядра. ПТК и подшипники экспортируются из той же параметрической модели; сферы и тела вращения строятся в CAD-ядре. Проверьте единицы мм при импорте в CAD/слайсер.
 
@@ -55,15 +55,45 @@ namespace GearLab {
 РОБОТОТЕХНИКА
 Создайте дерево суставов, задайте оси, пределы, моторы, нагрузки и размеры. Контроллеры/кольца/стрелки меняют экранную позу с undo/redo и обновлением статики. Корпус после изменения геометрии требует перестроения; устаревший корпус нельзя экспортировать. Один сустав принимает последовательную цепь с одним конечным выходом; промежуточную ступень выбирать нельзя. Физические моторы программа не подключает.
 
-В конструкторе механизмов задавайте валы, детали и связи, проверяйте направления и нагрузки. Переключайтесь между пятью действующими разделами верхней панели. Отдельные редакторы CAD Studio и полигонов удалены из пользовательского интерфейса.
+Переключайтесь между редукторами, ступенями, робототехникой и настройками на верхней панели. Раздел «Свой механизм», отдельные CAD Studio и редактор полигонов удалены из пользовательского интерфейса.
 
 ПРОЕКТЫ И НАСТРОЙКИ
-Ctrl+S — сохранить, Ctrl+O — открыть. Форматы: .gear.json, .train.json, .robot.json, .mechanism.json; старые .wave.json мигрируют в общий редактор. Сохраняйте пользовательские проекты в свою папку. Настройки включают тему, качество, камеру, сетку и автосохранение поддержанных рабочих проектов робота/механизма. Автовосстановление не заменяет обычное сохранение всех форматов.
+Ctrl+S — сохранить, Ctrl+O — открыть. Форматы: .gear.json, .train.json, .robot.json; старые .wave.json мигрируют в общий редактор. Сохраняйте пользовательские проекты в свою папку. Настройки: оформление в стиле Blender, 17 цветов интерфейса и сцены, русский / английский язык, качество 3D, чувствительность камеры, привязка к сетке, скорость анимации и автосохранение проекта робота. Выберите раздел слева, внесите изменения и нажмите «Применить». «Отмена» отменяет только несохранённые правки; «Стандартные» готовит исходные значения до применения. Язык и цвета действуют для открытых и новых окон и сохраняются между запусками. Автовосстановление не заменяет обычное сохранение всех форматов.
 
 ОГРАНИЧЕНИЯ
-Теоретический T·i·КПД не равен допустимому моменту. Червячные/конические/RV/гипоидные/глобоидные профили содержат компоновочные приближения. Волновая деформация задана; контакт и упругость не решаются. Магнитный предельный момент неизвестен без электромагнитного расчёта. Положительный объём и валидный STEP не доказывают сопряжение зубьев или изготовимость.
+Теоретический T·i·КПД не равен допустимому моменту. Червячные/конические/RV/гипоидные/глобоидные профили содержат компоновочные приближения. ПТК использует жёсткое кольцо и шарики; контактные нагрузки, износ и упругость не решаются. Магнитный предельный момент неизвестен без электромагнитного расчёта. Положительный объём и валидный STEP не доказывают сопряжение зубьев или изготовимость.
 
 B-rep-проверка относится к текущей позе и имеет лимит 250 пар; программа явно сообщает неполный результат. Полный диапазон движения, ресурс, динамика, нагрев, посадки, шпонки, крепёж, материалы и прочность требуют отдельной инженерной проверки. Подробные формулы, ограничения и отчёты находятся в docs рядом с программой.";
+
+  public const string EnglishHelp=@"GEARLAB 6.3 — HELP
+
+REDUCERS
+Choose one of 13 transmission types using categories and search. Each type retains its edited parameters. Enter dimensions, then click Calculate or press Enter. Both decimal separators are accepted. Invalid fields are highlighted; exports are disabled while edits are pending. Automatic fitting locks dimensions it controls; turn it off to enter those dimensions manually. Failed fitting preserves your inputs.
+
+The overall size limits the working mechanism in its plane; the complete motor assembly size is reported separately. Input torque and efficiency affect load calculations. Worm efficiency is calculated from friction and geometry. Rack outputs use mm/s and N. Strength estimates apply only to supported spur/rack cases; other strength limits are unknown.
+
+The PTK reducer uses a fixed rigid ring, circular eccentric, balls and an output separator. All bearing previews include grooved races, balls and cages. These are dimensional models, with no assigned catalog load rating or service life.
+
+VIEWPORT AND ANIMATION
+Choose complete or exploded 3D, top profile, axial section or bearing close-up in the view list. Left-drag orbits; middle / Shift+left-drag pans; wheel zooms; F/Home frames all. Play/Pause controls motion. Set playback speed in Preferences. The component tree supports search, visibility and isolation. Sections and individual part offsets affect the preview; STEP/STL use assembly positions. Esc cancels dragging. Reset part/all restores positions.
+
+EXPORT
+The Export menu provides STEP, SVG, DXF, CSV and separate printable STL parts. Set the export scope in the right properties panel. Preview visibility and clipping do not change export scope. Exact STEP runs in the background and supports cancellation. The preview does not need the native CAD worker. Dimensions are in millimeters. Confirm units when importing into CAD or a slicer.
+
+STAGES
+Set motor speed and torque on the left. Add a Stage, select its card and edit ratio or dimensions on the right. Results update automatically and show output ratio, speed and torque above the assembly. Use arrows to reorder; Duplicate/Delete and Undo/Redo manage the sequence. All stage dimensions opens the full editor. Branches and two inputs contains advanced connections. Cycles and unsupported circulating power are rejected. Exports rebuild from the current editor values.
+
+ROBOTICS
+Build a joint tree and set axes, limits, motors, loads and dimensions. Joint controllers change the displayed pose with undo/redo and update static loads. Rebuild housing after geometric changes; stale housing cannot be exported. A joint accepts a sequential train with one final output. Physical motors are not connected by this application. Robot autosave creates recovery copies; save your main project file separately.
+
+PREFERENCES
+Appearance provides dark/light Blender-inspired themes. Colors provides 17 editable interface/viewport colors using swatches or #RRGGBB. 3D and animation controls preview quality, camera sensitivity, snapping and playback speed. Language switches Russian/English. Saving configures robot recovery copies. Click Apply to save and update existing/new workspaces. Cancel discards subsequent unsaved changes. Restore defaults prepares defaults until you click Apply. Colors and language persist between sessions. Project names and numeric parameters retain their original data.
+
+PROJECTS
+Use Ctrl+S to save and Ctrl+O to open. Formats: .gear.json, .train.json, .robot.json. Older wave projects migrate to the shared PTK editor. Keep user projects in your own folder. Recovery copies do not replace normal saving. The old custom mechanism, CAD Studio and polygon editors are no longer in the user interface.
+
+LIMITATIONS
+Theoretical torque T × ratio × efficiency is not an allowable load. Worm, bevel, RV, hypoid and globoid shapes include layout approximations. PTK contact loads, wear and elasticity require separate analysis. Magnetic torque limits require electromagnetic analysis. Positive volumes and valid STEP solids do not prove tooth conjugacy or manufacturability. B-rep checks apply to the current pose and are limited to 250 pairs; incomplete results are explicitly reported. Validate strength, motion range, life, dynamics, heat, fits, fasteners and materials separately. See docs for formulas, reports and limitations.";
 
   public static void WriteText(string path,string text,Encoding encoding){string full=Path.GetFullPath(path),dir=Path.GetDirectoryName(full);if(!Directory.Exists(dir))throw new IOException("Папка назначения не существует.");string temp=Path.Combine(dir,".gearlab-"+Guid.NewGuid().ToString("N")+".tmp");try{File.WriteAllText(temp,text,encoding);if(File.Exists(full))File.Replace(temp,full,null);else File.Move(temp,full);}finally{if(File.Exists(temp))File.Delete(temp);}}
 
@@ -83,7 +113,7 @@ B-rep-проверка относится к текущей позе и имее
 
   public static void Export(Result result,string type,string path){if(type=="csv"&&!result.Valid){Files.Csv(result,path);return;}if(result.P.Kind==4&&type!="step"&&result.P.ExportScope==1){if(type=="csv")Files.Csv(result,path);else WaveDiagram.Export(result.Wave,path,type=="dxf");return;}var model=result.Model??CadBuilder.Build(result);if(result.P.Kind>=5){model=ReducerExportSelection.ForScope(model,result.P.ExportScope);if(type=="step")TransmissionExport.Write(model,path);else FullDrawingExport.Write(model,type,path);return;}if(result.P.ExportScope==2)model=PrintExport.Select(model,null);if(type=="step"){StepExport.Write(model,path);return;}if(result.P.ExportScope!=1){FullDrawingExport.Write(model,type,path);return;}if(type=="csv")Files.Csv(result,path);else if(type=="svg")Files.Svg(result,path);else if(type=="dxf")Files.Dxf(result,path);else throw new Exception("Неизвестный формат экспорта.");}
 
-  public static void Report(Exception ex){string path="";try{path=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"GearLab","logs");Directory.CreateDirectory(path);path=Path.Combine(path,"error-"+DateTime.Now.ToString("yyyyMMdd-HHmmss-fff")+".txt");File.WriteAllText(path,"Gear Lab "+Version+Environment.NewLine+(ex==null?"Unknown error":ex.ToString()),Encoding.UTF8);}catch{path="Не удалось записать журнал.";}MessageBox.Show("Не удалось выполнить действие. Сохраните проект под другим именем, если программа продолжает работу.\nЖурнал ошибки: "+path,"Gear Lab — ошибка",MessageBoxButtons.OK,MessageBoxIcon.Error);}
+  public static void Report(Exception ex){string path="";try{path=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"GearLab","logs");Directory.CreateDirectory(path);path=Path.Combine(path,"error-"+DateTime.Now.ToString("yyyyMMdd-HHmmss-fff")+".txt");File.WriteAllText(path,"Gear Lab "+Version+Environment.NewLine+(ex==null?"Unknown error":ex.ToString()),Encoding.UTF8);}catch{path="Не удалось записать журнал.";}UiMessage.Show("Не удалось выполнить действие. Сохраните проект под другим именем, если программа продолжает работу.\nЖурнал ошибки: "+path,"Gear Lab — ошибка",MessageBoxButtons.OK,MessageBoxIcon.Error);}
 
  }
 

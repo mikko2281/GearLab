@@ -481,6 +481,7 @@ namespace GearLab {
  static class Program {
 
   [STAThread] static int Main(string[] args){
+   if(args.Length>0&&args[0]=="--settings63-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Settings63Tests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--audit-fix-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return AuditFixTests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--ui60-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return TransmissionUi60Tests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--robot-transmission60-test")return RobotTransmission60Tests.Run(args[1]);
@@ -488,7 +489,7 @@ namespace GearLab {
    if(args.Length>0&&args[0]=="--upgrade62-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Upgrade62Tests.Run(args.Length>1?args[1]:Path.GetTempPath());}
    if(args.Length>0&&args[0]=="--transmission60-test")return Transmission60Tests.Run(args[1]);
 
-   if(args.Length>0&&(args[0]=="--cad"||args[0].EndsWith(".cad.json",StringComparison.OrdinalIgnoreCase))){MessageBox.Show("CAD-моделирование удалено из этой версии. Сохранённые файлы не изменены.");return 2;}
+   if(args.Length>0&&(args[0]=="--cad"||args[0].EndsWith(".cad.json",StringComparison.OrdinalIgnoreCase))){UiMessage.Show("CAD-моделирование удалено из этой версии. Сохранённые файлы не изменены.");return 2;}
 
    if(args.Length>0&&args[0]=="--wave")return RunWindow(()=>{var r=new ReducerWorkspaceForm();r.SelectWave();return r;});
 
@@ -518,7 +519,7 @@ namespace GearLab {
 
    if(args.Length>0&&(args[0]=="--robot"||args[0].EndsWith(".robot.json",StringComparison.OrdinalIgnoreCase))){string file=args[0]=="--robot"?(args.Length>1?args[1]:null):args[0];return RunWindow(()=>new RobotDesignerForm(file));}
 
-   if(args.Length>0&&(args[0]=="--polygon"||args[0].EndsWith(".mesh.json",StringComparison.OrdinalIgnoreCase))){MessageBox.Show("Полигональное моделирование удалено из этой версии. Сохранённые файлы не изменены.");return 2;}
+   if(args.Length>0&&(args[0]=="--polygon"||args[0].EndsWith(".mesh.json",StringComparison.OrdinalIgnoreCase))){UiMessage.Show("Полигональное моделирование удалено из этой версии. Сохранённые файлы не изменены.");return 2;}
 
    if(args.Length>0&&args[0]=="--settings")return RunWindow(()=>new SettingsForm(null));
 

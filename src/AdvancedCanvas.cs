@@ -28,17 +28,17 @@ namespace GearLab {
 
   protected override void OnPaint(PaintEventArgs e){
 
-   base.OnPaint(e);if(View>=5)return;var g=e.Graphics;g.SmoothingMode=SmoothingMode.AntiAlias;using(var grid=new Pen(Color.FromArgb(231,236,242))){for(int x=0;x<Width;x+=28)g.DrawLine(grid,x,0,x,Height);for(int y=0;y<Height;y+=28)g.DrawLine(grid,0,y,Width,y);}
+   base.OnPaint(e);if(View>=5)return;e.Graphics.Clear(UiPalette.Get("Viewport"));var g=e.Graphics;g.SmoothingMode=SmoothingMode.AntiAlias;using(var grid=new Pen(UiPalette.Get("Grid"))){for(int x=0;x<Width;x+=28)g.DrawLine(grid,x,0,x,Height);for(int y=0;y<Height;y+=28)g.DrawLine(grid,0,y,Width,y);}
 
    if(Result==null)return;var r=Result;var p=r.P;
 
-   if(!r.Valid){using(var b=new SolidBrush(Color.FromArgb(255,243,239)))g.FillRectangle(b,22,20,Math.Max(100,Width-44),Math.Max(100,Height-40));using(var f=new Font("Segoe UI",14,FontStyle.Bold))g.DrawString("Геометрия не построена",f,Brushes.Firebrick,38,38);using(var f=new Font("Segoe UI",10))g.DrawString(string.Join("\n\n",r.Errors.Take(4))+"\n\nИсправьте выделенные параметры или задайте больший общий габарит.",f,Brushes.Maroon,new RectangleF(38,92,Width-76,Height-115));return;}
+   if(!r.Valid){using(var b=new SolidBrush(Color.FromArgb(255,243,239)))g.FillRectangle(b,22,20,Math.Max(100,Width-44),Math.Max(100,Height-40));using(var f=new Font("Segoe UI",14,FontStyle.Bold))g.DrawString(I18n.T("Геометрия не построена"),f,UiDrawing.Error,38,38);using(var f=new Font("Segoe UI",10))g.DrawString(I18n.T(string.Join("\n\n",r.Errors.Take(4))+"\n\nИсправьте выделенные параметры или задайте больший общий габарит."),f,UiDrawing.Error,new RectangleF(38,92,Width-76,Height-115));return;}
 
    string head=p.Kind>=5?TransmissionCatalog.All[p.Kind].Name+" · "+TransmissionCatalog.All[p.Kind].Limit:p.Kind==4?"ПТК · эксцентрик — вход, сепаратор — выход, жёсткое кольцо закреплено":View==4?"Подшипник · идеальное качение без скольжения":View==3?"Осевая компоновка · условный разрез":p.Kind==0?Engine.Scheme(p):p.Kind==1?"Внешнее зацепление · эвольвентные боковые поверхности":p.Kind==2?"Открытый зубчатый ремень · движение по делительной линии":"Планетарная схема · солнце → водило, кольцо закреплено";
 
    if(p.Kind==3&&r.Stages.Count>1&&View==0)head="Ступень "+(Math.Min(StageIndex,r.Stages.Count-1)+1)+" из "+r.Stages.Count+" · суммарное i="+Engine.F(r.Actual)+" · ступени вдоль общей оси";
 
-   bool compact=Height<420;using(var f=new Font("Segoe UI",9)){g.DrawString(head,f,Brushes.SlateGray,new RectangleF(16,12,Width-32,compact?22:34));if(!compact)g.DrawString("Габарит "+Engine.F(r.Width)+" × "+Engine.F(r.Height)+" мм   Пакет ≈ "+Engine.F(r.Depth)+" мм   Вход "+Engine.F(p.InputRpm)+" об/мин",f,Brushes.SlateGray,new RectangleF(16,43,Width-32,24));}
+   bool compact=Height<420;using(var f=new Font("Segoe UI",9)){g.DrawString(I18n.T(head),f,UiDrawing.Muted,new RectangleF(16,12,Width-32,compact?22:34));if(!compact)g.DrawString(I18n.T("Габарит "+Engine.F(r.Width)+" × "+Engine.F(r.Height)+" мм   Пакет ≈ "+Engine.F(r.Depth)+" мм   Вход "+Engine.F(p.InputRpm)+" об/мин"),f,UiDrawing.Muted,new RectangleF(16,43,Width-32,24));}
 
    double[] bounds=Engine.Bounds(r);if(View==4)bounds=new[]{-p.Bore*.7,p.Bore*.7,-p.Bore*.7,p.Bore*.7};if(View==3)bounds=new[]{-p.MotorLength-6,r.Depth+6,-r.Height/2-6,r.Height/2+6};
 
@@ -64,7 +64,7 @@ namespace GearLab {
 
    g.ResetTransform();string note=p.Kind==4?"Шарики перемещаются в радиальных окнах сепаратора. Выход вращается в противоположную сторону. Нагрузка и ресурс не рассчитаны.":View==4?"Размеры колец заданы; число/диаметр шариков — модель. Нагрузки, проскальзывание и ресурс не рассчитываются.":View==3?(p.Kind==3?"Водило ступени вращает солнце следующей; кольца закреплены. Соединения и опоры требуют CAD.":"Два противоположных эксцентрика; междисковый зазор задан отдельно. Опоры и крепёж требуют CAD."):p.Kind==0?(p.Discs==2?"Синий — диск A; оранжевый — диск B (другой осевой слой). ":"Синий — диск A. ")+"Кольцо — охра; пальцы — зелёный.":p.Kind==2?"Зубья шкивов показаны условно: конкретный профиль ремня нужно выбрать по каталогу.":"Корень зуба упрощён, без галтели и силового расчёта. Эскиз для компоновки, не готовая технология изготовления.";
 
-   using(var f=new Font("Segoe UI",9)){if(!compact)g.DrawString(note,f,Brushes.SlateGray,new RectangleF(16,Height-61,Width-32,37));g.DrawString(compact?"мм · колесо мыши — масштаб · размеры и проверки — на соседних вкладках":"Щёлкните чертёж и крутите колесо мыши для масштаба. Размеры в мм.",f,Brushes.SlateGray,new RectangleF(16,Height-23,Width-32,23));}
+   using(var f=new Font("Segoe UI",9)){if(!compact)g.DrawString(I18n.T(note),f,UiDrawing.Muted,new RectangleF(16,Height-61,Width-32,37));g.DrawString(I18n.T(compact?"мм · колесо мыши — масштаб · размеры и проверки — на соседних вкладках":"Щёлкните чертёж и крутите колесо мыши для масштаба. Размеры в мм."),f,UiDrawing.Muted,new RectangleF(16,Height-23,Width-32,23));}
 
   }
 

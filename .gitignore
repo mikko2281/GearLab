@@ -10,3 +10,6 @@ __pycache__/
 *.pyc
 
 test-results-*/
+
+publication/
+docs/verification/6.3*/profile*/

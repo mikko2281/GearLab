@@ -24,7 +24,7 @@ namespace GearLab {
 
  }
 
- public class SafeSlider:TrackBar {
+ public class SafeSlider:EditorTrackBar {
 
   public Action<int> ScrollRequested;protected override void OnMouseWheel(MouseEventArgs e){if(ScrollRequested!=null)ScrollRequested(e.Delta);}
 
@@ -33,7 +33,7 @@ namespace GearLab {
  public partial class MainForm:Form {
   internal event Action<int> HostedKindChanged;
 
-  internal void ConfigureHostedKind(){kind.Visible=false;foreach(Control c in controls.Controls)if(c is Label&&c.Text=="Тип передачи")c.Visible=false;}
+  internal void ConfigureHostedKind(){kind.Visible=false;foreach(Control c in controls.Controls)if(c is Label&&I18n.Raw(c)=="Тип передачи")c.Visible=false;}
 
   internal void SetHostedKind(int index){if(index>=0&&index<TransmissionCatalog.All.Length&&kind.SelectedIndex!=index)kind.SelectedIndex=index;}
 
@@ -62,7 +62,7 @@ namespace GearLab {
 
   public MainForm(IUserDialogs userDialogs){dialogs=userDialogs;Icon=Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-   Text="Gear Lab 6.2 · Калькулятор редукторов";Font=new Font("Segoe UI",10);Size=new Size(1460,980);MinimumSize=new Size(980,650);AutoScaleDimensions=new SizeF(96,96);StartPosition=FormStartPosition.CenterScreen;AutoScaleMode=AutoScaleMode.Dpi;BackColor=Color.White;
+   Text="Gear Lab 6.3 · Калькулятор редукторов";Font=new Font("Segoe UI",9);Size=new Size(1460,980);MinimumSize=new Size(980,650);AutoScaleDimensions=new SizeF(96,96);StartPosition=FormStartPosition.CenterScreen;AutoScaleMode=AutoScaleMode.Dpi;BackColor=Color.White;
 
    var menu=new MenuStrip{BackColor=Color.FromArgb(239,244,249)};var project=new ToolStripMenuItem("Проект");saveMenu=new ToolStripMenuItem("Сохранить…",null,(a,b)=>SaveProject()){ShortcutKeys=Keys.Control|Keys.S};saveAsMenu=new ToolStripMenuItem("Сохранить как…",null,(a,b)=>SaveProject(true)){ShortcutKeys=Keys.Control|Keys.Shift|Keys.S};openMenu=new ToolStripMenuItem("Открыть…",null,(a,b)=>OpenProject()){ShortcutKeys=Keys.Control|Keys.O};resetMenu=new ToolStripMenuItem("Сбросить текущий тип",null,(a,b)=>{if(ConfirmChanges())Apply(Engine.Starter(p.Kind),true);});project.DropDownItems.AddRange(new ToolStripItem[]{saveMenu,saveAsMenu,openMenu,resetMenu});
 
@@ -72,14 +72,14 @@ namespace GearLab {
 
 
    menu.Items.Add(new ToolStripMenuItem("Конструктор ступеней",null,(a,b)=>WorkspaceHost.Navigate(this,"train")));
-   menu.Items.Insert(2,new ToolStripMenuItem("Робототехника",null,(a,b)=>WorkspaceHost.Navigate(this,"robot")));menu.Items.Add(new ToolStripMenuItem("Настройки",null,(a,b)=>{using(var f=new SettingsForm(this))f.ShowDialog(this);}));
+   menu.Items.Insert(2,new ToolStripMenuItem("Робототехника",null,(a,b)=>WorkspaceHost.Navigate(this,"robot")));menu.Items.Add(new ToolStripMenuItem("Настройки",null,(a,b)=>{using(var f=new SettingsForm(this))f.ShowLocalizedDialog(this);}));
 
-   var body=new TableLayoutPanel{Dock=DockStyle.Fill,ColumnCount=2,RowCount=2};body.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute,340));body.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,100));body.RowStyles.Add(new RowStyle(SizeType.Percent,100));body.RowStyles.Add(new RowStyle(SizeType.Absolute,34));
+   var body=new TableLayoutPanel{Dock=DockStyle.Fill,ColumnCount=2,RowCount=2};body.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,100));body.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute,330));body.RowStyles.Add(new RowStyle(SizeType.Percent,100));body.RowStyles.Add(new RowStyle(SizeType.Absolute,34));
 
-   controls=new FlowLayoutPanel{Dock=DockStyle.Fill,FlowDirection=FlowDirection.TopDown,WrapContents=false,AutoScroll=true,Padding=new Padding(18,12,10,12),BackColor=Color.FromArgb(241,245,249)};
+   controls=new FlowLayoutPanel{Dock=DockStyle.Fill,FlowDirection=FlowDirection.TopDown,WrapContents=false,AutoScroll=true,Padding=new Padding(12,10,8,10),BackColor=Color.FromArgb(241,245,249)};
 
 
-   var robotButton=new Button{Text="＋ Робот: скелет → корпус",Width=285,Height=40,BackColor=Color.FromArgb(39,128,98),ForeColor=Color.White,FlatStyle=FlatStyle.Flat};robotButton.Click+=(s,e)=>WorkspaceHost.Navigate(this,"robot");controls.Controls.Add(robotButton);
+   var robotButton=new Button{Text="＋ Робот: скелет → корпус",Width=285,Height=40,BackColor=Color.FromArgb(39,128,98),ForeColor=Color.White,FlatStyle=FlatStyle.Flat};robotButton.Click+=(s,e)=>WorkspaceHost.Navigate(this,"robot");robotButton.Dispose();
 
    controls.Controls.Add(new Label{Text="ПАРАМЕТРЫ ПЕРЕДАЧИ",Width=290,Height=30,Font=new Font("Segoe UI",11,FontStyle.Bold),ForeColor=Color.FromArgb(34,70,102)});
 
@@ -107,11 +107,11 @@ namespace GearLab {
 
    AddNumber("Overall","Габарит рабочего узла, мм",0,2000,2,1,true);
 
-   auto=new CheckBox{Text="Подбирать размеры автоматически",Checked=true,Width=290,Height=32};auto.CheckedChanged+=(s,e)=>{if(updating)return;if(ReadControls()){p.AutoFit=auto.Checked;RefreshFields();Recalculate();}else{updating=true;auto.Checked=p.AutoFit;updating=false;}};tips.SetToolTip(auto,"Под заданный габарит: циклоидальный — R/e/пальцы; зубчатый/планетарный — модуль; ремень — межосевое. 0 мм отключает ограничение.");controls.Controls.Add(auto);
+   auto=new CheckBox{Text="Подбирать размеры автоматически",Checked=true,Width=290,Height=32};auto.CheckedChanged+=(s,e)=>{if(updating)return;if(ReadControls()){p.AutoFit=auto.Checked;RefreshFields();Recalculate();}else{updating=true;auto.Checked=p.AutoFit;updating=false;}};tips.SetLocalizedToolTip(auto,"Под заданный габарит: циклоидальный — R/e/пальцы; зубчатый/планетарный — модуль; ремень — межосевое. 0 мм отключает ограничение.");controls.Controls.Add(auto);
 
    dual=new CheckBox{Text="Два диска на одном валу (180°)",Width=290,Height=30,Checked=true};dual.CheckedChanged+=(s,e)=>{if(updating)return;bool value=dual.Checked;if(!ReadControls()){updating=true;dual.Checked=p.Discs==2;updating=false;return;}p.Discs=value?2:1;Recalculate();};controls.Controls.Add(dual);
 
-   integratedRing=new CheckBox{Text="Зацепы кольца — часть корпуса",Width=290,Height=30};integratedRing.CheckedChanged+=(s,e)=>{if(updating)return;bool value=integratedRing.Checked;if(!ReadControls()){updating=true;integratedRing.Checked=p.IntegratedRing;updating=false;return;}p.IntegratedRing=value;canvas.Phase=0;Recalculate();};tips.SetToolTip(integratedRing,"Циклоидальный: вместо отдельных роликов и осей — зацепы, соединённые со стенкой. Контакт со скольжением. Планетарное кольцо уже объединено с корпусом.");controls.Controls.Add(integratedRing);
+   integratedRing=new CheckBox{Text="Зацепы кольца — часть корпуса",Width=290,Height=30};integratedRing.CheckedChanged+=(s,e)=>{if(updating)return;bool value=integratedRing.Checked;if(!ReadControls()){updating=true;integratedRing.Checked=p.IntegratedRing;updating=false;return;}p.IntegratedRing=value;canvas.Phase=0;Recalculate();};tips.SetLocalizedToolTip(integratedRing,"Циклоидальный: вместо отдельных роликов и осей — зацепы, соединённые со стенкой. Контакт со скольжением. Планетарное кольцо уже объединено с корпусом.");controls.Controls.Add(integratedRing);
 
    AddNumber("RingBridge","Связка зацепа с корпусом (0=авто), мм",0,40,2,.1m,false);
 
@@ -143,11 +143,11 @@ namespace GearLab {
    AddNumber("ModelCover","3D: минимум толщины крышек, мм",3,50,2,.5m,false);AddNumber("ModelFlange","3D: монтажный пояс снаружи, мм",2,40,2,.5m,false);AddNumber("ModelGap","3D: осевой зазор, мм",.05m,10,2,.05m,false);AddNumber("ModelBolt","3D: стяжной крепёж Ø, мм",1,10,2,.5m,false);AddNumber("ModelBoltCount","3D: болтов круглого корпуса, шт.",3,16,0,1,false);AddNumber("ModelShaftExtension","3D: выступ вала, мм",2,100,2,1,false);AddNumber("ModelInputBearingD","3D: входная опора D, мм",5,150,2,.5m,false);AddNumber("ModelInputBearingB","3D: входная опора B, мм",2,50,2,.5m,false);AddNumber("ModelCaseInner","3D: выходная опора d (0=авто), мм",0,500,2,.5m,false);AddNumber("ModelCaseOuter","3D: выходная опора D (0=авто), мм",0,700,2,.5m,false);AddNumber("ModelCaseBearingB","3D: выходная опора B, мм",2,100,2,.5m,false);AddNumber("ModelRollerAxle","3D: ось ролика Ø, мм",.5m,20,2,.1m,false);AddNumber("ModelBeltThickness","3D: толщина ленты ремня, мм",.2m,10,2,.1m,false);AddNumber("ModelBushWall","3D: стенка втулки сателлита, мм",.2m,10,2,.1m,false);
 
    AddTransmissionFields();
-   var right=new TableLayoutPanel{Dock=DockStyle.Fill,RowCount=4,ColumnCount=1,Padding=new Padding(12,8,12,4)};right.RowStyles.Add(new RowStyle(SizeType.Absolute,48));right.RowStyles.Add(new RowStyle(SizeType.Absolute,88));right.RowStyles.Add(new RowStyle(SizeType.AutoSize));right.RowStyles.Add(new RowStyle(SizeType.Percent,100));
+   var right=new TableLayoutPanel{Dock=DockStyle.Fill,RowCount=5,ColumnCount=1,Padding=new Padding(4,2,4,2)};right.RowStyles.Add(new RowStyle(SizeType.Absolute,30));right.RowStyles.Add(new RowStyle(SizeType.Absolute,66));right.RowStyles.Add(new RowStyle(SizeType.AutoSize));right.RowStyles.Add(new RowStyle(SizeType.Percent,100));right.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
-   title=new Label{Dock=DockStyle.Fill,Font=new Font("Segoe UI",14,FontStyle.Bold),ForeColor=Color.FromArgb(24,61,93),TextAlign=ContentAlignment.MiddleLeft,AutoEllipsis=true};right.Controls.Add(title,0,0);
+   title=new Label{Dock=DockStyle.Fill,Font=new Font("Segoe UI",11,FontStyle.Bold),ForeColor=Color.FromArgb(24,61,93),TextAlign=ContentAlignment.MiddleLeft,AutoEllipsis=true};right.Controls.Add(title,0,0);
 
-   banner=new Label{Dock=DockStyle.Fill,Padding=new Padding(10,6,10,6),Font=new Font("Segoe UI",9),AutoEllipsis=true};right.Controls.Add(banner,0,1);tips.SetToolTip(banner,"Все подробности находятся на вкладке «Проверки».");
+   banner=new Label{Dock=DockStyle.Fill,Padding=new Padding(6,3,6,3),Font=new Font("Segoe UI",9),AutoEllipsis=true};right.Controls.Add(banner,0,1);tips.SetLocalizedToolTip(banner,"Все подробности находятся на вкладке «Проверки».");
 
    var toolbar=new FlowLayoutPanel{Dock=DockStyle.Fill,AutoSize=true,Padding=new Padding(0,5,0,5),WrapContents=true};
 
@@ -155,7 +155,7 @@ namespace GearLab {
 
    run=Button("Запустить",104,(s,e)=>{if(dirty||result==null||!result.Valid)return;canvas.ShowMotion=!canvas.ShowMotion;run.Text=canvas.ShowMotion?"Пауза":"Запустить";});
 
-   reset3d=Button("Сбросить 3D",120,(a,b)=>{if(!ReadControls())return;Engine.ResetCadSettings(p);RefreshFields();Recalculate(false);if(p.Kind==0)layoutState[p.CycloidLayout]=Engine.Clone(p);footer.Text="Настройки корпуса и опор восстановлены. Размеры рабочих профилей сохранены.";});tips.SetToolTip(reset3d,"Восстанавливает параметры корпуса и опор для текущей схемы. Передаточное число и размеры шестерён остаются заданными.");
+   reset3d=Button("Сбросить 3D",120,(a,b)=>{if(!ReadControls())return;Engine.ResetCadSettings(p);RefreshFields();Recalculate(false);if(p.Kind==0)layoutState[p.CycloidLayout]=Engine.Clone(p);footer.Text="Настройки корпуса и опор восстановлены. Размеры рабочих профилей сохранены.";});tips.SetLocalizedToolTip(reset3d,"Восстанавливает параметры корпуса и опор для текущей схемы. Передаточное число и размеры шестерён остаются заданными.");
 
    fit=Button("Вписать",80,(s,e)=>{canvas.FitView();});csv=Button("CSV деталей",116,(s,e)=>Export("csv"));dxf=Button("DXF деталей",120,(s,e)=>Export("dxf"));step=Button("STEP сборка",130,(a,b)=>Export("step"));print=Button("Для печати…",126,(a,b)=>ExportPrint());
 
@@ -165,9 +165,9 @@ namespace GearLab {
 
    motor=new CheckBox{Text="Крепление мотора",Checked=true,Width=170,Height=30};motor.CheckedChanged+=(s,e)=>{if(canvas!=null){canvas.ShowMotor=motor.Checked;canvas.Invalidate();}};
 
-   hideHousing=new CheckBox{Text="Скрыть корпус в 3D",Width=175,Height=30};hideHousing.CheckedChanged+=(a,b)=>{if(updating)return;canvas.HideHousing=hideHousing.Checked;canvas.Invalidate();};toolbar.Controls.AddRange(new Control[]{calculate,autoButton,run,fit,csv,dxf,step,print,reset3d,view,stageView,motor,hideHousing});right.Controls.Add(toolbar,0,2);AcceptButton=calculate;
+   hideHousing=new CheckBox{Text="Скрыть корпус в 3D",Width=175,Height=30};hideHousing.CheckedChanged+=(a,b)=>{if(updating)return;canvas.HideHousing=hideHousing.Checked;canvas.Invalidate();};toolbar.Controls.AddRange(new Control[]{calculate,autoButton,view,stageView,motor,hideHousing,reset3d});right.Controls.Add(toolbar,0,2);AcceptButton=calculate;
 
-   tabs=new TabControl{Dock=DockStyle.Fill};var drawing=new TabPage("Чертёж");var detail=new TabPage("Детали и размеры");var check=new TabPage("Проверки и допущения");canvas=new Canvas{Dock=DockStyle.Fill};drawing.Controls.Add(canvas);canvas.VisibilityChanged+=()=>{bool old=updating;updating=true;hideHousing.Checked=canvas.HideHousing;updating=old;};
+   tabs=new EditorTabs{Dock=DockStyle.Fill};var drawing=new TabPage("Чертёж");var detail=new TabPage("Детали и размеры");var check=new TabPage("Проверки и допущения");canvas=new Canvas{Dock=DockStyle.Fill};drawing.Controls.Add(canvas);canvas.VisibilityChanged+=()=>{bool old=updating;updating=true;hideHousing.Checked=canvas.HideHousing;updating=old;};
 
    var detailRows=new TableLayoutPanel{Dock=DockStyle.Fill,RowCount=2};detailRows.RowStyles.Add(new RowStyle(SizeType.Percent,36));detailRows.RowStyles.Add(new RowStyle(SizeType.Percent,64));
 
@@ -175,11 +175,11 @@ namespace GearLab {
 
    detailRows.Controls.Add(metrics,0,0);detailRows.Controls.Add(bom,0,1);detail.Controls.Add(detailRows);notes=new TextBox{Dock=DockStyle.Fill,Multiline=true,ReadOnly=true,ScrollBars=ScrollBars.Vertical,WordWrap=true,BorderStyle=BorderStyle.None,BackColor=Color.White,Font=new Font("Segoe UI",10)};check.Padding=new Padding(14);check.Controls.Add(notes);
 
-   tabs.TabPages.AddRange(new[]{drawing,detail,check});right.Controls.Add(tabs,0,3);footer=new Label{Dock=DockStyle.Fill,Padding=new Padding(12,4,8,0),Font=new Font("Segoe UI",9),Text="Список деталей предварительный. Маркировки подшипников, крепёж и прочность требуют CAD и расчёта."};
+   tabs.TabPages.AddRange(new[]{drawing,detail,check});right.Controls.Add(tabs,0,3);var playbackBar=new FlowLayoutPanel{Dock=DockStyle.Fill,AutoSize=true,Padding=new Padding(3,3,3,0),WrapContents=true};playbackBar.Controls.AddRange(new Control[]{run,fit,csv,dxf,step,print});playbackBar.Controls.Add(new Label{Text="Анимация · скорость задаётся в настройках",AutoSize=true,Padding=new Padding(12,7,0,0)});right.Controls.Add(playbackBar,0,4);footer=new Label{Dock=DockStyle.Fill,Padding=new Padding(12,4,8,0),Font=new Font("Segoe UI",9),Text="Список деталей предварительный. Маркировки подшипников, крепёж и прочность требуют CAD и расчёта."};
 
-   body.Controls.Add(controls,0,0);body.Controls.Add(right,1,0);body.Controls.Add(footer,0,1);body.SetColumnSpan(footer,2);Controls.Add(body);Controls.Add(menu);
+   body.Controls.Add(controls,1,0);body.Controls.Add(right,0,0);body.Controls.Add(footer,0,1);body.SetColumnSpan(footer,2);Controls.Add(body);Controls.Add(menu);
 
-   animation=new Timer{Interval=33};animation.Tick+=(s,e)=>{double now=playback.Elapsed.TotalSeconds,dt=Math.Min(.15,now-lastTick);lastTick=now;if(canvas.ShowMotion&&!dirty&&result!=null&&result.Valid&&WindowState!=FormWindowState.Minimized&&tabs.SelectedIndex==0){canvas.Phase+=dt*TransmissionSizing.MotionRpm(p)*Engine.Tau/60;canvas.PresentFrame();}};animation.Start();FormClosed+=(s,e)=>{animation.Dispose();tips.Dispose();};
+   animation=new Timer{Interval=33};animation.Tick+=(s,e)=>{double now=playback.Elapsed.TotalSeconds,dt=Math.Min(.15,now-lastTick);lastTick=now;if(canvas.ShowMotion&&!dirty&&result!=null&&result.Valid&&WindowState!=FormWindowState.Minimized&&tabs.SelectedIndex==0){canvas.Phase+=dt*TransmissionSizing.MotionRpm(p)*Engine.Tau/60*AppSettings.Current.AnimationScale;canvas.PresentFrame();}};animation.Start();FormClosed+=(s,e)=>{animation.Dispose();tips.Dispose();};
 
    InitializeWaveExport();InitializeTransmissionTools();Apply(p,true);savedState=ReleaseSupport.Serialize(p);
 
@@ -199,7 +199,7 @@ namespace GearLab {
 
    var panel=new Panel{Width=286,Height=slider?84:61,Margin=new Padding(0,5,0,0)};panel.Controls.Add(new Label{Text=titleText,Width=286,Height=24,Location=new Point(0,0),Font=new Font("Segoe UI",9)});
 
-   var n=new SafeNumber{Minimum=min,Maximum=max,DecimalPlaces=digits,Increment=step,Width=112,Location=new Point(168,25),TextAlign=HorizontalAlignment.Right,AccessibleName=titleText};n.ScrollRequested=ScrollSide;numbers[key]=n;boxes[key]=panel;panel.Controls.Add(n);tips.SetToolTip(n,"От "+min+" до "+max+". Точность: "+digits+" знаков. Точка и запятая допустимы.");
+   var n=new SafeNumber{Minimum=min,Maximum=max,DecimalPlaces=digits,Increment=step,Width=112,Location=new Point(168,25),TextAlign=HorizontalAlignment.Right,AccessibleName=titleText};n.ScrollRequested=ScrollSide;numbers[key]=n;boxes[key]=panel;panel.Controls.Add(n);tips.SetLocalizedToolTip(n,"От "+min+" до "+max+". Точность: "+digits+" знаков. Точка и запятая допустимы.");
 
    n.TextChanged+=(s,e)=>{if(!updating&&!n.Committing)MarkDirty();};n.ValueChanged+=(s,e)=>{if(updating||n.Committing)return;updating=true;n.Commit(n.Value);updating=false;CommitAndCalculate();};n.Leave+=(s,e)=>{if(!updating&&dirty)CommitAndCalculate();};
 
@@ -278,7 +278,7 @@ namespace GearLab {
 
   bool HasChanges(){return savedState!=null&&(dirty||ReleaseSupport.Serialize(p)!=savedState);}
 
-  void UpdateCaption(){Text="Gear Lab 6.2 · "+(string.IsNullOrEmpty(currentFile)?"Новый проект":Path.GetFileName(currentFile))+(HasChanges()?" *":"");}
+  void UpdateCaption(){Text="Gear Lab 6.3 · "+(string.IsNullOrEmpty(currentFile)?"Новый проект":Path.GetFileName(currentFile))+(HasChanges()?" *":"");}
 
   bool ConfirmChanges(){if(!HasChanges())return true;var answer=dialogs.Unsaved(this);return answer==DialogResult.No||answer==DialogResult.Yes&&SaveProject();}
 

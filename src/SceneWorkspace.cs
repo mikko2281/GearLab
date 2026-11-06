@@ -1,16 +1,35 @@
-﻿using System;using System.Linq;using System.Collections.Generic;using System.Windows;using System.Windows.Controls;using System.Windows.Media;using System.Windows.Media.Media3D;
-namespace GearLab {
- public sealed partial class WpfScene {
-  readonly ModelVisual3D environment=new ModelVisual3D(),construction=new ModelVisual3D();SceneMesh constructionMesh;
-  public bool HasConstruction{get{return constructionMesh!=null&&constructionMesh.Indices.Length>0;}}
-  public static void Segment(MeshWriter w,Point3D a,Point3D b,double thickness){var delta=b-a;if(delta.LengthSquared<1e-12)return;delta.Normalize();var x=Vector3D.CrossProduct(delta,Math.Abs(delta.Z)<.8?new Vector3D(0,0,1):new Vector3D(0,1,0));x.Normalize();x*=thickness/2;var y=Vector3D.CrossProduct(delta,x);y.Normalize();y*=thickness/2;foreach(var side in new[]{x,y,-x,-y}){var n=side;n.Normalize();var tangent=Vector3D.CrossProduct(delta,side);tangent.Normalize();tangent*=thickness/2;var aa=a+side-tangent;var ab=a+side+tangent;var bb=b+side+tangent;var ba=b+side-tangent;w.Triangle(aa,ab,bb,n,n,n);w.Triangle(aa,bb,ba,n,n,n);}}
-  static GeometryModel3D Lines(MeshWriter w,Color color){var brush=new SolidColorBrush(color);brush.Freeze();var material=new DiffuseMaterial(brush);return new GeometryModel3D(w.Finish().Geometry(),material){BackMaterial=material};}
-  double environmentWidth=-1;public double GridStep=10;
-  void InitializeWorkspace(){Camera.Update();Viewport.Children.Insert(0,environment);Viewport.Children.Add(construction);var compass=new StackPanel{Orientation=Orientation.Horizontal,HorizontalAlignment=HorizontalAlignment.Right,VerticalAlignment=VerticalAlignment.Bottom,Margin=new Thickness(12,0,12,34)};foreach(string value in new[]{"ISO","XY","XZ","YZ"}){string plane=value;var b=new Button{Content=value,Padding=new Thickness(8,5,8,5),Margin=new Thickness(2)};b.Click+=(ss,e)=>{Camera.Preset(plane=="XY"?"Сверху":plane=="XZ"?"Спереди":plane=="YZ"?"Справа":"Изометрия");Fit();};compass.Children.Add(b);}Root.Children.Add(compass);Root.MouseWheel+=(ss,e)=>UpdateEnvironment();Root.SizeChanged+=(ss,e)=>UpdateEnvironment();Ready=true;UpdateEnvironment();}
-  void UpdateEnvironment(){if(environmentWidth>0&&Math.Abs(Camera.Width-environmentWidth)<environmentWidth*.04)return;environmentWidth=Camera.Width;double step=Math.Pow(10,Math.Floor(Math.Log10(Math.Max(1,Camera.Width)/10)));if(Camera.Width/step>24)step*=2;if(Camera.Width/step>24)step*=2.5;GridStep=step;double extent=step*20,centreX=Math.Round(Camera.Target.X/step)*step,centreY=Math.Round(Camera.Target.Y/step)*step,stroke=Camera.Width/Math.Max(500,Root.ActualWidth);var group=new Model3DGroup();var grid=new MeshWriter();for(int i=-20;i<=20;i++){Segment(grid,new Point3D(centreX+i*step,centreY-extent,-.12),new Point3D(centreX+i*step,centreY+extent,-.12),stroke*.7);Segment(grid,new Point3D(centreX-extent,centreY+i*step,-.12),new Point3D(centreX+extent,centreY+i*step,-.12),stroke*.7);}group.Children.Add(Lines(grid,Color.FromRgb(195,206,219)));double length=Camera.Width*.14;foreach(int axis in new[]{0,1,2}){var w=new MeshWriter();Segment(w,new Point3D(),axis==0?new Point3D(length,0,0):axis==1?new Point3D(0,length,0):new Point3D(0,0,length),stroke*2);group.Children.Add(Lines(w,axis==0?Color.FromRgb(198,83,83):axis==1?Color.FromRgb(62,151,99):Color.FromRgb(64,120,196)));}environment.Content=group;if(Ready&&(Result==null||Result.Model==null||Result.Model.Parts.Count==0))status.Text="3D-сцена · миллиметры · сетка "+Engine.F(GridStep)+" мм";}
-  public void SetConstruction(SceneMesh mesh){constructionMesh=mesh;if(mesh==null||mesh.Indices.Length==0){construction.Content=null;return;}var brush=new SolidColorBrush(Color.FromRgb(36,108,196));var mat=new DiffuseMaterial(brush);construction.Content=new GeometryModel3D(mesh.Geometry(),mat){BackMaterial=mat};}
- }
- public static class CADSketchDisplay {
-  public static SceneMesh Build(CADDocument doc,CADKernelResult result,int marker){var writer=new MeshWriter();using(var canvas=new CADSketchCanvas()){canvas.Parameters=result.Parameters??new Dictionary<string,double>();foreach(var f in doc.Features.Take(marker).Where(f=>f.Kind=="sketch"&&!f.Suppressed&&!doc.Hidden.Contains(f.Id))){double[][] frame=null;if(result.SketchFrames!=null)result.SketchFrames.TryGetValue(f.Id,out frame);if(frame==null){var sk=f.Sketch;frame=new[]{sk.Origin,sk.Plane=="YZ"?new[]{0.0,1,0}:new[]{1.0,0,0},sk.Plane=="XY"?new[]{0.0,1,0}:new[]{0.0,0,1}};}Func<double[],Point3D> place=p=>new Point3D(frame[0][0]+frame[1][0]*p[0]+frame[2][0]*p[1],frame[0][1]+frame[1][1]*p[0]+frame[2][1]*p[1],frame[0][2]+frame[1][2]*p[0]+frame[2][2]*p[1]);foreach(var e in f.Sketch.Entities){var points=canvas.SampleEntity(e);for(int i=1;i<points.Count;i++)WpfScene.Segment(writer,place(points[i-1]),place(points[i]),e.Construction?.12:.40);}}}return writer.Finish();}
- }
-}
+﻿using System;using System.Linq;using System.Collections.Generic;using System.Windows;using System.Windows.Controls;using System.Windows.Media;using System.Windows.Media.Media3D;
+
+namespace GearLab {
+
+ public sealed partial class WpfScene {
+
+  GearQuality appliedQuality;
+  public void ApplyAppearance(){if(disposed)return;Root.Background=new SolidColorBrush(UiPalette.Wpf("Viewport"));UiAppearance.ApplyWpf(Root);environmentWidth=-1;UpdateEnvironment();}
+  void SettingsChanged(){if(disposed)return;if(!Root.Dispatcher.CheckAccess()){Root.Dispatcher.BeginInvoke(new Action(SettingsChanged));return;}ApplyAppearance();if(appliedQuality!=AppSettings.Current.Quality){appliedQuality=AppSettings.Current.Quality;var result=Result;Result=null;SetResult(result,true);}}
+  readonly ModelVisual3D environment=new ModelVisual3D(),construction=new ModelVisual3D();SceneMesh constructionMesh;
+
+  public bool HasConstruction{get{return constructionMesh!=null&&constructionMesh.Indices.Length>0;}}
+
+  public static void Segment(MeshWriter w,Point3D a,Point3D b,double thickness){var delta=b-a;if(delta.LengthSquared<1e-12)return;delta.Normalize();var x=Vector3D.CrossProduct(delta,Math.Abs(delta.Z)<.8?new Vector3D(0,0,1):new Vector3D(0,1,0));x.Normalize();x*=thickness/2;var y=Vector3D.CrossProduct(delta,x);y.Normalize();y*=thickness/2;foreach(var side in new[]{x,y,-x,-y}){var n=side;n.Normalize();var tangent=Vector3D.CrossProduct(delta,side);tangent.Normalize();tangent*=thickness/2;var aa=a+side-tangent;var ab=a+side+tangent;var bb=b+side+tangent;var ba=b+side-tangent;w.Triangle(aa,ab,bb,n,n,n);w.Triangle(aa,bb,ba,n,n,n);}}
+
+  static GeometryModel3D Lines(MeshWriter w,Color color){var brush=new SolidColorBrush(color);brush.Freeze();var material=new DiffuseMaterial(brush);return new GeometryModel3D(w.Finish().Geometry(),material){BackMaterial=material};}
+
+  double environmentWidth=-1;public double GridStep=10;
+
+  void InitializeWorkspace(){Camera.Update();Viewport.Children.Insert(0,environment);Viewport.Children.Add(construction);var compass=new StackPanel{Orientation=Orientation.Horizontal,HorizontalAlignment=HorizontalAlignment.Right,VerticalAlignment=VerticalAlignment.Bottom,Margin=new Thickness(12,0,12,34)};foreach(string value in new[]{"ISO","XY","XZ","YZ"}){string plane=value;var b=new Button{Content=value,Padding=new Thickness(8,5,8,5),Margin=new Thickness(2)};b.Click+=(ss,e)=>{Camera.Preset(plane=="XY"?"Сверху":plane=="XZ"?"Спереди":plane=="YZ"?"Справа":"Изометрия");Fit();};compass.Children.Add(b);}Root.Children.Add(compass);Root.MouseWheel+=(ss,e)=>UpdateEnvironment();Root.SizeChanged+=(ss,e)=>UpdateEnvironment();Ready=true;UpdateEnvironment();}
+
+  void UpdateEnvironment(){if(environmentWidth>0&&Math.Abs(Camera.Width-environmentWidth)<environmentWidth*.04)return;environmentWidth=Camera.Width;double step=Math.Pow(10,Math.Floor(Math.Log10(Math.Max(1,Camera.Width)/10)));if(Camera.Width/step>24)step*=2;if(Camera.Width/step>24)step*=2.5;GridStep=step;double extent=step*20,centreX=Math.Round(Camera.Target.X/step)*step,centreY=Math.Round(Camera.Target.Y/step)*step,stroke=Camera.Width/Math.Max(500,Root.ActualWidth);var group=new Model3DGroup();var grid=new MeshWriter();for(int i=-20;i<=20;i++){Segment(grid,new Point3D(centreX+i*step,centreY-extent,-.12),new Point3D(centreX+i*step,centreY+extent,-.12),stroke*.7);Segment(grid,new Point3D(centreX-extent,centreY+i*step,-.12),new Point3D(centreX+extent,centreY+i*step,-.12),stroke*.7);}group.Children.Add(Lines(grid,UiPalette.Wpf("Grid")));double length=Camera.Width*.14;foreach(int axis in new[]{0,1,2}){var w=new MeshWriter();Segment(w,new Point3D(),axis==0?new Point3D(length,0,0):axis==1?new Point3D(0,length,0):new Point3D(0,0,length),stroke*2);group.Children.Add(Lines(w,UiPalette.Wpf(axis==0?"AxisX":axis==1?"AxisY":"AxisZ")));}environment.Content=group;if(Ready&&(Result==null||Result.Model==null||Result.Model.Parts.Count==0))status.Text="3D-сцена · миллиметры · сетка "+Engine.F(GridStep)+" мм";}
+
+  public void SetConstruction(SceneMesh mesh){constructionMesh=mesh;if(mesh==null||mesh.Indices.Length==0){construction.Content=null;return;}var brush=new SolidColorBrush(Color.FromRgb(36,108,196));var mat=new DiffuseMaterial(brush);construction.Content=new GeometryModel3D(mesh.Geometry(),mat){BackMaterial=mat};}
+
+ }
+
+ public static class CADSketchDisplay {
+
+  public static SceneMesh Build(CADDocument doc,CADKernelResult result,int marker){var writer=new MeshWriter();using(var canvas=new CADSketchCanvas()){canvas.Parameters=result.Parameters??new Dictionary<string,double>();foreach(var f in doc.Features.Take(marker).Where(f=>f.Kind=="sketch"&&!f.Suppressed&&!doc.Hidden.Contains(f.Id))){double[][] frame=null;if(result.SketchFrames!=null)result.SketchFrames.TryGetValue(f.Id,out frame);if(frame==null){var sk=f.Sketch;frame=new[]{sk.Origin,sk.Plane=="YZ"?new[]{0.0,1,0}:new[]{1.0,0,0},sk.Plane=="XY"?new[]{0.0,1,0}:new[]{0.0,0,1}};}Func<double[],Point3D> place=p=>new Point3D(frame[0][0]+frame[1][0]*p[0]+frame[2][0]*p[1],frame[0][1]+frame[1][1]*p[0]+frame[2][1]*p[1],frame[0][2]+frame[1][2]*p[0]+frame[2][2]*p[1]);foreach(var e in f.Sketch.Entities){var points=canvas.SampleEntity(e);for(int i=1;i<points.Count;i++)WpfScene.Segment(writer,place(points[i-1]),place(points[i]),e.Construction?.12:.40);}}}return writer.Finish();}
+
+ }
+
+}
+

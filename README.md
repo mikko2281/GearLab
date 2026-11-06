@@ -1,8 +1,12 @@
-# GearLab 6.2
+# GearLab 6.3
 
 Редукторы, последовательности ступеней и робототехника для Windows 10/11 x64 (.NET Framework 4.8).
 
-[Скачать GearLab 6.2](https://github.com/mikko2281/GearLab/releases/tag/v6.2.0) · [Изменения и проверки](docs/RELEASE_6.2.md) · [Формулы](docs/ENGINEERING_6.2.json).
+[Скачать GearLab 6.3](https://github.com/mikko2281/GearLab/releases/tag/v6.3.0) · [Изменения и проверки](docs/RELEASE_6.3.md) · [Настройки / Preferences](docs/SETTINGS_6.3.md) · [Формулы](docs/ENGINEERING_6.2.json).
+
+Интерфейс 6.3 оформлен по мотивам Blender: тёмные панели, компактные меню, большая рабочая область, параметры справа и нижняя панель воспроизведения/экспорта. В «Настройки» доступны светлая тема, 17 настраиваемых цветов, русский и английский язык. Настройки применяются без перезапуска и сохраняются; «Отмена» корректно отменяет правки после последнего применения. Качество 3D перестраивает текущий предпросмотр, а скорость анимации действует в редукторах, ступенях и роботе.
+
+The interface supports Russian and English. Open Preferences → Language → English → Apply. Use Colors to customize the interface and viewport. See the bilingual preferences guide linked above.
 
 Волновой редуктор заменён одноволновой передачей с промежуточными телами качения по [видео TrashRobotics](https://www.youtube.com/watch?v=c73QGWpfhQw): жёсткое кольцо, круглый эксцентрик, шарики, выходной сепаратор. Пример по умолчанию — 17:1, 17 шариков Ø6 мм, 18 впадин. Сепаратор с фланцем и валом — одно связное тело для STEP и печати.
 
@@ -14,6 +18,6 @@
 
 Предпросмотр строится без CAD-ядра. STEP создаётся в фоне из параметрических тел; шарики экспортируются сферами, дорожки — телами вращения. STL содержит отдельные печатные детали. Червячные, конические, RV, гипоидные и глобоидные поверхности остаются компоновочными; сопряжение, прочность и ресурс не подтверждены. Магнитный модуль требует электромагнитного расчёта. Теоретический T·i·КПД не является допустимым моментом.
 
-Сборка: `powershell -NoProfile -File src/build.ps1`. Подготовка CI: `tools/ci_build.ps1`. Проверки: `--upgrade62-test`, `--audit-fix-test`, `--transmission60-test`, `--train60-test`, `--robot-transmission60-test`, `--workspace-test`; нативные — `tools/test_upgrade62_native.py`, STL — `tools/test_print62.py`.
+Сборка: `powershell -NoProfile -File src/build.ps1`. Подготовка CI: `tools/ci_build.ps1`. Проверки: `--settings63-test`, `--upgrade62-test`, `--audit-fix-test`, `--transmission60-test`, `--train60-test`, `--robot-transmission60-test`, `--workspace-test`; нативные — `tools/test_upgrade62_native.py`, STL — `tools/test_print62.py`.
 
 Программа бесплатная по FREEWARE.txt. Права библиотек сохранены в licenses. Доверенной цифровой подписи нет. [История исправлений аудита](docs/AUDIT_FIXES_PREVIEW_3.md).

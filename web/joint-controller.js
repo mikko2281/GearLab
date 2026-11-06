@@ -21,7 +21,7 @@ export class JointController {
     if(this.drag&&data.id!==this.drag.id)this.cancel();
     this.data=data;
     if(!data.enabled){if(this.drag)this.cancel();this.control.detach();this.control.enabled=false;this.badge.hidden=true;return;}
-    this.badge.hidden=false;this.badge.textContent=`${data.label}: ${Number(data.value).toFixed(2)} ${data.linear?'мм':'°'} · ${data.minimum} … ${data.maximum}`;
+    this.badge.hidden=false;this.badge.textContent=`${data.label}: ${Number(data.value).toFixed(2)} ${data.linear?(window.gearlabLanguage==='en'?'mm':'мм'):'°'} · ${data.minimum} … ${data.maximum}`;
     if(this.drag)return;
     const axis=new THREE.Vector3(...data.axis).normalize();this.proxy.position.fromArray(data.origin);
     this.proxy.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),axis);

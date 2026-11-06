@@ -1,0 +1,662 @@
+Проект|Project
+Экспорт|Export
+Как пользоваться|Help
+О программе|About
+Конструктор ступеней|Stage designer
+Робототехника|Robotics
+Редукторы|Reducers
+Ступени|Stages
+Настройки|Preferences
+Настройки GearLab|GearLab Preferences
+Закрыть вкладку|Close tab
+Оформление|Appearance
+Цвета|Colors
+3D и анимация|3D and animation
+Язык|Language
+Сохранение|Saving
+Оформление рабочего пространства|Workspace appearance
+Компактные панели, тёмные редакторы и оранжевый акцент в стиле Blender.|Compact panels, dark editors and an orange accent inspired by Blender.
+Готовая тема (заменяет выбранные цвета)|Preset theme (replaces custom colors)
+Blender — тёмная|Blender — Dark
+Blender — светлая|Blender — Light
+Каждый цвет можно изменить в разделе «Цвета». Изменения действуют во всех открытых и новых рабочих пространствах.|Customize each color in Colors. Changes apply to every open and new workspace.
+Цвета интерфейса и сцены|Interface and scene colors
+Выберите образец или введите цвет #RRGGBB. Цвета деталей и файлов экспорта сохраняются.|Choose a swatch or enter #RRGGBB. Part and export colors are preserved.
+Фон окна|Window background
+Панели|Panels
+Заголовки и меню|Headers and menus
+Поля ввода|Input fields
+Основной текст|Primary text
+Вторичный текст|Secondary text
+Границы|Borders
+Акцент|Accent
+Выделение|Selection
+Фон 3D / чертежа|3D / drawing background
+Сетка|Grid
+Ось X|X axis
+Ось Y|Y axis
+Ось Z|Z axis
+Успех|Success
+Предупреждение|Warning
+Ошибка|Error
+Качество предпросмотра|Preview quality
+Быстрый|Fast
+Обычный|Standard
+Подробный|Detailed
+Светлая|Light
+Тёмная|Dark
+Качество меняет детализацию предпросмотра. Точная геометрия STEP и параметры механизма сохраняются.|Quality controls preview detail. Exact STEP geometry and mechanism parameters are preserved.
+Чувствительность вращения камеры|Camera orbit sensitivity
+Скорость анимации ×|Animation speed ×
+Привязка перемещения к сетке|Snap movement to grid
+Шаг сетки / перемещения, мм|Grid / movement step, mm
+Язык интерфейса|Interface language
+Русский|Русский
+Язык применяется после нажатия «Применить» и сохраняется между запусками. Имена ваших проектов и числовые параметры сохраняются.|Click Apply to change language. Your choice is saved between sessions. Project names and numeric parameters are preserved.
+Сохранение и восстановление|Saving and recovery
+Автосохранение рабочих проектов|Autosave working projects
+Интервал автосохранения, с|Autosave interval, s
+Автосохранение создаёт восстановительные копии проектов робота. Для записи основного файла используйте «Сохранить».|Autosave creates robot project recovery copies. Use Save to write your main project file.
+Папка настроек и восстановительных копий:|Preferences and recovery folder:
+Применить|Apply
+Стандартные|Restore defaults
+Отмена|Cancel
+Настройки сохранены.|Preferences saved.
+Несохранённые изменения отменены.|Unsaved changes discarded.
+Стандартные значения подготовлены. Нажмите «Применить».|Defaults ready. Click Apply to save.
+Тема подготовлена. Нажмите «Применить».|Theme ready. Click Apply to save.
+Недопустимый цвет: |Invalid color: 
+Сохранить…|Save…
+Сохранить как…|Save as…
+Открыть…|Open…
+Сохранить|Save
+Открыть|Open
+Новый|New
+Новый проект|New project
+Сбросить текущий тип|Reset current type
+Список деталей CSV…|Parts list CSV…
+Эскиз SVG…|Sketch SVG…
+Эскиз DXF…|Sketch DXF…
+Полная 3D сборка STEP…|Complete 3D assembly STEP…
+Детали для 3D-печати…|3D printing parts…
+ПАРАМЕТРЫ ПЕРЕДАЧИ|TRANSMISSION PROPERTIES
+Тип передачи|Transmission type
+Тип редуктора|Reducer type
+Набор размеров и мотор|Size preset and motor
+Набор размеров|Size preset
+Состав экспорта STEP / SVG / DXF / CSV|STEP / SVG / DXF / CSV scope
+Все детали сборки|All assembly parts
+Только рабочие профили|Working profiles only
+Только детали для печати|Printable parts only
+Что вращается на выходе|Output member
+Центральный фланец|Central flange
+Наружное кольцо (корпус)|Outer ring (housing)
+Выход циклоидального редуктора|Cycloidal reducer output
+Компоновка циклоидального|Cycloidal layout
+Обычная компоновка|Standard layout
+Micro · квадратное основание NEMA 17|Micro · square NEMA 17 base
+Планетарные ступени|Planetary stages
+Число планетарных ступеней|Planetary stage count
+Авто 1–3 ступени|Auto: 1–3 stages
+Одна ступень|One stage
+Две ступени|Two stages
+Три ступени|Three stages
+Показанная ступень|Displayed stage
+Параметры корпуса и 3D-сборки|Housing and 3D assembly properties
+Скрыть корпус в 3D|Hide housing in 3D
+Зацепы кольца — часть корпуса|Integrate ring pins into housing
+Подбирать размеры автоматически|Fit dimensions automatically
+Подобрать размеры|Fit dimensions
+Рассчитать|Calculate
+Запустить|Play
+Пауза|Pause
+Ⅱ Пауза|Ⅱ Pause
+Сбросить 3D|Reset 3D
+Полная 3D сборка|Complete 3D assembly
+Разнесённая 3D сборка|Exploded 3D assembly
+Подшипник крупно|Bearing close-up
+Рабочая передача сверху|Transmission top view
+Осевой вид дисков|Axial disc view
+Осевой вид волнового|Axial wave drive view
+Чертёж|Drawing
+Детали и размеры|Parts and dimensions
+Проверки и ограничения|Checks and limitations
+Проверки и допущения|Checks and assumptions
+Проверки пройдены; прочность и ресурс не рассчитаны.|Checks passed; strength and service life have not been calculated.
+БАЗОВЫЕ ГЕОМЕТРИЧЕСКИЕ ПРОВЕРКИ ПРОЙДЕНЫ|BASIC GEOMETRY CHECKS PASSED
+ОШИБКИ ГЕОМЕТРИИ|GEOMETRY ERRORS
+Все подробности находятся на вкладке «Проверки».|See the Checks tab for details.
+Геометрия подбирается под размер. |Dimensions are fitted automatically. 
+Ручные размеры. |Manual dimensions. 
+Фактическое отношение: |Actual ratio: 
+Набор|Preset
+Габарит: |Size: 
+Компонентов 3D|3D components
+Передаточное число i|Transmission ratio i
+Передача |i||Transmission |i|
+Габарит рабочего узла, мм|Working assembly size, mm
+Эксцентриситет e, мм|Eccentricity e, mm
+Радиус центров зацепления R, мм|Engagement center radius R, mm
+Радиус цевочного кольца, мм|Pin ring radius, mm
+Диаметр ролика / зацепа, мм|Roller / pin diameter, mm
+Диаметр пальца фланца, мм|Flange pin diameter, mm
+Радиус пальцев фланца, мм|Flange pin radius, mm
+Пальцев центрального фланца, шт.|Central flange pin count
+Входной вал Ø, мм|Input shaft diameter, mm
+Выходной вал Ø, мм|Output shaft diameter, mm
+Радиальный зазор c, мм|Radial clearance c, mm
+Толщина одного диска, мм|Single disc thickness, mm
+Количество дисков|Disc count
+Зазор между дисками, мм|Disc spacing, mm
+Задать подшипник диска|Specify disc bearing
+Шариков в опоре диска, шт.|Disc bearing ball count
+Диаметр шарика, мм|Ball diameter, mm
+Диаметр рабочих шариков, мм|Working ball diameter, mm
+Подшипник: внутренний Ø d, мм|Bearing bore d, mm
+Подшипник: наружный Ø D, мм|Bearing outer diameter D, mm
+Подшипник: ширина B, мм|Bearing width B, mm
+Подшипник: вручную|Bearing: manual dimensions
+Размерный шаблон подшипника|Bearing size preset
+Размер 608 · 8×22×7|608 size · 8×22×7
+Размер 625 · 5×16×5|625 size · 5×16×5
+Два диска на одном валу (180°)|Two discs on one shaft (180°)
+Только диск A|Disc A only
+Только диск B|Disc B only
+Модуль m, мм|Module m, mm
+Модуль зубьев, мм|Tooth module, mm
+Зубьев ведущего колеса / солнца|Input gear / sun tooth count
+Межосевое расстояние, мм|Center distance, mm
+Шаг зубчатого ремня, мм|Timing belt pitch, mm
+Число сателлитов|Planet count
+Межступенчатый зазор, мм|Stage spacing, mm
+Промежуточный вал Ø, мм|Intermediate shaft diameter, mm
+Отношение первой ступени RV|RV first stage ratio
+Толщина рабочего пакета, мм|Working stack thickness, mm
+Условная стенка / крышка, мм|Nominal wall / cover thickness, mm
+Стенка корпуса, мм|Housing wall thickness, mm
+Посадочный зазор, мм|Fit clearance, mm
+Крепёж Ø, мм|Fastener diameter, mm
+Минимальная перемычка, мм|Minimum web thickness, mm
+Радиус впадин жёсткого кольца, мм|Rigid ring pocket radius, mm
+Радиус впадин кольца, мм|Ring pocket radius, mm
+Стенка гибкого колеса, мм|Flexspline wall thickness, mm
+Стенка гибкого подшипника, мм|Flexible bearing wall thickness, mm
+3D: болтов круглого корпуса, шт.|3D: round housing bolt count
+3D: входная опора B, мм|3D: input bearing width B, mm
+3D: входная опора D, мм|3D: input bearing diameter D, mm
+3D: выступ вала, мм|3D: shaft extension, mm
+3D: выходная опора B, мм|3D: output bearing width B, mm
+3D: выходная опора D (0=авто), мм|3D: output bearing diameter D (0=auto), mm
+3D: выходная опора d (0=авто), мм|3D: output bearing bore d (0=auto), mm
+3D: минимум толщины крышек, мм|3D: minimum cover thickness, mm
+3D: монтажный пояс снаружи, мм|3D: outer mounting rim, mm
+3D: осевой зазор, мм|3D: axial clearance, mm
+3D: ось ролика Ø, мм|3D: roller axle diameter, mm
+3D: стенка втулки сателлита, мм|3D: planet bushing wall, mm
+3D: стяжной крепёж Ø, мм|3D: tie fastener diameter, mm
+3D: толщина ленты ремня, мм|3D: belt thickness, mm
+Micro: высота моторного адаптера, мм|Micro: motor adapter height, mm
+Micro: выступ шейки сверху, мм|Micro: upper journal extension, mm
+Micro: длина центральных втулок, мм|Micro: center bushing length, mm
+Micro: шейка входных опор Ø, мм|Micro: input bearing journal diameter, mm
+Связка зацепа с корпусом (0=авто), мм|Pin-to-housing web (0=auto), mm
+Сегментов профиля, минимум|Minimum profile segments
+Вход для анимации, об/мин|Animation input, rpm
+Входной момент, Н·м|Input torque, N·m
+Нагрузка выхода, Н·м|Output load, N·m
+КПД, от 0 до 1|Efficiency, 0 to 1
+КПД (0–1)|Efficiency (0–1)
+КПД|Efficiency
+КПД вычисляется по трению и геометрии.|Efficiency is calculated from friction and geometry.
+Мотор|Motor
+Двигатель|Motor
+Моторы и нагрузки|Motors and loads
+Торец мотора: сторона, мм|Motor face width, mm
+Бурт мотора Ø, мм|Motor pilot diameter, mm
+Шаг 4 отверстий мотора, мм|Motor bolt square pitch, mm
+Длина корпуса мотора, мм|Motor body length, mm
+Отверстие адаптера Ø, мм|Adapter bore, mm
+Крепление мотора|Motor mount
+Ваш NEMA 17 / STEP|Your NEMA 17 / STEP
+Все категории|All categories
+Поиск|Search
+Поиск передачи|Search transmissions
+Циклоидальный|Cycloidal
+Зубчатая пара|Spur gears
+Зубчатый ремень|Timing belt
+Планетарный|Planetary
+Волновой ПТК|PTK rolling wave
+Червячный|Worm
+Конический|Bevel
+Дифференциальный планетарный|Planetary differential
+Дифференциальный · два входа · Уиллис|Differential · two inputs · Willis
+Гипоидный · исследование|Hypoid · research
+Глобоидный · исследование|Globoid worm · research
+Магнитный · исследование|Magnetic · research
+Реечная передача|Rack and pinion
+Соосные|Coaxial
+Параллельные валы|Parallel shafts
+Пересекающиеся валы|Intersecting shafts
+Перекрещивающиеся валы|Skew shafts
+Линейные|Linear
+Исследовательские|Research
+Новая цепь|New train
+Пример 2 × 20|Example 2 × 20
+↶ Отменить|↶ Undo
+↷ Повторить|↷ Redo
+Отмена экспорта|Cancel export
+1. ДВИГАТЕЛЬ|1. MOTOR
+2. СТУПЕНЬ |2. STAGE 
+Обороты, об/мин|Speed, rpm
+Момент, Н·м|Torque, N·m
+Последовательность ступеней|Stage sequence
+＋ Ступень|＋ Stage
+Копия|Duplicate
+Удалить|Delete
+Выберите карточку для настройки.\nПорядок меняется стрелками ↑ ↓.|Select a card to edit.\nUse ↑ ↓ to reorder stages.
+Сборка 3D|3D Assembly
+Вписать|Frame all
+Разнести|Explode
+Собрать|Assemble
+Скорости и моменты|Speeds and torques
+Ступень|Stage
+Вход, об/мин|Input, rpm
+Выход, об/мин / мм/с|Output, rpm / mm/s
+Н·м / Н|N·m / N
+Вт|W
+Тип выбранной ступени|Selected stage type
+Ветвления и два входа|Branches and two inputs
+Источник входа|Input source
+Вторая ветвь|Second branch
+Нет второго входа|No second input
+Доля первого входа|First input fraction
+Доля второго входа|Second input fraction
+Все размеры ступени…|All stage dimensions…
+Готово · сохранить размеры ступени|Done · save stage dimensions
+Изменения применяются сразу.\nИтог цепи показан сверху. Для других\nразмеров откройте «Все размеры».|Changes apply immediately.\nTrain results appear above. Open\nAll dimensions for more properties.
+Отношение задано зубьями / полюсами.\nИзменить: «Все размеры ступени».|Ratio is set by teeth / poles.\nEdit in All stage dimensions.
+ВЫХОД  |OUTPUT  
+ВЫХОД  i = |OUTPUT  i = 
+Изменения применены · |Changes applied · 
+Проверьте параметры цепи|Check train parameters
+Проверьте числа двигателя.|Check motor values.
+Исправьте параметры и связи перед экспортом.|Correct parameters and connections before exporting.
+В цепи должна остаться хотя бы одна ступень.|A train must contain at least one stage.
+Перемещение доступно для последовательной цепи. Ветвления задаются источниками входа.|Reordering is available for sequential trains. Configure branches using input sources.
+У ступени есть ответвления: сначала переназначьте их источники.|This stage has branches. Reassign their inputs first.
+Ступени · двигатель → передачи → выход|Stages · motor → transmissions → output
+Дождитесь STEP-экспорта.|Wait for STEP export to finish.
+Дождитесь STEP-экспорта или отмените его.|Wait for STEP export to finish or cancel it.
+Строится точный STEP…|Building exact STEP…
+STEP сохранён: |STEP saved: 
+Сохранено: |Saved: 
+Сохранить цепь ступеней?|Save the transmission train?
+КАМЕРА|CAMERA
+КОМПОНЕНТЫ|COMPONENTS
+Вид камеры|Camera view
+Поиск компонента|Search components
+Показать всё|Show all
+Механизм|Mechanism
+Изолировать|Isolate
+Изометрия|Isometric
+Сверху|Top
+Спереди|Front
+Справа|Right
+СЕЧЕНИЕ МОДЕЛИ|MODEL SECTION
+Без сечения|No section
+XY · глубина по Z|XY · Z depth
+XZ · сдвиг по Y|XZ · Y offset
+YZ · сдвиг по X|YZ · X offset
+Положение сечения|Section position
+Оставить другую сторону|Flip section side
+Секущая плоскость|Section plane
+Сечение выключено|Section disabled
+Видимость компонентов 3D|3D component visibility
+Валы и водила|Shafts and carriers
+Корпус и крышки|Housing and covers
+Опоры и втулки|Bearings and bushings
+Крепёж|Fasteners
+Шестерни и диски|Gears and discs
+Ремень и шкивы|Belt and pulleys
+Пальцы и ролики|Pins and rollers
+ПЕРЕМЕСТИТЬ ДЕТАЛЬ|MOVE PART
+Перетаскивать детали мышью|Drag parts with mouse
+Ось перемещения детали|Part movement axis
+В плоскости экрана|In screen plane
+Только X|X only
+Только Y|Y only
+Только Z|Z only
+Вернуть деталь|Reset part
+Вернуть все|Reset all
+Сдвиг только для просмотра. Экспорт — в сборочном положении. Перерасчёт сбрасывает сдвиги. Esc отменяет текущее перетаскивание.|Offsets affect the preview. Export uses assembly positions. Recalculation resets offsets. Esc cancels the current drag.
+Выберите деталь в сцене или дереве|Select a part in the scene or tree
+Параметр|Parameter
+Значение|Value
+Кол-во|Qty
+Размер / описание|Size / description
+Деталь|Part
+Детали|Parts
+Детали / экспорт|Parts / export
+Вся сборка|Entire assembly
+Полная CAD-сборка STEP…|Complete CAD assembly STEP…
+Выбранная деталь STEP…|Selected part STEP…
+Только корпуса STEP…|Housing parts STEP…
+Печатные детали ZIP/STL…|Printable parts ZIP/STL…
+Нагрузки CSV…|Loads CSV…
+Восстановить автокопию|Restore recovery copy
+Скелет и моторы|Skeleton and motors
+Скелет робота и детали|Robot skeleton and parts
+1 · Звенья|1 · Links
+2 · Моторы|2 · Motors
+3 · Корпус|3 · Housing
+4 · Движение и нагрузки|4 · Motion and loads
+＋ Первое звено|＋ First link
+＋ Следующее звено|＋ Next link
+＋ Параллельная ветвь|＋ Parallel branch
+＋ Кость / шарнир|＋ Bone / joint
+Удалить звено и потомков|Delete link and descendants
+Удалить ветвь|Delete branch
+Параметры звена / мотора|Link / motor properties
+Корпус|Housing
+Шарнир|Joint
+Основное|General
+Основание|Base
+Основание / мировые координаты|Base / world coordinates
+Начало / смещение X, мм|Start / offset X, mm
+Начало / смещение Y, мм|Start / offset Y, mm
+Начало / смещение Z, мм|Start / offset Z, mm
+Конец X, мм|End X, mm
+Конец Y, мм|End Y, mm
+Конец Z, мм|End Z, mm
+Конец звена задаётся относительно шарнира. В сцене можно тянуть цветную ручку.|The link end is relative to its joint. Drag the colored handle in the scene.
+Прикрепить начало к концу звена|Attach start to link end
+Применить звено|Apply link
+Применить привод и нагрузку|Apply drive and load
+Редуктор…|Reducer…
+Спроектировать редуктор…|Design reducer…
+Использовать редуктор в роботе|Use reducer in robot
+Рабочие обороты мотора, об/мин|Motor operating speed, rpm
+Момент мотора, Н·м|Motor torque, N·m
+Масса мотора, кг|Motor mass, kg
+Нагрузка на конце звена, кг|Link tip load, kg
+Мотор: нужно Н·м|Motor: required N·m
+Мотор: об/мин|Motor: rpm
+Нужно с запасом|Required with margin
+Доступно|Available
+Статическая оценка проходит|Static estimate passed
+Приближённая инженерная оценка|Approximate engineering estimate
+Без динамики / расчёта прочности|No dynamics / strength analysis
+Проверить диапазон|Check motion range
+Проверка 48 поз и статических нагрузок…|Checking 48 poses and static loads…
+Принять позу|Accept pose
+Управление роботом|Robot controls
+▶ Кинематика|▶ Kinematics
+Повтор|Loop
+Режим|Mode
+Экран|Screen
+Все параметры|All properties
+Новый с нуля|New empty project
+Открыть готовый манипулятор|Open example manipulator
+Манипулятор 3 DOF|3 DOF manipulator
+Пример ветвления|Branching example
+Общий скелет · разветвлённый механизм|General skeleton · branched mechanism
+Добавить двухпальцевый захват|Add two-finger gripper
+Убрать захват|Remove gripper
+Добавьте кость / шарнир.|Add a bone / joint.
+Добавьте первое звено. Начало будет закреплено на основании.|Add the first link. Its start will be fixed to the base.
+Сохранить проект робота?|Save robot project?
+Проверки|Checks
+Справка|Help
+Не удалось выполнить действие|Action failed
+Ошибки|Errors
+Параметры не применены|Parameters not applied
+Изменение не применено|Change not applied
+Исправьте геометрию перед применением.|Correct geometry before applying.
+Исправьте обороты / момент двигателя.|Correct motor speed / torque.
+Сохранить изменения текущего проекта?\n«Нет» продолжит без сохранения.|Save changes to the current project?\nNo continues without saving.
+Несохранённый проект|Unsaved project
+Автосохранение|Autosave
+Опорная рама|Support frame
+Длина звена, мм|Link length, mm
+Ширина балки, мм|Beam width, mm
+Толщина балки, мм|Beam thickness, mm
+Диаметр трубчатого звена, мм|Tubular link diameter, mm
+Эскиз корпуса…|Housing sketch…
+Отверстия…|Holes…
+Осевые сечения…|Axial sections…
+Применить диаметр|Apply diameter
+Перестроить корпус звена|Rebuild link housing
+Вернуться к простому корпусу|Use simple housing
+Восстановить деталь|Restore part
+Варианты|Variants
+Варианты корпусов…|Housing variants…
+Показать варианты корпусов|Show housing variants
+Процедурный корпус · 5 вариантов|Procedural housing · 5 variants
+Процедурный пример · NEMA 17 / 180 мм|Procedural example · NEMA 17 / 180 mm
+Трубчатый корпус → всем|Tubular housing → all
+Кассетный корпус → всем|Cassette housing → all
+Корпус как на фото|Reference housing
+Кассетный корпус · другой вариант|Cassette housing · alternative
+Форма РОБОТ1 → всем|ROBOT1 shape → all
+Граф ступеней…|Stage graph…
+Осевая схема ступеней|Axial stage diagram
+Рабочие профили|Working profiles
+Полная 3D-сборка, с мотором|Complete 3D assembly with motor
+Экспорт STL|Export STL
+Для печати…|For printing…
+Печатные детали|Printable parts
+CSV деталей|Parts CSV
+DXF деталей|Parts DXF
+STEP сборка|STEP assembly
+STEP для печати|Printable STEP
+Выбранная CAD-деталь|Selected CAD part
+Обновить стыки · 5.4|Update joints
+Потяните конец звена. Ось перемещения задаётся над сценой.|Drag the link end. Set the movement axis above the scene.
+Цветная ручка меняет конец звена. ЛКМ по сцене вращает камеру. Основные параметры — по шагам ниже.|Drag the colored handle to move the link end. Left-drag rotates the camera. Follow the steps below to edit properties.
+Момент вводится на рабочих оборотах. NEMA задаёт габарит, а не мощность.|Enter torque at operating speed. NEMA specifies dimensions, not power.
+Процедурный режим включён. Изменение механики перестраивает связанные детали.|Procedural mode enabled. Mechanical changes rebuild linked parts.
+Изменения корпуса применяются к выбранному звену. Размеры задаются ниже; внешняя правка — через STEP.|Housing changes apply to the selected link. Set dimensions below; use STEP for external editing.
+Стенки, посадки, крепления, профиль и цветные панели настраиваются в процедурном редакторе. Для внешней правки экспортируйте STEP.|Edit walls, fits, mounts, profiles and colored panels in the procedural editor. Export STEP for external editing.
+Базовые проверки|Basic checks
+Результат|Result
+Состояние|State
+Да|Yes
+Нет|No
+ПТК · осевая компоновка|PTK · axial layout
+ПТК · жёсткое кольцо → шарики → выходной сепаратор|PTK · rigid ring → balls → output separator
+Геометрия не построена|Geometry unavailable
+Подготовка 3D-сборки…|Preparing 3D assembly…
+Рассчитайте передачу.|Calculate the transmission.
+Точность|Precision
+Робот|Robot
+Анимация · скорость задаётся в настройках|Animation · set speed in Preferences
+Пересечения B-rep…|B-rep intersections…
+Универсальное основание / рёбра|Universal base / ribs
+Флажки и сечение меняют только просмотр; STEP сохраняет полную сборку.|Visibility and section controls affect the preview; STEP saves the complete assembly.
+Список деталей предварительный. Маркировки подшипников, крепёж и прочность требуют CAD и расчёта.|Preliminary parts list. Verify bearing designations, fasteners and strength in CAD and engineering analysis.
+Полная сборка с мотором: |Complete assembly with motor: 
+ мм. STEP — все детали в миллиметрах.| mm. STEP contains all parts in millimeters.
+; пакет ≈ |; stack ≈ 
+ ступени. Моменты рассчитаны с учётом заданного КПД.\nПроверка прочности и допустимых нагрузок выполняется отдельно.| stages. Torques include the specified efficiency.\nStrength and allowable loads require separate checks.
+ звеньев · масса модели и нагрузки | links · model and payload mass 
+ кг · запас ×| kg · margin ×
+ · текущая поза| · current pose
+ · CAD-редуктор не выбран: | · CAD reducer not selected: 
+Перемещать|Move
+Начало: |Start: 
+РОБОТ1 · Г-образные звенья, точные цилиндры и круглые повороты.|ROBOT1 · L-shaped links, exact cylinders and round joints.
+Название|Name
+Тип и ось|Type and axis
+Обратить направление оси и привода|Reverse joint and drive axis
+Угол ° / ход мм|Angle ° / travel mm
+Нижний предел|Lower limit
+Верхний предел|Upper limit
+Скорость °/с или мм/с|Speed °/s or mm/s
+Начало звена относительно родителя, мм|Link start relative to parent, mm
+Смещение X|Offset X
+Смещение Y|Offset Y
+Смещение Z|Offset Z
+Конец кости в локальных осях, мм|Bone end in local coordinates, mm
+Конец X|End X
+Конец Y|End Y
+Конец Z|End Z
+Мотор и передача|Motor and transmission
+Шаблон мотора|Motor preset
+Момент на рабочих оборотах, Н·м|Torque at operating speed, N·m
+Введите доступный момент из характеристики выбранного мотора. Значение шаблона условное; NEMA задаёт габарит, а не момент.|Enter available torque from the motor specification. Preset torque is illustrative; NEMA specifies dimensions, not torque.
+Рабочие обороты мотора, максимум|Maximum motor operating speed
+Передаточное число|Transmission ratio
+КПД всей передачи|Overall transmission efficiency
+Ход винта за оборот, мм|Screw lead per revolution, mm
+Мотор: монтажные размеры, мм|Motor mounting dimensions, mm
+Сторона фланца|Flange width
+Длина мотора|Motor length
+Шаг четырёх винтов|Four-bolt pitch
+Монтажное отверстие Ø|Mounting hole diameter
+Центрирующий бурт Ø|Locating pilot diameter
+Вал мотора Ø|Motor shaft diameter
+Выступ вала от фланца|Shaft extension from flange
+Высота бурта|Pilot height
+Внешний вид|Appearance
+Цветовая схема|Color scheme
+Положение мотора в плите, мм|Motor position in plate, mm
+Смещение мотора X|Motor offset X
+Смещение мотора Y|Motor offset Y
+Корпус и крепление|Housing and mount
+Вариант корпуса|Housing variant
+Закрытый трубчатый корпус|Enclosed tubular housing
+Диаметр звена, мм|Link diameter, mm
+Поворот крышки вокруг звена, °|Cover rotation about link, °
+Сервисная крышка, угол °|Service cover angle, °
+Стенка, мм|Wall thickness, mm
+Габарит передачи Ø, мм|Gearbox envelope diameter, mm
+Длина габарита передачи, мм|Gearbox envelope length, mm
+Подшипник: наружный Ø, мм|Bearing outer diameter, mm
+Подшипник: внутренний Ø, мм|Bearing bore, mm
+Подшипник: ширина, мм|Bearing width, mm
+Болт корпуса Ø, мм|Housing bolt diameter, mm
+Зазор посадок, мм|Fit clearance, mm
+Плотность корпуса, кг/м³|Housing density, kg/m³
+Проводка|Cables
+Показывать проводку|Show cables
+Пучок проводов Ø, мм|Cable bundle diameter, mm
+Зазор проводки, мм|Cable clearance, mm
+Нагрузка инструмента|Tool load
+Полезная нагрузка, кг|Payload, kg
+Внешняя сила X, Н|External force X, N
+Внешняя сила Y, Н|External force Y, N
+Внешняя сила Z, Н|External force Z, N
+Вращение_X|Revolute X
+Вращение_Y|Revolute Y
+Вращение_Z|Revolute Z
+Линейный_X|Prismatic X
+Линейный_Y|Prismatic Y
+Линейный_Z|Prismatic Z
+NEMA17_шаблон|NEMA17 preset
+NEMA23_шаблон|NEMA23 preset
+STEPPERONLINE_по_вашему_STEP|STEPPERONLINE from your STEP
+Чёрный_оранжевый|Black and orange
+Светлый_синий|Light and blue
+Закрытый_трубчатый|Enclosed tubular
+Простая_балка|Simple beam
+Кассетный|Cassette
+Профильная одноволновая передача с шариками; ресурс и контактные напряжения не рассчитаны|Single-wave ball transmission; service life and contact stresses are not calculated
+Двухступенчатая кинематика; контакт и распределение по кривошипам не рассчитаны|Two-stage kinematics; contact and crank load distribution are not calculated
+Уиллис; КПД задан пользователем, циркулирующая мощность требует отдельного расчёта|Willis equation; user-specified efficiency; circulating power requires separate analysis
+Компоновка со смещением осей, не сопряжённый гипоидный профиль|Offset shaft layout; not a conjugate hypoid tooth profile
+Компоновочный профиль колеса; сопряжение и ресурс не подтверждены|Layout wheel profile; conjugacy and service life are unverified
+Огибающая форма червяка, не проверенная станочная производящая поверхность|Envelope worm shape; not a verified manufacturing generating surface
+Прямые зубья: приближение плоскими сечениями, без сферической эвольвенты|Straight teeth approximated by planar sections; no spherical involute
+Полюсная кинематика; предельный момент неизвестен без электромагнитного FEA|Pole kinematics; torque limit requires electromagnetic FEA
+Эвольвентная шестерня и трапецеидальная рейка; прочность не рассчитана|Involute pinion and trapezoidal rack; strength is not calculated
+Одноволновая передача. Колесо мыши — масштаб. Контактная нагрузка и износ не рассчитаны.|Single-wave transmission. Wheel: zoom. Contact loads and wear are not calculated.
+Шарики перемещаются в радиальных окнах сепаратора. Выход вращается в противоположную сторону. Нагрузка и ресурс не рассчитаны.|Balls move in radial separator slots. Output rotates in the opposite direction. Load capacity and service life are not calculated.
+ПТК · эксцентрик — вход, сепаратор — выход, жёсткое кольцо закреплено|PTK · eccentric input, separator output, fixed rigid ring
+Щёлкните чертёж и крутите колесо мыши для масштаба. Размеры в мм.|Click the drawing, then use the wheel to zoom. Dimensions in mm.
+мм · колесо мыши — масштаб · размеры и проверки — на соседних вкладках|mm · Wheel: zoom · Dimensions and checks: adjacent tabs
+Подшипник · идеальное качение без скольжения|Bearing · ideal rolling without slip
+Осевая компоновка · условный разрез|Axial layout · schematic section
+Внешнее зацепление · эвольвентные боковые поверхности|External gearing · involute tooth flanks
+Открытый зубчатый ремень · движение по делительной линии|Open timing belt · motion along pitch line
+Планетарная схема · солнце → водило, кольцо закреплено|Planetary layout · sun → carrier, fixed ring
+Проверьте поле: |Check field: 
+Отдельные STL в ZIP|Separate STL files in ZIP
+Проект редуктора (*.gear.json;*.json)|Reducer project (*.gear.json;*.json)
+Проект редуктора (*.gear.json)|Reducer project (*.gear.json)
+Проект робота|Robot project
+Цепь GearLab|GearLab train
+STEP — CAD-тела|STEP — CAD solids
+Длина, мм|Length, mm
+RV: кривошипов|RV: crank count
+RV: пальцев кольца|RV: ring pin count
+Внутренних полюсных пар|Inner pole pair count
+Наружных полюсных пар|Outer pole pair count
+Воздушный зазор, мм|Air gap, mm
+Второй вход, об/мин|Second input, rpm
+Глубина огибающей, мм|Envelope depth, mm
+Длина рейки, мм|Rack length, mm
+Допустимый изгиб, МПа (0 — неизвестно)|Allowable bending stress, MPa (0 = unknown)
+Заходов червяка|Worm starts
+Зубья сателлита A|Planet A teeth
+Зубья сателлита B|Planet B teeth
+Коэффициент диаметра q|Diameter factor q
+Коэффициент нагрузки K|Load factor K
+Коэффициент трения μ|Friction coefficient μ
+Положение рейки, мм|Rack position, mm
+Смещение осей, мм|Shaft offset, mm
+Толщина магнитов, мм|Magnet thickness, mm
+Угол давления, °|Pressure angle, °
+Угол между валами, °|Shaft angle, °
+Угол спирали, °|Spiral angle, °
+Фиксация: 0 кольцо / 1 водило / 2 солнце / 3 два входа|Fixed: 0 ring / 1 carrier / 2 sun / 3 two inputs
+Ход рейки, мм|Rack travel, mm
+Micro 20:1 · NEMA 17 · 42 мм|Micro 20:1 · NEMA 17 · 42 mm
+NEMA 17 · базовый 80 мм|NEMA 17 · standard 80 mm
+NEMA 17 · большой 120 мм|NEMA 17 · large 120 mm
+NEMA 17 · компактный 60 мм|NEMA 17 · compact 60 mm
+NEMA 23 · базовый 120 мм|NEMA 23 · standard 120 mm
+Пользовательские размеры|Custom dimensions
+Входной подшипник для модели|Model input bearing
+Выход при заданной скорости|Output at specified speed
+Максимум по заданию|Specified maximum
+Моторный адаптер|Motor adapter
+Моторный интерфейс|Motor interface
+Не ограничен|Unlimited
+Общий габарит в плоскости|Overall size in plane
+Осевая толщина пакета, оценка|Estimated axial stack thickness
+Пакет + длина мотора, оценка|Estimated stack plus motor length
+Подшипник: d × D × B|Bearing: d × D × B
+Размер демонстрационной опоры; не добавлять повторно к BOM опор|Demonstration bearing size; do not duplicate in the bearing BOM
+Размерный шаблон, длины крепежа по CAD|Size preset; determine fastener lengths in CAD
+Компонент STEP…|STEP component…
+Отмена расчёта|Cancel calculation
+Отчёт JSON|JSON report
+Перестраивать после изменения|Rebuild after edits
+Предпочитать скрытый крепёж|Prefer concealed fasteners
+Референс · корпус со съёмной крышкой\nМеханические ограничения имеют приоритет.|Reference · housing with removable cover\nMechanical constraints take priority.
+Убрать из компоновки|Remove from layout
+Автоматическое перестроение|Automatic rebuild
+Вариант|Variant
+Включить процедурный корпус|Enable procedural housing
+Г-образные звенья · РОБОТ1.blend|L-shaped links · ROBOT1.blend
+Длина вставки, мм|Insert length, mm
+Допускаемое напряжение материала, МПа|Allowable material stress, MPa
+Корпус по референсу · монокок|Reference housing · monocoque
+Минимальная стенка, мм|Minimum wall, mm
+Монтажный зазор, мм|Assembly clearance, mm
+Параметры стиля|Style properties
+Плотность материала, кг/м³|Material density, kg/m³
+Поле от края стола, мм|Build plate edge margin, mm
+Посадочный диаметр вставки, мм|Insert fit diameter, mm
+Радиальный зазор вала, мм|Shaft radial clearance, mm
+Радиус изгиба проводки, мм|Cable bend radius, mm
+Стенка каркаса, мм|Frame wall, mm
+Стенка оболочки, мм|Shell wall, mm
+Стыковочные фланцы и замкнутые переходы|Joint flanges and closed transitions
+Неподвижный|Fixed
+Открытая_рама|Open frame
+Разъёмный_корпус|Split housing
+Облегчённые_пластины|Lightweight plates
+Вручную|Manual
+Технический|Technical
+Gear Lab — справка|GearLab — Help
