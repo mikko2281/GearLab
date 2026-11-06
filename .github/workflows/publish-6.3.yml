@@ -7,7 +7,7 @@ permissions:
   contents: read
 concurrency:
   group: gearlab-publish-6.3
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   release:
     if: github.repository == 'mikko2281/GearLab'

@@ -14,6 +14,9 @@ PASS dynamic Russian status
 PASS dynamic status localized after switch
 PASS appended translated status restores complete Russian source
 PASS localized property metadata retains original project object
+PASS English robot selector preserves enum RobotJointMode
+PASS English robot selector preserves enum RobotMotorTemplate
+PASS English robot selector preserves enum RobotBodyStyle
 PASS language preserves reducer parameters and ratio 0
 PASS language preserves reducer parameters and ratio 1
 PASS language preserves reducer parameters and ratio 2
@@ -35,4 +38,4 @@ PASS new train page localized
 PASS switch complete workspace to Russian
 PASS quality setting rebuilds existing preview mesh
 PASS 3D viewport custom background
-PASS 37 assertions
+PASS 40 assertions

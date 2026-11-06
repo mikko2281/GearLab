@@ -14,6 +14,7 @@ def api(path,method='GET',data=None):
  r=subprocess.run(args,capture_output=True,text=True,encoding='utf-8')
  if r.returncode:raise RuntimeError(r.stderr)
  return json.loads(r.stdout)
+assert api('git/ref/heads/main')['object']['sha']==commit, 'Superseded source commit'
 existing=next((r for r in api('releases?per_page=100') if r['tag_name']==tag),None)
 if existing and not existing['draft']:raise RuntimeError('6.3 already published; refusing replacement')
 if existing and existing['target_commitish']!=commit:raise RuntimeError('Existing 6.3 draft targets another commit')
