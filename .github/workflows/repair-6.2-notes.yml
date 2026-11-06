@@ -1,0 +1,26 @@
+name: Repair GearLab 6.2 documentation links
+on:
+  push:
+    branches: [main]
+    paths: ['tools/repair_62_notes.py']
+permissions:
+  contents: read
+concurrency:
+  group: gearlab-6.2-notes
+  cancel-in-progress: false
+jobs:
+  notes:
+    if: github.repository == 'mikko2281/GearLab'
+    runs-on: windows-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.10'
+      - name: Correct links and verify unchanged tag and asset digests
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -X utf8 tools/repair_62_notes.py

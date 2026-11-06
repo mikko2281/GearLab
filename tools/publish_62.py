@@ -25,6 +25,10 @@ info=json.loads(assets[-1].read_text(encoding='utf-8'))
 assert info['Version']=='6.2.0' and info['SourceCommit']==commit
 for p in assets[:2]:assert p.with_suffix(p.suffix+'.sha256').read_text().split()[0].lower()==hashlib.sha256(p.read_bytes()).hexdigest()
 notes=(root/'docs/RELEASE_6.2.md').read_text(encoding='utf-8')
+blob='https://github.com/'+repo+'/blob/'+commit+'/docs/'
+notes=notes.replace('(PTK_6.2.png)','(https://raw.githubusercontent.com/'+repo+'/'+commit+'/docs/PTK_6.2.png)')
+notes=notes.replace('(verification/6.2/','('+blob+'verification/6.2/')
+notes=notes.replace('(ENGINEERING_6.2.json)','('+blob+'ENGINEERING_6.2.json)')
 notes=notes.replace('(AUDIT_FIXES_PREVIEW_3.md)','(https://github.com/'+repo+'/blob/'+commit+'/docs/AUDIT_FIXES_PREVIEW_3.md)')
 data=dict(tag_name=tag,target_commitish=commit,name='GearLab 6.2 — волновой ПТК, подшипники и новые ступени',body=notes,draft=True,prerelease=False,make_latest='false')
 release=api('releases/'+str(existing['id']),'PATCH',data) if existing else api('releases','POST',data)
