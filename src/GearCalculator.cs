@@ -29,7 +29,7 @@ namespace GearLab {
   public int RvPins{get;set;} public int CrankCount{get;set;} public int PlanetTeeth{get;set;} public int SecondPlanetTeeth{get;set;} public int FixedMember{get;set;} public double SecondInputRpm{get;set;}
   public int InnerPolePairs{get;set;} public int OuterPolePairs{get;set;} public double MagnetThickness{get;set;} public double AirGap{get;set;} public double RackLength{get;set;} public double RackTravel{get;set;} public double RackPosition{get;set;}
 
-  public double WaveWall{get;set;} public double WaveBearingWall{get;set;} public double InputTorque{get;set;} public double Efficiency{get;set;} public double LoadTorque{get;set;}
+  public int WaveScheme{get;set;}public double WaveWall{get;set;} public double WaveBearingWall{get;set;} public double InputTorque{get;set;} public double Efficiency{get;set;} public double LoadTorque{get;set;}
 
   public int Kind {get;set;} public bool RingOutput {get;set;} public double Ratio {get;set;} public double Radius {get;set;}
 
@@ -485,6 +485,7 @@ namespace GearLab {
    if(args.Length>0&&args[0]=="--ui60-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return TransmissionUi60Tests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--robot-transmission60-test")return RobotTransmission60Tests.Run(args[1]);
    if(args.Length>0&&args[0]=="--train60-test")return Train60Tests.Run(args[1]);
+   if(args.Length>0&&args[0]=="--upgrade62-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Upgrade62Tests.Run(args.Length>1?args[1]:Path.GetTempPath());}
    if(args.Length>0&&args[0]=="--transmission60-test")return Transmission60Tests.Run(args[1]);
 
    if(args.Length>0&&(args[0]=="--cad"||args[0].EndsWith(".cad.json",StringComparison.OrdinalIgnoreCase))){MessageBox.Show("CAD-моделирование удалено из этой версии. Сохранённые файлы не изменены.");return 2;}
@@ -523,7 +524,7 @@ namespace GearLab {
 
    if(args.Length>0&&args[0]=="--mechanism-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return MechanismTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
 
-   if(args.Length>0&&(args[0]=="--mechanism"||args[0].EndsWith(".mechanism.json",StringComparison.OrdinalIgnoreCase))){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);string file=args[0]=="--mechanism"?(args.Length>1?args[1]:null):args[0];Application.Run(new WorkspaceShell(new MechanismForm(file)));return 0;}
+   if(args.Length>0&&(args[0]=="--mechanism"||args[0].EndsWith(".mechanism.json",StringComparison.OrdinalIgnoreCase))){Console.WriteLine("Раздел «Свой механизм» удалён. Откройте редукторы или конструктор ступеней.");return 1;}
 
    if(args.Length>0&&args[0]=="--placement-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return PlacementTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
 

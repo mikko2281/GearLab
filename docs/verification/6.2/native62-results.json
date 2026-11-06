@@ -1,0 +1,98 @@
+[
+  {
+    "Kind": 0,
+    "Passed": true,
+    "Solids": 255,
+    "Volume": 326243.18270556047,
+    "Seconds": 53.28842300000542
+  },
+  {
+    "Kind": 1,
+    "Passed": true,
+    "Solids": 92,
+    "Volume": 269030.33536593325,
+    "Seconds": 7.75218219999806
+  },
+  {
+    "Kind": 2,
+    "Passed": true,
+    "Solids": 93,
+    "Volume": 268180.58686983795,
+    "Seconds": 3.997039900001255
+  },
+  {
+    "Kind": 3,
+    "Passed": true,
+    "Solids": 158,
+    "Volume": 231180.57773153723,
+    "Seconds": 18.453977900004247
+  },
+  {
+    "Kind": 4,
+    "Passed": true,
+    "Solids": 80,
+    "Volume": 200634.72798206742,
+    "BearingContactAudit": {
+      "Complete": true,
+      "TestedPairs": 63,
+      "Pairs": []
+    },
+    "Seconds": 11.61702740000328
+  },
+  {
+    "Kind": 5,
+    "Passed": true,
+    "Solids": 113,
+    "Volume": 128745.17982472753,
+    "Seconds": 13.921047399999225
+  },
+  {
+    "Kind": 6,
+    "Passed": true,
+    "Solids": 113,
+    "Volume": 131704.511773961,
+    "Seconds": 9.51949429999513
+  },
+  {
+    "Kind": 7,
+    "Passed": true,
+    "Solids": 388,
+    "Volume": 273096.4443797063,
+    "Seconds": 65.29141390000586
+  },
+  {
+    "Kind": 8,
+    "Passed": true,
+    "Solids": 124,
+    "Volume": 180099.16894787046,
+    "Seconds": 17.465000700001838
+  },
+  {
+    "Kind": 9,
+    "Passed": true,
+    "Solids": 113,
+    "Volume": 131704.51215318617,
+    "Seconds": 13.45363860001089
+  },
+  {
+    "Kind": 10,
+    "Passed": true,
+    "Solids": 113,
+    "Volume": 128277.0921378971,
+    "Seconds": 12.930878800005303
+  },
+  {
+    "Kind": 11,
+    "Passed": true,
+    "Solids": 186,
+    "Volume": 233668.1270472282,
+    "Seconds": 5.063410200004
+  },
+  {
+    "Kind": 12,
+    "Passed": true,
+    "Solids": 44,
+    "Volume": 136003.62971902662,
+    "Seconds": 2.933836299998802
+  }
+]

@@ -1,0 +1,73 @@
+name: Build, verify and publish GearLab 6.2
+on:
+  push:
+    branches: [main]
+    paths: ['docs/RELEASE_6.2.md']
+permissions:
+  contents: read
+concurrency:
+  group: gearlab-publish-6.2
+  cancel-in-progress: false
+jobs:
+  release:
+    if: github.repository == 'mikko2281/GearLab'
+    runs-on: windows-latest
+    timeout-minutes: 35
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.10'
+          architecture: x64
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build executable and pinned native runtime
+        shell: powershell
+        run: ./tools/ci_build.ps1
+      - name: Verify cached projects, fast preview and native regressions
+        shell: powershell
+        run: ./tools/ci_verify.ps1
+      - name: Verify all reducers, PTK, bearings, stages and robot integration
+        shell: powershell
+        run: |
+          $out = Join-Path $PWD 'docs/verification/6.2-ci'
+          New-Item -ItemType Directory -Force $out | Out-Null
+          foreach($suite in @('upgrade62','audit-fix','transmission60','train60','robot-transmission60')) {
+            $p = Start-Process -FilePath ./Windows/GearLab.exe -ArgumentList @("--$suite-test", ('"'+$out+'"')) -PassThru -WindowStyle Hidden
+            if(-not $p.WaitForExit(300000)){$p.Kill();throw "Test timeout: $suite"}
+            $p.Refresh()
+            if($p.ExitCode -ne 0){Get-ChildItem $out -Filter '*results.json'|ForEach-Object {Get-Content $_.FullName};throw "Test failed: $suite"}
+          }
+          ./runtime/python.exe -B -X utf8 -I tools/test_upgrade62_native.py $out
+          if($LASTEXITCODE -ne 0){throw 'Native all-13 STEP audit failed'}
+          $zips=@("$out/PTK-print.zip","$out/chain.zip")+@(Get-ChildItem $out -Filter '*-stl.zip'|ForEach-Object {$_.FullName})
+          ./runtime/python.exe -B -X utf8 -I tools/test_print62.py @zips
+          if($LASTEXITCODE -ne 0){throw 'STL topology audit failed'}
+          ./runtime/python.exe -B -X utf8 -I tools/test_transmission_audit60.py $out
+          if($LASTEXITCODE -ne 0){throw 'Exact intersection audit failed'}
+          python -X utf8 tools/write_upgrade62_reference.py
+          if($LASTEXITCODE -ne 0){throw 'Formula snapshot failed'}
+      - name: Package and independently verify archives
+        shell: powershell
+        run: |
+          python -X utf8 tools/package_preview60.py dist Windows $env:GITHUB_SHA
+          if($LASTEXITCODE -ne 0){throw 'Packaging failed'}
+          python -X utf8 tools/verify_package.py dist/GearLab_6.2 dist/GearLab_6.2_Windows.zip
+          if($LASTEXITCODE -ne 0){throw 'Archive verification failed'}
+      - name: Publish only verified 6.2 assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -X utf8 tools/publish_62.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: GearLab-6.2-verification
+          path: |
+            docs/verification/6.2-ci/*results.json
+            test-results-ci/**/*results.*
+            test-results-ci/**/*error*.txt
+            dist/*.sha256
+            dist/GearLab_6.2/build-info.json

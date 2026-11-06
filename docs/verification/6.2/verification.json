@@ -1,0 +1,26 @@
+{
+  "Version": "6.2.0",
+  "Passed": true,
+  "LocalExeSHA256": "d5784ce153b1bc573dbd285ca433215e238d52fb67e2c4c794b9a7229659750f",
+  "Assertions": 6334,
+  "SourceFiles": 133,
+  "All13NativeSpecsMatchShippingExe": {
+    "0": "4d6b27189d32fd1143e95d1df206eade85b956feb61b7507d86586e5d8e8abbd",
+    "1": "5f9d33036bf834fbb0104f79f8df0ff84ebff8a0b3e91ee006643b0de43abbfb",
+    "2": "4d48fb9f1d96a40c029d39e3ff9ecbcb4fa5410abead27a07a82de283dc9b589",
+    "3": "dad468b9c35e2b8a084daecbe6689cb0041691330625607633edff911741d590",
+    "4": "03b1becd4dad0e95aa89c0889af71169ed19f1d12cda3909b929e53b7c778528",
+    "5": "72b65aa4454b90a0fcdd896cd7dcfad71231d5ff9146914134593810f6f71339",
+    "6": "af0099a6ea6e3ec05eee2b79e963ca3da5ff0fbbe91cf83d5bdc3b848bf78351",
+    "7": "a64a8e30606d841b8643436c763eda32cd2c036e77fef83b2c20eecb2b1af568",
+    "8": "b966cd40c866324188da51bee0e2f8a482cf56f897074fad3c7bc3304dc7013b",
+    "9": "0f613360d84e30dd651caeb25f28b193ea545453dadf11db9265e301603423cd",
+    "10": "c9759b9d34b94e11513bd4d00a1f966440bafee9514695054b3c721b8dec2f46",
+    "11": "a2557f91b64e24837c9006937518d9bf8d275b6978c441d22201014e6409a810",
+    "12": "b03b4e2073afc4e77da4ac907f1b10bcc9411f544dc6b8a24ea1af14075c6009"
+  },
+  "Native": "13 independent OCCT rereads; 1872 valid positive solids; bearing contact audit complete with 63 tested pairs and no volumetric overlaps",
+  "UI": "Actual Windows UI inspected: motor/stage cards, totals, direct edit, add PTK, initial 3D, common PTK radial scheme and removed own-mechanism navigation",
+  "Archive": "verified separately during packaging",
+  "Limits": "No manufacturing, fatigue, contact-pressure or catalog bearing-load certification"
+}

@@ -78,7 +78,7 @@ namespace GearLab {
 
   int Solid(CadPart part){if(part.MeshOverride!=null)throw new Exception("Полигональная деталь экспортируется в STL/OBJ. Восстановите параметрическое тело для STEP: "+part.Label);placement=part.Placement;vertices.Clear();edges.Clear();curves.Clear();var faces=new List<int>();for(int j=0;j<part.Sections.Count;j++){var s=part.Sections[j];faces.AddRange(Sides(s.Outer,s.Bottom,s.Top,false));foreach(var h in s.Holes)faces.AddRange(Sides(h,s.Bottom,s.Top,true));if(j==0)faces.Add(Cap(s.Outer,s.Holes,s.Bottom,false));else faces.AddRange(Transition(part.Sections[j-1],s));if(j==part.Sections.Count-1)faces.Add(Cap(s.Outer,s.Holes,s.Top,true));}int shell=Add("CLOSED_SHELL('',"+Refs(faces)+")");int solid=Add("MANIFOLD_SOLID_BREP("+Text(part.Id)+","+Ref(shell)+")");placement=Matrix3D.Identity;return solid;}
 
-  public static void Write(CadAssembly assembly,string path){if(assembly.Parts.Any(p=>p.Loft!=null)){TransmissionExport.Write(assembly,path);return;}if(!assembly.Valid)throw new Exception("3D-модель недопустима: "+string.Join(";",assembly.Errors));if(assembly.Parts.Any(p=>p.NativeStep!=null)){CADNativeBridge.WriteAssembly(assembly,path);return;}new StepExport().Save(assembly,path);}
+  public static void Write(CadAssembly assembly,string path){if(assembly.Parts.Any(p=>p.Loft!=null||p.Analytic!=null||p.SectionUnion)){TransmissionExport.Write(assembly,path);return;}if(!assembly.Valid)throw new Exception("3D-модель недопустима: "+string.Join(";",assembly.Errors));if(assembly.Parts.Any(p=>p.NativeStep!=null)){CADNativeBridge.WriteAssembly(assembly,path);return;}new StepExport().Save(assembly,path);}
 
   void Save(CadAssembly model,string path){
 

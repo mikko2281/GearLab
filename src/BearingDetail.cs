@@ -1,0 +1,31 @@
+﻿using System;using System.Linq;using System.Drawing;using System.Collections.Generic;using System.Windows.Media.Media3D;
+namespace GearLab {
+ // Analytic export descriptors and their matching tessellation. Millimetres, local Z axis.
+ public sealed class AnalyticSolid {
+  public double[] Sphere;public double[][] Revolve;
+  public SceneMesh Mesh(){var w=new MeshWriter();Action<Point3D,Point3D,Point3D> tri=(a,b,c)=>{var n=Vector3D.CrossProduct(b-a,c-a);if(n.LengthSquared<1e-18)return;n.Normalize();w.Triangle(a,b,c,n,n,n);};int nseg=64;
+   if(Sphere!=null){double x=Sphere[0],y=Sphere[1],z=Sphere[2],r=Sphere[3];Func<int,int,Point3D> at=(i,j)=>{double a=Engine.Tau*i/nseg,b=Math.PI*j/24;return new Point3D(x+r*Math.Sin(b)*Math.Cos(a),y+r*Math.Sin(b)*Math.Sin(a),z+r*Math.Cos(b));};for(int j=0;j<24;j++)for(int i=0;i<nseg;i++){tri(at(i,j),at(i,j+1),at(i+1,j+1));tri(at(i,j),at(i+1,j+1),at(i+1,j));}}
+   else {for(int j=0;j<Revolve.Length;j++){var a=Revolve[j];var b=Revolve[(j+1)%Revolve.Length];for(int i=0;i<nseg;i++){double u=Engine.Tau*i/nseg,v=Engine.Tau*(i+1)/nseg;var p=new Point3D(a[0]*Math.Cos(u),a[0]*Math.Sin(u),a[1]);var q=new Point3D(a[0]*Math.Cos(v),a[0]*Math.Sin(v),a[1]);var s=new Point3D(b[0]*Math.Cos(u),b[0]*Math.Sin(u),b[1]);var t=new Point3D(b[0]*Math.Cos(v),b[0]*Math.Sin(v),b[1]);tri(p,q,t);tri(p,t,s);}}}
+   var mesh=w.Finish();if(mesh.SignedVolume()<0){for(int i=0;i<mesh.Indices.Length;i+=3){int q=mesh.Indices[i+1];mesh.Indices[i+1]=mesh.Indices[i+2];mesh.Indices[i+2]=q;}for(int i=0;i<mesh.Normals.Length;i++)mesh.Normals[i]=-mesh.Normals[i];}return mesh;
+  }
+ }
+ public static class BearingDetail {
+  static readonly Color Steel=Color.FromArgb(180,191,205),Cage=Color.FromArgb(197,148,57);
+  public static CadPart Ball(string id,string name,double x,double y,double z,double radius){var q=new CadPart(id,name,"bearing",Steel){Analytic=new AnalyticSolid{Sphere=new[]{x,y,z,radius}}};q.MeshOverride=q.Analytic.Mesh();q.Sections.Add(new CadSection(z-radius,z+radius,CadLoop.Round(x,y,radius),null));return q;}
+  static CadPart Race(string id,string name,double[][] profile,Matrix3D placement){var q=new CadPart(id,name,"bearing",Steel){Analytic=new AnalyticSolid{Revolve=profile},Placement=placement};q.MeshOverride=q.Analytic.Mesh();q.Sections.Add(new CadSection(profile.Min(v=>v[1]),profile.Max(v=>v[1]),CadLoop.Round(0,0,profile.Max(v=>v[0])),new[]{CadLoop.Round(0,0,profile.Min(v=>v[0]))}));return q;}
+  public static List<CadPart> Create(CadPart source){var s=source.Sections[0];if(!s.Outer.Circle||s.Holes.Count!=1||!s.Holes[0].Circle)return new List<CadPart>{source};double inner=s.Holes[0].R,outer=s.Outer.R,width=s.Top-s.Bottom,span=outer-inner;
+   if(span<=.1||width<=.1)return new List<CadPart>{source};double ball=Math.Min(span*.56,width*.64),br=ball/2,pitch=(outer+inner)/2,gap=Math.Max(.008,ball*.006),groove=br+gap,lip=br*.63,mid=(s.Top+s.Bottom)/2;
+   if(source.BearingRequestedBall>0){ball=source.BearingRequestedBall;if(ball>=Math.Min(span*.85,width*.9))throw new Exception("Шарик подшипника не помещается в кольцах / ширине опоры.");br=ball/2;gap=Math.Max(.008,ball*.006);groove=br+gap;lip=br*.63;}int count=source.BearingRequestedCount>0?source.BearingRequestedCount:Math.Max(6,Math.Min(48,(int)Math.Floor(Engine.Tau*pitch/(ball*1.38))));if(count<3||count>96||2*pitch*Math.Sin(Math.PI/count)<=ball+2*gap)throw new Exception("Шарики подшипника пересекаются: уменьшите число / диаметр.");var placement=RobotMath.Translation(s.Outer.X,s.Outer.Y,0)*source.Placement;
+   Func<bool,double[][]> profile=isOuter=>{double edge=isOuter?pitch+lip:pitch-lip;var pts=new List<double[]>();if(isOuter){pts.Add(new[]{outer,s.Bottom});pts.Add(new[]{outer,s.Top});pts.Add(new[]{edge,s.Top});}else{pts.Add(new[]{inner,s.Top});pts.Add(new[]{inner,s.Bottom});pts.Add(new[]{edge,s.Bottom});}for(int i=0;i<=24;i++){double z=(isOuter?1:-1)*groove*Math.Sqrt(1-lip*lip/(groove*groove))*(1-2.0*i/24);double r=pitch+(isOuter?1:-1)*Math.Sqrt(Math.Max(0,groove*groove-z*z));pts.Add(new[]{r,mid+z});}pts.Add(new[]{edge,isOuter?s.Bottom:s.Top});return pts.ToArray();};
+   var parts=new List<CadPart>{Race(source.Id+"_OUTER","Наружное кольцо · "+source.Label,profile(true),placement),Race(source.Id+"_INNER","Внутреннее кольцо · "+source.Label,profile(false),placement)};
+   for(int i=0;i<count;i++){double a=Engine.Tau*i/count;var q=Ball(source.Id+"_BALL"+i,"Шарик "+(i+1)+" · "+source.Label,pitch*Math.Cos(a),pitch*Math.Sin(a),mid,br);q.Placement=placement;parts.Add(q);}
+   double cageHalf=ball*.12,baseZ=mid-ball*.59,baseH=ball*.055;
+   var crown=new CadPart(source.Id+"_CAGE","Корончатый сепаратор · "+source.Label,"bearing",Cage){Placement=placement};crown.Sections.Add(new CadSection(baseZ,baseZ+baseH,CadLoop.Round(0,0,pitch+cageHalf),new[]{CadLoop.Round(0,0,pitch-cageHalf)}));parts.Add(crown);
+   double halfAngle=Math.Asin(Math.Min(.95,(br+2*gap)/(pitch-cageHalf)));
+   for(int i=0;i<count;i++){double a=Engine.Tau*i/count+halfAngle,b=Engine.Tau*(i+1)/count-halfAngle;if(b<=a)continue;var points=new List<PointF>();for(int j=0;j<=6;j++)points.Add(Engine.Polar(pitch+cageHalf,a+(b-a)*j/6));for(int j=6;j>=0;j--)points.Add(Engine.Polar(pitch-cageHalf,a+(b-a)*j/6));var q=new CadPart(source.Id+"_CAGE_FINGER"+i,"Перемычка сепаратора · "+source.Label,"bearing",Cage){Placement=placement};q.Sections.Add(new CadSection(baseZ+baseH,mid+ball*.28,CadLoop.Polygon(points.ToArray()),null));parts.Add(q);}
+   foreach(var q in parts){q.Note="Детализированный открытый шарикоподшипник d/D/B="+Engine.F(2*inner)+"/"+Engine.F(2*outer)+"/"+Engine.F(width)+" мм: дорожки, шарики и корончатый сепаратор. Параметрическая геометрия; каталожная грузоподъёмность не назначена.";q.BearingSource=source;q.BearingElement=q.Id.Contains("_OUTER")?0:q.Id.Contains("_INNER")?1:2;q.BearingPitch=pitch;q.BearingBall=ball;}
+   return parts;
+  }
+  public static CadAssembly Expand(CadAssembly a){var originals=a.Parts.Where(q=>q.Role=="bearing"&&q.BearingSource==null&&q.Analytic==null&&q.NativeStep==null&&q.MeshOverride==null&&q.Sections.Count==1).ToArray();foreach(var q in originals){int i=a.Parts.IndexOf(q);try{var parts=Create(q);a.Parts.RemoveAt(i);a.Parts.InsertRange(i,parts);}catch(Exception ex){a.Errors.Add(ex.Message);}}return a;}
+ }
+}

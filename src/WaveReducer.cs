@@ -4,7 +4,7 @@ namespace GearLab {
 
  public sealed class WaveParameters {
 
-  public bool Flat=true;public int Ratio=50;public double Module=.6,CupDepth=25,Thickness=8,Wall=.8,RingWall=4,Bore=5,OutputBore=8,Clearance=.15,BearingWall=1.5;
+  public bool Rolling;public double BallDiameter=6,ProfileRadius=38,Eccentric=1.2;public Parameters RollingParameters(){var p=new Parameters{WaveScheme=1,Kind=4,Ratio=Ratio,BallDiameter=BallDiameter,Radius=ProfileRadius,Eccentric=Eccentric,Thickness=Thickness,Wall=RingWall,Shaft=Bore,OutputShaft=OutputBore,Clearance=Clearance,InputTorque=InputTorque,InputRpm=InputRpm,Efficiency=Efficiency,LoadTorque=LoadTorque,Overall=0,AutoFit=false};return p;}public bool Flat=true;public int Ratio=50;public double Module=.6,CupDepth=25,Thickness=8,Wall=.8,RingWall=4,Bore=5,OutputBore=8,Clearance=.15,BearingWall=1.5;
 
   public double InputTorque=.35,InputRpm=60,Efficiency=.7,LoadTorque=5;
 
@@ -14,7 +14,7 @@ namespace GearLab {
 
   public double InputPower{get{return InputTorque*InputRpm*Math.PI/30;}}public double RequiredTorque{get{return LoadTorque/(Ratio*Efficiency);}}
 
-  public void Validate(){if(Ratio<20||Ratio>120||!Finite(InputTorque)||InputTorque<0||!Finite(InputRpm)||InputRpm<0||!Finite(Efficiency)||Efficiency<=0||Efficiency>1||!Finite(LoadTorque)||LoadTorque<0)throw new Exception("Передача 20–120; момент, обороты и нагрузка ≥ 0; КПД 0–1, исключая 0.");if(new[]{Module,Thickness,Wall,RingWall,Bore,OutputBore,Clearance,BearingWall,CupDepth}.Any(x=>!Finite(x))||Module<.15||Module>2||Thickness<3||Thickness>40||Wall<.3||Wall>3||RingWall<2||RingWall>15||Bore<=0||OutputBore<=0||Clearance<.05||Clearance>.5||BearingWall<.5||BearingWall>4||!Flat&&(CupDepth<10||CupDepth>100))throw new Exception("Проверьте размеры: модуль 0,15–2; толщина венца 3–40; гибкая стенка 0,3–3; стенка корпуса 2–15; зазор 0,05–0,5; стенка подшипника 0,5–4 мм.");double inner=Module*(Ratio-1.25)-Wall;if(inner*(1-1.0/Ratio)-Clearance-BearingWall<=Math.Max(Bore,OutputBore)/2+2)throw new Exception("Отверстие не помещается внутри генератора волн.");if(Flat&&RingWall-2*Math.Max(1.2,Math.Min(2,RingWall*.30))-1<.25)throw new Exception("Увеличьте стенку венца для болтового фланца.");}
+  public void Validate(){if(Rolling){var rolling=Engine.Calculate(RollingParameters());if(!rolling.Valid)throw new Exception(string.Join(";",rolling.Errors));return;}if(Ratio<20||Ratio>120||!Finite(InputTorque)||InputTorque<0||!Finite(InputRpm)||InputRpm<0||!Finite(Efficiency)||Efficiency<=0||Efficiency>1||!Finite(LoadTorque)||LoadTorque<0)throw new Exception("Передача 20–120; момент, обороты и нагрузка ≥ 0; КПД 0–1, исключая 0.");if(new[]{Module,Thickness,Wall,RingWall,Bore,OutputBore,Clearance,BearingWall,CupDepth}.Any(x=>!Finite(x))||Module<.15||Module>2||Thickness<3||Thickness>40||Wall<.3||Wall>3||RingWall<2||RingWall>15||Bore<=0||OutputBore<=0||Clearance<.05||Clearance>.5||BearingWall<.5||BearingWall>4||!Flat&&(CupDepth<10||CupDepth>100))throw new Exception("Проверьте размеры: модуль 0,15–2; толщина венца 3–40; гибкая стенка 0,3–3; стенка корпуса 2–15; зазор 0,05–0,5; стенка подшипника 0,5–4 мм.");double inner=Module*(Ratio-1.25)-Wall;if(inner*(1-1.0/Ratio)-Clearance-BearingWall<=Math.Max(Bore,OutputBore)/2+2)throw new Exception("Отверстие не помещается внутри генератора волн.");if(Flat&&RingWall-2*Math.Max(1.2,Math.Min(2,RingWall*.30))-1<.25)throw new Exception("Увеличьте стенку венца для болтового фланца.");}
 
   static bool Finite(double n){return !double.IsNaN(n)&&!double.IsInfinity(n);}
 

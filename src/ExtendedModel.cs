@@ -10,7 +10,7 @@ namespace GearLab {
 
   public static void SetPreset(Parameters p,int preset){
 
-   if(preset==5){MicroPreset.Configure(p);return;}int originalTeeth=p.Teeth;double originalWidth=p.Thickness;p.MotorPreset=preset;if(preset==0)return;p.CycloidLayout=0;p.ModelCover=preset==4?6:4;
+   if(p.Kind==4&&p.WaveScheme==1&&preset>0){var saved=Clone(p);p.Kind=1;SetPreset(p,preset==5?1:preset);p.Kind=4;p.WaveScheme=1;p.Ratio=saved.Ratio;p.BallDiameter=saved.BallDiameter;p.Eccentric=saved.Eccentric;p.Radius=saved.Radius;p.Thickness=saved.Thickness;p.Wall=saved.Wall;p.Overall=saved.Overall;p.AutoFit=saved.AutoFit;return;}if(preset==5){MicroPreset.Configure(p);return;}int originalTeeth=p.Teeth;double originalWidth=p.Thickness;p.MotorPreset=preset;if(preset==0)return;p.CycloidLayout=0;p.ModelCover=preset==4?6:4;
 
    bool big=preset==4;p.MotorFrame=big?57.3:42.3;p.MotorMount=big?47.14:31;p.MotorPilot=big?38.1:22;p.MotorHole=big?5.2:3.3;p.MotorLength=big?76.5:preset==1?39:48;p.Shaft=big?6.35:5;
 
@@ -28,7 +28,7 @@ namespace GearLab {
 
   }
 
-  public static Parameters Starter(int kind){if(kind>=5)return TransmissionCatalog.Starter(kind);if(kind==4){var w=new Parameters{Kind=4,Ratio=50,Clearance=.15};SetPreset(w,2);w.Wall=4;w.AutoFit=true;FitOverall(w);return w;}var p=new Parameters{Kind=kind,RingOutput=true,IntegratedRing=kind==0,Ratio=kind==0?20:kind==3?4:2};SetPreset(p,2);p.AutoFit=true;FitOverall(p);return p;}
+  public static Parameters Starter(int kind){if(kind>=5)return TransmissionCatalog.Starter(kind);if(kind==4){var w=new Parameters{Kind=4,Ratio=17,Clearance=.1};SetPreset(w,2);w.WaveScheme=1;w.Ratio=17;w.BallDiameter=6;w.Eccentric=1.2;w.Radius=38;w.Thickness=8;w.Wall=7;w.Overall=0;w.AutoFit=false;return w;}var p=new Parameters{Kind=kind,RingOutput=true,IntegratedRing=kind==0,Ratio=kind==0?20:kind==3?4:2};SetPreset(p,2);p.AutoFit=true;FitOverall(p);return p;}
 
   public static double SecondDiscAngle(Parameters p,double input){return DiscAngle(p,input)-Math.PI/(PinCount(p)-1);}
 

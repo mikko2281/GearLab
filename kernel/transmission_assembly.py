@@ -1,4 +1,4 @@
-"""B-rep from parametric sections. Never fits a triangulated preview mesh."""
+﻿"""B-rep from parametric sections. Never fits a triangulated preview mesh."""
 import base64, hashlib, json, math, tempfile
 from pathlib import Path
 
@@ -44,6 +44,20 @@ def generate(request, k):
                 reader=k.STEPControl_Reader()
                 if reader.ReadFile(str(path))!=k.IFSelect_RetDone:raise ValueError('Native STEP import failed')
                 reader.TransferRoots();shape=k.checked(reader.OneShape())
+            elif item.get('Analytic'):
+                from OCP.BRepPrimAPI import BRepPrimAPI_MakeSphere, BRepPrimAPI_MakeRevol
+                from OCP.gp import gp_Ax1
+                primitive=item['Analytic']
+                if primitive.get('Sphere'):
+                    x,y,z,r=primitive['Sphere']
+                    if not all(math.isfinite(v) for v in (x,y,z,r)) or r<=0: raise ValueError('Invalid sphere')
+                    shape=k.checked(BRepPrimAPI_MakeSphere(k.gp_Pnt(x,y,z),r).Shape())
+                else:
+                    polygon=k.BRepBuilderAPI_MakePolygon()
+                    for radius,z in primitive['Revolve']: polygon.Add(k.gp_Pnt(radius,0,z))
+                    polygon.Close()
+                    face=k.BRepBuilderAPI_MakeFace(polygon.Wire()).Face()
+                    shape=k.checked(BRepPrimAPI_MakeRevol(face,gp_Ax1(k.gp_Pnt(0,0,0),k.gp_Dir(0,0,1))).Shape())
             elif item.get('Loft'):
                 levels=item['Loft']
                 if not 2<=len(levels)<=512:raise ValueError('Too many loft sections')

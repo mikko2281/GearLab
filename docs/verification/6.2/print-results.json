@@ -1,0 +1,52 @@
+[
+  {
+    "Archive": "PTK-print.zip",
+    "Passed": true,
+    "Parts": 5
+  },
+  {
+    "Archive": "chain.zip",
+    "Passed": true,
+    "Parts": 11
+  },
+  {
+    "Archive": "type-10-stl.zip",
+    "Passed": true,
+    "Parts": 14
+  },
+  {
+    "Archive": "type-11-stl.zip",
+    "Passed": true,
+    "Parts": 13
+  },
+  {
+    "Archive": "type-12-stl.zip",
+    "Passed": true,
+    "Parts": 8
+  },
+  {
+    "Archive": "type-5-stl.zip",
+    "Passed": true,
+    "Parts": 14
+  },
+  {
+    "Archive": "type-6-stl.zip",
+    "Passed": true,
+    "Parts": 14
+  },
+  {
+    "Archive": "type-7-stl.zip",
+    "Passed": true,
+    "Parts": 19
+  },
+  {
+    "Archive": "type-8-stl.zip",
+    "Passed": true,
+    "Parts": 22
+  },
+  {
+    "Archive": "type-9-stl.zip",
+    "Passed": true,
+    "Parts": 14
+  }
+]

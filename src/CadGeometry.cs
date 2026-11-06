@@ -36,7 +36,7 @@ namespace GearLab {
 
  public class CadSection {public double Bottom,Top;public CadLoop Outer;public List<CadLoop> Holes=new List<CadLoop>();public CadSection(double bottom,double top,CadLoop outer,IEnumerable<CadLoop> holes){Bottom=bottom;Top=top;Outer=outer;if(holes!=null)Holes.AddRange(holes);}}
 
- public class CadPart {public double[] PrintAngles;public string Id,Label,Role,Note;public Color Color;public bool Reference;public Matrix3D Placement=Matrix3D.Identity;public ParametricLoft Loft;public SceneMesh MeshOverride;public string NativeStep;public double NativeVolume=-1;public Point3D NativeCentre;public List<CadSection> Sections=new List<CadSection>();public CadPart(string id,string label,string role,Color color){Id=id;Label=label;Role=role;Color=color;}
+ public class CadPart {public bool SectionUnion;public double BearingRequestedBall;public int BearingRequestedCount;public AnalyticSolid Analytic;public CadPart BearingSource;public int BearingElement;public double BearingPitch,BearingBall;public double[] PrintAngles;public string Id,Label,Role,Note;public Color Color;public bool Reference;public Matrix3D Placement=Matrix3D.Identity;public ParametricLoft Loft;public SceneMesh MeshOverride;public string NativeStep;public double NativeVolume=-1;public Point3D NativeCentre;public List<CadSection> Sections=new List<CadSection>();public CadPart(string id,string label,string role,Color color){Id=id;Label=label;Role=role;Color=color;}
 
   public double Volume(){if(NativeStep!=null&&NativeVolume>=0)return NativeVolume;return MeshOverride==null?Sections.Sum(s=>(s.Outer.SurfaceArea()-s.Holes.Sum(h=>h.SurfaceArea()))*(s.Top-s.Bottom)):Math.Abs(MeshOverride.SignedVolume());}
 

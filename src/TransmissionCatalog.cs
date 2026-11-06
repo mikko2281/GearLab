@@ -3,7 +3,7 @@ namespace GearLab {
  public sealed class TransmissionType {public int Id;public string Name,Category,Limit;public TransmissionType(int id,string n,string c,string l){Id=id;Name=n;Category=c;Limit=l;}public override string ToString(){return Name;}}
  public static class TransmissionCatalog {
   public static readonly TransmissionType[] All={
-   new TransmissionType(0,"Циклоидальный","Соосные",""),new TransmissionType(1,"Зубчатая пара","Параллельные валы",""),new TransmissionType(2,"Зубчатый ремень","Параллельные валы",""),new TransmissionType(3,"Планетарный","Соосные",""),new TransmissionType(4,"Волновой","Соосные","Заданная деформация, без контактного расчёта"),
+   new TransmissionType(0,"Циклоидальный","Соосные",""),new TransmissionType(1,"Зубчатая пара","Параллельные валы",""),new TransmissionType(2,"Зубчатый ремень","Параллельные валы",""),new TransmissionType(3,"Планетарный","Соосные",""),new TransmissionType(4,"Волновой ПТК","Соосные","Профильная одноволновая передача с шариками; ресурс и контактные напряжения не рассчитаны"),
    new TransmissionType(5,"Червячный","Перекрещивающиеся валы","Компоновочный профиль колеса; сопряжение и ресурс не подтверждены"),
    new TransmissionType(6,"Конический","Пересекающиеся валы","Прямые зубья: приближение плоскими сечениями, без сферической эвольвенты"),
    new TransmissionType(7,"RV","Соосные","Двухступенчатая кинематика; контакт и распределение по кривошипам не рассчитаны"),

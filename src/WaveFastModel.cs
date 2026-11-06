@@ -1,6 +1,6 @@
 ﻿using System;using System.Linq;using System.Drawing;using System.Collections.Generic;using System.Windows.Media.Media3D;
 namespace GearLab {
- public static class WaveFastModel {
+ public static class LegacyWaveFastModel {
   public static WaveParameters From(Parameters p){return new WaveParameters{Flat=true,Ratio=(int)Math.Round(p.Ratio),Module=p.Module,Thickness=p.Thickness,Wall=p.WaveWall,RingWall=p.Wall,Bore=p.Shaft,OutputBore=p.OutputShaft,Clearance=p.Clearance,BearingWall=p.WaveBearingWall,InputTorque=p.InputTorque,InputRpm=p.InputRpm,Efficiency=p.Efficiency,LoadTorque=p.LoadTorque};}
   public static double Radius(Parameters p){return p.Module*(p.Ratio+2.25)+p.Wall;}
   public static bool Fit(Parameters p){if(p.Overall<=0)return true;double m=Math.Floor((p.Overall/2-p.Wall)/(p.Ratio+2.25)*10000)/10000;if(m<.15||m>2)return false;var copy=Engine.Clone(p);copy.Module=m;if(!Calculate(copy).Valid)return false;p.Module=m;return true;}
