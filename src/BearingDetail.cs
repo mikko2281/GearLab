@@ -3,9 +3,12 @@ namespace GearLab {
  // Analytic export descriptors and their matching tessellation. Millimetres, local Z axis.
  public sealed class AnalyticSolid {
   public double[] Sphere;public double[][] Revolve;
+  static readonly double[] Sin=Trig(64,Engine.Tau,true),Cos=Trig(64,Engine.Tau,false),PolarSin=Trig(24,Math.PI,true),PolarCos=Trig(24,Math.PI,false);
+  static double[] Trig(int count,double span,bool sine){var values=new double[count+1];for(int i=0;i<=count;i++){double angle=span*i/count;values[i]=sine?Math.Sin(angle):Math.Cos(angle);}return values;}
+
   public SceneMesh Mesh(){var w=new MeshWriter();Action<Point3D,Point3D,Point3D> tri=(a,b,c)=>{var n=Vector3D.CrossProduct(b-a,c-a);if(n.LengthSquared<1e-18)return;n.Normalize();w.Triangle(a,b,c,n,n,n);};int nseg=64;
-   if(Sphere!=null){double x=Sphere[0],y=Sphere[1],z=Sphere[2],r=Sphere[3];Func<int,int,Point3D> at=(i,j)=>{double a=Engine.Tau*i/nseg,b=Math.PI*j/24;return new Point3D(x+r*Math.Sin(b)*Math.Cos(a),y+r*Math.Sin(b)*Math.Sin(a),z+r*Math.Cos(b));};for(int j=0;j<24;j++)for(int i=0;i<nseg;i++){tri(at(i,j),at(i,j+1),at(i+1,j+1));tri(at(i,j),at(i+1,j+1),at(i+1,j));}}
-   else {for(int j=0;j<Revolve.Length;j++){var a=Revolve[j];var b=Revolve[(j+1)%Revolve.Length];for(int i=0;i<nseg;i++){double u=Engine.Tau*i/nseg,v=Engine.Tau*(i+1)/nseg;var p=new Point3D(a[0]*Math.Cos(u),a[0]*Math.Sin(u),a[1]);var q=new Point3D(a[0]*Math.Cos(v),a[0]*Math.Sin(v),a[1]);var s=new Point3D(b[0]*Math.Cos(u),b[0]*Math.Sin(u),b[1]);var t=new Point3D(b[0]*Math.Cos(v),b[0]*Math.Sin(v),b[1]);tri(p,q,t);tri(p,t,s);}}}
+   if(Sphere!=null){double x=Sphere[0],y=Sphere[1],z=Sphere[2],r=Sphere[3];var vertices=new Point3D[25*65];for(int j=0;j<=24;j++)for(int i=0;i<=nseg;i++)vertices[j*65+i]=new Point3D(x+r*PolarSin[j]*Cos[i],y+r*PolarSin[j]*Sin[i],z+r*PolarCos[j]);for(int j=0;j<24;j++)for(int i=0;i<nseg;i++){tri(vertices[j*65+i],vertices[(j+1)*65+i],vertices[(j+1)*65+i+1]);tri(vertices[j*65+i],vertices[(j+1)*65+i+1],vertices[j*65+i+1]);}}
+   else {for(int j=0;j<Revolve.Length;j++){var a=Revolve[j];var b=Revolve[(j+1)%Revolve.Length];for(int i=0;i<nseg;i++){var p=new Point3D(a[0]*Cos[i],a[0]*Sin[i],a[1]);var q=new Point3D(a[0]*Cos[i+1],a[0]*Sin[i+1],a[1]);var ss=new Point3D(b[0]*Cos[i],b[0]*Sin[i],b[1]);var t=new Point3D(b[0]*Cos[i+1],b[0]*Sin[i+1],b[1]);tri(p,q,t);tri(p,t,ss);}}}
    var mesh=w.Finish();if(mesh.SignedVolume()<0){for(int i=0;i<mesh.Indices.Length;i+=3){int q=mesh.Indices[i+1];mesh.Indices[i+1]=mesh.Indices[i+2];mesh.Indices[i+2]=q;}for(int i=0;i<mesh.Normals.Length;i++)mesh.Normals[i]=-mesh.Normals[i];}return mesh;
   }
  }

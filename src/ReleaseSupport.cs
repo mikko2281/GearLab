@@ -26,9 +26,9 @@ namespace GearLab {
 
  public static class ReleaseSupport {
 
-  public const string Version="6.4.0";
+  public const string Version="6.4.1";
 
-  public const string HelpText=@"GEARLAB 6.4 — КАК ПОЛЬЗОВАТЬСЯ
+  public const string HelpText=@"GEARLAB 6.4.1 — КАК ПОЛЬЗОВАТЬСЯ
 
 РЕДУКТОРЫ
 В одной вкладке доступны 13 типов: циклоидальный, зубчатая пара, зубчатый ремень, планетарный, волновой, червячный, конический, RV, дифференциальный планетарный, гипоидный, глобоидный, магнитный и реечный. Используйте категории и поиск. Переключение типа сохраняет его текущие параметры.
@@ -65,7 +65,7 @@ Ctrl+S — сохранить, Ctrl+O — открыть. Форматы: .gear.
 
 B-rep-проверка относится к текущей позе и имеет лимит 250 пар; программа явно сообщает неполный результат. Полный диапазон движения, ресурс, динамика, нагрев, посадки, шпонки, крепёж, материалы и прочность требуют отдельной инженерной проверки. Подробные формулы, ограничения и отчёты находятся в docs рядом с программой.";
 
-  public const string EnglishHelp=@"GEARLAB 6.4 — HELP
+  public const string EnglishHelp=@"GEARLAB 6.4.1 — HELP
 
 REDUCERS
 Choose one of 13 transmission types using categories and search. Each type retains its edited parameters. Enter dimensions, then click Calculate or press Enter. Both decimal separators are accepted. Invalid fields are highlighted; exports are disabled while edits are pending. Automatic fitting locks dimensions it controls; turn it off to enter those dimensions manually. Failed fitting preserves your inputs.

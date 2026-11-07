@@ -11,7 +11,8 @@ namespace GearLab {
   sealed class TextState {public string Raw;public bool Busy;}
   static readonly ConditionalWeakTable<object,TextState> texts=new ConditionalWeakTable<object,TextState>();
   public static bool English{get{return AppSettings.Current!=null&&AppSettings.Current.Language==GearLanguage.English;}}
-  public static string T(string value){if(value==null||!English)return value;string translated;if(Catalog.TryGetValue(value,out translated))return translated;return TranslateParts(value);}
+  static readonly System.Collections.Concurrent.ConcurrentDictionary<string,string> Translated=new System.Collections.Concurrent.ConcurrentDictionary<string,string>(StringComparer.Ordinal);
+  public static string T(string value){if(string.IsNullOrEmpty(value)||!English)return value;string translated;if(Catalog.TryGetValue(value,out translated))return translated;bool cyrillic=false;foreach(char c in value)if(c>='\u0400'&&c<='\u052f'){cyrillic=true;break;}if(!cyrillic)return value;if(Translated.TryGetValue(value,out translated))return translated;translated=TranslateParts(value);if(value.Length<=2048){if(Translated.Count>=1024)Translated.Clear();Translated.TryAdd(value,translated);}return translated;}
   public static string Raw(Control c){TextState s;return texts.TryGetValue(c,out s)?s.Raw:c.Text;}
   public static void Apply(Control c){var combo=c as ComboBox;if(combo!=null){TextState s;if(!texts.TryGetValue(c,out s)){texts.Add(c,new TextState());combo.FormattingEnabled=true;combo.Format+=(sender,e)=>e.Value=T(Convert.ToString(e.ListItem));}combo.Refresh();return;}
    var list=c as ListBox;if(list!=null){TextState s;if(!texts.TryGetValue(c,out s)){texts.Add(c,new TextState());list.FormattingEnabled=true;list.Format+=(sender,e)=>e.Value=T(Convert.ToString(e.ListItem));}list.Refresh();return;}

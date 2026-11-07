@@ -12,14 +12,18 @@ namespace GearLab {
   static readonly string[] Dark={"#252525","#303030","#202020","#454545","#E5E5E5","#B0B0B0","#191919","#E8923C","#66503C","#393939","#555555","#D65B60","#78B653","#639BDD","#78BF8B","#EAC16B","#EF8585"};
   static readonly string[] Light={"#E2E2E2","#F0F0F0","#D0D0D0","#FFFFFF","#242424","#595959","#B0B0B0","#A95300","#E8CBA9","#E6E6E6","#C5C5C5","#B93B43","#438624","#316CAD","#23653A","#855E00","#AF2936"};
   public static Color Get(string key){return Get(AppSettings.Current,key);}
-  public static Color Get(AppSettings settings,string key){string hex;int i=Array.IndexOf(Keys,key);if(i<0)throw new ArgumentException(key);if(settings!=null&&settings.Colors!=null&&settings.Colors.TryGetValue(key,out hex))return ColorTranslator.FromHtml(hex);return ColorTranslator.FromHtml((settings!=null&&settings.Theme==GearTheme.Светлая?Light:Dark)[i]);}
+  static readonly Dictionary<string,int> Index=Keys.Select((key,i)=>new{key,i}).ToDictionary(x=>x.key,x=>x.i);
+  static readonly Color[] DarkColors=Dark.Select(ColorTranslator.FromHtml).ToArray(),LightColors=Light.Select(ColorTranslator.FromHtml).ToArray();
+  static readonly System.Collections.Concurrent.ConcurrentDictionary<string,Color> Parsed=new System.Collections.Concurrent.ConcurrentDictionary<string,Color>(StringComparer.OrdinalIgnoreCase);
+  public static Color Get(AppSettings settings,string key){int i;if(!Index.TryGetValue(key,out i))throw new ArgumentException(key);string hex;if(settings!=null&&settings.Colors!=null&&settings.Colors.TryGetValue(key,out hex)){Color color;if(Parsed.TryGetValue(hex,out color))return color;color=ColorTranslator.FromHtml(hex);if(Parsed.Count>=512)Parsed.Clear();Parsed.TryAdd(hex,color);return color;}return (settings!=null&&settings.Theme==GearTheme.Светлая?LightColors:DarkColors)[i];}
   public static System.Windows.Media.Color Wpf(string key){var c=Get(key);return System.Windows.Media.Color.FromRgb(c.R,c.G,c.B);}
  }
  public static class UiAppearance {
   sealed class State {public bool Busy;public Color Fore,Back;}
   static readonly ConditionalWeakTable<Control,State> states=new ConditionalWeakTable<Control,State>();
-  public static void Apply(Control root){if(root==null||root.IsDisposed)return;State st;bool fresh=!states.TryGetValue(root,out st);if(fresh){st=new State{Fore=root.ForeColor,Back=root.BackColor};states.Add(root,st);root.ControlAdded+=(s,e)=>Apply(e.Control);root.HandleCreated+=(s,e)=>Apply(root);root.ForeColorChanged+=(s,e)=>{if(!st.Busy){st.Fore=root.ForeColor;Style(root,st);}};root.BackColorChanged+=(s,e)=>{if(!st.Busy){st.Back=root.BackColor;Style(root,st);}};}
-   Style(root,st);I18n.Apply(root);foreach(Control c in root.Controls)Apply(c);root.Invalidate(true);
+  public static void Apply(Control root){if(root==null||root.IsDisposed)return;ApplyCore(root);root.Invalidate(true);}
+  static void ApplyCore(Control root){if(root==null||root.IsDisposed)return;State st;bool fresh=!states.TryGetValue(root,out st);if(fresh){st=new State{Fore=root.ForeColor,Back=root.BackColor};states.Add(root,st);root.ControlAdded+=(s,e)=>Apply(e.Control);root.HandleCreated+=(s,e)=>{Style(root,st);I18n.Apply(root);root.Invalidate();};root.ForeColorChanged+=(s,e)=>{if(!st.Busy){st.Fore=root.ForeColor;Style(root,st);}};root.BackColorChanged+=(s,e)=>{if(!st.Busy){st.Back=root.BackColor;Style(root,st);}};}
+   Style(root,st);I18n.Apply(root);foreach(Control c in root.Controls)ApplyCore(c);
   }
   static void Style(Control c,State st){if(st.Busy||c.IsDisposed)return;st.Busy=true;try{
    NativeAppearance.Apply(c);bool field=c is TextBoxBase||c is NumericUpDown||c is ComboBox||c is ListBox||c is TreeView;

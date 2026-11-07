@@ -1,0 +1,14 @@
+{
+  "version": "6.4.1",
+  "date": "2026-11-07",
+  "regression_assertions": 7016,
+  "optimization_assertions": 41,
+  "all_passed": true,
+  "native_ci_verify": true,
+  "render_scheduler": true,
+  "actual_webview": true,
+  "local_exe_sha256": "cdcec30b5cc9d40e1398bf2f25248e1a07e96a209807fb66a5c2bab5b1b837f5",
+  "baseline_exe_sha256": "73987fc2bf79c08229e3b25fc75f1b2d3a2a2c2ebf9008402b1ec8e43e1233fc",
+  "baseline_source_commit": "f6cb7f4f097547be0f838aa3564ca7eeb499d2af",
+  "published_binary_built_separately_in_ci": true
+}

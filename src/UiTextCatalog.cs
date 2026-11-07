@@ -690,8 +690,8 @@ namespace GearLab {public static partial class I18n {
 {"Два противоположных эксцентрика; междисковый зазор задан отдельно. Опоры и крепёж требуют CAD.","Two opposite eccentrics; separately specified disc spacing. Verify bearings and fasteners in CAD."},
 {"Зубья шкивов показаны условно: конкретный профиль ремня нужно выбрать по каталогу.","Pulley teeth are schematic: choose a belt tooth profile from a catalog."},
 {"Корень зуба упрощён, без галтели и силового расчёта. Эскиз для компоновки, не готовая технология изготовления.","Simplified tooth root without fillet or stress analysis. Layout sketch, not a manufacturing specification."},
-{"Gear Lab 6.4 · Калькулятор редукторов","GearLab 6.4 · Reducer calculator"},
-{"GearLab 6.4 · Робототехника","GearLab 6.4 · Robotics"},
+{"Gear Lab 6.4.1 · Калькулятор редукторов","GearLab 6.4.1 · Reducer calculator"},
+{"GearLab 6.4.1 · Робототехника","GearLab 6.4.1 · Robotics"},
 {"Шаг 0,01–100 мм; чувствительность 1–30; анимация 0,01–10; автосохранение 15–600 с.","Step 0.01–100 mm; sensitivity 1–30; animation 0.01–10; autosave 15–600 s."},
 {"ЛКМ — вращение · СКМ / Shift+ЛКМ — сдвиг · колесо — масштаб · F — вписать","Left-drag: orbit · Middle / Shift+left: pan · Wheel: zoom · F: frame all"},
 {" мм/с"," mm/s"},
@@ -756,6 +756,6 @@ namespace GearLab {public static partial class I18n {
 {"Общий","Total"},
 {"Редуктор","Reducer"},
 {"Редукторы · ","Reducers · "}};
- static readonly Regex Parts=new Regex(string.Join("|",Catalog.Keys.OrderByDescending(k=>k.Length).Select(k=>(char.IsLetter(k[0])?@"(?<![\p{L}\p{N}_])":"")+Regex.Escape(k)+(char.IsLetter(k[k.Length-1])?@"(?![\p{L}\p{N}_])":""))),RegexOptions.Compiled);
- static string TranslateParts(string text){return Parts.Replace(text,m=>Catalog.ContainsKey(m.Value)?Catalog[m.Value]:m.Value);}
+ static readonly Lazy<Regex> Parts=new Lazy<Regex>(()=>new Regex(string.Join("|",Catalog.Keys.OrderByDescending(k=>k.Length).Select(k=>(char.IsLetter(k[0])?@"(?<![\p{L}\p{N}_])":"")+Regex.Escape(k)+(char.IsLetter(k[k.Length-1])?@"(?![\p{L}\p{N}_])":""))),RegexOptions.Compiled));
+ static string TranslateParts(string text){return Parts.Value.Replace(text,m=>Catalog.ContainsKey(m.Value)?Catalog[m.Value]:m.Value);}
 }}

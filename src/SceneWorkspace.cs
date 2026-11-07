@@ -4,9 +4,9 @@ namespace GearLab {
 
  public sealed partial class WpfScene {
 
-  GearQuality appliedQuality;
-  public void ApplyAppearance(){if(disposed)return;Root.Background=new SolidColorBrush(UiPalette.Wpf("Viewport"));UiAppearance.ApplyWpf(Root);environmentWidth=-1;UpdateEnvironment();}
-  void SettingsChanged(){if(disposed)return;if(!Root.Dispatcher.CheckAccess()){Root.Dispatcher.BeginInvoke(new Action(SettingsChanged));return;}ApplyAppearance();if(appliedQuality!=AppSettings.Current.Quality){appliedQuality=AppSettings.Current.Quality;var result=Result;Result=null;SetResult(result,true);}}
+  GearQuality appliedQuality;int appearanceRevision=-1,languageRevision=-1;
+  public void ApplyAppearance(){if(disposed)return;appearanceRevision=AppSettings.AppearanceRevision;languageRevision=AppSettings.LanguageRevision;Root.Background=new SolidColorBrush(UiPalette.Wpf("Viewport"));UiAppearance.ApplyWpf(Root);environmentWidth=-1;UpdateEnvironment();}
+  void SettingsChanged(){if(disposed)return;if(!Root.Dispatcher.CheckAccess()){Root.Dispatcher.BeginInvoke(new Action(SettingsChanged));return;}if(appearanceRevision!=AppSettings.AppearanceRevision||languageRevision!=AppSettings.LanguageRevision)ApplyAppearance();if(appliedQuality!=AppSettings.Current.Quality){appliedQuality=AppSettings.Current.Quality;var result=Result;Result=null;SetResult(result,true);}}
   readonly ModelVisual3D environment=new ModelVisual3D(),construction=new ModelVisual3D();SceneMesh constructionMesh;
 
   public bool HasConstruction{get{return constructionMesh!=null&&constructionMesh.Indices.Length>0;}}

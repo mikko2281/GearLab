@@ -481,6 +481,9 @@ namespace GearLab {
  static class Program {
 
   [STAThread] static int Main(string[] args){
+   if(args.Length>0&&args[0]=="--performance-web-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return WebPerformanceTests.Run(args[1]);}
+   if(args.Length>0&&args[0]=="--optimization641-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Optimization641Tests.Run(args[1]);}
+   if(args.Length>0&&args[0]=="--performance-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return PerformanceTests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--workspace64-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Workspace64Tests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--settings63-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Settings63Tests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--audit-fix-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return AuditFixTests.Run(args[1]);}

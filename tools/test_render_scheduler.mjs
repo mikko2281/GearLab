@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {createRenderScheduler} from '../web/render-scheduler.js';
+let queue=[],frames=0,visible=true,damping=0;
+const scheduler=createRenderScheduler(()=>{frames++;return damping-- > 0;},callback=>queue.push(callback),()=>visible);
+for(let i=0;i<300;i++)scheduler.invalidate();
+assert.equal(queue.length,1,'part/message bursts coalesce');
+queue.shift()(0);assert.equal(frames,1);assert.equal(queue.length,0,'idle scene stops');
+damping=3;scheduler.invalidate();while(queue.length)queue.shift()(0);
+assert.equal(frames,5,'camera damping settles fully');assert.equal(scheduler.pending,false);
+visible=false;scheduler.invalidate();assert.equal(queue.length,0,'hidden views do not schedule');
+visible=true;scheduler.invalidate();visible=false;queue.shift()(0);
+assert.equal(frames,5,'visibility lost before a frame cancels rendering');
+visible=true;scheduler.invalidate();queue.shift()(0);assert.equal(frames,6,'visible view resumes');
+let next=[],count=0,again;
+again=createRenderScheduler(()=>{count++;if(count===1)again.invalidate();return false;},callback=>next.push(callback));
+again.invalidate();while(next.length)next.shift()(0);assert.equal(count,2,'changes during rendering are retained');
+console.log('PASS render scheduling: coalescing, idle, damping, visibility and reentrant changes');

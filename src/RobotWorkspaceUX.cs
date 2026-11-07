@@ -36,7 +36,7 @@ namespace GearLab {
 
   internal void SetJointPose(string id,double value){var joint=Document.Find(id);if(joint==null||!MechanismCad.Finite(value))return;Stop();joint.Position=Math.Max(joint.Minimum,Math.Min(joint.Maximum,value));RefreshManualPose();}
 
-  void EndPoseEdit(){if(!poseEditing)return;string current=Document.Serialize();if(poseBefore!=current){undo.Push(poseBefore);redo.Clear();}last=current;poseEditing=false;poseBefore=null;Text="GearLab 6.4 · "+Document.Name+(last!=saved?" *":"");SyncJointControllers();}
+  void EndPoseEdit(){if(!poseEditing)return;string current=Document.Serialize();if(poseBefore!=current){undo.Push(poseBefore);redo.Clear();}last=current;poseEditing=false;poseBefore=null;Text="GearLab 6.4.1 · "+Document.Name+(last!=saved?" *":"");SyncJointControllers();}
 
   W.Point ProjectBone(Point3D point){var d=point-Scene.Camera.Target;double scale=Scene.Root.ActualWidth/Math.Max(.01,Scene.Camera.Width);return new W.Point(Scene.Root.ActualWidth/2+Vector3D.DotProduct(d,Scene.Camera.Right)*scale,Scene.Root.ActualHeight/2-Vector3D.DotProduct(d,Scene.Camera.Up)*scale);}
 

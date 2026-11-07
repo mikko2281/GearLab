@@ -11,6 +11,9 @@ namespace GearLab {
 
   public static AppSettings Current=Load();
   public static event Action Changed;
+  public static int AppearanceRevision{get;private set;}public static int LanguageRevision{get;private set;}
+  static bool SameColors(Dictionary<string,string> a,Dictionary<string,string> b){if(ReferenceEquals(a,b))return true;if(a==null||b==null||a.Count!=b.Count)return false;foreach(var pair in a){string value;if(!b.TryGetValue(pair.Key,out value)||!string.Equals(pair.Value,value,StringComparison.OrdinalIgnoreCase))return false;}return true;}
+
   public static void SetLanguage(GearLanguage language){if(Current.Language==language)return;var settings=Current.Clone();settings.Language=language;Commit(settings);}
   public static void SetAnimationSpeed(double speed){if(Math.Abs(Current.AnimationScale-speed)<1e-10)return;var settings=Current.Clone();settings.AnimationScale=speed;Commit(settings);}
 
@@ -18,7 +21,7 @@ namespace GearLab {
   public GearLanguage Language{get;set;}
   public Dictionary<string,string> Colors{get;set;}
   public static string LoadWarning;
-  public static void Commit(AppSettings draft){var saved=draft.Clone();saved.Validate();saved.Save();Current=saved;foreach(Form f in Application.OpenForms.Cast<Form>().ToArray())Apply(f);if(Changed!=null)Changed();}
+  public static void Commit(AppSettings draft){var saved=draft.Clone();saved.Validate();bool appearance=Current.Theme!=saved.Theme||!SameColors(Current.Colors,saved.Colors),language=Current.Language!=saved.Language;saved.Save();Current=saved;if(appearance)AppearanceRevision++;if(language)LanguageRevision++;if(appearance||language)foreach(Form f in Application.OpenForms.Cast<Form>().Where(f=>f.TopLevel||f.Parent==null).ToArray())Apply(f);if(Changed!=null)Changed();}
 
 
   [Category("Интерфейс"),DisplayName("Тема")]public GearTheme Theme{get;set;}
@@ -49,7 +52,7 @@ namespace GearLab {
 
   public static AppSettings LoadFrom(string path){try{if(File.Exists(path)){if(new FileInfo(path).Length>=65536)throw new IOException("Settings file is too large");string json=File.ReadAllText(path);var s=new JavaScriptSerializer().Deserialize<AppSettings>(json);if(s!=null&&!json.Contains("\"FormatVersion\"")){s.Theme=GearTheme.Тёмная;s.FormatVersion=2;}if(s==null)throw new IOException("Empty settings");s.Validate();return s;}}catch(Exception ex){LoadWarning="Не удалось прочитать настройки. Загружены стандартные значения.\n"+ex.Message;}return new AppSettings();}
 
-  public AppSettings Clone(){return new JavaScriptSerializer().Deserialize<AppSettings>(new JavaScriptSerializer().Serialize(this));}
+  public AppSettings Clone(){return new AppSettings{FormatVersion=FormatVersion,Theme=Theme,Language=Language,Colors=Colors==null?null:new Dictionary<string,string>(Colors),Quality=Quality,OrbitSensitivity=OrbitSensitivity,SnapEnabled=SnapEnabled,SnapStep=SnapStep,AnimationScale=AnimationScale,AutoSave=AutoSave,AutoSaveSeconds=AutoSaveSeconds};}
 
   public void Save(){SaveTo(SettingsPath);}public void SaveTo(string path){Validate();Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path)));if(File.Exists(path))File.Copy(path,path+".bak",true);ReleaseSupport.WriteText(path,new JavaScriptSerializer().Serialize(this),System.Text.Encoding.UTF8);}
 
