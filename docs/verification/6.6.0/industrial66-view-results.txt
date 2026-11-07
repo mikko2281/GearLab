@@ -1,0 +1,1 @@
+﻿PASS 19 assertions: independent editable CAD, current native bodies, flange mating, actual viewport, articulated pose and controllers.

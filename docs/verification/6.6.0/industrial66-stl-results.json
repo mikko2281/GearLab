@@ -1,0 +1,1026 @@
+{
+  "files": 64,
+  "all_fit": true,
+  "all_closed": true,
+  "weld_tolerance_mm": 0.0,
+  "parts": [
+    {
+      "name": "industrial66_j1_proc_rear_cover.stl",
+      "triangles": 6304,
+      "welded_vertices": 3144,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 45492.97895410338,
+      "size_mm": [
+        98.5999984741211,
+        98.5999984741211,
+        6.0
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 6.732894147192148e-05
+    },
+    {
+      "name": "industrial66_j1_proc_front_support.stl",
+      "triangles": 7312,
+      "welded_vertices": 3648,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 118961.95953842798,
+      "size_mm": [
+        98.5999984741211,
+        98.5999984741211,
+        20.0
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.736096976176477e-05
+    },
+    {
+      "name": "industrial66_j1_proc_actuator_right.stl",
+      "triangles": 13014,
+      "welded_vertices": 6501,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 178183.35029402972,
+      "size_mm": [
+        98.59954071044922,
+        87.19999694824219,
+        49.14999771118164
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.0349880266305074e-05
+    },
+    {
+      "name": "industrial66_j1_proc_actuator_left.stl",
+      "triangles": 13014,
+      "welded_vertices": 6501,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 178183.35234309707,
+      "size_mm": [
+        98.59954071044922,
+        87.19999694824219,
+        49.14999771118164
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.0338013402334145e-05
+    },
+    {
+      "name": "industrial66_j1_proc_skin_industrial_0_0.stl",
+      "triangles": 24724,
+      "welded_vertices": 12356,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 98929.05460259067,
+      "size_mm": [
+        203.94021606445312,
+        203.94021606445312,
+        186.37551879882812
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 1.5547349436819167e-05
+    },
+    {
+      "name": "industrial66_j1_proc_skin_industrial_1_0.stl",
+      "triangles": 12048,
+      "welded_vertices": 6018,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 37881.68397263305,
+      "size_mm": [
+        149.43438720703125,
+        149.43438720703125,
+        79.61701965332031
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 1.361915528313111e-07
+    },
+    {
+      "name": "industrial66_j1_proc_skin_industrial_1_1.stl",
+      "triangles": 6146,
+      "welded_vertices": 3067,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 21370.265189497193,
+      "size_mm": [
+        111.08169555664062,
+        111.08169555664062,
+        79.49346923828125
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 2.8929648943448685e-05
+    },
+    {
+      "name": "industrial66_j1_proc_frame_0.stl",
+      "triangles": 66296,
+      "welded_vertices": 33096,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 370775.0265113426,
+      "size_mm": [
+        219.74417114257812,
+        219.74417114257812,
+        217.33682250976562
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 2.7754530833797633e-05
+    },
+    {
+      "name": "industrial66_j1_proc_base.stl",
+      "triangles": 13846,
+      "welded_vertices": 6891,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 303646.2315686729,
+      "size_mm": [
+        210.0,
+        210.0,
+        42.80000305175781
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 2.866210200685717e-05
+    },
+    {
+      "name": "industrial66_j2_proc_joint_trim.stl",
+      "triangles": 3352,
+      "welded_vertices": 1676,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 1884.6956140815016,
+      "size_mm": [
+        97.19999694824219,
+        97.19500732421875,
+        2.3999996185302734
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 7.682057883988644e-05
+    },
+    {
+      "name": "industrial66_j2_proc_rear_cover.stl",
+      "triangles": 6304,
+      "welded_vertices": 3144,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 45492.97895410338,
+      "size_mm": [
+        98.5999984741211,
+        98.5999984741211,
+        6.0
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 6.732894147192148e-05
+    },
+    {
+      "name": "industrial66_j2_proc_front_support.stl",
+      "triangles": 7312,
+      "welded_vertices": 3648,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 118961.95953842798,
+      "size_mm": [
+        98.5999984741211,
+        98.5999984741211,
+        20.0
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.736096976176477e-05
+    },
+    {
+      "name": "industrial66_j2_proc_actuator_right.stl",
+      "triangles": 13014,
+      "welded_vertices": 6501,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 178183.35029402972,
+      "size_mm": [
+        98.59954071044922,
+        87.19999694824219,
+        49.14999771118164
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.0349880266305074e-05
+    },
+    {
+      "name": "industrial66_j2_proc_actuator_left.stl",
+      "triangles": 13014,
+      "welded_vertices": 6501,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 178183.35234309707,
+      "size_mm": [
+        98.59954071044922,
+        87.19999694824219,
+        49.14999771118164
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.0338013402334145e-05
+    },
+    {
+      "name": "industrial66_j2_proc_frame_0_s2.stl",
+      "triangles": 106424,
+      "welded_vertices": 53178,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 294795.86380385497,
+      "size_mm": [
+        120.2972412109375,
+        171.75875854492188,
+        119.25920104980469
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 3.081272257483657e-05
+    },
+    {
+      "name": "industrial66_j2_proc_frame_0_s1.stl",
+      "triangles": 28064,
+      "welded_vertices": 14008,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 236174.0290186863,
+      "size_mm": [
+        130.3715362548828,
+        120.53113555908203,
+        119.25920104980469
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 2.118705359619749e-05
+    },
+    {
+      "name": "industrial66_j2_proc_frame_0_s0.stl",
+      "triangles": 103084,
+      "welded_vertices": 51512,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 303115.3395025227,
+      "size_mm": [
+        168.1128692626953,
+        119.89604187011719,
+        119.25920104980469
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 3.209063803382088e-05
+    },
+    {
+      "name": "industrial66_j2_proc_skin_industrial_0_0_s0_0.stl",
+      "triangles": 35922,
+      "welded_vertices": 17957,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 45693.700436441235,
+      "size_mm": [
+        104.65919494628906,
+        157.701416015625,
+        103.40882110595703
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 7.249936426331425e-05
+    },
+    {
+      "name": "industrial66_j2_proc_skin_industrial_0_0_s1_0.stl",
+      "triangles": 4342,
+      "welded_vertices": 2169,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 34151.268502434556,
+      "size_mm": [
+        92.6592025756836,
+        102.01300811767578,
+        78.9396743774414
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 6.480248269249168e-05
+    },
+    {
+      "name": "industrial66_j2_proc_skin_industrial_0_0_s2_0.stl",
+      "triangles": 57240,
+      "welded_vertices": 28614,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 71450.51674935418,
+      "size_mm": [
+        157.45849609375,
+        157.45849609375,
+        104.88632202148438
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 3.0832985567074145e-05
+    },
+    {
+      "name": "industrial66_j2_proc_skin_industrial_1_0_s0_0.stl",
+      "triangles": 53994,
+      "welded_vertices": 26991,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 67738.42798642798,
+      "size_mm": [
+        141.38723754882812,
+        160.39694213867188,
+        103.4088134765625
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 4.503408634402005e-05
+    },
+    {
+      "name": "industrial66_j2_proc_skin_industrial_1_0_s1_0.stl",
+      "triangles": 4342,
+      "welded_vertices": 2169,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 34151.2711446839,
+      "size_mm": [
+        126.10880279541016,
+        127.77336120605469,
+        78.9396743774414
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 6.472512382133101e-05
+    },
+    {
+      "name": "industrial66_j2_proc_skin_industrial_1_0_s2_0.stl",
+      "triangles": 39072,
+      "welded_vertices": 19532,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 50489.0607289133,
+      "size_mm": [
+        111.99870300292969,
+        161.06173706054688,
+        104.88632202148438
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 2.6358783449465314e-05
+    },
+    {
+      "name": "industrial66_j3_proc_joint_trim.stl",
+      "triangles": 6356,
+      "welded_vertices": 3170,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 7830.063914999722,
+      "size_mm": [
+        97.19999694824219,
+        97.19500732421875,
+        2.3999996185302734
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 3.790264082129779e-05
+    },
+    {
+      "name": "industrial66_j3_proc_rear_cover.stl",
+      "triangles": 6304,
+      "welded_vertices": 3144,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 45492.97895410338,
+      "size_mm": [
+        98.5999984741211,
+        98.5999984741211,
+        6.0
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 6.732894147192148e-05
+    },
+    {
+      "name": "industrial66_j3_proc_front_support.stl",
+      "triangles": 7312,
+      "welded_vertices": 3648,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 118961.95953842798,
+      "size_mm": [
+        98.5999984741211,
+        98.5999984741211,
+        20.0
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.736096976176477e-05
+    },
+    {
+      "name": "industrial66_j3_proc_actuator_right.stl",
+      "triangles": 13014,
+      "welded_vertices": 6501,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 178183.35029402972,
+      "size_mm": [
+        98.59954071044922,
+        87.19999694824219,
+        49.14999771118164
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.0349880266305074e-05
+    },
+    {
+      "name": "industrial66_j3_proc_actuator_left.stl",
+      "triangles": 13014,
+      "welded_vertices": 6501,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 178183.35234309707,
+      "size_mm": [
+        98.59954071044922,
+        87.19999694824219,
+        49.14999771118164
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.0338013402334145e-05
+    },
+    {
+      "name": "industrial66_j3_proc_skin_industrial_0_0.stl",
+      "triangles": 11860,
+      "welded_vertices": 5922,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 49417.69506333451,
+      "size_mm": [
+        189.16778564453125,
+        189.16796875,
+        75.43097686767578
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 3.009938348893197e-05
+    },
+    {
+      "name": "industrial66_j3_proc_skin_industrial_1_0.stl",
+      "triangles": 19032,
+      "welded_vertices": 9510,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 72833.61035537867,
+      "size_mm": [
+        193.68511962890625,
+        193.6853790283203,
+        62.92467498779297
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 2.056829665378568e-05
+    },
+    {
+      "name": "industrial66_j3_proc_frame_0.stl",
+      "triangles": 47842,
+      "welded_vertices": 23885,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 257175.93838377413,
+      "size_mm": [
+        188.96116638183594,
+        188.96080017089844,
+        105.78121948242188
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 3.4257985320343966e-05
+    },
+    {
+      "name": "industrial66_j4_proc_joint_trim.stl",
+      "triangles": 6296,
+      "welded_vertices": 3140,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 11890.348213774178,
+      "size_mm": [
+        97.19999694824219,
+        97.19500732421875,
+        2.3999996185302734
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.1127648243180326e-05
+    },
+    {
+      "name": "industrial66_j4_proc_rear_cover.stl",
+      "triangles": 6304,
+      "welded_vertices": 3144,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 45492.97895410338,
+      "size_mm": [
+        98.5999984741211,
+        98.5999984741211,
+        6.0
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 6.732894147192148e-05
+    },
+    {
+      "name": "industrial66_j4_proc_front_support.stl",
+      "triangles": 7312,
+      "welded_vertices": 3648,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 98130.4406538732,
+      "size_mm": [
+        98.5999984741211,
+        98.5999984741211,
+        14.0
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 6.436425945350592e-05
+    },
+    {
+      "name": "industrial66_j4_proc_actuator_right.stl",
+      "triangles": 12998,
+      "welded_vertices": 6493,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 187431.0224868948,
+      "size_mm": [
+        98.59954071044922,
+        93.19999694824219,
+        49.14999771118164
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.1044488364286905e-05
+    },
+    {
+      "name": "industrial66_j4_proc_actuator_left.stl",
+      "triangles": 12998,
+      "welded_vertices": 6493,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 187431.02372375247,
+      "size_mm": [
+        98.59954071044922,
+        93.19999694824219,
+        49.14999771118164
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.103751540705926e-05
+    },
+    {
+      "name": "industrial66_j4_proc_skin_industrial_0_0.stl",
+      "triangles": 24430,
+      "welded_vertices": 12207,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 56258.01505732661,
+      "size_mm": [
+        153.85662841796875,
+        164.0103302001953,
+        111.99980163574219
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 3.6141372448577024e-05
+    },
+    {
+      "name": "industrial66_j4_proc_skin_industrial_1_0.stl",
+      "triangles": 8508,
+      "welded_vertices": 4248,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 24610.406589372036,
+      "size_mm": [
+        111.99980163574219,
+        83.2367935180664,
+        74.26002502441406
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 4.736287680947425e-05
+    },
+    {
+      "name": "industrial66_j4_proc_skin_industrial_1_1.stl",
+      "triangles": 19684,
+      "welded_vertices": 9836,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 18707.414725266382,
+      "size_mm": [
+        67.65916442871094,
+        99.88379669189453,
+        50.243045806884766
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 3.509204920294891e-05
+    },
+    {
+      "name": "industrial66_j4_proc_frame_0.stl",
+      "triangles": 85548,
+      "welded_vertices": 42724,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 205049.97565211164,
+      "size_mm": [
+        179.71238708496094,
+        182.8727264404297,
+        106.59994506835938
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 4.277444205924343e-05
+    },
+    {
+      "name": "industrial66_j5_proc_joint_trim.stl",
+      "triangles": 6296,
+      "welded_vertices": 3140,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 11890.348213774178,
+      "size_mm": [
+        97.19999694824219,
+        97.19500732421875,
+        2.3999996185302734
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.1127648243180326e-05
+    },
+    {
+      "name": "industrial66_j5_proc_rear_cover.stl",
+      "triangles": 6304,
+      "welded_vertices": 3144,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 45492.97895410338,
+      "size_mm": [
+        98.5999984741211,
+        98.5999984741211,
+        6.0
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 6.732894147192148e-05
+    },
+    {
+      "name": "industrial66_j5_proc_front_support.stl",
+      "triangles": 7312,
+      "welded_vertices": 3648,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 98130.4406538732,
+      "size_mm": [
+        98.5999984741211,
+        98.5999984741211,
+        14.0
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 6.436425945350592e-05
+    },
+    {
+      "name": "industrial66_j5_proc_actuator_right.stl",
+      "triangles": 12998,
+      "welded_vertices": 6493,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 187431.0224868948,
+      "size_mm": [
+        98.59954071044922,
+        93.19999694824219,
+        49.14999771118164
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.1044488364286905e-05
+    },
+    {
+      "name": "industrial66_j5_proc_actuator_left.stl",
+      "triangles": 12998,
+      "welded_vertices": 6493,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 187431.02372375247,
+      "size_mm": [
+        98.59954071044922,
+        93.19999694824219,
+        49.14999771118164
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.103751540705926e-05
+    },
+    {
+      "name": "industrial66_j5_proc_skin_industrial_0_0.stl",
+      "triangles": 10218,
+      "welded_vertices": 5103,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 41589.75669317767,
+      "size_mm": [
+        203.23587036132812,
+        190.46353149414062,
+        73.64545440673828
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 2.947373097205871e-05
+    },
+    {
+      "name": "industrial66_j5_proc_skin_industrial_1_0.stl",
+      "triangles": 27952,
+      "welded_vertices": 13970,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 62633.129228656355,
+      "size_mm": [
+        204.7535858154297,
+        191.82608032226562,
+        58.42103576660156
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 2.5657688390367684e-05
+    },
+    {
+      "name": "industrial66_j5_proc_frame_0.stl",
+      "triangles": 56438,
+      "welded_vertices": 28173,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 209181.2344729811,
+      "size_mm": [
+        200.05426025390625,
+        187.03143310546875,
+        98.59981536865234
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 4.657444087136965e-05
+    },
+    {
+      "name": "industrial66_j6_proc_frame_0.stl",
+      "triangles": 25308,
+      "welded_vertices": 12646,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 65864.3524612393,
+      "size_mm": [
+        63.70000076293945,
+        54.25814437866211,
+        54.25814437866211
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 7.491340135915967e-05
+    },
+    {
+      "name": "industrial66_j6_proc_joint_trim.stl",
+      "triangles": 6296,
+      "welded_vertices": 3140,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 11890.348213774178,
+      "size_mm": [
+        97.19999694824219,
+        97.19500732421875,
+        2.3999996185302734
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.1127648243180326e-05
+    },
+    {
+      "name": "industrial66_j6_proc_rear_cover.stl",
+      "triangles": 6304,
+      "welded_vertices": 3144,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 45492.97895410338,
+      "size_mm": [
+        98.5999984741211,
+        98.5999984741211,
+        6.0
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 6.732894147192148e-05
+    },
+    {
+      "name": "industrial66_j6_proc_front_support.stl",
+      "triangles": 7312,
+      "welded_vertices": 3648,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 98130.4406538732,
+      "size_mm": [
+        98.5999984741211,
+        98.5999984741211,
+        14.0
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 6.436425945350592e-05
+    },
+    {
+      "name": "industrial66_j6_proc_actuator_right.stl",
+      "triangles": 12998,
+      "welded_vertices": 6493,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 187431.0224868948,
+      "size_mm": [
+        98.59954071044922,
+        93.19999694824219,
+        49.14999771118164
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.1044488364286905e-05
+    },
+    {
+      "name": "industrial66_j6_proc_actuator_left.stl",
+      "triangles": 12998,
+      "welded_vertices": 6493,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 187431.02372375247,
+      "size_mm": [
+        98.59954071044922,
+        93.19999694824219,
+        49.14999771118164
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 5.103751540705926e-05
+    },
+    {
+      "name": "industrial66_j6_proc_skin_main_0.stl",
+      "triangles": 11502,
+      "welded_vertices": 5749,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 18826.585097857493,
+      "size_mm": [
+        60.588279724121094,
+        66.0999984741211,
+        41.747459411621094
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 6.951569592375992e-05
+    },
+    {
+      "name": "industrial66_j6_proc_skin_panel_1.stl",
+      "triangles": 6158,
+      "welded_vertices": 3079,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 9685.039840358291,
+      "size_mm": [
+        55.84438705444336,
+        66.0999984741211,
+        18.541950225830078
+      ],
+      "bad_edge_details": [],
+      "native_relative_volume_error": 0.00012792525202733236
+    },
+    {
+      "name": "industrial66_j6_tool_adapter.stl",
+      "triangles": 1216,
+      "welded_vertices": 600,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 4427.269918092682,
+      "size_mm": [
+        40.0,
+        40.0,
+        4.0
+      ],
+      "bad_edge_details": []
+    },
+    {
+      "name": "industrial66_j6_tool_palm.stl",
+      "triangles": 12,
+      "welded_vertices": 8,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 50400.0,
+      "size_mm": [
+        60.0,
+        28.0,
+        30.0
+      ],
+      "bad_edge_details": []
+    },
+    {
+      "name": "industrial66_j6_tool_jaw_-1.stl",
+      "triangles": 12,
+      "welded_vertices": 8,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 672.0,
+      "size_mm": [
+        4.0,
+        12.0,
+        14.0
+      ],
+      "bad_edge_details": []
+    },
+    {
+      "name": "industrial66_j6_tool_tip_-1.stl",
+      "triangles": 12,
+      "welded_vertices": 8,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 288.0,
+      "size_mm": [
+        3.0,
+        12.0,
+        8.0
+      ],
+      "bad_edge_details": []
+    },
+    {
+      "name": "industrial66_j6_tool_pad_-1.stl",
+      "triangles": 12,
+      "welded_vertices": 8,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 96.0,
+      "size_mm": [
+        1.0,
+        12.0,
+        8.0
+      ],
+      "bad_edge_details": []
+    },
+    {
+      "name": "industrial66_j6_tool_jaw_1.stl",
+      "triangles": 12,
+      "welded_vertices": 8,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 672.0,
+      "size_mm": [
+        4.0,
+        12.0,
+        14.0
+      ],
+      "bad_edge_details": []
+    },
+    {
+      "name": "industrial66_j6_tool_tip_1.stl",
+      "triangles": 12,
+      "welded_vertices": 8,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 288.0,
+      "size_mm": [
+        3.0,
+        12.0,
+        8.0
+      ],
+      "bad_edge_details": []
+    },
+    {
+      "name": "industrial66_j6_tool_pad_1.stl",
+      "triangles": 12,
+      "welded_vertices": 8,
+      "degenerate_triangles": 0,
+      "bad_edges": 0,
+      "orientation_errors": 0,
+      "volume_mm3": 96.0,
+      "size_mm": [
+        1.0,
+        12.0,
+        8.0
+      ],
+      "bad_edge_details": []
+    }
+  ],
+  "all_oriented": true,
+  "native_volume_matches": true
+}

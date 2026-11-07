@@ -35,11 +35,18 @@ def generate(spec,folder,k):
  started=time.monotonic();folder=Path(folder);folder.mkdir(parents=True,exist_ok=True);d=dimensions(spec);m=spec.get('Mechanical') or {};style=spec.get('Style') or {};wall=d['wall'];plate=d['plate'];gap=d['gap'];bolt=float(m.get('Bolt',3));skin=float(m.get('SkinWall',2));fw=max(wall,float(m.get('FrameWall',3.2)))*float(style.get('Strength',1));density=float(m.get('Density',1270));insert_d=float(m.get('InsertDiameter',4.6));insert_l=float(m.get('InsertLength',5.2));frame_plate=max(10,2*wall+insert_d);motor=spec.get('Motor') or {};reducer=spec.get('Reducer') or {};end=spec.get('End',[180,0,0]);parts=[];issues=[];mates=[];protections=[]
  def progress(text):
   (folder/'progress.txt').write_text(text,encoding='utf-8');print('GEARLAB_PROGRESS:'+text,flush=True)
- def cut(a,b):return BRepAlgoAPI_Cut(a,b).Shape()
- def fuse(a,b):return BRepAlgoAPI_Fuse(a,b).Shape()
+ def cut(a,b):
+  op=BRepAlgoAPI_Cut(a,b)
+  if spec.get('IndustrialDesign'):op.SetFuzzyValue(1e-6);op.Build()
+  return op.Shape()
+ def fuse(a,b):
+  op=BRepAlgoAPI_Fuse(a,b)
+  if spec.get('IndustrialDesign'):op.SetFuzzyValue(1e-6);op.Build()
+  return op.Shape()
  def add(pid,label,shape,side,role='frame',color='#30343b',rho=None):
   shape=k.checked(shape)
   if len(k.shapes(shape,k.TopAbs_SOLID))!=1:raise ValueError(label+': несвязный результат соединения ('+str(len(k.shapes(shape,k.TopAbs_SOLID)))+' тел).')
+  if spec.get('IndustrialDesign') and role in {'frame','skin','accent','mount','trim'}:color='#626a73' if role in {'frame','skin','mount'} else '#353d46'
   parts.append(dict(Id=pid,Label=label,Shape=shape,InputSide=side,Role=role,Color=color,Density=rho or density));return shape
  def issue(code,status,message,part=None,pos=None):issues.append(dict(Code=code,Status=status,Message=message,PartId=part,Position=pos or [0,0,0],Scope='assembly'))
  def pattern(fr,pc,count=4):return [k.xyz(point(fr,pc*math.cos(math.pi/4+i*math.tau/count),pc*math.sin(math.pi/4+i*math.tau/count))) for i in range(count)]
@@ -65,7 +72,8 @@ def generate(spec,folder,k):
    if abs(cy.Radius()-radius)<1e-4 and abs(abs(dot(direction,axis))-1)<1e-6 and math.sqrt(dot(cross(delta,axis),cross(delta,axis)))<1e-4:return True
   return False
  progress('Соединения · корпус привода, посадка подшипника и фланцы')
- pc=d['pc'];outer=d['outer'];back=d['back'];rear=d['rear'];bw=d['bw'];bi=d['bi'];bo=d['bo'];bearing_fit=.075
+ if spec.get('IndustrialDesign') and float(reducer.get('Length',32))+plate<2*d['bw']+17+float(m.get('MotorPilotHeight',2))+gap:raise ValueError('Задняя фиксация вала пересекает бурт мотора: увеличьте осевую длину передачи.')
+ pc=d['pc'];outer=d['outer'];back=d['back'];rear=d['rear'];bw=d['bw'];bi=d['bi'];bo=d['bo'];bearing_fit=float(m.get('BearingFit',.1)) if spec.get('IndustrialDesign') else .075
  case=cut(cylinder(outer,-bw-back,[0,0,back]),cylinder(d['inner'],-bw-back+2,[0,0,back-1]))
  motor_z=-float(reducer.get('Length',32))-plate;mx=float(motor.get('X',0));my=float(motor.get('Y',0));pitch=float(motor.get('Pitch',31.3));pilot=float(motor.get('Pilot',22))
  motorplate=cylinder(d['inner']+wall,plate,[0,0,motor_z]);motorplate=cut(motorplate,cylinder(pilot/2+gap,plate+2,[mx,my,motor_z-1]))
@@ -82,9 +90,19 @@ def generate(spec,folder,k):
  for end_z,direction in [(back,[0,0,1]),(-bw,[0,0,-1])]:
   for i,p in enumerate(pattern(frame([0,0,end_z],direction),pc)):
    case=cut(case,cylinder(insert_d/2,insert_l,p,direction));sleeve=cut(cylinder(insert_d/2,insert_l,p,direction),cylinder((bolt-.5)/2,insert_l+2,plus(p,times(direction,-1)),direction));add('case_insert_'+str(end_z)+'_'+str(i),'Термовставка M3 · корпус',sleeve,True,'insert','#b99542',8500)
+ if spec.get('IndustrialDesign'):
+  rear_depth=2*bw+12
+  carrier=cylinder(d['inner']+wall,bw+plate,[0,0,-rear_depth]);carrier=cut(carrier,cylinder(bo/2+bearing_fit,bw+.01,[0,0,-rear_depth-.01]));carrier=cut(carrier,cylinder((bo-5 if bo>35 else bo-2)/2,bw+plate+2,[0,0,-rear_depth-1]));case=fuse(case,carrier)
+  rear_keeper=cut(cylinder(d['inner']+wall,2,[0,0,-rear_depth-2]),cylinder((bo-5 if bo>35 else bo-2)/2,4,[0,0,-rear_depth-3]));case=fuse(case,rear_keeper)
+  # Locate the front outer race against a real rear shoulder.
+  keeper=cut(cylinder(d['inner']+wall,2,[0,0,-bw-2]),cylinder((bo-5 if bo>35 else bo-2)/2,4,[0,0,-bw-3]));case=fuse(case,keeper)
+  # The rear race seats against a relieved motor plate, clear of its inner race.
+  case=cut(case,cylinder((bo-5 if bo>35 else bo-2)/2,2.5,[0,0,-rear_depth-2.5]))
  half_span=1000
  for name,lo,hi in [('left',-half_span,-gap/2),('right',gap/2,half_span)]:add('actuator_'+name,'Несущий корпус привода · '+name,BRepAlgoAPI_Common(case,box([-half_span,lo,-half_span,half_span,hi,half_span])).Shape(),True,'mount')
- front=cylinder(outer,bw+plate,[0,0,-bw]);front=cut(front,cylinder(bo/2+bearing_fit,bw+.01,[0,0,-bw-.01]));front=cut(front,cylinder(bi/2+.05,bw+plate+2,[0,0,-bw-1]));front=drill(front,frame([0,0,-bw-1],[0,0,1]),pc,bolt+.4,bw+plate+2);add('front_support','Опора подшипника · стопорный уступ',front,True,'mount')
+ front=cylinder(outer,bw+plate,[0,0,-bw]);front=cut(front,cylinder(bo/2+bearing_fit,bw+.01,[0,0,-bw-.01]));front=cut(front,cylinder(bi/2+.05,bw+plate+2,[0,0,-bw-1]));front=drill(front,frame([0,0,-bw-1],[0,0,1]),pc,bolt+.4,bw+plate+2)
+ if spec.get('IndustrialDesign'):front=cut(front,cylinder((bo-5 if bo>35 else bo-2)/2,plate+1,[0,0,0]))
+ add('front_support','Опора подшипника · стопорный уступ',front,True,'mount')
  cover=cut(cylinder(outer,plate,[0,0,rear]),cylinder(float(m.get('CableDiameter',4))/2+gap,plate+2,[0,0,rear-1]));cover=drill(cover,frame([0,0,rear-1],[0,0,1]),pc,bolt+.4,plate+2);add('rear_cover','Монтажная крышка · общий крепёж с предыдущим звеном',cover,True,'mount');port('stator_mount','rear_cover',frame([0,0,rear],[0,0,1]),pc,bolt+.4)
  parent_plate=float(spec.get('ParentMountThickness',frame_plate));screw('stator_rear',frame([0,0,0],[0,0,1]),rear-parent_plate,standard_length(parent_plate+plate,insert_l),pc,True)
  screw('stator_front',frame([0,0,0],[0,0,-1]),-plate,standard_length(plate+bw,insert_l),pc,True)
@@ -96,7 +114,16 @@ def generate(spec,folder,k):
  core_r,_=size_section(nominal,fw,moment,torque,axial,allow)
  rounded=max(.1,min(.95,float(style.get('Roundness',.8))));profile_factor=1 if style.get('Profile','oval')=='oval' else math.sqrt(2)*(1-rounded)+rounded;core_extent=core_r*profile_factor;outer_extent=(core_r+gap+skin)*profile_factor
  root_pc=core_r+3;root_r=root_pc+bolt*2;rotor_z=plate+gap;root_z=rotor_z+plate;pilot_r=max(bi/2+3,7)
- rotor=fuse(cylinder(bi/2-.02,bw+rotor_z+plate,[0,0,-bw]),cylinder(root_r,plate,[0,0,rotor_z]));rotor=fuse(rotor,cylinder(pilot_r,2,[0,0,root_z]));rotor=drill(rotor,frame([0,0,rotor_z+.8],[0,0,1]),root_pc,bolt-.5,plate+2);add('output_flange','Выходной вал и фланец · единая металлическая деталь',rotor,False,'metal','#626b76',7850);port('rotor_output','output_flange',frame([0,0,root_z],[0,0,1]),root_pc,bolt-.5)
+ journal_depth=2*bw+12 if spec.get('IndustrialDesign') else bw
+ shaft_extra=5 if spec.get('IndustrialDesign') else 0
+ rotor=fuse(cylinder(bi/2-.02,journal_depth+shaft_extra+rotor_z+plate,[0,0,-journal_depth-shaft_extra]),cylinder(root_r,plate,[0,0,rotor_z]));rotor=fuse(rotor,cylinder(pilot_r,2,[0,0,root_z]));rotor=drill(rotor,frame([0,0,rotor_z+.8],[0,0,1]),root_pc,bolt-.5,plate+2)
+ if spec.get('IndustrialDesign'):
+  rotor=fuse(rotor,cylinder(bi/2+3,rotor_z,[0,0,0]));rotor=cut(rotor,cylinder(float(motor.get('Shaft',5))/2+gap+.3,journal_depth+shaft_extra+root_z+plate+4,[0,0,-journal_depth-shaft_extra-1]))
+  groove=cut(cylinder(bi/2+1,1.4,[0,0,-journal_depth-2.2]),cylinder(bi/2-.5,3.4,[0,0,-journal_depth-3.2]));rotor=cut(rotor,groove)
+  spacer=cut(cylinder(bi/2+3,12,[0,0,-journal_depth+bw]),cylinder(bi/2+.05,14,[0,0,-journal_depth+bw-1]));add('inner_race_spacer','Распорная втулка внутренних колец · металл',spacer,False,'metal','#a0a7ae',7850)
+  washer=cut(cylinder(bi/2+3,.8,[0,0,-journal_depth-.8]),cylinder(bi/2+.05,2.8,[0,0,-journal_depth-1.8]));add('shaft_washer','Задняя шайба внутренних колец · металл',washer,False,'metal','#a0a7ae',7850)
+  clip=cut(cylinder(bi/2+1.5,1.2,[0,0,-journal_depth-2]),cylinder(bi/2-.47,3.2,[0,0,-journal_depth-3]));clip=cut(clip,box([0,-1.5,-journal_depth-3,bi/2+3,1.5,-journal_depth]));add('shaft_retainer','Стопорное кольцо в канавке · сверить профиль с каталогом',clip,False,'metal','#a0a7ae',7850)
+ add('output_flange','Выходной вал и фланец · единая металлическая деталь',rotor,False,'metal','#626b76',7850);port('rotor_output','output_flange',frame([0,0,root_z],[0,0,1]),root_pc,bolt-.5)
  if spec.get('ReferenceDesign') and outer-.7>root_r+gap+.5:
   trim=cut(cylinder(outer-.7,skin,[0,0,plate]),cylinder(root_r+gap,skin+2,[0,0,plate-1]));trim=drill(trim,frame([0,0,plate-1],[0,0,1]),pc,bolt*1.8+.3,skin+2)
   add('joint_trim','Кольцевая накладка сустава · референс',trim,True,'trim','#ed7627');port('trim_mount','joint_trim',frame([0,0,plate],[0,0,1]),pc,bolt*1.8+.3)
@@ -247,9 +274,19 @@ def generate(spec,folder,k):
   for index,(side,solid,anchors) in enumerate(selected):add('skin_'+side+'_'+str(index),'Закреплённый кожух перехода · '+side,solid,False,'accent' if side=='panel' else 'skin','#ed7627' if side=='panel' else '#30343b')
  if spec.get('GroundDepth',0)>0:
   if float(spec['GroundDepth'])+rear<frame_plate+plate:raise ValueError('Между нижней крышкой привода и столом недостаточно места для опоры основания. Увеличьте высоту основания или уменьшите осевую длину передачи.')
-  ground=-float(spec['GroundDepth']);top=rear;column_r=max(outer-3,32);column=cut(cylinder(column_r,top-ground,[0,0,ground]),cylinder(column_r-wall,top-ground+2,[0,0,ground-1]));floor=cut(cylinder(outer+8,plate,[0,0,ground]),cylinder(6,plate+2,[0,0,ground-1]));basecap=cut(cylinder(outer,frame_plate,[0,0,top-frame_plate]),cylinder(d['service'],frame_plate+2,[0,0,top-frame_plate-1]));basecap=drill(basecap,frame([0,0,top-frame_plate-1],[0,0,1]),pc,bolt+.4,frame_plate+2);
+  ground=-float(spec['GroundDepth']);top=rear;column_r=max(outer-3,32);column=cut(cylinder(column_r,top-ground,[0,0,ground]),cylinder(column_r-wall,top-ground+2,[0,0,ground-1]));floor=cut(cylinder(105 if spec.get('IndustrialDesign') else outer+8,plate,[0,0,ground]),cylinder(6,plate+2,[0,0,ground-1]));basecap=cut(cylinder(outer,frame_plate,[0,0,top-frame_plate]),cylinder(d['service'],frame_plate+2,[0,0,top-frame_plate-1]));basecap=drill(basecap,frame([0,0,top-frame_plate-1],[0,0,1]),pc,bolt+.4,frame_plate+2);
   for p in pattern(frame([0,0,top-frame_plate-18],[0,0,1]),pc):column=cut(column,cylinder(6,18,p))
-  floor=drill(floor,frame([0,0,ground-1],[0,0,1]),outer+2.25,5.5,plate+2)
+  if spec.get('IndustrialDesign'):
+   # Four real gussets carry anchor loads into the column; the wide foot is not a visual ring.
+   for i in range(4):
+    angle=math.pi/4+i*math.tau/4;radial=[math.cos(angle),math.sin(angle),0];tangent=[-radial[1],radial[0],0]
+    points=[]
+    for radius,z in [(column_r-wall,ground+plate),(83,ground+plate),(column_r-wall,min(top,ground+60))]:
+     points.append(gp_Pnt(*(radius*radial[n]-5*tangent[n]+(z if n==2 else 0) for n in range(3))))
+    poly=k.BRepBuilderAPI_MakePolygon()
+    for point_value in points:poly.Add(point_value)
+    poly.Close();rib=k.BRepPrimAPI_MakePrism(k.BRepBuilderAPI_MakeFace(poly.Wire()).Face(),gp_Vec(*(10*x for x in tangent))).Shape();column=fuse(column,rib)
+  floor=drill(floor,frame([0,0,ground-1],[0,0,1]),93 if spec.get('IndustrialDesign') else outer+2.25,5.5,plate+2)
   add('base','Основание · соединённая опора статора',fuse(fuse(column,floor),basecap),True,'frame');port('base_mount','base',frame([0,0,top],[0,0,1]),pc,bolt+.4)
  if spec.get('Root') and not spec.get('GroundDepth',0):
   mount=cut(cylinder(outer,frame_plate,[0,0,rear-frame_plate]),cylinder(d['service'],frame_plate+2,[0,0,rear-frame_plate-1]));mount=drill(mount,frame([0,0,rear-frame_plate-1],[0,0,1]),pc,bolt+.4,frame_plate+2);add('base_adapter','Монтажный адаптер основания',mount,True,'frame');port('base_mount','base_adapter',frame([0,0,rear],[0,0,1]),pc,bolt+.4)
@@ -260,6 +297,10 @@ def generate(spec,folder,k):
    p['Shape']=k.import_step(override if isinstance(override,str) else override['Step'])
    if isinstance(override,dict) and override.get('Shift'):
     tr=gp_Trsf();tr.SetValues(1,0,0,override['Shift'][0],0,1,0,override['Shift'][1],0,0,1,override['Shift'][2]);p['Shape']=BRepBuilderAPI_Transform(p['Shape'],tr,True).Shape()
+ manufacturing_segments=1
+ if spec.get('IndustrialDesign'):
+  from industrial_segments import apply as manufacturing_split
+  manufacturing_segments=manufacturing_split(locals())
  # Imported components occupy real CAD volume, including after manual moves.
  for component in spec.get('Components') or []:
   occupied=k.import_step(component['Step'])
@@ -282,7 +323,7 @@ def generate(spec,folder,k):
  for p in mates:
   shape=next(x['Shape'] for x in parts if x['Id']==p['PartId']);ok=all(bore_present(shape,point,p['Normal'],p['BoltDiameter']/2) for point in p['BoltPoints']);p['BoresVerified']=ok
   issue('bolt_pattern','pass' if ok else 'error','Реальные отверстия фланца '+p['Id']+': '+str(len(p['BoltPoints']))+' × Ø'+str(p['BoltDiameter'])+' мм.',p['PartId'],p['Origin'])
- joint_distance=BRepExtrema_DistShapeShape(next(p['Shape'] for p in parts if p['Id']=='frame_0'),next(p['Shape'] for p in parts if p['Id']=='output_flange'));joint_distance.Perform();distance=joint_distance.Value();issue('root_contact','pass' if distance<1e-5 else 'error','Контакт несущего фланца с выходным: '+str(round(distance,6))+' мм.', 'frame_0',[0,0,root_z])
+ joint_distance=BRepExtrema_DistShapeShape(next(p['Shape'] for p in parts if p['Id']==next(m['PartId'] for m in mates if m['Id']=='link_input')),next(p['Shape'] for p in parts if p['Id']=='output_flange'));joint_distance.Perform();distance=joint_distance.Value();issue('root_contact','pass' if distance<1e-5 else 'error','Контакт несущего фланца с выходным: '+str(round(distance,6))+' мм.', 'frame_0',[0,0,root_z])
  issue('drive_selection','pending','Фланцы соединены геометрически. Внутреннюю передачу и её выходной носитель нужно согласовать с выбранным редуктором; передаточное число само по себе не задаёт механизм.')
  issue('cable_routing','pending','Внутренние проходы в каркасе сохранены. Гибкая проводка через шарниры, разъёмы и допустимый перекрут требуют отдельной трассировки; условные наружные стержни не показываются как готовые кабели.')
  issue('strength','pending','Прочность стыков, вставок, валов и печатного материала требует расчёта по реальным данным.')
@@ -297,6 +338,7 @@ def generate(spec,folder,k):
   shape=backshape;p['Shape']=shape;volume,center=k.props(shape);bounds=k.bounds(shape);faces,edges,triangles=k.mesh_and_topology(shape,mesh)
   if p['Role'] in {'skin','accent'}:
    anchors=reference_result['reference_anchors'](shape) if reference else 0
+   if spec.get('IndustrialDesign') and reference:anchors=sum(bore_present(shape,pt,axis,(bolt+.4)/2,skin+2*gap+2) for pt,axis in p.get('_anchors',[])+p.get('_added_anchors',[]))
    for mount_fr,mount_r in mounts:
     for i in range(4):
      angle=math.pi/8+i*math.pi/2;axis=plus(times(mount_fr[1],math.cos(angle)),times(mount_fr[2],math.sin(angle)));origin=plus(mount_fr[0],times(axis,mount_r+gap+skin))
@@ -305,9 +347,9 @@ def generate(spec,folder,k):
   print_angles=None
   if p['Role'] not in {'hardware','insert','metal'}:
    best=None
-   for rx in [0,90]:
-    for ry in [0,90]:
-     for rz in range(0,180,15):
+   for rx in ([p['_print_angles'][0]] if p.get('_print_angles') else [0,90]):
+    for ry in ([p['_print_angles'][1]] if p.get('_print_angles') else [0,90]):
+     for rz in ([p['_print_angles'][2]] if p.get('_print_angles') else range(0,180,15)):
       rotated=shape
       for angle,axis in [(rx,[1,0,0]),(ry,[0,1,0]),(rz,[0,0,1])]:
        if angle:
@@ -317,8 +359,8 @@ def generate(spec,folder,k):
    dims=best[1];print_angles=best[2]
   else:dims=[bounds[i+3]-bounds[i] for i in range(3)]
   issue('printer','warning' if max(dims)>244 else 'pass',('Нужна технологическая разрезка: ' if max(dims)>244 else 'Габариты детали: ')+' × '.join(str(round(x,1)) for x in dims)+' мм.',pid,center)
-  bodies.append(dict(Id=pid,Volume=volume,Center=center,Bounds=bounds,Faces=faces,Edges=edges,Triangles=triangles,Mesh=mesh));meta.append({key:value for key,value in p.items() if key!='Shape'});meta[-1]['StepPath']=str(step);meta[-1]['PrintAngles']=print_angles
+  bodies.append(dict(Id=pid,Volume=volume,Center=center,Bounds=bounds,Faces=faces,Edges=edges,Triangles=triangles,Mesh=mesh));meta.append({key:value for key,value in p.items() if key!='Shape' and not key.startswith('_')});meta[-1]['StepPath']=str(step);meta[-1]['PrintAngles']=print_angles
  for mate in mates:
   shape=next(p['Shape'] for p in parts if p['Id']==mate['PartId']);mate['BoresVerified']=all(bore_present(shape,point,mate['Normal'],mate['BoltDiameter']/2) for point in mate['BoltPoints'])
   if not mate['BoresVerified']:issue('step_interface','error','Обмен STEP изменил отверстия стыка.',mate['PartId'],mate['Origin'])
- result=dict(Parts=meta,Issues=issues,Mates=mates,Modules={'connected':REVISION,'design':'blender-elbow' if spec.get('BlenderDesign') and reference else 'reference-cassette' if reference else 'reference-terminal' if spec.get('ReferenceDesign') else 'tangent-tube'},ChangedModules=['connected'],RepairedParts=[],ProtectedVolumes=protections,MassKg=sum(b['Volume']*p['Density']*1e-9 for b,p in zip(bodies,parts)),MinFrameRadius=core_r,NominalStress=stress(core_r),Segments=1,GeometryValid=not any(i['Status']=='error' for i in issues),ReadyForManufacture=False,Seconds=round(time.monotonic()-started,3));(folder/'generation-report.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8');progress('Соединённые детали готовы');return dict(Ok=True,Bodies=bodies,Procedural=result)
+ result=dict(Parts=meta,Issues=issues,Mates=mates,Modules={'connected':REVISION,'design':'industrial-parametric' if spec.get('IndustrialDesign') else 'blender-elbow' if spec.get('BlenderDesign') and reference else 'reference-cassette' if reference else 'reference-terminal' if spec.get('ReferenceDesign') else 'tangent-tube'},ChangedModules=['connected'],RepairedParts=[],ProtectedVolumes=protections,MassKg=sum(b['Volume']*p['Density']*1e-9 for b,p in zip(bodies,parts)),MinFrameRadius=core_r,NominalStress=stress(core_r),Segments=manufacturing_segments,GeometryValid=not any(i['Status']=='error' for i in issues),ReadyForManufacture=False,Seconds=round(time.monotonic()-started,3));(folder/'generation-report.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8');progress('Соединённые детали готовы');return dict(Ok=True,Bodies=bodies,Procedural=result)

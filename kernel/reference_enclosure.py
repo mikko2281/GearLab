@@ -39,9 +39,12 @@ def build(c):
  if c['spec'].get('BlenderDesign'):
   from blender_enclosure import geometry
   g=geometry(c);hull=g['hull'];core_hull=g['core_hull'];a=g['a'];u=g['u'];normal=g['normal'];v=g['v'];length=g['length'];r0=g['r0'];r1=g['r1'];half=g['half'];structural_inset=g['structural_inset'];tip_plate_radius=g['tip_plate_radius']
+ if c['spec'].get('IndustrialDesign'):
+  from industrial_enclosure import geometry as industrial_geometry
+  industrial=industrial_geometry(c,a,b,u,v,normal,r0,r1,half);hull=industrial['hull'];core_hull=industrial['core_hull'];r0=industrial['r0'];r1=industrial['r1'];half=industrial['half'];structural_inset=0;c['industrial_geometry']=industrial
  core_outer=core_hull(0);core_inner=core_hull(fw)
  power=k.checked(cut(core_outer,core_inner))
- if c['spec'].get('BlenderDesign'):
+ if c['spec'].get('BlenderDesign') or c['spec'].get('IndustrialDesign'):
   rootplate=cut(cylinder(max(root_r,r0),plate,[0,0,root_z]),cylinder(c['bi']/2+.1,plate+2,[0,0,root_z-1]))
   rootplate=cut(rootplate,cylinder(c['pilot_r']+.1,2.15,[0,0,root_z-.01]))
   rootplate=c['drill'](rootplate,frame([0,0,root_z-1],[0,0,1]),root_pc,bolt+.4,plate+2)
@@ -52,7 +55,9 @@ def build(c):
  rotor_clear=cylinder(root_r+gap,root_z-c['rotor_z'],[0,0,c['rotor_z']])
  obstacles=[own_fixed,rotor_clear]
  if child:
-  cd=c['cd'];obstacles.append(transform(cylinder(cd['outer']+gap,cd['plate']-cd['rear']+gap+1e-6,[0,0,cd['rear']-1e-6]),c['fr']))
+  cd=c['cd'];protected_radius=cd['outer']+gap;protected_front=cd['plate']+gap
+  if c['spec'].get('IndustrialDesign') and c['spec'].get('Root'):protected_radius+=20;protected_front=max(80,protected_front)
+  obstacles.append(transform(cylinder(protected_radius,protected_front-cd['rear']+1e-6,[0,0,cd['rear']-1e-6]),c['fr']))
  for index,obstacle in enumerate(obstacles):
   c['progress']('Монокок · вырез монтажного объёма '+str(index))
   operation=BRepAlgoAPI_Cut(power,obstacle);operation.SetFuzzyValue(1e-6);operation.Build();power=operation.Shape()
@@ -75,12 +80,13 @@ def build(c):
    if amount>max(.05,fw**3*.15) or amount>main_volume*1e-4 or any(c['bore_present'](solid,p,n,(bolt+.4)/2) for p,n in sites):raise ValueError('Разрыв несущего корпуса при обходе привода. Измените длину звена.')
    removed+=amount
   power=k.checked(main_solid);issue('cassette_trim','pass','Удалены изолированные остатки обрезки вне посадок: '+str(round(removed,4))+' мм³.','frame_0')
- outer_root=max(root_r,r0) if c['spec'].get('BlenderDesign') else root_r
+ outer_root=max(root_r,r0) if c['spec'].get('BlenderDesign') or c['spec'].get('IndustrialDesign') else root_r
  outer=fuse(hull(gap+skin,gap+skin),cylinder(outer_root+gap+skin,plate+2*skin,[0,0,root_z-skin]))
  outer_tip=max(tip_r,tip_plate_radius) if c['spec'].get('BlenderDesign') else tip_r
  if not c['spec'].get('BlenderDesign'):outer=fuse(outer,transform(cylinder(outer_tip+gap+skin,plate+2*skin),(plus(tip_center,times(tip_axis,-skin)),target_fr[1],target_fr[2],tip_axis)))
  inner=fuse(hull(gap,gap),cylinder(root_r+gap,plate+2,[0,0,root_z-1]))
  if not c['spec'].get('BlenderDesign'):inner=fuse(inner,transform(cylinder(tip_r+gap,plate+2),(plus(tip_center,times(tip_axis,-1)),target_fr[1],target_fr[2],tip_axis)))
+ if c['spec'].get('IndustrialDesign') and abs(k.props(outer)[0])<abs(k.props(core_outer)[0])-.1:raise ValueError('Объединение внешней оболочки потеряло объём силового корпуса.')
  boot=cut(outer,inner)
  for obstacle in obstacles:boot=cut(boot,obstacle)
  boot=cut(boot,power)
@@ -96,6 +102,7 @@ def build(c):
    locations=[(ps+pl*f,offset+s*pr*.32) for f in [.15,.85] for s in [-1,1]]+[(ps+pl*f,offset) for f in [.15,.85,.3,.7,.45,.55]]
   else:locations=[(ps+pl*f,offset+s*pr*.32) for f in [.3,.65,.45,.55,.8,.2] for s in [-1,1]]
   if sign==-1:locations.extend([(length*f,s*min(r0,r1)) for f in [.3,.5,.7,.2,.8] for s in [0,-.25,.25,-.5,.5]])
+  if c['spec'].get('IndustrialDesign'):locations=[(ps+pl*f,across) for f in [.15,.85,.3,.7,.45,.55,.05,.95] for across in [0,-pr*.25,pr*.25,-pr*.5,pr*.5]]
   for index,(along,across) in enumerate(locations):
    centre=plus(plus(a,times(u,along)),times(cv,across));ray=IntCurvesFace_ShapeIntersector();ray.Load(target,1e-7);ray.Perform(gp_Lin(gp_Pnt(*centre),gp_Dir(*direction)),0,half+gap+skin+5)
    if ray.NbPnt()==0:continue
@@ -104,7 +111,7 @@ def build(c):
    core_face=plus(centre,times(direction,height-skin-gap));selected=None
    for depth in [insert_l+structural_inset,2*half-skin-gap]:
     boss=cylinder(insert_d/2+fw,depth,plus(core_face,times(direction,-depth)),direction)
-    if c['spec'].get('BlenderDesign'):boss=BRepAlgoAPI_Common(boss,core_outer).Shape()
+    if c['spec'].get('BlenderDesign') or c['spec'].get('IndustrialDesign'):boss=BRepAlgoAPI_Common(boss,core_outer).Shape()
     contact=BRepAlgoAPI_Common(power,boss).Shape()
     if not k.shapes(contact,k.TopAbs_SOLID) or abs(k.props(contact)[0])<1:continue
     blocked=False
@@ -118,6 +125,9 @@ def build(c):
   return records
  if c['spec'].get('BlenderDesign'):
   (Path(c['folder'])/'elbow-shell-pieces.json').write_text(json.dumps([dict(volume=k.props(s)[0],bounds=k.bounds(s)) for s in k.shapes(boot,k.TopAbs_SOLID)],indent=2))
+ if c['spec'].get('IndustrialDesign'):
+  from industrial_enclosure import finish as industrial_finish
+  return industrial_finish(c,locals())
  chosen=None;rejections={}
  def reject(reason):
   rejections[reason]=rejections.get(reason,0)+1
@@ -192,4 +202,4 @@ def build(c):
  issue('monocoque_structure','pass','Г-образное звено по РОБОТ1.blend: круглое колено и наружная опора следующего статора.' if c['spec'].get('BlenderDesign') else 'Кассетная геометрия: непрерывный короб вместо трубы с наружной седловой лапкой.','frame_0')
  issue('inset_panel','pass','Отдельная закруглённая крышка в углублении с чёрным кантом; утопленных винтов: '+str(len(front_mounts))+'.','skin_panel_0')
  def anchor_count(shape):return sum(c['bore_present'](shape,p,n,(bolt+.4)/2,skin+2*gap+2) for p,n in anchors)
- return dict(power=power,boot=boot,mounts=[],reference_anchors=anchor_count)
+ return dict(power=power,boot=boot,mounts=[],reference_anchors=anchor_count,industrial_geometry=c.get('industrial_geometry'))

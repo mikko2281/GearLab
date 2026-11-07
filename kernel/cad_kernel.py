@@ -550,7 +550,22 @@ def handle(request):
         if mode=='export_stl':
             # OCCT's Windows STL writer does not reliably accept Unicode paths.
             # Python writes the binary container while OCCT supplies triangles.
-            BRepMesh_IncrementalMesh(s,.03,False,.12,True).Perform()
+            if request.get('PrepareForPrint'):
+                from OCP.BRepBuilderAPI import BRepBuilderAPI_Sewing,BRepBuilderAPI_MakeSolid
+                from OCP.ShapeUpgrade import ShapeUpgrade_UnifySameDomain
+                from OCP.TopAbs import TopAbs_SHELL
+                from OCP.BRepTools import BRepTools
+                old_volume=props(s)[0]
+                if len(shapes(s,TopAbs_SOLID))!=1:raise ValueError('Печатная заготовка должна содержать одно CAD-тело.')
+                sew=BRepBuilderAPI_Sewing(1e-6);sew.Load(s);sew.Perform();repaired=sew.SewedShape()
+                if not shapes(repaired,TopAbs_SOLID):
+                    maker=BRepBuilderAPI_MakeSolid()
+                    for shell in shapes(repaired,TopAbs_SHELL):maker.Add(TopoDS.Shell(shell))
+                    repaired=maker.Solid()
+                unify=ShapeUpgrade_UnifySameDomain(checked(repaired),True,True,False);unify.Build();s=checked(unify.Shape())
+                if not math.isclose(props(s)[0],old_volume,rel_tol=1e-6,abs_tol=.003):raise ValueError('Подготовка STL изменила объём CAD-тела.')
+                BRepTools.Clean_s(s)
+            BRepMesh_IncrementalMesh(s,.005 if request.get('PrepareForPrint') else .03,False,.05 if request.get('PrepareForPrint') else .12,False if request.get('PrepareForPrint') else True).Perform()
             count=0
             with open(path,'wb') as stream:
                 stream.write(b'GearLab native CAD STL'.ljust(80,b'\0'));stream.write(struct.pack('<I',0))

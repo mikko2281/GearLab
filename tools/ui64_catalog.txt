@@ -1,4 +1,4 @@
-Проект|Project
+﻿Проект|Project
 Экспорт|Export
 Как пользоваться|Help
 О программе|About
@@ -688,27 +688,13 @@ Gear Lab — справка|GearLab — Help
 Зубья шкивов показаны условно: конкретный профиль ремня нужно выбрать по каталогу.|Pulley teeth are schematic: choose a belt tooth profile from a catalog.
 Корень зуба упрощён, без галтели и силового расчёта. Эскиз для компоновки, не готовая технология изготовления.|Simplified tooth root without fillet or stress analysis. Layout sketch, not a manufacturing specification.
 
-Новый дизайн · 1 м / 300 г…|New design · 1 m / 300 g…
-Проверка нового дизайна…|New design audit…
-Новый дизайн манипулятора|New manipulator design
-Высота в исходной позе, мм|Height in the source pose, mm
+Промышленный манипулятор · новый дизайн…|Industrial manipulator · new design…
+Промышленный манипулятор|Industrial manipulator
+Номинальная высота по осям, мм|Nominal height along joint axes, mm
 Полезная нагрузка, г|Payload, g
-Открыть новый дизайн|Open new design
-Проверка нового дизайна|New design audit
-Сначала откройте новый дизайн манипулятора.|Open the new manipulator design first.
-Авторский дизайн: референс. Прочность, приводы, посадки и готовность к печати не подтверждены.|Author design: reference. Strength, drives, fits and print readiness are unverified.
-Принтер, материал и приводы ещё не выбраны. Экспорт исходных поверхностей для печати отключён.|Printer, material and drives have not been selected. Printing export of the source surfaces is disabled.
-Высота и нагрузка нового дизайна…|New design height and payload…
-Открыть образцы посадок|Open fit specimens
-В этапе 4 доступна демонстрация движения. Инженерный статус указан в отчёте.|Stage 4 provides a motion demonstration. See the report for engineering status.
-Bambu Lab P1S / PETG / сопло 0,4 мм (допущение). Приводы ещё не выбраны. Экспорт исходных поверхностей для печати отключён.|Bambu Lab P1S / PETG / nozzle 0.4 mm (assumed). Drives are unselected. Print export of source surfaces is disabled.
+Создать параметрический робот|Create parametric robot
+Независимая CAD-конструкция. NEMA17, PETG, P1S. Корпуса перестраиваются по параметрам; рабочий момент мотора необходимо задать по его характеристике.|Independent CAD construction. NEMA17, PETG, P1S. Housings rebuild from parameters; enter motor torque from its working curve.
+Предварительный проект корпусов и опор. NEMA17, PETG, P1S. Передачу и прочность ещё нужно согласовать; рабочий момент мотора не задан.|Preliminary housing and bearing project. NEMA17, PETG, P1S. Transmission and strength require verification; working motor torque is unknown.
 
-Bambu Lab P1S / PETG / сопло 0,4 мм (допущение). Выбраны прежние NEMA17; рабочий момент и передачи не подтверждены. Экспорт исходных поверхностей для печати отключён.|Bambu Lab P1S / PETG / nozzle 0.4 mm (assumed). Previous NEMA17 selected; working torque and transmissions unverified. Source print export disabled.
-
-Высота и груз — в окне нового дизайна; движение — на этапе 4.|Height and payload: new design dialog; movement: stage 4.
-Принтер / материал|Printer / material
-Мотор: шаблон|Motor template
-Груз, г|Payload, g
-референс|reference
-
-NEMA17 · 42,3 × 42,3 × 44 мм (44 мм — допущение) · вал 5 мм|NEMA17 · 42.3 × 42.3 × 44 mm (44 mm assumed) · shaft 5 mm
+Подготовка точных STL в фоне…|Preparing exact STL files in the background…
+STL сохранены: |STL files saved: 

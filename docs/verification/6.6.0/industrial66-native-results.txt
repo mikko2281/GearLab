@@ -1,0 +1,183 @@
+﻿PASS valid native body industrial66_j1
+PASS current CAD parameters industrial66_j1
+PASS real flange bores industrial66_j1
+PASS no false manufacturing approval industrial66_j1
+PASS individual P1S envelope industrial66_j1 / actuator_left
+PASS individual P1S envelope industrial66_j1 / actuator_right
+PASS individual P1S envelope industrial66_j1 / front_support
+PASS individual P1S envelope industrial66_j1 / rear_cover
+PASS individual P1S envelope industrial66_j1 / skin_industrial_0_0
+PASS individual P1S envelope industrial66_j1 / skin_industrial_1_0
+PASS individual P1S envelope industrial66_j1 / skin_industrial_1_1
+PASS individual P1S envelope industrial66_j1 / frame_0
+PASS individual P1S envelope industrial66_j1 / base
+PASS valid native body industrial66_j2
+PASS current CAD parameters industrial66_j2
+PASS real flange bores industrial66_j2
+PASS no false manufacturing approval industrial66_j2
+PASS individual P1S envelope industrial66_j2 / frame_0_s0
+PASS individual P1S envelope industrial66_j2 / frame_0_s1
+PASS individual P1S envelope industrial66_j2 / frame_0_s2
+PASS individual P1S envelope industrial66_j2 / actuator_left
+PASS individual P1S envelope industrial66_j2 / actuator_right
+PASS individual P1S envelope industrial66_j2 / front_support
+PASS individual P1S envelope industrial66_j2 / rear_cover
+PASS individual P1S envelope industrial66_j2 / joint_trim
+PASS individual P1S envelope industrial66_j2 / skin_industrial_0_0_s0_0
+PASS individual P1S envelope industrial66_j2 / skin_industrial_0_0_s1_0
+PASS individual P1S envelope industrial66_j2 / skin_industrial_0_0_s2_0
+PASS individual P1S envelope industrial66_j2 / skin_industrial_1_0_s0_0
+PASS individual P1S envelope industrial66_j2 / skin_industrial_1_0_s1_0
+PASS individual P1S envelope industrial66_j2 / skin_industrial_1_0_s2_0
+PASS valid native body industrial66_j3
+PASS current CAD parameters industrial66_j3
+PASS real flange bores industrial66_j3
+PASS no false manufacturing approval industrial66_j3
+PASS individual P1S envelope industrial66_j3 / actuator_left
+PASS individual P1S envelope industrial66_j3 / actuator_right
+PASS individual P1S envelope industrial66_j3 / front_support
+PASS individual P1S envelope industrial66_j3 / rear_cover
+PASS individual P1S envelope industrial66_j3 / joint_trim
+PASS individual P1S envelope industrial66_j3 / skin_industrial_0_0
+PASS individual P1S envelope industrial66_j3 / skin_industrial_1_0
+PASS individual P1S envelope industrial66_j3 / frame_0
+PASS valid native body industrial66_j4
+PASS current CAD parameters industrial66_j4
+PASS real flange bores industrial66_j4
+PASS no false manufacturing approval industrial66_j4
+PASS individual P1S envelope industrial66_j4 / actuator_left
+PASS individual P1S envelope industrial66_j4 / actuator_right
+PASS individual P1S envelope industrial66_j4 / front_support
+PASS individual P1S envelope industrial66_j4 / rear_cover
+PASS individual P1S envelope industrial66_j4 / joint_trim
+PASS individual P1S envelope industrial66_j4 / skin_industrial_0_0
+PASS individual P1S envelope industrial66_j4 / skin_industrial_1_0
+PASS individual P1S envelope industrial66_j4 / skin_industrial_1_1
+PASS individual P1S envelope industrial66_j4 / frame_0
+PASS valid native body industrial66_j5
+PASS current CAD parameters industrial66_j5
+PASS real flange bores industrial66_j5
+PASS no false manufacturing approval industrial66_j5
+PASS individual P1S envelope industrial66_j5 / actuator_left
+PASS individual P1S envelope industrial66_j5 / actuator_right
+PASS individual P1S envelope industrial66_j5 / front_support
+PASS individual P1S envelope industrial66_j5 / rear_cover
+PASS individual P1S envelope industrial66_j5 / joint_trim
+PASS individual P1S envelope industrial66_j5 / skin_industrial_0_0
+PASS individual P1S envelope industrial66_j5 / skin_industrial_1_0
+PASS individual P1S envelope industrial66_j5 / frame_0
+PASS valid native body industrial66_j6
+PASS current CAD parameters industrial66_j6
+PASS real flange bores industrial66_j6
+PASS no false manufacturing approval industrial66_j6
+PASS individual P1S envelope industrial66_j6 / actuator_left
+PASS individual P1S envelope industrial66_j6 / actuator_right
+PASS individual P1S envelope industrial66_j6 / front_support
+PASS individual P1S envelope industrial66_j6 / rear_cover
+PASS individual P1S envelope industrial66_j6 / joint_trim
+PASS individual P1S envelope industrial66_j6 / frame_0
+PASS individual P1S envelope industrial66_j6 / skin_main_0
+PASS individual P1S envelope industrial66_j6 / skin_panel_1
+PASS workspace opens actual cached independent CAD
+PASS assembled CAD valid
+PASS inner bearing rings follow output shafts
+PASS rolling elements and cages have relative motion
+PASS all world flange frames coincide
+PASS second bearing expands into actual bearing parts
+PASS flanges remain joined in pose 0
+PASS flanges remain joined in pose 1
+PASS flanges remain joined in pose 2
+PASS flanges remain joined in pose 3
+PASS flanges remain joined in pose 4
+PASS flanges remain joined in pose 5
+PASS flanges remain joined in pose 6
+PASS flanges remain joined in pose 7
+PASS flanges remain joined in pose 8
+PASS flanges remain joined in pose 9
+PASS flanges remain joined in pose 10
+PASS flanges remain joined in pose 11
+PASS flanges remain joined in pose 12
+PASS flanges remain joined in pose 13
+PASS flanges remain joined in pose 14
+PASS flanges remain joined in pose 15
+PASS flanges remain joined in pose 16
+PASS flanges remain joined in pose 17
+PASS flanges remain joined in pose 18
+PASS flanges remain joined in pose 19
+PASS flanges remain joined in pose 20
+PASS flanges remain joined in pose 21
+PASS flanges remain joined in pose 22
+PASS flanges remain joined in pose 23
+PASS assembled exact CAD intersection check: 
+PASS bent housing and shaft CAD intersection check: 
+PASS dimension edit blocks stale CAD export
+PASS longer actual link regenerates as valid native solids
+PASS actual structural volume changes
+PASS actual child flange moves with length
+PASS regenerated child flange mates without disconnected parts
+PASS separate prototype STL export
+PASS actual oriented STL fits P1S: industrial66_j1_proc_rear_cover.stl
+PASS actual oriented STL fits P1S: industrial66_j1_proc_front_support.stl
+PASS actual oriented STL fits P1S: industrial66_j1_proc_actuator_right.stl
+PASS actual oriented STL fits P1S: industrial66_j1_proc_actuator_left.stl
+PASS actual oriented STL fits P1S: industrial66_j1_proc_skin_industrial_0_0.stl
+PASS actual oriented STL fits P1S: industrial66_j1_proc_skin_industrial_1_0.stl
+PASS actual oriented STL fits P1S: industrial66_j1_proc_skin_industrial_1_1.stl
+PASS actual oriented STL fits P1S: industrial66_j1_proc_frame_0.stl
+PASS actual oriented STL fits P1S: industrial66_j1_proc_base.stl
+PASS actual oriented STL fits P1S: industrial66_j2_proc_joint_trim.stl
+PASS actual oriented STL fits P1S: industrial66_j2_proc_rear_cover.stl
+PASS actual oriented STL fits P1S: industrial66_j2_proc_front_support.stl
+PASS actual oriented STL fits P1S: industrial66_j2_proc_actuator_right.stl
+PASS actual oriented STL fits P1S: industrial66_j2_proc_actuator_left.stl
+PASS actual oriented STL fits P1S: industrial66_j2_proc_frame_0_s2.stl
+PASS actual oriented STL fits P1S: industrial66_j2_proc_frame_0_s1.stl
+PASS actual oriented STL fits P1S: industrial66_j2_proc_frame_0_s0.stl
+PASS actual oriented STL fits P1S: industrial66_j2_proc_skin_industrial_0_0_s0_0.stl
+PASS actual oriented STL fits P1S: industrial66_j2_proc_skin_industrial_0_0_s1_0.stl
+PASS actual oriented STL fits P1S: industrial66_j2_proc_skin_industrial_0_0_s2_0.stl
+PASS actual oriented STL fits P1S: industrial66_j2_proc_skin_industrial_1_0_s0_0.stl
+PASS actual oriented STL fits P1S: industrial66_j2_proc_skin_industrial_1_0_s1_0.stl
+PASS actual oriented STL fits P1S: industrial66_j2_proc_skin_industrial_1_0_s2_0.stl
+PASS actual oriented STL fits P1S: industrial66_j3_proc_joint_trim.stl
+PASS actual oriented STL fits P1S: industrial66_j3_proc_rear_cover.stl
+PASS actual oriented STL fits P1S: industrial66_j3_proc_front_support.stl
+PASS actual oriented STL fits P1S: industrial66_j3_proc_actuator_right.stl
+PASS actual oriented STL fits P1S: industrial66_j3_proc_actuator_left.stl
+PASS actual oriented STL fits P1S: industrial66_j3_proc_skin_industrial_0_0.stl
+PASS actual oriented STL fits P1S: industrial66_j3_proc_skin_industrial_1_0.stl
+PASS actual oriented STL fits P1S: industrial66_j3_proc_frame_0.stl
+PASS actual oriented STL fits P1S: industrial66_j4_proc_joint_trim.stl
+PASS actual oriented STL fits P1S: industrial66_j4_proc_rear_cover.stl
+PASS actual oriented STL fits P1S: industrial66_j4_proc_front_support.stl
+PASS actual oriented STL fits P1S: industrial66_j4_proc_actuator_right.stl
+PASS actual oriented STL fits P1S: industrial66_j4_proc_actuator_left.stl
+PASS actual oriented STL fits P1S: industrial66_j4_proc_skin_industrial_0_0.stl
+PASS actual oriented STL fits P1S: industrial66_j4_proc_skin_industrial_1_0.stl
+PASS actual oriented STL fits P1S: industrial66_j4_proc_skin_industrial_1_1.stl
+PASS actual oriented STL fits P1S: industrial66_j4_proc_frame_0.stl
+PASS actual oriented STL fits P1S: industrial66_j5_proc_joint_trim.stl
+PASS actual oriented STL fits P1S: industrial66_j5_proc_rear_cover.stl
+PASS actual oriented STL fits P1S: industrial66_j5_proc_front_support.stl
+PASS actual oriented STL fits P1S: industrial66_j5_proc_actuator_right.stl
+PASS actual oriented STL fits P1S: industrial66_j5_proc_actuator_left.stl
+PASS actual oriented STL fits P1S: industrial66_j5_proc_skin_industrial_0_0.stl
+PASS actual oriented STL fits P1S: industrial66_j5_proc_skin_industrial_1_0.stl
+PASS actual oriented STL fits P1S: industrial66_j5_proc_frame_0.stl
+PASS actual oriented STL fits P1S: industrial66_j6_proc_frame_0.stl
+PASS actual oriented STL fits P1S: industrial66_j6_proc_joint_trim.stl
+PASS actual oriented STL fits P1S: industrial66_j6_proc_rear_cover.stl
+PASS actual oriented STL fits P1S: industrial66_j6_proc_front_support.stl
+PASS actual oriented STL fits P1S: industrial66_j6_proc_actuator_right.stl
+PASS actual oriented STL fits P1S: industrial66_j6_proc_actuator_left.stl
+PASS actual oriented STL fits P1S: industrial66_j6_proc_skin_main_0.stl
+PASS actual oriented STL fits P1S: industrial66_j6_proc_skin_panel_1.stl
+PASS actual oriented STL fits P1S: industrial66_j6_tool_adapter.stl
+PASS actual oriented STL fits P1S: industrial66_j6_tool_palm.stl
+PASS actual oriented STL fits P1S: industrial66_j6_tool_jaw_-1.stl
+PASS actual oriented STL fits P1S: industrial66_j6_tool_tip_-1.stl
+PASS actual oriented STL fits P1S: industrial66_j6_tool_pad_-1.stl
+PASS actual oriented STL fits P1S: industrial66_j6_tool_jaw_1.stl
+PASS actual oriented STL fits P1S: industrial66_j6_tool_tip_1.stl
+PASS actual oriented STL fits P1S: industrial66_j6_tool_pad_1.stl
+PASS 182 assertions

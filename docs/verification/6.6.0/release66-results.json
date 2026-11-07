@@ -1,0 +1,13 @@
+{
+  "version": "6.6.0",
+  "exe_sha256": "dddebd1cf143b42a7e00234f7b3e8f7099c321b269bf7b8b53f188ca095676d2",
+  "baseline_assertions": 7057,
+  "industrial_parameters_assertions": 34,
+  "native_assertions": 182,
+  "gui_assertions": 19,
+  "stl_files": 64,
+  "stl_closed": true,
+  "stl_fit": true,
+  "manufacturing_ready": false,
+  "visual_reference_only": true
+}
