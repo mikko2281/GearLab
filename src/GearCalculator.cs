@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using System.IO;
 
@@ -485,6 +485,11 @@ namespace GearLab {
    if(args.Length>0&&args[0]=="--industrial66-native-test"){return Industrial66NativeTests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--industrial66-view-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Industrial66ViewTests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--industrial66-export"){return IndustrialRobot66.Export(args[1]);}
+   if(args.Length>0&&args[0]=="--reference67-view-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Reference67ViewTests.Run(args[1]);}
+   if(args.Length>0&&args[0]=="--reference67-native-test")return Reference67Tests.Native(args[1]);
+   if(args.Length>0&&args[0]=="--reference67-test")return Reference67Tests.Run(args[1]);
+   if(args.Length>0&&args[0]=="--reference67-scene")return ReferenceRobot67.Scene(args[1]);
+   if(args.Length>0&&args[0]=="--reference67-generate")return ReferenceRobot67.Generate(args[1]);
    if(args.Length>0&&args[0]=="--industrial66-test"){return Industrial66Tests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--industrial66-generate"){return IndustrialRobot66.Generate(args[1]);}
    if(args.Length>0&&args[0]=="--optimization641-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Optimization641Tests.Run(args[1]);}

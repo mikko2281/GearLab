@@ -1,0 +1,1 @@
+PASS release UI: 517 checks; all toolbar and menu buttons, 5 ratios, all presets/views/tabs, stage selection, save/load/exports/cancel/overwrite/errors, unsaved close/reset, invalid controls, help/about. File-dialog paths supplied by test dialogs; native common-dialog observations recorded in the release report.

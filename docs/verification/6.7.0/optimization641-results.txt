@@ -1,0 +1,42 @@
+﻿PASS clone retains FormatVersion
+PASS clone retains Language
+PASS clone retains Theme
+PASS clone retains Quality
+PASS clone retains OrbitSensitivity
+PASS clone retains SnapEnabled
+PASS clone retains SnapStep
+PASS clone retains AnimationScale
+PASS clone retains AutoSave
+PASS clone retains AutoSaveSeconds
+PASS palette clone has independent storage
+PASS speed preserves 3D environment
+PASS speed preserves model mesh
+PASS snap preserves 3D environment
+PASS snap preserves model mesh
+PASS orbit preserves 3D environment
+PASS orbit preserves model mesh
+PASS autosave preserves 3D environment
+PASS autosave preserves model mesh
+PASS unrelated preferences do not invalidate styled labels
+PASS unrelated preferences keep visual revisions
+PASS optimized commits retain persistence and backup
+PASS language still updates visible controls immediately
+PASS language preserves editable user data
+PASS language revision advances
+PASS ASCII fast path preserves content
+PASS cached generated status retains full translation
+PASS translation cache stays bounded
+PASS cache eviction preserves translation
+PASS Russian roundtrip ignores English cache
+PASS palette updates existing controls
+PASS appearance change refreshes 3D environment
+PASS theme still updates root window
+PASS quality change keeps valid rebuilt preview
+PASS palette parses custom value
+PASS palette cache observes changed override
+PASS sphere geometry identical to 6.4.0 at radius 0,0001
+PASS sphere geometry identical to 6.4.0 at radius 0,1
+PASS sphere geometry identical to 6.4.0 at radius 2,15
+PASS sphere geometry identical to 6.4.0 at radius 1000
+PASS bearing race geometry identical to 6.4.0
+PASS 41 assertions

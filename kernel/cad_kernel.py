@@ -529,6 +529,9 @@ def handle(request):
     if mode in {'assembly_parametric','assembly_audit'}:
         from transmission_assembly import generate
         return generate(request,sys.modules[__name__])
+    if mode=='body_generate' and request['Spec'].get('Variant')=='Reference67':
+        from reference67 import generate
+        return generate(request['Spec'],folder,sys.modules[__name__])
     if mode=='body_generate' and request['Spec'].get('Connected'):
         from connected_body import generate
         return generate(request['Spec'],folder,sys.modules[__name__])
