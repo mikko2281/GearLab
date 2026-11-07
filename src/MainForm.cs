@@ -6,6 +6,7 @@ namespace GearLab {
 
  public class SafeNumber:NumericUpDown {
 
+  public SafeNumber(){BorderStyle=BorderStyle.None;HandleCreated+=(s,e)=>NumberChrome.Attach(this);}
   public bool Committing;public Action<int> ScrollRequested;
 
   public bool TryRead(out decimal number){
@@ -39,6 +40,7 @@ namespace GearLab {
 
 
 
+  internal InspectorWorkspace inspectorWorkspace;
   Parameters p=Engine.Starter(0);Result result;string modelKey,fitKey;CadAssembly cachedModel;bool lastFitFailed;
 
   static string GeometryKey(Parameters value){var copy=Engine.Clone(value);if(copy.Kind!=8||copy.FixedMember!=3)copy.InputRpm=30;copy.InputTorque=.35;copy.Efficiency=.7;copy.LoadTorque=5;copy.AllowableBendingMPa=0;copy.ServiceFactor=1.5;copy.ExportScope=0;copy.AutoFit=false;return ReleaseSupport.Serialize(copy);}bool updating,dirty;FlowLayoutPanel controls;readonly Dictionary<int,Parameters> layoutState=new Dictionary<int,Parameters>();readonly Dictionary<int,Parameters> kindState=new Dictionary<int,Parameters>();System.Diagnostics.Stopwatch playback=System.Diagnostics.Stopwatch.StartNew();double lastTick;
@@ -62,7 +64,7 @@ namespace GearLab {
 
   public MainForm(IUserDialogs userDialogs){dialogs=userDialogs;Icon=Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-   Text="Gear Lab 6.3 · Калькулятор редукторов";Font=new Font("Segoe UI",9);Size=new Size(1460,980);MinimumSize=new Size(980,650);AutoScaleDimensions=new SizeF(96,96);StartPosition=FormStartPosition.CenterScreen;AutoScaleMode=AutoScaleMode.Dpi;BackColor=Color.White;
+   Text="Gear Lab 6.4 · Калькулятор редукторов";Font=new Font("Segoe UI",9);Size=new Size(1460,980);MinimumSize=new Size(980,650);AutoScaleDimensions=new SizeF(96,96);StartPosition=FormStartPosition.CenterScreen;AutoScaleMode=AutoScaleMode.Dpi;BackColor=Color.White;
 
    var menu=new MenuStrip{BackColor=Color.FromArgb(239,244,249)};var project=new ToolStripMenuItem("Проект");saveMenu=new ToolStripMenuItem("Сохранить…",null,(a,b)=>SaveProject()){ShortcutKeys=Keys.Control|Keys.S};saveAsMenu=new ToolStripMenuItem("Сохранить как…",null,(a,b)=>SaveProject(true)){ShortcutKeys=Keys.Control|Keys.Shift|Keys.S};openMenu=new ToolStripMenuItem("Открыть…",null,(a,b)=>OpenProject()){ShortcutKeys=Keys.Control|Keys.O};resetMenu=new ToolStripMenuItem("Сбросить текущий тип",null,(a,b)=>{if(ConfirmChanges())Apply(Engine.Starter(p.Kind),true);});project.DropDownItems.AddRange(new ToolStripItem[]{saveMenu,saveAsMenu,openMenu,resetMenu});
 
@@ -74,7 +76,7 @@ namespace GearLab {
    menu.Items.Add(new ToolStripMenuItem("Конструктор ступеней",null,(a,b)=>WorkspaceHost.Navigate(this,"train")));
    menu.Items.Insert(2,new ToolStripMenuItem("Робототехника",null,(a,b)=>WorkspaceHost.Navigate(this,"robot")));menu.Items.Add(new ToolStripMenuItem("Настройки",null,(a,b)=>{using(var f=new SettingsForm(this))f.ShowLocalizedDialog(this);}));
 
-   var body=new TableLayoutPanel{Dock=DockStyle.Fill,ColumnCount=2,RowCount=2};body.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,100));body.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute,330));body.RowStyles.Add(new RowStyle(SizeType.Percent,100));body.RowStyles.Add(new RowStyle(SizeType.Absolute,34));
+   var body=new TableLayoutPanel{Dock=DockStyle.Fill,ColumnCount=1,RowCount=2};body.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,100));body.RowStyles.Add(new RowStyle(SizeType.Percent,100));body.RowStyles.Add(new RowStyle(SizeType.Absolute,34));
 
    controls=new FlowLayoutPanel{Dock=DockStyle.Fill,FlowDirection=FlowDirection.TopDown,WrapContents=false,AutoScroll=true,Padding=new Padding(12,10,8,10),BackColor=Color.FromArgb(241,245,249)};
 
@@ -83,25 +85,25 @@ namespace GearLab {
 
    controls.Controls.Add(new Label{Text="ПАРАМЕТРЫ ПЕРЕДАЧИ",Width=290,Height=30,Font=new Font("Segoe UI",11,FontStyle.Bold),ForeColor=Color.FromArgb(34,70,102)});
 
-   kind=new ComboBox{Width=280,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Тип передачи"};kind.Items.AddRange(kinds);kind.SelectedIndex=0;kind.SelectedIndexChanged+=(s,e)=>{if(updating)return;int selected=kind.SelectedIndex,old=p.Kind;if(!ReadControls()){updating=true;kind.SelectedIndex=old;updating=false;return;}kindState[old]=Engine.Clone(p);Parameters next;if(kindState.ContainsKey(selected))next=Engine.Clone(kindState[selected]);else{next=Engine.Starter(selected);if(p.MotorPreset>0&&p.MotorPreset<5)Engine.SetPreset(next,p.MotorPreset);}Apply(next,next.AutoFit);};controls.Controls.Add(kind);
+   kind=new EditorComboBox{Width=280,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Тип передачи"};kind.Items.AddRange(kinds);kind.SelectedIndex=0;kind.SelectedIndexChanged+=(s,e)=>{if(updating)return;int selected=kind.SelectedIndex,old=p.Kind;if(!ReadControls()){updating=true;kind.SelectedIndex=old;updating=false;return;}kindState[old]=Engine.Clone(p);Parameters next;if(kindState.ContainsKey(selected))next=Engine.Clone(kindState[selected]);else{next=Engine.Starter(selected);if(p.MotorPreset>0&&p.MotorPreset<5)Engine.SetPreset(next,p.MotorPreset);}Apply(next,next.AutoFit);};controls.Controls.Add(kind);
 
    controls.Controls.Add(new Label{Text="Набор размеров и мотор",Width=280,Height=23,Margin=new Padding(0,7,0,0),Font=new Font("Segoe UI",9)});
 
-   preset=new ComboBox{Width=280,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Набор размеров"};preset.Items.AddRange(Engine.PresetNames);preset.SelectedIndex=2;preset.SelectedIndexChanged+=(s,e)=>{if(updating)return;int selected=preset.SelectedIndex;if(!ReadControls()){updating=true;preset.SelectedIndex=p.MotorPreset;updating=false;return;}kindState[p.Kind]=Engine.Clone(p);if(p.Kind==0)layoutState[p.CycloidLayout]=Engine.Clone(p);Engine.SetPreset(p,selected);Apply(p,selected>0);if(p.Kind==0)layoutState[p.CycloidLayout]=Engine.Clone(p);if(selected==5&&canvas.View<5)ShowFullModel();};controls.Controls.Add(preset);
+   preset=new EditorComboBox{Width=280,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Набор размеров"};preset.Items.AddRange(Engine.PresetNames);preset.SelectedIndex=2;preset.SelectedIndexChanged+=(s,e)=>{if(updating)return;int selected=preset.SelectedIndex;if(!ReadControls()){updating=true;preset.SelectedIndex=p.MotorPreset;updating=false;return;}kindState[p.Kind]=Engine.Clone(p);if(p.Kind==0)layoutState[p.CycloidLayout]=Engine.Clone(p);Engine.SetPreset(p,selected);Apply(p,selected>0);if(p.Kind==0)layoutState[p.CycloidLayout]=Engine.Clone(p);if(selected==5&&canvas.View<5)ShowFullModel();};controls.Controls.Add(preset);
 
-   controls.Controls.Add(new Label{Text="Состав экспорта STEP / SVG / DXF / CSV",Width=280,Height=23});exportScope=new ComboBox{Width=280,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Состав экспорта"};exportScope.Items.AddRange(new[]{"Все детали сборки","Только рабочие профили","Только детали для печати"});exportScope.SelectedIndex=0;exportScope.SelectedIndexChanged+=(a,b)=>{if(updating)return;int index=exportScope.SelectedIndex;if(!ReadControls()){updating=true;exportScope.SelectedIndex=p.ExportScope;updating=false;return;}p.ExportScope=index;Recalculate();};controls.Controls.Add(exportScope);
+   controls.Controls.Add(new Label{Text="Состав экспорта STEP / SVG / DXF / CSV",Width=280,Height=23});exportScope=new EditorComboBox{Width=280,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Состав экспорта"};exportScope.Items.AddRange(new[]{"Все детали сборки","Только рабочие профили","Только детали для печати"});exportScope.SelectedIndex=0;exportScope.SelectedIndexChanged+=(a,b)=>{if(updating)return;int index=exportScope.SelectedIndex;if(!ReadControls()){updating=true;exportScope.SelectedIndex=p.ExportScope;updating=false;return;}p.ExportScope=index;Recalculate();};controls.Controls.Add(exportScope);
 
    schemeLabel=new Label{Text="Что вращается на выходе",Width=280,Height=23,Margin=new Padding(0,8,0,0),Font=new Font("Segoe UI",9)};controls.Controls.Add(schemeLabel);
 
-   scheme=new ComboBox{Width=280,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Выход циклоидального редуктора"};scheme.Items.AddRange(new[]{"Центральный фланец","Наружное кольцо (корпус)"});scheme.SelectedIndex=1;scheme.SelectedIndexChanged+=(s,e)=>{if(updating)return;bool selected=scheme.SelectedIndex==1;if(!ReadControls()){updating=true;scheme.SelectedIndex=p.RingOutput?1:0;updating=false;return;}p.RingOutput=selected;canvas.Phase=0;Recalculate();};controls.Controls.Add(scheme);
+   scheme=new EditorComboBox{Width=280,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Выход циклоидального редуктора"};scheme.Items.AddRange(new[]{"Центральный фланец","Наружное кольцо (корпус)"});scheme.SelectedIndex=1;scheme.SelectedIndexChanged+=(s,e)=>{if(updating)return;bool selected=scheme.SelectedIndex==1;if(!ReadControls()){updating=true;scheme.SelectedIndex=p.RingOutput?1:0;updating=false;return;}p.RingOutput=selected;canvas.Phase=0;Recalculate();};controls.Controls.Add(scheme);
 
-   cycleLayoutLabel=new Label{Text="Компоновка циклоидального",Width=280,Height=23};controls.Controls.Add(cycleLayoutLabel);cycleLayout=new ComboBox{Width=280,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Компоновка циклоидального"};cycleLayout.Items.AddRange(new[]{"Обычная компоновка","Micro · квадратное основание NEMA 17"});cycleLayout.SelectedIndex=0;cycleLayout.SelectedIndexChanged+=(a,b)=>{if(updating)return;int target=cycleLayout.SelectedIndex;if(!ReadControls()){updating=true;cycleLayout.SelectedIndex=p.CycloidLayout;updating=false;return;}layoutState[p.CycloidLayout]=Engine.Clone(p);Parameters next=layoutState.ContainsKey(target)?Engine.Clone(layoutState[target]):target==1?MicroPreset.Starter():Engine.Starter(0);Apply(next,next.AutoFit);if(target==1&&canvas.View<5)ShowFullModel();};controls.Controls.Add(cycleLayout);
+   cycleLayoutLabel=new Label{Text="Компоновка циклоидального",Width=280,Height=23};controls.Controls.Add(cycleLayoutLabel);cycleLayout=new EditorComboBox{Width=280,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Компоновка циклоидального"};cycleLayout.Items.AddRange(new[]{"Обычная компоновка","Micro · квадратное основание NEMA 17"});cycleLayout.SelectedIndex=0;cycleLayout.SelectedIndexChanged+=(a,b)=>{if(updating)return;int target=cycleLayout.SelectedIndex;if(!ReadControls()){updating=true;cycleLayout.SelectedIndex=p.CycloidLayout;updating=false;return;}layoutState[p.CycloidLayout]=Engine.Clone(p);Parameters next=layoutState.ContainsKey(target)?Engine.Clone(layoutState[target]):target==1?MicroPreset.Starter():Engine.Starter(0);Apply(next,next.AutoFit);if(target==1&&canvas.View<5)ShowFullModel();};controls.Controls.Add(cycleLayout);
 
    AddNumber("Ratio","Передаточное число i",1,200,2,1,true);
 
    var presets=new FlowLayoutPanel{Width=280,Height=34,WrapContents=false,Margin=new Padding(0,4,0,4)};foreach(int ratio in new[]{8,9,20,30,60}){int x=ratio;var b=new Button{Text=ratio+":1",Width=50,Height=28,Margin=new Padding(2),FlatStyle=FlatStyle.Flat};b.Click+=(s,e)=>{updating=true;numbers["Ratio"].Commit(p.Kind==4?WaveQuickRatio(x):x);if(p.Kind==4){var q=Engine.Clone(p);q.Ratio=WaveQuickRatio(x);numbers["Radius"].Commit((decimal)Math.Ceiling(Math.Max(p.Radius,WaveFastModel.MinimumRadius(q)+.05)*100)/100);}updating=false;CommitAndCalculate();};ratioButtons[x]=b;presets.Controls.Add(b);}controls.Controls.Add(presets);
 
-   stageLabel=new Label{Text="Планетарные ступени",Width=280,Height=23};controls.Controls.Add(stageLabel);stageMode=new ComboBox{Width=280,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Число планетарных ступеней"};stageMode.Items.AddRange(new[]{"Авто 1–3 ступени","Одна ступень","Две ступени","Три ступени"});stageMode.SelectedIndex=0;stageMode.SelectedIndexChanged+=(a,b)=>{if(updating)return;int choice=stageMode.SelectedIndex;if(!ReadControls()){updating=true;stageMode.SelectedIndex=p.PlanetStages;updating=false;return;}p.PlanetStages=choice;canvas.Phase=0;Recalculate();};controls.Controls.Add(stageMode);
+   stageLabel=new Label{Text="Планетарные ступени",Width=280,Height=23};controls.Controls.Add(stageLabel);stageMode=new EditorComboBox{Width=280,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Число планетарных ступеней"};stageMode.Items.AddRange(new[]{"Авто 1–3 ступени","Одна ступень","Две ступени","Три ступени"});stageMode.SelectedIndex=0;stageMode.SelectedIndexChanged+=(a,b)=>{if(updating)return;int choice=stageMode.SelectedIndex;if(!ReadControls()){updating=true;stageMode.SelectedIndex=p.PlanetStages;updating=false;return;}p.PlanetStages=choice;canvas.Phase=0;Recalculate();};controls.Controls.Add(stageMode);
 
       AddNumber("RatioTolerance","Допуск суммарного отношения, %",0,10,2,.1m,false);
 
@@ -131,7 +133,7 @@ namespace GearLab {
 
    AddNumber("Wall","Условная стенка / крышка, мм",0,30,2,.5m,false);AddNumber("OutputShaft","Выходной вал Ø, мм",1,100,2,.5m,false);AddNumber("DiscGap","Зазор между дисками, мм",0,20,2,.1m,false);AddNumber("PlanetPin","Ось сателлита Ø, мм",.5m,50,2,.5m,false);AddNumber("IntermediateShaft","Промежуточный вал Ø, мм",1,100,2,.5m,false);AddNumber("StageGap","Межступенчатый зазор, мм",0,50,2,.5m,false);AddNumber("InputRpm","Вход для анимации, об/мин",.1m,3000,2,5,false);
 
-   bearingPreset=new ComboBox{Width=280,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Размерный шаблон подшипника"};bearingPreset.Items.AddRange(new[]{"Подшипник: вручную","Размер 608 · 8×22×7","Размер 625 · 5×16×5"});bearingPreset.SelectedIndex=0;bearingPreset.SelectedIndexChanged+=(s,e)=>{if(updating||bearingPreset.SelectedIndex==0)return;if(!ReadControls())return;bool a=bearingPreset.SelectedIndex==1;p.BearingInner=a?8:5;p.Bore=a?22:16;p.BearingWidth=a?7:5;p.BallDiameter=a?3.5:2.5;p.BallCount=7;Recalculate();};controls.Controls.Add(bearingPreset);
+   bearingPreset=new EditorComboBox{Width=280,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Размерный шаблон подшипника"};bearingPreset.Items.AddRange(new[]{"Подшипник: вручную","Размер 608 · 8×22×7","Размер 625 · 5×16×5"});bearingPreset.SelectedIndex=0;bearingPreset.SelectedIndexChanged+=(s,e)=>{if(updating||bearingPreset.SelectedIndex==0)return;if(!ReadControls())return;bool a=bearingPreset.SelectedIndex==1;p.BearingInner=a?8:5;p.Bore=a?22:16;p.BearingWidth=a?7:5;p.BallDiameter=a?3.5:2.5;p.BallCount=7;Recalculate();};controls.Controls.Add(bearingPreset);
 
    AddNumber("WaveWall","Стенка гибкого колеса, мм",.3m,3,2,.1m,false);AddNumber("WaveBearingWall","Стенка гибкого подшипника, мм",.5m,4,2,.1m,false);AddNumber("InputTorque","Входной момент, Н·м",0,1000,3,.05m,false);AddNumber("Efficiency","КПД",.01m,1,3,.01m,false);AddNumber("LoadTorque","Нагрузка выхода, Н·м",0,100000,3,.1m,false);
    AddNumber("BearingInner","Подшипник: внутренний Ø d, мм",1,100,2,.5m,false);AddNumber("BearingWidth","Подшипник: ширина B, мм",1,50,2,.5m,false);AddNumber("BallDiameter","Диаметр шарика, мм",.1m,20,2,.1m,false);AddNumber("BallCount","Шариков в опоре диска, шт.",3,30,0,1,false);
@@ -159,9 +161,9 @@ namespace GearLab {
 
    fit=Button("Вписать",80,(s,e)=>{canvas.FitView();});csv=Button("CSV деталей",116,(s,e)=>Export("csv"));dxf=Button("DXF деталей",120,(s,e)=>Export("dxf"));step=Button("STEP сборка",130,(a,b)=>Export("step"));print=Button("Для печати…",126,(a,b)=>ExportPrint());
 
-   view=new ComboBox{Width=235,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Вид механизма",Margin=new Padding(0,5,5,2)};view.SelectedIndexChanged+=(a,b)=>{if(updating||canvas==null||view.SelectedItem==null)return;canvas.View=((ViewOption)view.SelectedItem).Id;canvas.Zoom=1;run.Enabled=result!=null&&result.Valid&&(canvas.View<5||result.Model.Valid);canvas.Invalidate();};
+   view=new EditorComboBox{Width=235,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Вид механизма",Margin=new Padding(0,5,5,2)};view.SelectedIndexChanged+=(a,b)=>{if(updating||canvas==null||view.SelectedItem==null)return;canvas.View=((ViewOption)view.SelectedItem).Id;canvas.Zoom=1;run.Enabled=result!=null&&result.Valid&&(canvas.View<5||result.Model.Valid);canvas.Invalidate();};
 
-   stageView=new ComboBox{Width=175,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Показанная ступень",Margin=new Padding(0,5,5,2)};stageView.SelectedIndexChanged+=(a,b)=>{if(updating||canvas==null)return;canvas.StageIndex=Math.Max(0,stageView.SelectedIndex);canvas.Invalidate();};
+   stageView=new EditorComboBox{Width=175,DropDownStyle=ComboBoxStyle.DropDownList,AccessibleName="Показанная ступень",Margin=new Padding(0,5,5,2)};stageView.SelectedIndexChanged+=(a,b)=>{if(updating||canvas==null)return;canvas.StageIndex=Math.Max(0,stageView.SelectedIndex);canvas.Invalidate();};
 
    motor=new CheckBox{Text="Крепление мотора",Checked=true,Width=170,Height=30};motor.CheckedChanged+=(s,e)=>{if(canvas!=null){canvas.ShowMotor=motor.Checked;canvas.Invalidate();}};
 
@@ -175,9 +177,9 @@ namespace GearLab {
 
    detailRows.Controls.Add(metrics,0,0);detailRows.Controls.Add(bom,0,1);detail.Controls.Add(detailRows);notes=new TextBox{Dock=DockStyle.Fill,Multiline=true,ReadOnly=true,ScrollBars=ScrollBars.Vertical,WordWrap=true,BorderStyle=BorderStyle.None,BackColor=Color.White,Font=new Font("Segoe UI",10)};check.Padding=new Padding(14);check.Controls.Add(notes);
 
-   tabs.TabPages.AddRange(new[]{drawing,detail,check});right.Controls.Add(tabs,0,3);var playbackBar=new FlowLayoutPanel{Dock=DockStyle.Fill,AutoSize=true,Padding=new Padding(3,3,3,0),WrapContents=true};playbackBar.Controls.AddRange(new Control[]{run,fit,csv,dxf,step,print});playbackBar.Controls.Add(new Label{Text="Анимация · скорость задаётся в настройках",AutoSize=true,Padding=new Padding(12,7,0,0)});right.Controls.Add(playbackBar,0,4);footer=new Label{Dock=DockStyle.Fill,Padding=new Padding(12,4,8,0),Font=new Font("Segoe UI",9),Text="Список деталей предварительный. Маркировки подшипников, крепёж и прочность требуют CAD и расчёта."};
+   tabs.TabPages.AddRange(new[]{drawing,detail,check});right.Controls.Add(tabs,0,3);var playbackBar=new FlowLayoutPanel{Dock=DockStyle.Fill,AutoSize=true,Padding=new Padding(3,3,3,0),WrapContents=true};playbackBar.Controls.AddRange(new Control[]{run,fit,csv,dxf,step,print});playbackBar.Controls.Add(new PlaybackControl());right.Controls.Add(playbackBar,0,4);footer=new Label{Dock=DockStyle.Fill,Padding=new Padding(12,4,8,0),Font=new Font("Segoe UI",9),Text="Список деталей предварительный. Маркировки подшипников, крепёж и прочность требуют CAD и расчёта."};
 
-   body.Controls.Add(controls,1,0);body.Controls.Add(right,0,0);body.Controls.Add(footer,0,1);body.SetColumnSpan(footer,2);Controls.Add(body);Controls.Add(menu);
+   updating=true;inspectorWorkspace=new InspectorWorkspace(this,right,controls);updating=false;body.Controls.Add(inspectorWorkspace,0,0);body.Controls.Add(footer,0,1);Controls.Add(body);Controls.Add(menu);
 
    animation=new Timer{Interval=33};animation.Tick+=(s,e)=>{double now=playback.Elapsed.TotalSeconds,dt=Math.Min(.15,now-lastTick);lastTick=now;if(canvas.ShowMotion&&!dirty&&result!=null&&result.Valid&&WindowState!=FormWindowState.Minimized&&tabs.SelectedIndex==0){canvas.Phase+=dt*TransmissionSizing.MotionRpm(p)*Engine.Tau/60*AppSettings.Current.AnimationScale;canvas.PresentFrame();}};animation.Start();FormClosed+=(s,e)=>{animation.Dispose();tips.Dispose();};
 
@@ -278,7 +280,7 @@ namespace GearLab {
 
   bool HasChanges(){return savedState!=null&&(dirty||ReleaseSupport.Serialize(p)!=savedState);}
 
-  void UpdateCaption(){Text="Gear Lab 6.3 · "+(string.IsNullOrEmpty(currentFile)?"Новый проект":Path.GetFileName(currentFile))+(HasChanges()?" *":"");}
+  void UpdateCaption(){Text="Gear Lab 6.4 · "+(string.IsNullOrEmpty(currentFile)?"Новый проект":Path.GetFileName(currentFile))+(HasChanges()?" *":"");}
 
   bool ConfirmChanges(){if(!HasChanges())return true;var answer=dialogs.Unsaved(this);return answer==DialogResult.No||answer==DialogResult.Yes&&SaveProject();}
 

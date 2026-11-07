@@ -1,0 +1,1 @@
+﻿PASS 19 current-workspace assertions: four sections, shared wave, state preservation, joint pose/limits/loads.

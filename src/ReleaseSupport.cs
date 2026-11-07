@@ -26,9 +26,9 @@ namespace GearLab {
 
  public static class ReleaseSupport {
 
-  public const string Version="6.3.0";
+  public const string Version="6.4.0";
 
-  public const string HelpText=@"GEARLAB 6.3 — КАК ПОЛЬЗОВАТЬСЯ
+  public const string HelpText=@"GEARLAB 6.4 — КАК ПОЛЬЗОВАТЬСЯ
 
 РЕДУКТОРЫ
 В одной вкладке доступны 13 типов: циклоидальный, зубчатая пара, зубчатый ремень, планетарный, волновой, червячный, конический, RV, дифференциальный планетарный, гипоидный, глобоидный, магнитный и реечный. Используйте категории и поиск. Переключение типа сохраняет его текущие параметры.
@@ -42,7 +42,7 @@ namespace GearLab {
 Профиль, осевой вид и подшипник крупно выбираются в списке видов. В ПТК диаметр рабочих шариков определяет профиль и тела качения. Все 3D-опоры содержат кольца с дорожками, шарики и сепаратор. Параметры нескольких планетарных ступеней действуют только при нескольких ступенях. Неприменимые параметры корпуса скрыты.
 
 3D И ДВИЖЕНИЕ
-Полная/разнесённая 3D-сборка, стандартные виды, дерево и поиск деталей, скрытие/изоляция и сечения доступны в общем просмотрщике. ЛКМ вращает камеру, СКМ или Shift+ЛКМ сдвигает, колесо масштабирует, F/Home вписывает. «Запустить»/«Пауза» управляют анимацией. Перемещение отдельной детали — режим просмотра: оно не изменяет расчётный проект или STEP/STL. Esc отменяет перемещение, «Вернуть» восстанавливает положение.
+Полная/разнесённая 3D-сборка, стандартные виды, дерево и поиск деталей, скрытие/изоляция и сечения доступны в общем просмотрщике. ЛКМ вращает камеру, СКМ или Shift+ЛКМ сдвигает, колесо масштабирует, F/Home вписывает. «Запустить»/«Пауза» управляют анимацией. Поле «Скорость ×» рядом с ними меняет скорость от 0,01 до 10× сразу и сохраняет её. Перемещение отдельной детали — режим просмотра: оно не изменяет расчётный проект или STEP/STL. Esc отменяет перемещение, «Вернуть» восстанавливает положение.
 
 ЭКСПОРТ
 Меню «Экспорт»: STEP, SVG, DXF, CSV и отдельные STL. Состав в панели параметров справа применяется к экспортам: все детали / рабочие профили / печатные заготовки. Для новых передач рабочие профили исключают корпус, опоры, мотор и отдельные валы. Диалог «Для печати…» позволяет выбрать конкретные детали. Каждый STL — одна деталь в мм, нижняя точка Z=0. Скрытие и экранное сечение не меняют состав экспорта.
@@ -58,14 +58,14 @@ namespace GearLab {
 Переключайтесь между редукторами, ступенями, робототехникой и настройками на верхней панели. Раздел «Свой механизм», отдельные CAD Studio и редактор полигонов удалены из пользовательского интерфейса.
 
 ПРОЕКТЫ И НАСТРОЙКИ
-Ctrl+S — сохранить, Ctrl+O — открыть. Форматы: .gear.json, .train.json, .robot.json; старые .wave.json мигрируют в общий редактор. Сохраняйте пользовательские проекты в свою папку. Настройки: оформление в стиле Blender, 17 цветов интерфейса и сцены, русский / английский язык, качество 3D, чувствительность камеры, привязка к сетке, скорость анимации и автосохранение проекта робота. Выберите раздел слева, внесите изменения и нажмите «Применить». «Отмена» отменяет только несохранённые правки; «Стандартные» готовит исходные значения до применения. Язык и цвета действуют для открытых и новых окон и сохраняются между запусками. Автовосстановление не заменяет обычное сохранение всех форматов.
+Ctrl+S — сохранить, Ctrl+O — открыть. Форматы: .gear.json, .train.json, .robot.json; старые .wave.json мигрируют в общий редактор. Сохраняйте пользовательские проекты в свою папку. Настройки: оформление в стиле Blender, 17 цветов интерфейса и сцены, русский / английский язык, качество 3D, чувствительность камеры, привязка к сетке, скорость анимации и автосохранение проекта робота. Выберите раздел слева, внесите изменения и нажмите «Применить». «Отмена» отменяет только несохранённые правки; «Стандартные» готовит исходные значения до применения. Язык меняется сразу при выборе, в том числе кнопкой RU/EN в правом верхнем углу. Цвета применяются кнопкой «Применить». Оба параметра сохраняются между запусками. Панель параметров редуктора отделяется перетаскиванием заголовка или кнопкой ↗. Её размер меняется границей окна либо разделителем; ←/→ закрепляют панель слева/справа, крестик возвращает её. Кнопка ≡ показывает шкалы. Размер и положение сохраняются. Автовосстановление не заменяет обычное сохранение всех форматов.
 
 ОГРАНИЧЕНИЯ
 Теоретический T·i·КПД не равен допустимому моменту. Червячные/конические/RV/гипоидные/глобоидные профили содержат компоновочные приближения. ПТК использует жёсткое кольцо и шарики; контактные нагрузки, износ и упругость не решаются. Магнитный предельный момент неизвестен без электромагнитного расчёта. Положительный объём и валидный STEP не доказывают сопряжение зубьев или изготовимость.
 
 B-rep-проверка относится к текущей позе и имеет лимит 250 пар; программа явно сообщает неполный результат. Полный диапазон движения, ресурс, динамика, нагрев, посадки, шпонки, крепёж, материалы и прочность требуют отдельной инженерной проверки. Подробные формулы, ограничения и отчёты находятся в docs рядом с программой.";
 
-  public const string EnglishHelp=@"GEARLAB 6.3 — HELP
+  public const string EnglishHelp=@"GEARLAB 6.4 — HELP
 
 REDUCERS
 Choose one of 13 transmission types using categories and search. Each type retains its edited parameters. Enter dimensions, then click Calculate or press Enter. Both decimal separators are accepted. Invalid fields are highlighted; exports are disabled while edits are pending. Automatic fitting locks dimensions it controls; turn it off to enter those dimensions manually. Failed fitting preserves your inputs.
@@ -75,7 +75,7 @@ The overall size limits the working mechanism in its plane; the complete motor a
 The PTK reducer uses a fixed rigid ring, circular eccentric, balls and an output separator. All bearing previews include grooved races, balls and cages. These are dimensional models, with no assigned catalog load rating or service life.
 
 VIEWPORT AND ANIMATION
-Choose complete or exploded 3D, top profile, axial section or bearing close-up in the view list. Left-drag orbits; middle / Shift+left-drag pans; wheel zooms; F/Home frames all. Play/Pause controls motion. Set playback speed in Preferences. The component tree supports search, visibility and isolation. Sections and individual part offsets affect the preview; STEP/STL use assembly positions. Esc cancels dragging. Reset part/all restores positions.
+Choose complete or exploded 3D, top profile, axial section or bearing close-up in the view list. Left-drag orbits; middle / Shift+left-drag pans; wheel zooms; F/Home frames all. Play/Pause controls motion. Set playback speed directly beside Play using Speed × (0.01–10×); it is saved and synchronized across workspaces. The component tree supports search, visibility and isolation. Sections and individual part offsets affect the preview; STEP/STL use assembly positions. Esc cancels dragging. Reset part/all restores positions.
 
 EXPORT
 The Export menu provides STEP, SVG, DXF, CSV and separate printable STL parts. Set the export scope in the right properties panel. Preview visibility and clipping do not change export scope. Exact STEP runs in the background and supports cancellation. The preview does not need the native CAD worker. Dimensions are in millimeters. Confirm units when importing into CAD or a slicer.
@@ -87,7 +87,7 @@ ROBOTICS
 Build a joint tree and set axes, limits, motors, loads and dimensions. Joint controllers change the displayed pose with undo/redo and update static loads. Rebuild housing after geometric changes; stale housing cannot be exported. A joint accepts a sequential train with one final output. Physical motors are not connected by this application. Robot autosave creates recovery copies; save your main project file separately.
 
 PREFERENCES
-Appearance provides dark/light Blender-inspired themes. Colors provides 17 editable interface/viewport colors using swatches or #RRGGBB. 3D and animation controls preview quality, camera sensitivity, snapping and playback speed. Language switches Russian/English. Saving configures robot recovery copies. Click Apply to save and update existing/new workspaces. Cancel discards subsequent unsaved changes. Restore defaults prepares defaults until you click Apply. Colors and language persist between sessions. Project names and numeric parameters retain their original data.
+Appearance provides dark/light Blender-inspired themes. Colors provides 17 editable interface/viewport colors using swatches or #RRGGBB. 3D and animation controls preview quality, camera sensitivity, snapping and playback speed. Language switches Russian/English immediately, including the RU/EN menu in the top right. Saving configures robot recovery copies. Drag the reducer properties header or click ↗ to detach it. Resize with the splitter/window edges; ←/→ dock it left/right and X returns it to the workspace. Layout persists. Click Apply to save other preferences. Cancel discards subsequent unsaved changes. Restore defaults prepares defaults until you click Apply. Colors and language persist between sessions. Project names and numeric parameters retain their original data.
 
 PROJECTS
 Use Ctrl+S to save and Ctrl+O to open. Formats: .gear.json, .train.json, .robot.json. Older wave projects migrate to the shared PTK editor. Keep user projects in your own folder. Recovery copies do not replace normal saving. The old custom mechanism, CAD Studio and polygon editors are no longer in the user interface.

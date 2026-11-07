@@ -4,7 +4,7 @@ namespace GearLab {
 
  public sealed partial class WaveReducerForm:Form {
 
-  readonly CADKernel kernel=new CADKernel();readonly WpfScene scene=new WpfScene();readonly ElementHost host=new ElementHost();readonly WaveDiagram diagram=new WaveDiagram();readonly Timer timer=new Timer();readonly Label metrics=new Label(),status=new Label(),heading=new Label();readonly CADValueEditor editor;readonly FlowLayoutPanel actions=new FlowLayoutPanel();readonly ComboBox view=new ComboBox();readonly DataGridView parts=new DataGridView();readonly TextBox notes=new TextBox();readonly List<Button> nativeButtons=new List<Button>();readonly NumericUpDown speed=new NumericUpDown();readonly System.Diagnostics.Stopwatch watch=System.Diagnostics.Stopwatch.StartNew();
+  readonly CADKernel kernel=new CADKernel();readonly WpfScene scene=new WpfScene();readonly ElementHost host=new ElementHost();readonly WaveDiagram diagram=new WaveDiagram();readonly Timer timer=new Timer();readonly Label metrics=new Label(),status=new Label(),heading=new Label();readonly CADValueEditor editor;readonly FlowLayoutPanel actions=new FlowLayoutPanel();readonly ComboBox view=new EditorComboBox();readonly DataGridView parts=new DataGridView();readonly TextBox notes=new TextBox();readonly List<Button> nativeButtons=new List<Button>();readonly NumericUpDown speed=new NumericUpDown();readonly System.Diagnostics.Stopwatch watch=System.Diagnostics.Stopwatch.StartNew();
 
   WaveParameters model;CADDocument document;bool busy,playing,closing,disposed;double phase,last;Func<CADFeature,Task<bool>> insert;CADKernel shared;Action returnToTarget;bool hasTargetButton;
 

@@ -11,6 +11,9 @@ namespace GearLab {
 
   public static AppSettings Current=Load();
   public static event Action Changed;
+  public static void SetLanguage(GearLanguage language){if(Current.Language==language)return;var settings=Current.Clone();settings.Language=language;Commit(settings);}
+  public static void SetAnimationSpeed(double speed){if(Math.Abs(Current.AnimationScale-speed)<1e-10)return;var settings=Current.Clone();settings.AnimationScale=speed;Commit(settings);}
+
   public int FormatVersion{get;set;}
   public GearLanguage Language{get;set;}
   public Dictionary<string,string> Colors{get;set;}

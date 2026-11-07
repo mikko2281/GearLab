@@ -4,7 +4,7 @@ namespace GearLab {
 
  public sealed partial class PolygonForm:Form {
 
-  internal MeshDocument Document;internal readonly WpfScene Scene=new WpfScene();readonly ElementHost host=new ElementHost();readonly DataGridView vertices=new DataGridView();readonly ListBox faces=new ListBox();readonly ComboBox mode=new ComboBox();readonly SafeNumber distance=new SafeNumber(),step=new SafeNumber();readonly Label info=new Label();readonly Stack<string> undo=new Stack<string>(),redo=new Stack<string>();string saved,path,checkpoint;int selectedVertex=-1,selectedFace=-1;bool syncing,disposed,allowClose;System.Windows.Point mouse;Func<MeshDocument,bool> accept;ToolStripButton apply;
+  internal MeshDocument Document;internal readonly WpfScene Scene=new WpfScene();readonly ElementHost host=new ElementHost();readonly DataGridView vertices=new DataGridView();readonly ListBox faces=new ListBox();readonly ComboBox mode=new EditorComboBox();readonly SafeNumber distance=new SafeNumber(),step=new SafeNumber();readonly Label info=new Label();readonly Stack<string> undo=new Stack<string>(),redo=new Stack<string>();string saved,path,checkpoint;int selectedVertex=-1,selectedFace=-1;bool syncing,disposed,allowClose;System.Windows.Point mouse;Func<MeshDocument,bool> accept;ToolStripButton apply;
 
   public PolygonForm():this(MeshDocument.Cube(),null){}
 

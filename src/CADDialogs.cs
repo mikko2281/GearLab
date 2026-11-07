@@ -4,7 +4,7 @@ namespace GearLab {
 
  public sealed class CADValueEditor:TableLayoutPanel {
 
-  readonly Dictionary<string,Control> inputs=new Dictionary<string,Control>();public CADValueEditor(Dictionary<string,string> values){AutoSize=true;Dock=DockStyle.Top;ColumnCount=2;ColumnStyles.Add(new ColumnStyle(SizeType.Percent,55));ColumnStyles.Add(new ColumnStyle(SizeType.Percent,45));foreach(var pair in values){var label=new Label{Text=CADTools.Field(pair.Key),AutoSize=true,Margin=new Padding(4,9,4,4)};Control input;string[] options=pair.Key=="Plane"?new[]{"XY","XZ","YZ"}:pair.Key=="Mode"?new[]{"join","cut","intersect"}:new[]{"Through","Copy","KeepTools"}.Contains(pair.Key)?new[]{"false","true"}:null;if(options!=null){var c=new ComboBox{DropDownStyle=ComboBoxStyle.DropDownList,Width=160};c.Items.AddRange(options);c.SelectedItem=pair.Value;input=c;}else input=new TextBox{Text=pair.Value,Width=160};input.Margin=new Padding(4,6,4,4);input.Dock=DockStyle.Fill;inputs[pair.Key]=input;RowStyles.Add(new RowStyle(SizeType.AutoSize));Controls.Add(label,0,RowCount);Controls.Add(input,1,RowCount);RowCount++;}}
+  readonly Dictionary<string,Control> inputs=new Dictionary<string,Control>();public CADValueEditor(Dictionary<string,string> values){AutoSize=true;Dock=DockStyle.Top;ColumnCount=2;ColumnStyles.Add(new ColumnStyle(SizeType.Percent,55));ColumnStyles.Add(new ColumnStyle(SizeType.Percent,45));foreach(var pair in values){var label=new Label{Text=CADTools.Field(pair.Key),AutoSize=true,Margin=new Padding(4,9,4,4)};Control input;string[] options=pair.Key=="Plane"?new[]{"XY","XZ","YZ"}:pair.Key=="Mode"?new[]{"join","cut","intersect"}:new[]{"Through","Copy","KeepTools"}.Contains(pair.Key)?new[]{"false","true"}:null;if(options!=null){var c=new EditorComboBox{DropDownStyle=ComboBoxStyle.DropDownList,Width=160};c.Items.AddRange(options);c.SelectedItem=pair.Value;input=c;}else input=new TextBox{Text=pair.Value,Width=160};input.Margin=new Padding(4,6,4,4);input.Dock=DockStyle.Fill;inputs[pair.Key]=input;RowStyles.Add(new RowStyle(SizeType.AutoSize));Controls.Add(label,0,RowCount);Controls.Add(input,1,RowCount);RowCount++;}}
 
   public void SetValue(string key,string value){inputs[key].Text=value;}
 
@@ -14,7 +14,7 @@ namespace GearLab {
 
  public sealed class CADOperationDialog:Form {
 
-  readonly TextBox name=new TextBox();readonly ComboBox target=new ComboBox(),operation=new ComboBox();readonly CheckedListBox sketches=new CheckedListBox(),tools=new CheckedListBox(),faces=new CheckedListBox(),edges=new CheckedListBox();readonly CADValueEditor values;readonly CADFeature original;readonly TextBox point=new TextBox();readonly Button preview=new Button();public CADFeature Feature;public Func<CADFeature,Task<bool>> Preview;bool previewBusy;
+  readonly TextBox name=new TextBox();readonly ComboBox target=new EditorComboBox(),operation=new EditorComboBox();readonly CheckedListBox sketches=new CheckedListBox(),tools=new CheckedListBox(),faces=new CheckedListBox(),edges=new CheckedListBox();readonly CADValueEditor values;readonly CADFeature original;readonly TextBox point=new TextBox();readonly Button preview=new Button();public CADFeature Feature;public Func<CADFeature,Task<bool>> Preview;bool previewBusy;
 
   sealed class Item {public string Id,Text;public override string ToString(){return Text;}}
 

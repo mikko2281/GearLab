@@ -18,11 +18,11 @@ namespace GearLab {
 
  public sealed class GearViewerControl:F.UserControl {
 
-  public readonly WpfScene Scene=new WpfScene();readonly ElementHost host=new ElementHost();readonly F.TreeView tree=new ComponentTree();readonly F.TextBox search=new F.TextBox();readonly F.ComboBox cutAxis=new F.ComboBox();readonly F.TrackBar cutPosition=new EditorTrackBar();readonly F.CheckBox reverse=new F.CheckBox();readonly F.Label cutLabel=new F.Label();readonly F.Timer cutDelay=new F.Timer();readonly F.CheckBox moveParts=new F.CheckBox();readonly F.Label selectedPart=new F.Label();readonly SafeNumber[] placement=new SafeNumber[3];bool syncingPlacement;bool syncing;Result result;bool pendingHide;public event Action VisibilityChanged;
+  public readonly WpfScene Scene=new WpfScene();readonly ElementHost host=new ElementHost();readonly F.TreeView tree=new ComponentTree();readonly F.TextBox search=new F.TextBox();readonly F.ComboBox cutAxis=new EditorComboBox();readonly F.TrackBar cutPosition=new EditorTrackBar();readonly F.CheckBox reverse=new F.CheckBox();readonly F.Label cutLabel=new F.Label();readonly F.Timer cutDelay=new F.Timer();readonly F.CheckBox moveParts=new F.CheckBox();readonly F.Label selectedPart=new F.Label();readonly SafeNumber[] placement=new SafeNumber[3];bool syncingPlacement;bool syncing;Result result;bool pendingHide;public event Action VisibilityChanged;
 
   public GearViewerControl(){
 
-   BackColor=Color.FromArgb(246,249,252);Dock=F.DockStyle.Fill;var split=new F.SplitContainer{Size=new Size(850,600),SplitterDistance=600,Dock=F.DockStyle.Fill,FixedPanel=F.FixedPanel.Panel2,Panel1MinSize=100,Panel2MinSize=210,SplitterWidth=5};Controls.Add(split);split.SizeChanged+=(s,e)=>{if(split.Width>360)split.SplitterDistance=Math.Max(100,split.Width-245);};host.Dock=F.DockStyle.Fill;host.Child=Scene.Root;split.Panel1.Controls.Add(host);
+   BackColor=Color.FromArgb(246,249,252);Dock=F.DockStyle.Fill;var split=new F.SplitContainer{Size=new Size(850,600),SplitterDistance=600,Dock=F.DockStyle.Fill,FixedPanel=F.FixedPanel.Panel2,Panel1MinSize=100,Panel2MinSize=210,SplitterWidth=5};Controls.Add(split);host.Dock=F.DockStyle.Fill;host.Child=Scene.Root;split.Panel1.Controls.Add(host);
 
    var panel=new F.FlowLayoutPanel{Dock=F.DockStyle.Fill,FlowDirection=F.FlowDirection.TopDown,WrapContents=false,AutoScroll=true,Padding=new F.Padding(8),BackColor=Color.FromArgb(237,243,248)};split.Panel2.Controls.Add(panel);panel.Controls.Add(new F.Label{Text="КОМПОНЕНТЫ",Width=215,Height=24,Font=new Font("Segoe UI",10,FontStyle.Bold)});
 
@@ -30,7 +30,7 @@ namespace GearLab {
 
    var buttons=new F.FlowLayoutPanel{Width=220,Height=64,WrapContents=true,Margin=new F.Padding(0)};buttons.Controls.Add(Button("Показать всё",103,()=>{Scene.Hidden.Clear();Scene.HideHousing=false;Changed();}));buttons.Controls.Add(Button("Механизм",103,()=>{foreach(var p in Parts())if(p.Role=="housing"||p.Role=="fastener"||p.Reference)Scene.Hidden.Add(p.Id);else Scene.Hidden.Remove(p.Id);Changed();}));buttons.Controls.Add(Button("Изолировать",103,()=>{if(tree.SelectedNode==null)return;var ids=new HashSet<string>(Ids(tree.SelectedNode));Scene.Hidden.Clear();foreach(var p in Parts())if(!ids.Contains(p.Id))Scene.Hidden.Add(p.Id);Changed();Scene.Fit();}));buttons.Controls.Add(Button("Вписать",103,()=>Scene.Fit()));panel.Controls.Add(buttons);BuildPlacementControls(panel);
 
-   panel.Controls.Add(new F.Label{Text="КАМЕРА",Width=215,Height=24,Font=new Font("Segoe UI",10,FontStyle.Bold)});var cameras=new F.ComboBox{Width=215,DropDownStyle=F.ComboBoxStyle.DropDownList,AccessibleName="Вид камеры"};cameras.Items.AddRange(new[]{"Изометрия","Сверху","Спереди","Справа"});cameras.SelectedIndex=0;cameras.SelectedIndexChanged+=(s,e)=>{Scene.Camera.Preset((string)cameras.SelectedItem);};panel.Controls.Add(cameras);
+   panel.Controls.Add(new F.Label{Text="КАМЕРА",Width=215,Height=24,Font=new Font("Segoe UI",10,FontStyle.Bold)});var cameras=new EditorComboBox{Width=215,DropDownStyle=F.ComboBoxStyle.DropDownList,AccessibleName="Вид камеры"};cameras.Items.AddRange(new[]{"Изометрия","Сверху","Спереди","Справа"});cameras.SelectedIndex=0;cameras.SelectedIndexChanged+=(s,e)=>{Scene.Camera.Preset((string)cameras.SelectedItem);};panel.Controls.Add(cameras);
 
    panel.Controls.Add(new F.Label{Text="СЕЧЕНИЕ МОДЕЛИ",Width=215,Height=24,Margin=new F.Padding(0,12,0,0),Font=new Font("Segoe UI",10,FontStyle.Bold)});cutAxis.Width=215;cutAxis.DropDownStyle=F.ComboBoxStyle.DropDownList;cutAxis.AccessibleName="Секущая плоскость";cutAxis.Items.AddRange(new[]{"Без сечения","XY · глубина по Z","XZ · сдвиг по Y","YZ · сдвиг по X"});cutAxis.SelectedIndex=0;cutAxis.SelectedIndexChanged+=(s,e)=>ApplySection();panel.Controls.Add(cutAxis);
 
@@ -46,7 +46,7 @@ namespace GearLab {
 
    moveParts.Text="Перетаскивать детали мышью";moveParts.Width=215;moveParts.Height=28;moveParts.AccessibleName="Режим перемещения деталей";moveParts.CheckedChanged+=(s,e)=>Scene.SetMoveMode(moveParts.Checked);panel.Controls.Add(moveParts);
 
-   var axis=new F.ComboBox{Width=215,DropDownStyle=F.ComboBoxStyle.DropDownList,AccessibleName="Ось перемещения детали"};axis.Items.AddRange(new[]{"В плоскости экрана","Только X","Только Y","Только Z"});axis.SelectedIndex=0;axis.SelectedIndexChanged+=(s,e)=>Scene.MoveAxis=axis.SelectedIndex-1;panel.Controls.Add(axis);
+   var axis=new EditorComboBox{Width=215,DropDownStyle=F.ComboBoxStyle.DropDownList,AccessibleName="Ось перемещения детали"};axis.Items.AddRange(new[]{"В плоскости экрана","Только X","Только Y","Только Z"});axis.SelectedIndex=0;axis.SelectedIndexChanged+=(s,e)=>Scene.MoveAxis=axis.SelectedIndex-1;panel.Controls.Add(axis);
 
    selectedPart.Width=215;selectedPart.Height=40;selectedPart.AutoEllipsis=true;panel.Controls.Add(selectedPart);
 
