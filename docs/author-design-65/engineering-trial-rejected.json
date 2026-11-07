@@ -1,0 +1,5756 @@
+{
+  "Status": "ENGINEERING_STARTER_NOT_PRODUCTION_ROBOT",
+  "Printer": "Bambu Lab P1S",
+  "Material": "PETG",
+  "NozzleAssumed": 0.4,
+  "DensityAssumed": 1270,
+  "AllowableStressAssumed": 8,
+  "Motor": "Previous NEMA17 mounting dimensions",
+  "WorkingMotorTorqueKnown": false,
+  "BuildErrors": [],
+  "ConnectionErrors": [],
+  "MassEstimate": 18.20986194733359,
+  "Loads": [
+    {
+      "Id": "author65_j1",
+      "Unit": "Н·м",
+      "Message": "Проходит статическую оценку",
+      "SignedEffort": 0,
+      "Required": 0,
+      "Available": 0,
+      "MotorRequired": 0,
+      "MotorRpm": 66.66666666666667,
+      "Margin": 0,
+      "Enough": true,
+      "SpeedKnown": true
+    },
+    {
+      "Id": "author65_j2",
+      "Unit": "Н·м",
+      "Message": "Момента / усилия недостаточно",
+      "SignedEffort": 49.73041963289576,
+      "Required": 99.46083926579152,
+      "Available": 0,
+      "MotorRequired": 1.776086415460563,
+      "MotorRpm": 66.66666666666667,
+      "Margin": -99.46083926579152,
+      "Enough": false,
+      "SpeedKnown": true
+    },
+    {
+      "Id": "author65_j3",
+      "Unit": "Н·м",
+      "Message": "Момента / усилия недостаточно",
+      "SignedEffort": 22.649789694982324,
+      "Required": 45.29957938996465,
+      "Available": 0,
+      "MotorRequired": 0.8089210605350831,
+      "MotorRpm": 66.66666666666667,
+      "Margin": -45.29957938996465,
+      "Enough": false,
+      "SpeedKnown": true
+    },
+    {
+      "Id": "author65_j4",
+      "Unit": "Н·м",
+      "Message": "Момента / усилия недостаточно",
+      "SignedEffort": 29.30272941101655,
+      "Required": 58.6054588220331,
+      "Available": 0,
+      "MotorRequired": 2.0930521007868963,
+      "MotorRpm": 33.333333333333336,
+      "Margin": -58.6054588220331,
+      "Enough": false,
+      "SpeedKnown": true
+    },
+    {
+      "Id": "author65_j5",
+      "Unit": "Н·м",
+      "Message": "Момента / усилия недостаточно",
+      "SignedEffort": 8.082281246717498,
+      "Required": 16.164562493434996,
+      "Available": 0,
+      "MotorRequired": 0.5773058033369641,
+      "MotorRpm": 33.333333333333336,
+      "Margin": -16.164562493434996,
+      "Enough": false,
+      "SpeedKnown": true
+    },
+    {
+      "Id": "author65_j6",
+      "Unit": "Н·м",
+      "Message": "Момента / усилия недостаточно",
+      "SignedEffort": 2.610802218943135,
+      "Required": 5.22160443788627,
+      "Available": 0,
+      "MotorRequired": 0.1864858727816525,
+      "MotorRpm": 33.333333333333336,
+      "Margin": -5.22160443788627,
+      "Enough": false,
+      "SpeedKnown": true
+    },
+    {
+      "Id": "author65_j7",
+      "Unit": "Н·м",
+      "Message": "Момента / усилия недостаточно",
+      "SignedEffort": -0.15446630013332166,
+      "Required": 0.3089326002666433,
+      "Available": 0,
+      "MotorRequired": 0.011033307152380118,
+      "MotorRpm": 33.333333333333336,
+      "Margin": -0.3089326002666433,
+      "Enough": false,
+      "SpeedKnown": true
+    }
+  ],
+  "Parts": [
+    {
+      "Id": "author65_j1_proc_rear_cover",
+      "Label": "Монтажная крышка · общий крепёж с предыдущим звеном",
+      "Size": [
+        122.5999984741211,
+        122.47654724121094,
+        6
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j1_proc_front_support",
+      "Label": "Опора подшипника · стопорный уступ",
+      "Size": [
+        122.5999984741211,
+        122.47654724121094,
+        20
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j1_proc_actuator_right",
+      "Label": "Несущий корпус привода · right",
+      "Size": [
+        122.5996322631836,
+        95.1999969482422,
+        61.08846816420557
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j1_proc_actuator_left",
+      "Label": "Несущий корпус привода · left",
+      "Size": [
+        122.5996322631836,
+        95.1999969482422,
+        61.08846816420557
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j1_proc_frame_0",
+      "Label": "Монокок · замкнутый несущий короб между посадками",
+      "Size": [
+        261.1699676513672,
+        258.90611267089844,
+        132.3707466125488
+      ],
+      "STLExported": false,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j1_proc_skin_main_0",
+      "Label": "Корпус по референсу · непрерывная чёрная оболочка",
+      "Size": [
+        278.81493377685547,
+        282.9297409057617,
+        153.84571838378903
+      ],
+      "STLExported": false,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j1_proc_skin_panel_0",
+      "Label": "Корпус по референсу · утопленная оранжевая крышка",
+      "Size": [
+        108.07152012865998,
+        103.62192129299106,
+        76.29471111297605
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j1_proc_base",
+      "Label": "Основание · соединённая опора статора",
+      "Size": [
+        138.60000610351562,
+        138.46043395996094,
+        24.800003051757812
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j2_proc_joint_trim",
+      "Label": "Кольцевая накладка сустава · референс",
+      "Size": [
+        121.16948397832074,
+        121.16948397832073,
+        2.3999996185302734
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j2_proc_rear_cover",
+      "Label": "Монтажная крышка · общий крепёж с предыдущим звеном",
+      "Size": [
+        122.5999984741211,
+        122.47654724121094,
+        6
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j2_proc_front_support",
+      "Label": "Опора подшипника · стопорный уступ",
+      "Size": [
+        122.5999984741211,
+        122.47654724121094,
+        20
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j2_proc_actuator_right",
+      "Label": "Несущий корпус привода · right",
+      "Size": [
+        122.5996322631836,
+        95.1999969482422,
+        61.08846816420557
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j2_proc_actuator_left",
+      "Label": "Несущий корпус привода · left",
+      "Size": [
+        122.5996322631836,
+        95.1999969482422,
+        61.08846816420557
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j2_proc_frame_0",
+      "Label": "РОБОТ1 · Г-образный несущий корпус",
+      "Size": [
+        350.1197090148926,
+        331.6767349243164,
+        160.6251106262207
+      ],
+      "STLExported": false,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j2_proc_skin_main_0",
+      "Label": "Корпус по референсу · непрерывная чёрная оболочка",
+      "Size": [
+        337.04107284545904,
+        355.5196914672851,
+        163.40079498291016
+      ],
+      "STLExported": false,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j2_proc_skin_panel_0",
+      "Label": "Корпус по референсу · утопленная оранжевая крышка",
+      "Size": [
+        184.8100998401642,
+        198.78401947021482,
+        7.200004577636719
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j3_proc_joint_trim",
+      "Label": "Кольцевая накладка сустава · референс",
+      "Size": [
+        121.16948397832074,
+        121.16948397832073,
+        2.3999996185302734
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j3_proc_rear_cover",
+      "Label": "Монтажная крышка · общий крепёж с предыдущим звеном",
+      "Size": [
+        122.5999984741211,
+        122.47654724121094,
+        6
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j3_proc_front_support",
+      "Label": "Опора подшипника · стопорный уступ",
+      "Size": [
+        122.5999984741211,
+        122.47654724121094,
+        20
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j3_proc_actuator_right",
+      "Label": "Несущий корпус привода · right",
+      "Size": [
+        122.5996322631836,
+        95.1999969482422,
+        61.08846816420557
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j3_proc_actuator_left",
+      "Label": "Несущий корпус привода · left",
+      "Size": [
+        122.5996322631836,
+        95.1999969482422,
+        61.08846816420557
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j3_proc_frame_0",
+      "Label": "РОБОТ1 · Г-образный несущий корпус",
+      "Size": [
+        473.4687824063285,
+        414.94283931706207,
+        183.37582778930656
+      ],
+      "STLExported": false,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j3_proc_skin_main_0",
+      "Label": "Корпус по референсу · непрерывная чёрная оболочка",
+      "Size": [
+        479.33109638099506,
+        419.0393482599237,
+        188.7747268676757
+      ],
+      "STLExported": false,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j3_proc_skin_panel_0",
+      "Label": "Корпус по референсу · утопленная оранжевая крышка",
+      "Size": [
+        314.34231921289427,
+        271.2641713258865,
+        7.200004577636719
+      ],
+      "STLExported": false,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j4_proc_joint_trim",
+      "Label": "Кольцевая накладка сустава · референс",
+      "Size": [
+        97.19999694824219,
+        97.10212707519531,
+        2.3999996185302734
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j4_proc_rear_cover",
+      "Label": "Монтажная крышка · общий крепёж с предыдущим звеном",
+      "Size": [
+        98.5999984741211,
+        98.50071716308594,
+        6
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j4_proc_front_support",
+      "Label": "Опора подшипника · стопорный уступ",
+      "Size": [
+        98.5999984741211,
+        98.50071716308594,
+        14
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j4_proc_actuator_right",
+      "Label": "Несущий корпус привода · right",
+      "Size": [
+        98.59954071044922,
+        85.1999969482422,
+        49.10054931044581
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j4_proc_actuator_left",
+      "Label": "Несущий корпус привода · left",
+      "Size": [
+        98.59954071044922,
+        85.1999969482422,
+        49.10054931044581
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j4_proc_frame_0",
+      "Label": "Монокок · замкнутый несущий короб между посадками",
+      "Size": [
+        424.4562384425485,
+        402.7490038924762,
+        127.2004890441895
+      ],
+      "STLExported": false,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j4_proc_skin_main_0",
+      "Label": "Корпус по референсу · непрерывная чёрная оболочка",
+      "Size": [
+        437.6654286641694,
+        415.808845805482,
+        146.8606910705567
+      ],
+      "STLExported": false,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j4_proc_skin_panel_0",
+      "Label": "Корпус по референсу · утопленная оранжевая крышка",
+      "Size": [
+        266.96462779733935,
+        286.0733441922583,
+        89.85580444335942
+      ],
+      "STLExported": false,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j5_proc_joint_trim",
+      "Label": "Кольцевая накладка сустава · референс",
+      "Size": [
+        97.19999694824219,
+        97.10212707519531,
+        2.3999996185302734
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j5_proc_rear_cover",
+      "Label": "Монтажная крышка · общий крепёж с предыдущим звеном",
+      "Size": [
+        98.5999984741211,
+        98.50071716308594,
+        6
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j5_proc_front_support",
+      "Label": "Опора подшипника · стопорный уступ",
+      "Size": [
+        98.5999984741211,
+        98.50071716308594,
+        14
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j5_proc_actuator_right",
+      "Label": "Несущий корпус привода · right",
+      "Size": [
+        98.59954071044922,
+        85.1999969482422,
+        49.10054931044581
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j5_proc_actuator_left",
+      "Label": "Несущий корпус привода · left",
+      "Size": [
+        98.59954071044922,
+        85.1999969482422,
+        49.10054931044581
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j5_proc_frame_0",
+      "Label": "Монокок · замкнутый несущий короб между посадками",
+      "Size": [
+        229.28302688413822,
+        202.67414335496582,
+        204.24159622192383
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j5_proc_skin_main_0",
+      "Label": "Корпус по референсу · непрерывная чёрная оболочка",
+      "Size": [
+        241.91729060894102,
+        216.09839981098887,
+        216.08261489868164
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j5_proc_skin_panel_0",
+      "Label": "Корпус по референсу · утопленная оранжевая крышка",
+      "Size": [
+        113.94682360555345,
+        99.00515508689045,
+        85.19601631164554
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j6_proc_joint_trim",
+      "Label": "Кольцевая накладка сустава · референс",
+      "Size": [
+        97.19999694824219,
+        97.10212707519531,
+        2.3999996185302734
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j6_proc_rear_cover",
+      "Label": "Монтажная крышка · общий крепёж с предыдущим звеном",
+      "Size": [
+        98.5999984741211,
+        98.50071716308594,
+        6
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j6_proc_front_support",
+      "Label": "Опора подшипника · стопорный уступ",
+      "Size": [
+        98.5999984741211,
+        98.50071716308594,
+        14
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j6_proc_actuator_right",
+      "Label": "Несущий корпус привода · right",
+      "Size": [
+        98.59954071044922,
+        85.1999969482422,
+        49.10054931044581
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j6_proc_actuator_left",
+      "Label": "Несущий корпус привода · left",
+      "Size": [
+        98.59954071044922,
+        85.1999969482422,
+        49.10054931044581
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j6_proc_frame_0",
+      "Label": "Монокок · замкнутый несущий короб между посадками",
+      "Size": [
+        143.11886573555026,
+        134.28924229547363,
+        114.05642509460449
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j6_proc_skin_main_0",
+      "Label": "Корпус по референсу · непрерывная чёрная оболочка",
+      "Size": [
+        149.5321860792152,
+        156.5372095675126,
+        130.77275848388672
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j6_proc_skin_panel_0",
+      "Label": "Корпус по референсу · утопленная оранжевая крышка",
+      "Size": [
+        64.02244811829131,
+        40.15435697352905,
+        36.882123947143555
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j7_proc_joint_trim",
+      "Label": "Кольцевая накладка сустава · референс",
+      "Size": [
+        97.19999694824219,
+        97.10212707519531,
+        2.3999996185302734
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j7_proc_rear_cover",
+      "Label": "Монтажная крышка · общий крепёж с предыдущим звеном",
+      "Size": [
+        98.5999984741211,
+        98.50071716308594,
+        6
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j7_proc_front_support",
+      "Label": "Опора подшипника · стопорный уступ",
+      "Size": [
+        98.5999984741211,
+        98.50071716308594,
+        14
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j7_proc_actuator_right",
+      "Label": "Несущий корпус привода · right",
+      "Size": [
+        98.59954071044922,
+        85.1999969482422,
+        49.10054931044581
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j7_proc_actuator_left",
+      "Label": "Несущий корпус привода · left",
+      "Size": [
+        98.59954071044922,
+        85.1999969482422,
+        49.10054931044581
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j7_proc_frame_0",
+      "Label": "Монокок · замкнутый несущий короб между посадками",
+      "Size": [
+        107.28465652465822,
+        113.44186878204346,
+        84.25751495361327
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j7_proc_skin_main_0",
+      "Label": "Корпус по референсу · непрерывная чёрная оболочка",
+      "Size": [
+        145.22422802971417,
+        71.07934197488046,
+        96.56773757934569
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    },
+    {
+      "Id": "author65_j7_proc_skin_panel_0",
+      "Label": "Корпус по референсу · утопленная оранжевая крышка",
+      "Size": [
+        74.36052058859758,
+        78.1598014035817,
+        52.79612350463866
+      ],
+      "STLExported": true,
+      "Status": "PROTOTYPE_NOT_APPROVED_FOR_LOAD"
+    }
+  ],
+  "Issues": [
+    {
+      "Id": "author65_j1",
+      "Issues": [
+        {
+          "Code": "cover_enclosure",
+          "Status": "pass",
+          "Message": "Каркас вне цельного контура: 0 мм³.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "shell_continuity",
+          "Status": "pass",
+          "Message": "Цельная кассетная оболочка до отделения крышки.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "monocoque_structure",
+          "Status": "pass",
+          "Message": "Кассетная геометрия: непрерывный короб вместо трубы с наружной седловой лапкой.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "inset_panel",
+          "Status": "pass",
+          "Message": "Отдельная закруглённая крышка в углублении с чёрным кантом; утопленных винтов: 2.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца stator_mount: 4 × Ø3.4 мм.",
+          "PartId": "rear_cover",
+          "Position": [
+            0,
+            0,
+            -115.2
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца rotor_output: 4 × Ø2.5 мм.",
+          "PartId": "output_flange",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца link_input: 4 × Ø3.4 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца link_child: 4 × Ø3.4 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            -9.135484118998583,
+            -114.83720185509496,
+            167.86646251132294
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца base_mount: 4 × Ø3.4 мм.",
+          "PartId": "base",
+          "Position": [
+            0,
+            0,
+            -115.2
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "root_contact",
+          "Status": "pass",
+          "Message": "Контакт несущего фланца с выходным: 0.0 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "drive_selection",
+          "Status": "pending",
+          "Message": "Фланцы соединены геометрически. Внутреннюю передачу и её выходной носитель нужно согласовать с выбранным редуктором; передаточное число само по себе не задаёт механизм.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cable_routing",
+          "Status": "pending",
+          "Message": "Внутренние проходы в каркасе сохранены. Гибкая проводка через шарниры, разъёмы и допустимый перекрут требуют отдельной трассировки; условные наружные стержни не показываются как готовые кабели.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "strength",
+          "Status": "pending",
+          "Message": "Прочность стыков, вставок, валов и печатного материала требует расчёта по реальным данным.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-109.2_0",
+          "Position": [
+            39.45655839020898,
+            39.456558390209,
+            -106.19999999999999
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-109.2_1",
+          "Position": [
+            -39.45655839019999,
+            39.456558390209,
+            -106.19999999999999
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-109.2_2",
+          "Position": [
+            -39.456558390199994,
+            -39.4565583902,
+            -106.19999999999999
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-109.2_3",
+          "Position": [
+            39.45655839020899,
+            -39.45655839019999,
+            -106.19999999999997
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-14.0_0",
+          "Position": [
+            -39.4565583902,
+            39.456558390209004,
+            -17
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-14.0_1",
+          "Position": [
+            39.45655839020899,
+            39.456558390209,
+            -17
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-14.0_2",
+          "Position": [
+            39.45655839020899,
+            -39.45655839020001,
+            -16.999999999999996
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-14.0_3",
+          "Position": [
+            -39.45655839020001,
+            -39.45655839020001,
+            -17
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 122.6 × 95.2 × 61.2 мм.",
+          "PartId": "actuator_left",
+          "Position": [
+            -6.543269403680364e-11,
+            -34.324062303227365,
+            -61.247228406261705
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 122.6 × 95.2 × 61.2 мм.",
+          "PartId": "actuator_right",
+          "Position": [
+            -4.3979788705329645e-11,
+            34.32406230323249,
+            -61.24722840626148
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 122.6 × 122.6 × 20.0 мм.",
+          "PartId": "front_support",
+          "Position": [
+            -2.1328934616766634e-14,
+            -1.8873335533880744e-14,
+            -3.712925635267933
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 122.6 × 122.6 × 6.0 мм.",
+          "PartId": "rear_cover",
+          "Position": [
+            -1.5890612044688578e-14,
+            -1.3881713646993573e-14,
+            -112.19999999999996
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_0",
+          "Position": [
+            39.456558390209,
+            39.456558390209,
+            -119.33548387096776
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_1",
+          "Position": [
+            -39.4565583902,
+            39.456558390209,
+            -119.33548387096775
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_2",
+          "Position": [
+            -39.45655839020001,
+            -39.45655839020001,
+            -119.33548387096776
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_3",
+          "Position": [
+            39.456558390209,
+            -39.4565583902,
+            -119.33548387096775
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 27.4 мм.",
+          "PartId": "stator_front_0",
+          "Position": [
+            -39.4565583902,
+            39.45655839020899,
+            -3.249719306809857
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 27.4 мм.",
+          "PartId": "stator_front_1",
+          "Position": [
+            39.45655839020899,
+            39.45655839020899,
+            -3.249719306809857
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 27.4 мм.",
+          "PartId": "stator_front_2",
+          "Position": [
+            39.45655839020899,
+            -39.4565583902,
+            -3.2497193068098564
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 27.4 мм.",
+          "PartId": "stator_front_3",
+          "Position": [
+            -39.4565583902,
+            -39.4565583902,
+            -3.249719306809858
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 122.5 × 122.5 × 28.3 мм.",
+          "PartId": "output_flange",
+          "Position": [
+            -7.936432144026124e-15,
+            -5.223282421681278e-15,
+            8.283589525483112
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.0 × 7.6 × 7.3 мм.",
+          "PartId": "cassette_insert_1_0",
+          "Position": [
+            -13.415145448243468,
+            11.005526232242477,
+            92.99223358053197
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.5 × 7.3 × 7.0 мм.",
+          "PartId": "cassette_screw_1_0",
+          "Position": [
+            -13.206307079814387,
+            13.630719769642175,
+            95.11037435374864
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.0 × 7.6 × 7.3 мм.",
+          "PartId": "cassette_insert_1_1",
+          "Position": [
+            14.986421937811706,
+            8.746135863802584,
+            92.99223358053182
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.5 × 7.3 × 7.0 мм.",
+          "PartId": "cassette_screw_1_1",
+          "Position": [
+            15.195260306239335,
+            11.371329401201974,
+            95.11037435374847
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.0 × 7.6 × 7.3 мм.",
+          "PartId": "cassette_insert_-1_0",
+          "Position": [
+            -20.92083876559644,
+            -83.34446193692274,
+            35.648974977365164
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.5 × 7.3 × 7.0 мм.",
+          "PartId": "cassette_screw_-1_0",
+          "Position": [
+            -21.1296771340194,
+            -85.96965547432184,
+            33.53083420414705
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.0 × 7.6 × 7.3 мм.",
+          "PartId": "cassette_insert_-1_1",
+          "Position": [
+            7.480728620460491,
+            -85.60385230536282,
+            35.64897497736511
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.5 × 7.3 × 7.0 мм.",
+          "PartId": "cassette_screw_-1_1",
+          "Position": [
+            7.271890252032765,
+            -88.22904584276178,
+            33.530834204147105
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.0 × 7.6 × 7.3 мм.",
+          "PartId": "cassette_insert_-1_2",
+          "Position": [
+            -23.466895017517505,
+            -115.34955021984172,
+            75.56665477799926
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.5 × 7.3 × 7.0 мм.",
+          "PartId": "cassette_screw_-1_2",
+          "Position": [
+            -23.675733385950124,
+            -117.97474375728642,
+            73.4485140047721
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.0 × 7.6 × 7.3 мм.",
+          "PartId": "cassette_insert_-1_3",
+          "Position": [
+            4.934672368539543,
+            -117.6089405883354,
+            75.56665477802207
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.5 × 7.3 × 7.0 мм.",
+          "PartId": "cassette_screw_-1_3",
+          "Position": [
+            4.72583400011252,
+            -120.23413412566315,
+            73.44851400481012
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "warning",
+          "Message": "Нужна технологическая разрезка: 261.2 × 258.9 × 132.4 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            -5.2545257724539285,
+            -66.05178576052886,
+            93.82466243895807
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cover_anchors",
+          "Status": "pass",
+          "Message": "Крепёжные отверстия в замкнутой панели: 4.",
+          "PartId": "skin_main_0",
+          "Position": [
+            -6.057692580596061,
+            -76.14795840040374,
+            102.44882987657657
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "warning",
+          "Message": "Нужна технологическая разрезка: 278.8 × 282.9 × 154.0 мм.",
+          "PartId": "skin_main_0",
+          "Position": [
+            -6.057692580596061,
+            -76.14795840040374,
+            102.44882987657657
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cover_anchors",
+          "Status": "pass",
+          "Message": "Крепёжные отверстия в замкнутой панели: 2.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            2.1566792287333993,
+            27.11044137677948,
+            78.65630162608393
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 108.1 × 103.6 × 76.3 мм.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            2.1566792287333993,
+            27.11044137677948,
+            78.65630162608393
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_0",
+          "Position": [
+            -39.071892301240005,
+            39.071892301244006,
+            19.228141072740634
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_1",
+          "Position": [
+            39.07189230124399,
+            39.071892301244,
+            19.228141072740634
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_2",
+          "Position": [
+            39.07189230124399,
+            -39.07189230124,
+            19.228141072740634
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_3",
+          "Position": [
+            -39.071892301240005,
+            -39.07189230124,
+            19.228141072740634
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 138.6 × 138.6 × 24.8 мм.",
+          "PartId": "base",
+          "Position": [
+            -6.517900886246702e-16,
+            -3.4454666242294343e-12,
+            -128.61203195774303
+          ],
+          "Scope": "assembly"
+        }
+      ]
+    },
+    {
+      "Id": "author65_j2",
+      "Issues": [
+        {
+          "Code": "cover_enclosure",
+          "Status": "pass",
+          "Message": "Каркас вне цельного контура: 0 мм³.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "shell_continuity",
+          "Status": "pass",
+          "Message": "Цельная кассетная оболочка до отделения крышки.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "monocoque_structure",
+          "Status": "pass",
+          "Message": "Г-образное звено по РОБОТ1.blend: круглое колено и наружная опора следующего статора.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "inset_panel",
+          "Status": "pass",
+          "Message": "Отдельная закруглённая крышка в углублении с чёрным кантом; утопленных винтов: 4.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца stator_mount: 4 × Ø3.4 мм.",
+          "PartId": "rear_cover",
+          "Position": [
+            0,
+            0,
+            -115.2
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца rotor_output: 4 × Ø2.5 мм.",
+          "PartId": "output_flange",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца trim_mount: 4 × Ø5.7 мм.",
+          "PartId": "joint_trim",
+          "Position": [
+            0,
+            0,
+            6
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца link_input: 4 × Ø3.4 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца link_child: 4 × Ø3.4 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            -225.86369775903177,
+            207.21619378389258,
+            -32.50471270965083
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "root_contact",
+          "Status": "pass",
+          "Message": "Контакт несущего фланца с выходным: 0.0 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "drive_selection",
+          "Status": "pending",
+          "Message": "Фланцы соединены геометрически. Внутреннюю передачу и её выходной носитель нужно согласовать с выбранным редуктором; передаточное число само по себе не задаёт механизм.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cable_routing",
+          "Status": "pending",
+          "Message": "Внутренние проходы в каркасе сохранены. Гибкая проводка через шарниры, разъёмы и допустимый перекрут требуют отдельной трассировки; условные наружные стержни не показываются как готовые кабели.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "strength",
+          "Status": "pending",
+          "Message": "Прочность стыков, вставок, валов и печатного материала требует расчёта по реальным данным.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-109.2_0",
+          "Position": [
+            39.45655839020898,
+            39.456558390209,
+            -106.19999999999999
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-109.2_1",
+          "Position": [
+            -39.45655839019999,
+            39.456558390209,
+            -106.19999999999999
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-109.2_2",
+          "Position": [
+            -39.456558390199994,
+            -39.4565583902,
+            -106.19999999999999
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-109.2_3",
+          "Position": [
+            39.45655839020899,
+            -39.45655839019999,
+            -106.19999999999997
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-14.0_0",
+          "Position": [
+            -39.4565583902,
+            39.456558390209004,
+            -17
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-14.0_1",
+          "Position": [
+            39.45655839020899,
+            39.456558390209,
+            -17
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-14.0_2",
+          "Position": [
+            39.45655839020899,
+            -39.45655839020001,
+            -16.999999999999996
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-14.0_3",
+          "Position": [
+            -39.45655839020001,
+            -39.45655839020001,
+            -17
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 122.6 × 95.2 × 61.2 мм.",
+          "PartId": "actuator_left",
+          "Position": [
+            -6.543269403680364e-11,
+            -34.324062303227365,
+            -61.247228406261705
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 122.6 × 95.2 × 61.2 мм.",
+          "PartId": "actuator_right",
+          "Position": [
+            -4.3979788705329645e-11,
+            34.32406230323249,
+            -61.24722840626148
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 122.6 × 122.6 × 20.0 мм.",
+          "PartId": "front_support",
+          "Position": [
+            -2.1328934616766634e-14,
+            -1.8873335533880744e-14,
+            -3.712925635267933
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 122.6 × 122.6 × 6.0 мм.",
+          "PartId": "rear_cover",
+          "Position": [
+            -1.5890612044688578e-14,
+            -1.3881713646993573e-14,
+            -112.19999999999996
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_0",
+          "Position": [
+            39.456558390209,
+            39.456558390209,
+            -119.33548387096776
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_1",
+          "Position": [
+            -39.4565583902,
+            39.456558390209,
+            -119.33548387096775
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_2",
+          "Position": [
+            -39.45655839020001,
+            -39.45655839020001,
+            -119.33548387096776
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_3",
+          "Position": [
+            39.456558390209,
+            -39.4565583902,
+            -119.33548387096775
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 27.4 мм.",
+          "PartId": "stator_front_0",
+          "Position": [
+            -39.4565583902,
+            39.45655839020899,
+            -3.249719306809857
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 27.4 мм.",
+          "PartId": "stator_front_1",
+          "Position": [
+            39.45655839020899,
+            39.45655839020899,
+            -3.249719306809857
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 27.4 мм.",
+          "PartId": "stator_front_2",
+          "Position": [
+            39.45655839020899,
+            -39.4565583902,
+            -3.2497193068098564
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 27.4 мм.",
+          "PartId": "stator_front_3",
+          "Position": [
+            -39.4565583902,
+            -39.4565583902,
+            -3.249719306809858
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 112.5 × 112.5 × 28.3 мм.",
+          "PartId": "output_flange",
+          "Position": [
+            2.8521192972076273e-15,
+            -3.3441853721912565e-15,
+            8.115488371004002
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 121.2 × 121.2 × 2.4 мм.",
+          "PartId": "joint_trim",
+          "Position": [
+            -8.659630160951702e-12,
+            1.0936614542304762e-11,
+            7.200000000000015
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "cassette_insert_1_0",
+          "Position": [
+            -31.297622506179998,
+            42.40901424062999,
+            111.14347548669
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 6.0 мм.",
+          "PartId": "cassette_screw_1_0",
+          "Position": [
+            -31.297622506179998,
+            42.40901424062999,
+            114.52308713717542
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "cassette_insert_1_1",
+          "Position": [
+            -45.36925473184,
+            26.827157666797998,
+            111.14347548669001
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 6.0 мм.",
+          "PartId": "cassette_screw_1_1",
+          "Position": [
+            -45.36925473184,
+            26.827157666797998,
+            114.52308713717544
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "cassette_insert_1_2",
+          "Position": [
+            -141.11848954630005,
+            141.58582570524,
+            111.15291120886998
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 6.0 мм.",
+          "PartId": "cassette_screw_1_2",
+          "Position": [
+            -141.11848954630005,
+            141.58582570524,
+            114.53252285935544
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "cassette_insert_1_3",
+          "Position": [
+            -155.190121772,
+            126.00396913141003,
+            111.15291120887
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 6.0 мм.",
+          "PartId": "cassette_screw_1_3",
+          "Position": [
+            -155.19012177199997,
+            126.00396913141,
+            114.53252285935542
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "cassette_insert_-1_0",
+          "Position": [
+            -141.1184895463,
+            141.58582570524,
+            19.559088791125998
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 6.0 мм.",
+          "PartId": "cassette_screw_-1_0",
+          "Position": [
+            -141.1184895463,
+            141.58582570524,
+            16.179477140640564
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "cassette_insert_-1_1",
+          "Position": [
+            -155.19012177200005,
+            126.00396913141002,
+            19.559088791126005
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 6.0 мм.",
+          "PartId": "cassette_screw_-1_1",
+          "Position": [
+            -155.19012177199997,
+            126.00396913141002,
+            16.179477140640564
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "cassette_insert_-1_2",
+          "Position": [
+            -148.15430565909998,
+            133.79489741833,
+            18.5
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 6.0 мм.",
+          "PartId": "cassette_screw_-1_2",
+          "Position": [
+            -148.15430565909998,
+            133.79489741833,
+            15.120388349514565
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "cassette_insert_-1_3",
+          "Position": [
+            -61.86648155619002,
+            55.87025983898902,
+            18.500000000000004
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 6.0 мм.",
+          "PartId": "cassette_screw_-1_3",
+          "Position": [
+            -61.866481556189996,
+            55.870259838988986,
+            15.120388349514561
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "warning",
+          "Message": "Нужна технологическая разрезка: 350.1 × 331.8 × 160.6 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            -135.95732625302577,
+            123.59176599036128,
+            38.739071236707964
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cover_anchors",
+          "Status": "pass",
+          "Message": "Крепёжные отверстия в замкнутой панели: 4.",
+          "PartId": "skin_main_0",
+          "Position": [
+            -138.22634134018446,
+            125.45031628241884,
+            44.33628477937426
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "warning",
+          "Message": "Нужна технологическая разрезка: 337.2 × 355.5 × 163.4 мм.",
+          "PartId": "skin_main_0",
+          "Position": [
+            -138.22634134018446,
+            125.45031628241884,
+            44.33628477937426
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cover_anchors",
+          "Status": "pass",
+          "Message": "Крепёжные отверстия в замкнутой панели: 4.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            -106.15210602419555,
+            95.86363401901069,
+            114.62794209448066
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 184.8 × 198.8 × 7.2 мм.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            -106.15210602419555,
+            95.86363401901069,
+            114.62794209448066
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_0",
+          "Position": [
+            -35.53635839531,
+            35.536358395311,
+            19.228141072740634
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_1",
+          "Position": [
+            35.536358395311,
+            35.53635839531099,
+            19.228141072740634
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_2",
+          "Position": [
+            35.536358395311,
+            -35.53635839531001,
+            19.228141072740637
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_3",
+          "Position": [
+            -35.53635839531001,
+            -35.53635839531001,
+            19.228141072740637
+          ],
+          "Scope": "assembly"
+        }
+      ]
+    },
+    {
+      "Id": "author65_j3",
+      "Issues": [
+        {
+          "Code": "cover_enclosure",
+          "Status": "pass",
+          "Message": "Каркас вне цельного контура: 0 мм³.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "shell_continuity",
+          "Status": "pass",
+          "Message": "Цельная кассетная оболочка до отделения крышки.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "monocoque_structure",
+          "Status": "pass",
+          "Message": "Г-образное звено по РОБОТ1.blend: круглое колено и наружная опора следующего статора.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "inset_panel",
+          "Status": "pass",
+          "Message": "Отдельная закруглённая крышка в углублении с чёрным кантом; утопленных винтов: 4.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца stator_mount: 4 × Ø3.4 мм.",
+          "PartId": "rear_cover",
+          "Position": [
+            0,
+            0,
+            -115.2
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца rotor_output: 4 × Ø2.5 мм.",
+          "PartId": "output_flange",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца trim_mount: 4 × Ø5.7 мм.",
+          "PartId": "joint_trim",
+          "Position": [
+            0,
+            0,
+            6
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца link_input: 4 × Ø3.4 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца link_child: 4 × Ø3.4 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            79.32847279855795,
+            438.404891085703,
+            -86.05006791517286
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "root_contact",
+          "Status": "pass",
+          "Message": "Контакт несущего фланца с выходным: 0.0 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "drive_selection",
+          "Status": "pending",
+          "Message": "Фланцы соединены геометрически. Внутреннюю передачу и её выходной носитель нужно согласовать с выбранным редуктором; передаточное число само по себе не задаёт механизм.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cable_routing",
+          "Status": "pending",
+          "Message": "Внутренние проходы в каркасе сохранены. Гибкая проводка через шарниры, разъёмы и допустимый перекрут требуют отдельной трассировки; условные наружные стержни не показываются как готовые кабели.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "strength",
+          "Status": "pending",
+          "Message": "Прочность стыков, вставок, валов и печатного материала требует расчёта по реальным данным.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-109.2_0",
+          "Position": [
+            39.45655839020898,
+            39.456558390209,
+            -106.19999999999999
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-109.2_1",
+          "Position": [
+            -39.45655839019999,
+            39.456558390209,
+            -106.19999999999999
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-109.2_2",
+          "Position": [
+            -39.456558390199994,
+            -39.4565583902,
+            -106.19999999999999
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-109.2_3",
+          "Position": [
+            39.45655839020899,
+            -39.45655839019999,
+            -106.19999999999997
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-14.0_0",
+          "Position": [
+            -39.4565583902,
+            39.456558390209004,
+            -17
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-14.0_1",
+          "Position": [
+            39.45655839020899,
+            39.456558390209,
+            -17
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-14.0_2",
+          "Position": [
+            39.45655839020899,
+            -39.45655839020001,
+            -16.999999999999996
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-14.0_3",
+          "Position": [
+            -39.45655839020001,
+            -39.45655839020001,
+            -17
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 122.6 × 95.2 × 61.2 мм.",
+          "PartId": "actuator_left",
+          "Position": [
+            -6.543269403680364e-11,
+            -34.324062303227365,
+            -61.247228406261705
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 122.6 × 95.2 × 61.2 мм.",
+          "PartId": "actuator_right",
+          "Position": [
+            -4.3979788705329645e-11,
+            34.32406230323249,
+            -61.24722840626148
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 122.6 × 122.6 × 20.0 мм.",
+          "PartId": "front_support",
+          "Position": [
+            -2.1328934616766634e-14,
+            -1.8873335533880744e-14,
+            -3.712925635267933
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 122.6 × 122.6 × 6.0 мм.",
+          "PartId": "rear_cover",
+          "Position": [
+            -1.5890612044688578e-14,
+            -1.3881713646993573e-14,
+            -112.19999999999996
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_0",
+          "Position": [
+            39.456558390209,
+            39.456558390209,
+            -119.33548387096776
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_1",
+          "Position": [
+            -39.4565583902,
+            39.456558390209,
+            -119.33548387096775
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_2",
+          "Position": [
+            -39.45655839020001,
+            -39.45655839020001,
+            -119.33548387096776
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_3",
+          "Position": [
+            39.456558390209,
+            -39.4565583902,
+            -119.33548387096775
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 27.4 мм.",
+          "PartId": "stator_front_0",
+          "Position": [
+            -39.4565583902,
+            39.45655839020899,
+            -3.249719306809857
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 27.4 мм.",
+          "PartId": "stator_front_1",
+          "Position": [
+            39.45655839020899,
+            39.45655839020899,
+            -3.249719306809857
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 27.4 мм.",
+          "PartId": "stator_front_2",
+          "Position": [
+            39.45655839020899,
+            -39.4565583902,
+            -3.2497193068098564
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 27.4 мм.",
+          "PartId": "stator_front_3",
+          "Position": [
+            -39.4565583902,
+            -39.4565583902,
+            -3.249719306809858
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 95.5 × 95.5 × 28.3 мм.",
+          "PartId": "output_flange",
+          "Position": [
+            -6.907004595818716e-15,
+            -7.912759019110564e-15,
+            7.723052196512587
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 121.2 × 121.2 × 2.4 мм.",
+          "PartId": "joint_trim",
+          "Position": [
+            -1.3243508580728664e-13,
+            -1.0618832397863048e-13,
+            7.199999999999998
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "cassette_insert_1_0",
+          "Position": [
+            22.25885597845101,
+            69.74112853243503,
+            106.09804688738004
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 6.0 мм.",
+          "PartId": "cassette_screw_1_0",
+          "Position": [
+            22.258855978451,
+            69.741128532435,
+            109.47765853786544
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "cassette_insert_1_1",
+          "Position": [
+            2.635420259856,
+            73.159662646168,
+            106.09804688738001
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 6.0 мм.",
+          "PartId": "cassette_screw_1_1",
+          "Position": [
+            2.635420259856,
+            73.159662646168,
+            109.47765853786545
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "cassette_insert_1_2",
+          "Position": [
+            65.192423789234,
+            316.19299359370007,
+            106.09804688738
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 6.0 мм.",
+          "PartId": "cassette_screw_1_2",
+          "Position": [
+            65.19242378923398,
+            316.1929935937001,
+            109.47765853786545
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "cassette_insert_1_3",
+          "Position": [
+            45.568988070638994,
+            319.61152770742996,
+            106.09804688737998
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 6.0 мм.",
+          "PartId": "cassette_screw_1_3",
+          "Position": [
+            45.568988070639,
+            319.6115277074301,
+            109.47765853786544
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "cassette_insert_-1_0",
+          "Position": [
+            22.258855978451002,
+            69.741128532435,
+            19.501953112620004
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 6.0 мм.",
+          "PartId": "cassette_screw_-1_0",
+          "Position": [
+            22.258855978451,
+            69.74112853243497,
+            16.122341462134568
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "cassette_insert_-1_1",
+          "Position": [
+            2.6354202598560015,
+            73.15966264616799,
+            19.50195311262
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 6.0 мм.",
+          "PartId": "cassette_screw_-1_1",
+          "Position": [
+            2.6354202598560006,
+            73.15966264616803,
+            16.122341462134568
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "cassette_insert_-1_2",
+          "Position": [
+            65.192423789234,
+            316.1929935937,
+            19.501953112620008
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 6.0 мм.",
+          "PartId": "cassette_screw_-1_2",
+          "Position": [
+            65.19242378923401,
+            316.1929935937,
+            16.122341462134564
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "cassette_insert_-1_3",
+          "Position": [
+            45.568988070639016,
+            319.61152770743007,
+            19.50195311262
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 6.0 мм.",
+          "PartId": "cassette_screw_-1_3",
+          "Position": [
+            45.56898807063901,
+            319.61152770743007,
+            16.122341462134564
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "warning",
+          "Message": "Нужна технологическая разрезка: 473.5 × 415.0 × 183.4 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            44.47554168973796,
+            252.72393699380456,
+            32.44665790353445
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cover_anchors",
+          "Status": "pass",
+          "Message": "Крепёжные отверстия в замкнутой панели: 4.",
+          "PartId": "skin_main_0",
+          "Position": [
+            45.349917905086365,
+            258.2034311717644,
+            31.819767326080857
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "warning",
+          "Message": "Нужна технологическая разрезка: 479.4 × 419.0 × 188.8 мм.",
+          "PartId": "skin_main_0",
+          "Position": [
+            45.349917905086365,
+            258.2034311717644,
+            31.819767326080857
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cover_anchors",
+          "Status": "pass",
+          "Message": "Крепёжные отверстия в замкнутой панели: 4.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            36.681724933922936,
+            210.5643668800054,
+            109.55437991335542
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "warning",
+          "Message": "Нужна технологическая разрезка: 314.4 × 271.3 × 7.2 мм.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            36.681724933922936,
+            210.5643668800054,
+            109.55437991335542
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_0",
+          "Position": [
+            -29.525950755219995,
+            29.525950755225,
+            19.228141072740627
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_1",
+          "Position": [
+            29.525950755225,
+            29.525950755225,
+            19.228141072740634
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_2",
+          "Position": [
+            29.525950755225,
+            -29.525950755219995,
+            19.228141072740627
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_3",
+          "Position": [
+            -29.525950755219995,
+            -29.52595075522,
+            19.22814107274063
+          ],
+          "Scope": "assembly"
+        }
+      ]
+    },
+    {
+      "Id": "author65_j4",
+      "Issues": [
+        {
+          "Code": "cover_enclosure",
+          "Status": "pass",
+          "Message": "Каркас вне цельного контура: 0 мм³.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "shell_continuity",
+          "Status": "pass",
+          "Message": "Цельная кассетная оболочка до отделения крышки.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "monocoque_structure",
+          "Status": "pass",
+          "Message": "Кассетная геометрия: непрерывный короб вместо трубы с наружной седловой лапкой.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "inset_panel",
+          "Status": "pass",
+          "Message": "Отдельная закруглённая крышка в углублении с чёрным кантом; утопленных винтов: 4.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца stator_mount: 4 × Ø3.4 мм.",
+          "PartId": "rear_cover",
+          "Position": [
+            0,
+            0,
+            -99.2
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца rotor_output: 4 × Ø2.5 мм.",
+          "PartId": "output_flange",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца trim_mount: 4 × Ø5.7 мм.",
+          "PartId": "joint_trim",
+          "Position": [
+            0,
+            0,
+            6
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца link_input: 4 × Ø3.4 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца link_child: 4 × Ø3.4 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            -391.35751373774144,
+            -41.15236815599716,
+            -185.9017171780569
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "root_contact",
+          "Status": "pass",
+          "Message": "Контакт несущего фланца с выходным: 0.0 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "drive_selection",
+          "Status": "pending",
+          "Message": "Фланцы соединены геометрически. Внутреннюю передачу и её выходной носитель нужно согласовать с выбранным редуктором; передаточное число само по себе не задаёт механизм.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cable_routing",
+          "Status": "pending",
+          "Message": "Внутренние проходы в каркасе сохранены. Гибкая проводка через шарниры, разъёмы и допустимый перекрут требуют отдельной трассировки; условные наружные стержни не показываются как готовые кабели.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "strength",
+          "Status": "pending",
+          "Message": "Прочность стыков, вставок, валов и печатного материала требует расчёта по реальным данным.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-93.2_0",
+          "Position": [
+            30.971277015970998,
+            30.971277015970998,
+            -90.20000000000002
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-93.2_1",
+          "Position": [
+            -30.971277015970003,
+            30.971277015971005,
+            -90.20000000000002
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-93.2_2",
+          "Position": [
+            -30.971277015970003,
+            -30.971277015970003,
+            -90.2
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-93.2_3",
+          "Position": [
+            30.971277015971,
+            -30.971277015969996,
+            -90.2
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-8.0_0",
+          "Position": [
+            -30.971277015970006,
+            30.97127701597101,
+            -11.000000000000004
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-8.0_1",
+          "Position": [
+            30.971277015971005,
+            30.97127701597099,
+            -10.999999999999998
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-8.0_2",
+          "Position": [
+            30.971277015970994,
+            -30.971277015969996,
+            -10.999999999999996
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-8.0_3",
+          "Position": [
+            -30.97127701597,
+            -30.97127701597,
+            -11.000000000000004
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 98.6 × 85.2 × 49.2 мм.",
+          "PartId": "actuator_left",
+          "Position": [
+            -4.629777554110836e-11,
+            -27.251065502224815,
+            -49.84968037544846
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 98.6 × 85.2 × 49.2 мм.",
+          "PartId": "actuator_right",
+          "Position": [
+            -3.764058216469998e-11,
+            27.251065502226066,
+            -49.84968037544815
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 98.6 × 98.6 × 14.0 мм.",
+          "PartId": "front_support",
+          "Position": [
+            -9.234686245664535e-15,
+            -2.7464108747547974e-15,
+            -0.8791014567431136
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 98.6 × 98.6 × 6.0 мм.",
+          "PartId": "rear_cover",
+          "Position": [
+            -4.797752026086765e-16,
+            -5.277527228695441e-15,
+            -96.19999999999999
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_0",
+          "Position": [
+            30.971277015970998,
+            30.971277015971,
+            -103.33548387096775
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_1",
+          "Position": [
+            -30.97127701597,
+            30.971277015970998,
+            -103.33548387096772
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_2",
+          "Position": [
+            -30.971277015969992,
+            -30.971277015970003,
+            -103.33548387096772
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_3",
+          "Position": [
+            30.971277015970998,
+            -30.971277015969996,
+            -103.33548387096775
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 20.4 мм.",
+          "PartId": "stator_front_0",
+          "Position": [
+            -30.97127701597,
+            30.971277015970998,
+            0.07709497206703325
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 20.4 мм.",
+          "PartId": "stator_front_1",
+          "Position": [
+            30.971277015970994,
+            30.971277015970998,
+            0.07709497206703926
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 20.4 мм.",
+          "PartId": "stator_front_2",
+          "Position": [
+            30.971277015970998,
+            -30.97127701597,
+            0.07709497206703897
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 20.4 мм.",
+          "PartId": "stator_front_3",
+          "Position": [
+            -30.97127701597,
+            -30.971277015970006,
+            0.07709497206703203
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 73.5 × 73.5 × 22.3 мм.",
+          "PartId": "output_flange",
+          "Position": [
+            -9.060465658132404e-15,
+            -6.3343113313745435e-15,
+            8.779193097512696
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 97.2 × 97.2 × 2.4 мм.",
+          "PartId": "joint_trim",
+          "Position": [
+            -2.806496695732107e-14,
+            -1.961394319938619e-14,
+            7.200000000000001
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.9 × 4.9 × 7.5 мм.",
+          "PartId": "cassette_insert_1_0",
+          "Position": [
+            -141.12732430174498,
+            -5.702917322617505,
+            -18.741284864793816
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 5.4 × 7.3 мм.",
+          "PartId": "cassette_screw_1_0",
+          "Position": [
+            -142.705056058504,
+            -5.868820356619844,
+            -15.757157924584316
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.9 × 4.9 × 7.5 мм.",
+          "PartId": "cassette_insert_1_1",
+          "Position": [
+            -139.22676963624508,
+            -23.777122349314325,
+            -18.74128486479379
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 5.4 × 7.3 мм.",
+          "PartId": "cassette_screw_1_1",
+          "Position": [
+            -140.80450139300393,
+            -23.943025383316552,
+            -15.757157924584401
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.9 × 4.9 × 7.5 мм.",
+          "PartId": "cassette_insert_1_2",
+          "Position": [
+            -265.94916808875985,
+            -18.828293360723805,
+            -85.46529847711226
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 5.4 × 7.3 мм.",
+          "PartId": "cassette_screw_1_2",
+          "Position": [
+            -267.5268998454076,
+            -18.994196394726945,
+            -82.48117153688119
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.9 × 4.9 × 7.5 мм.",
+          "PartId": "cassette_insert_1_3",
+          "Position": [
+            -264.0486134232597,
+            -36.90249838742568,
+            -85.46529847711254
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 5.4 × 7.3 мм.",
+          "PartId": "cassette_screw_1_3",
+          "Position": [
+            -265.62634517990756,
+            -37.0684014214207,
+            -82.48117153688132
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.9 × 4.9 × 7.5 мм.",
+          "PartId": "cassette_insert_-1_0",
+          "Position": [
+            -109.47720815952775,
+            -2.3748165398308774,
+            -78.60441675632076
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 5.4 × 7.3 мм.",
+          "PartId": "cassette_screw_-1_0",
+          "Position": [
+            -107.89947640289233,
+            -2.2089135058277662,
+            -81.5885436965489
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.9 × 4.9 × 7.5 мм.",
+          "PartId": "cassette_insert_-1_1",
+          "Position": [
+            -107.57665349402772,
+            -20.449021566526064,
+            -78.60441675632082
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 5.4 × 7.3 мм.",
+          "PartId": "cassette_screw_-1_1",
+          "Position": [
+            -105.9989217373923,
+            -20.28311853252175,
+            -81.58854369654898
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.9 × 4.9 × 7.5 мм.",
+          "PartId": "cassette_insert_-1_2",
+          "Position": [
+            -234.29905194644004,
+            -15.500192577936179,
+            -145.32843036852168
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 5.4 × 7.3 мм.",
+          "PartId": "cassette_screw_-1_2",
+          "Position": [
+            -232.72132018977732,
+            -15.334289543930256,
+            -148.3125573088603
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.9 × 4.9 × 7.5 мм.",
+          "PartId": "cassette_insert_-1_3",
+          "Position": [
+            -232.39849728094003,
+            -33.57439760463618,
+            -145.3284303685217
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 5.4 × 7.3 мм.",
+          "PartId": "cassette_screw_-1_3",
+          "Position": [
+            -230.8207655242773,
+            -33.40849457063025,
+            -148.31255730886033
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "warning",
+          "Message": "Нужна технологическая разрезка: 424.5 × 402.8 × 127.2 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            -208.07462884270868,
+            -21.878141575081735,
+            -93.82721426314063
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cover_anchors",
+          "Status": "pass",
+          "Message": "Крепёжные отверстия в замкнутой панели: 4.",
+          "PartId": "skin_main_0",
+          "Position": [
+            -217.83120880532627,
+            -22.905578647736586,
+            -105.02300044490025
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "warning",
+          "Message": "Нужна технологическая разрезка: 437.7 × 415.9 × 146.9 мм.",
+          "PartId": "skin_main_0",
+          "Position": [
+            -217.83120880532627,
+            -22.905578647736586,
+            -105.02300044490025
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cover_anchors",
+          "Status": "pass",
+          "Message": "Крепёжные отверстия в замкнутой панели: 4.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            -180.17097600019434,
+            -18.945496667035037,
+            -35.025800872770446
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "warning",
+          "Message": "Нужна технологическая разрезка: 267.0 × 286.1 × 89.9 мм.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            -180.17097600019434,
+            -18.945496667035037,
+            -35.025800872770446
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_0",
+          "Position": [
+            -21.74777616217,
+            21.747776162173,
+            19.228141072740634
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_1",
+          "Position": [
+            21.747776162173,
+            21.747776162172997,
+            19.228141072740627
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_2",
+          "Position": [
+            21.747776162173004,
+            -21.74777616217,
+            19.228141072740634
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_3",
+          "Position": [
+            -21.74777616217,
+            -21.747776162169995,
+            19.228141072740634
+          ],
+          "Scope": "assembly"
+        }
+      ]
+    },
+    {
+      "Id": "author65_j5",
+      "Issues": [
+        {
+          "Code": "cover_enclosure",
+          "Status": "pass",
+          "Message": "Каркас вне цельного контура: 0 мм³.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "shell_continuity",
+          "Status": "pass",
+          "Message": "Цельная кассетная оболочка до отделения крышки.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "monocoque_structure",
+          "Status": "pass",
+          "Message": "Кассетная геометрия: непрерывный короб вместо трубы с наружной седловой лапкой.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "inset_panel",
+          "Status": "pass",
+          "Message": "Отдельная закруглённая крышка в углублении с чёрным кантом; утопленных винтов: 4.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца stator_mount: 4 × Ø3.4 мм.",
+          "PartId": "rear_cover",
+          "Position": [
+            0,
+            0,
+            -99.2
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца rotor_output: 4 × Ø2.5 мм.",
+          "PartId": "output_flange",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца trim_mount: 4 × Ø5.7 мм.",
+          "PartId": "joint_trim",
+          "Position": [
+            0,
+            0,
+            6
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца link_input: 4 × Ø3.4 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца link_child: 4 × Ø3.4 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            -164.11605681061235,
+            -73.93185800915508,
+            -99.20000512415358
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "root_contact",
+          "Status": "pass",
+          "Message": "Контакт несущего фланца с выходным: 0.0 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "drive_selection",
+          "Status": "pending",
+          "Message": "Фланцы соединены геометрически. Внутреннюю передачу и её выходной носитель нужно согласовать с выбранным редуктором; передаточное число само по себе не задаёт механизм.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cable_routing",
+          "Status": "pending",
+          "Message": "Внутренние проходы в каркасе сохранены. Гибкая проводка через шарниры, разъёмы и допустимый перекрут требуют отдельной трассировки; условные наружные стержни не показываются как готовые кабели.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "strength",
+          "Status": "pending",
+          "Message": "Прочность стыков, вставок, валов и печатного материала требует расчёта по реальным данным.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-93.2_0",
+          "Position": [
+            30.971277015970998,
+            30.971277015970998,
+            -90.20000000000002
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-93.2_1",
+          "Position": [
+            -30.971277015970003,
+            30.971277015971005,
+            -90.20000000000002
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-93.2_2",
+          "Position": [
+            -30.971277015970003,
+            -30.971277015970003,
+            -90.2
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-93.2_3",
+          "Position": [
+            30.971277015971,
+            -30.971277015969996,
+            -90.2
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-8.0_0",
+          "Position": [
+            -30.971277015970006,
+            30.97127701597101,
+            -11.000000000000004
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-8.0_1",
+          "Position": [
+            30.971277015971005,
+            30.97127701597099,
+            -10.999999999999998
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-8.0_2",
+          "Position": [
+            30.971277015970994,
+            -30.971277015969996,
+            -10.999999999999996
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-8.0_3",
+          "Position": [
+            -30.97127701597,
+            -30.97127701597,
+            -11.000000000000004
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 98.6 × 85.2 × 49.2 мм.",
+          "PartId": "actuator_left",
+          "Position": [
+            -4.629777554110836e-11,
+            -27.251065502224815,
+            -49.84968037544846
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 98.6 × 85.2 × 49.2 мм.",
+          "PartId": "actuator_right",
+          "Position": [
+            -3.764058216469998e-11,
+            27.251065502226066,
+            -49.84968037544815
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 98.6 × 98.6 × 14.0 мм.",
+          "PartId": "front_support",
+          "Position": [
+            -9.234686245664535e-15,
+            -2.7464108747547974e-15,
+            -0.8791014567431136
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 98.6 × 98.6 × 6.0 мм.",
+          "PartId": "rear_cover",
+          "Position": [
+            -4.797752026086765e-16,
+            -5.277527228695441e-15,
+            -96.19999999999999
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_0",
+          "Position": [
+            30.971277015970998,
+            30.971277015971,
+            -103.33548387096775
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_1",
+          "Position": [
+            -30.97127701597,
+            30.971277015970998,
+            -103.33548387096772
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_2",
+          "Position": [
+            -30.971277015969992,
+            -30.971277015970003,
+            -103.33548387096772
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_3",
+          "Position": [
+            30.971277015970998,
+            -30.971277015969996,
+            -103.33548387096775
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 20.4 мм.",
+          "PartId": "stator_front_0",
+          "Position": [
+            -30.97127701597,
+            30.971277015970998,
+            0.07709497206703325
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 20.4 мм.",
+          "PartId": "stator_front_1",
+          "Position": [
+            30.971277015970994,
+            30.971277015970998,
+            0.07709497206703926
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 20.4 мм.",
+          "PartId": "stator_front_2",
+          "Position": [
+            30.971277015970998,
+            -30.97127701597,
+            0.07709497206703897
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 20.4 мм.",
+          "PartId": "stator_front_3",
+          "Position": [
+            -30.97127701597,
+            -30.971277015970006,
+            0.07709497206703203
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 55.5 × 55.5 × 22.3 мм.",
+          "PartId": "output_flange",
+          "Position": [
+            -2.0351586892038154e-14,
+            -1.7505801368274524e-14,
+            8.434480423701714
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 97.2 × 97.2 × 2.4 мм.",
+          "PartId": "joint_trim",
+          "Position": [
+            4.69259161188162e-16,
+            -1.3217466373466564e-14,
+            7.200000000000001
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 7.0 × 5.9 × 7.5 мм.",
+          "PartId": "cassette_insert_1_0",
+          "Position": [
+            -71.04884981796896,
+            -24.118503908121756,
+            -1.3317419200640965
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.7 × 5.5 × 7.3 мм.",
+          "PartId": "cassette_screw_1_0",
+          "Position": [
+            -72.78250878460491,
+            -24.899491649742075,
+            1.4622265197961022
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 7.0 × 5.9 × 7.5 мм.",
+          "PartId": "cassette_insert_1_1",
+          "Position": [
+            -65.14096540277866,
+            -37.23299501272272,
+            -1.3317419200673912
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.7 × 5.5 × 7.3 мм.",
+          "PartId": "cassette_screw_1_1",
+          "Position": [
+            -66.87462436940659,
+            -38.01398275433468,
+            1.4622265197965603
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 7.0 × 5.9 × 7.5 мм.",
+          "PartId": "cassette_insert_1_2",
+          "Position": [
+            -91.60246512610735,
+            -33.37760382946217,
+            -16.67343383078748
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.7 × 5.5 × 7.3 мм.",
+          "PartId": "cassette_screw_1_2",
+          "Position": [
+            -93.3361240927358,
+            -34.158591571074325,
+            -13.879465390923997
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 7.0 × 5.9 × 7.5 мм.",
+          "PartId": "cassette_insert_1_3",
+          "Position": [
+            -85.69458071090683,
+            -46.49209493405273,
+            -16.67343383078549
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.7 × 5.5 × 7.3 мм.",
+          "PartId": "cassette_screw_1_3",
+          "Position": [
+            -87.42823967754401,
+            -47.27308267566544,
+            -13.879465390924619
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 7.0 × 5.9 × 7.5 мм.",
+          "PartId": "cassette_insert_-1_0",
+          "Position": [
+            -92.12388626437917,
+            -33.61249634583742,
+            -80.45436590051185
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.7 × 5.5 × 7.3 мм.",
+          "PartId": "cassette_screw_-1_0",
+          "Position": [
+            -90.39022729774156,
+            -32.83150860421639,
+            -83.24833434037353
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 7.0 × 5.9 × 7.5 мм.",
+          "PartId": "cassette_insert_-1_1",
+          "Position": [
+            -86.21600184918248,
+            -46.72698745042957,
+            -80.4543659005087
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.7 × 5.5 × 7.3 мм.",
+          "PartId": "cassette_screw_-1_1",
+          "Position": [
+            -84.48234288254746,
+            -45.94599970880625,
+            -83.24833434037399
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 7.0 × 5.9 × 7.5 мм.",
+          "PartId": "cassette_insert_-1_2",
+          "Position": [
+            -64.71906585353054,
+            -21.26702978405615,
+            -59.99877668620964
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.7 × 5.5 × 7.3 мм.",
+          "PartId": "cassette_screw_-1_2",
+          "Position": [
+            -62.98540688689488,
+            -20.48604204244407,
+            -62.79274512606846
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 7.0 × 5.9 × 7.5 мм.",
+          "PartId": "cassette_insert_-1_3",
+          "Position": [
+            -58.81118143834033,
+            -34.38152088864603,
+            -59.998776686210135
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.7 × 5.5 × 7.3 мм.",
+          "PartId": "cassette_screw_-1_3",
+          "Position": [
+            -57.07752247170249,
+            -33.6005331470336,
+            -62.79274512607007
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 229.3 × 202.7 × 204.3 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            -99.04173464291014,
+            -44.61256277543322,
+            -57.01094275061924
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cover_anchors",
+          "Status": "pass",
+          "Message": "Крепёжные отверстия в замкнутой панели: 4.",
+          "PartId": "skin_main_0",
+          "Position": [
+            -103.80599394692008,
+            -46.76306607272996,
+            -63.91967879775368
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 241.9 × 216.1 × 216.1 мм.",
+          "PartId": "skin_main_0",
+          "Position": [
+            -103.80599394692008,
+            -46.76306607272996,
+            -63.91967879775368
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cover_anchors",
+          "Status": "pass",
+          "Message": "Крепёжные отверстия в замкнутой панели: 4.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            -68.04062706841957,
+            -30.651296868811208,
+            4.145264372570718
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 114.0 × 99.0 × 85.2 мм.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            -68.04062706841957,
+            -30.651296868811208,
+            4.145264372570718
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_0",
+          "Position": [
+            -15.383815131490003,
+            15.383815131495004,
+            19.228141072740634
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_1",
+          "Position": [
+            15.383815131495002,
+            15.383815131495002,
+            19.228141072740637
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_2",
+          "Position": [
+            15.383815131495002,
+            -15.38381513149,
+            19.228141072740634
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_3",
+          "Position": [
+            -15.383815131489996,
+            -15.383815131489996,
+            19.228141072740627
+          ],
+          "Scope": "assembly"
+        }
+      ]
+    },
+    {
+      "Id": "author65_j6",
+      "Issues": [
+        {
+          "Code": "cover_enclosure",
+          "Status": "pass",
+          "Message": "Каркас вне цельного контура: 0 мм³.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "shell_continuity",
+          "Status": "pass",
+          "Message": "Цельная кассетная оболочка до отделения крышки.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "monocoque_structure",
+          "Status": "pass",
+          "Message": "Кассетная геометрия: непрерывный короб вместо трубы с наружной седловой лапкой.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "inset_panel",
+          "Status": "pass",
+          "Message": "Отдельная закруглённая крышка в углублении с чёрным кантом; утопленных винтов: 4.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца stator_mount: 4 × Ø3.4 мм.",
+          "PartId": "rear_cover",
+          "Position": [
+            0,
+            0,
+            -99.2
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца rotor_output: 4 × Ø2.5 мм.",
+          "PartId": "output_flange",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца trim_mount: 4 × Ø5.7 мм.",
+          "PartId": "joint_trim",
+          "Position": [
+            0,
+            0,
+            6
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца link_input: 4 × Ø3.4 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца link_child: 4 × Ø3.4 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            -71.53373481933441,
+            -33.02274997036262,
+            -24.587140327918465
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "root_contact",
+          "Status": "pass",
+          "Message": "Контакт несущего фланца с выходным: 0.0 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "drive_selection",
+          "Status": "pending",
+          "Message": "Фланцы соединены геометрически. Внутреннюю передачу и её выходной носитель нужно согласовать с выбранным редуктором; передаточное число само по себе не задаёт механизм.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cable_routing",
+          "Status": "pending",
+          "Message": "Внутренние проходы в каркасе сохранены. Гибкая проводка через шарниры, разъёмы и допустимый перекрут требуют отдельной трассировки; условные наружные стержни не показываются как готовые кабели.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "strength",
+          "Status": "pending",
+          "Message": "Прочность стыков, вставок, валов и печатного материала требует расчёта по реальным данным.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-93.2_0",
+          "Position": [
+            30.971277015970998,
+            30.971277015970998,
+            -90.20000000000002
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-93.2_1",
+          "Position": [
+            -30.971277015970003,
+            30.971277015971005,
+            -90.20000000000002
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-93.2_2",
+          "Position": [
+            -30.971277015970003,
+            -30.971277015970003,
+            -90.2
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-93.2_3",
+          "Position": [
+            30.971277015971,
+            -30.971277015969996,
+            -90.2
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-8.0_0",
+          "Position": [
+            -30.971277015970006,
+            30.97127701597101,
+            -11.000000000000004
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-8.0_1",
+          "Position": [
+            30.971277015971005,
+            30.97127701597099,
+            -10.999999999999998
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-8.0_2",
+          "Position": [
+            30.971277015970994,
+            -30.971277015969996,
+            -10.999999999999996
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-8.0_3",
+          "Position": [
+            -30.97127701597,
+            -30.97127701597,
+            -11.000000000000004
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 98.6 × 85.2 × 49.2 мм.",
+          "PartId": "actuator_left",
+          "Position": [
+            -4.629777554110836e-11,
+            -27.251065502224815,
+            -49.84968037544846
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 98.6 × 85.2 × 49.2 мм.",
+          "PartId": "actuator_right",
+          "Position": [
+            -3.764058216469998e-11,
+            27.251065502226066,
+            -49.84968037544815
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 98.6 × 98.6 × 14.0 мм.",
+          "PartId": "front_support",
+          "Position": [
+            -9.234686245664535e-15,
+            -2.7464108747547974e-15,
+            -0.8791014567431136
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 98.6 × 98.6 × 6.0 мм.",
+          "PartId": "rear_cover",
+          "Position": [
+            -4.797752026086765e-16,
+            -5.277527228695441e-15,
+            -96.19999999999999
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_0",
+          "Position": [
+            30.971277015970998,
+            30.971277015971,
+            -103.33548387096775
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_1",
+          "Position": [
+            -30.97127701597,
+            30.971277015970998,
+            -103.33548387096772
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_2",
+          "Position": [
+            -30.971277015969992,
+            -30.971277015970003,
+            -103.33548387096772
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_3",
+          "Position": [
+            30.971277015970998,
+            -30.971277015969996,
+            -103.33548387096775
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 20.4 мм.",
+          "PartId": "stator_front_0",
+          "Position": [
+            -30.97127701597,
+            30.971277015970998,
+            0.07709497206703325
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 20.4 мм.",
+          "PartId": "stator_front_1",
+          "Position": [
+            30.971277015970994,
+            30.971277015970998,
+            0.07709497206703926
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 20.4 мм.",
+          "PartId": "stator_front_2",
+          "Position": [
+            30.971277015970998,
+            -30.97127701597,
+            0.07709497206703897
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 20.4 мм.",
+          "PartId": "stator_front_3",
+          "Position": [
+            -30.97127701597,
+            -30.971277015970006,
+            0.07709497206703203
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 55.5 × 55.5 × 22.3 мм.",
+          "PartId": "output_flange",
+          "Position": [
+            -2.0351586892038154e-14,
+            -1.7505801368274524e-14,
+            8.434480423701714
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 97.2 × 97.2 × 2.4 мм.",
+          "PartId": "joint_trim",
+          "Position": [
+            4.69259161188162e-16,
+            -1.3217466373466564e-14,
+            7.200000000000001
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.8 × 5.7 × 7.5 мм.",
+          "PartId": "cassette_insert_1_0",
+          "Position": [
+            -33.5152902977665,
+            -19.50003151413355,
+            25.81140749853172
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 5.5 × 7.3 мм.",
+          "PartId": "cassette_screw_1_0",
+          "Position": [
+            -35.04971933626617,
+            -20.20101860776314,
+            28.73987459387043
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.8 × 5.7 × 7.5 мм.",
+          "PartId": "cassette_insert_1_1",
+          "Position": [
+            -28.733764885876493,
+            -29.966574346453548,
+            25.81140749853172
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 5.5 × 7.3 мм.",
+          "PartId": "cassette_screw_1_1",
+          "Position": [
+            -30.26819392438257,
+            -30.667561440083233,
+            28.739874593870823
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.8 × 5.7 × 7.5 мм.",
+          "PartId": "cassette_insert_1_2",
+          "Position": [
+            -51.249799599936495,
+            -27.601847773263554,
+            14.57972429413672
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 5.5 × 7.3 мм.",
+          "PartId": "cassette_screw_1_2",
+          "Position": [
+            -52.784228638442,
+            -28.302834866885433,
+            17.50819138947474
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.8 × 5.7 × 7.5 мм.",
+          "PartId": "cassette_insert_1_3",
+          "Position": [
+            -46.46827418805754,
+            -38.068390605586245,
+            14.579724294134767
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 5.5 × 7.3 мм.",
+          "PartId": "cassette_screw_1_3",
+          "Position": [
+            -48.002703226551354,
+            -38.76937769920517,
+            17.508191389473648
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.8 × 5.7 × 7.5 мм.",
+          "PartId": "cassette_insert_-1_0",
+          "Position": [
+            -36.44004501010524,
+            -4.630774116400614,
+            27.83817740007635
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 5.5 × 7.3 мм.",
+          "PartId": "cassette_screw_-1_0",
+          "Position": [
+            -37.97447404860568,
+            -5.331761210025011,
+            30.766644495414464
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.8 × 5.7 × 7.5 мм.",
+          "PartId": "cassette_insert_-1_1",
+          "Position": [
+            -59.77492567085658,
+            -15.291058667873592,
+            13.059646867978023
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 5.5 × 7.3 мм.",
+          "PartId": "cassette_screw_-1_1",
+          "Position": [
+            -61.309354709362566,
+            -15.992045761503235,
+            15.988113963317828
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.8 × 5.7 × 7.5 мм.",
+          "PartId": "cassette_insert_-1_2",
+          "Position": [
+            -46.44070815042614,
+            -9.199467495609037,
+            21.504521457748048
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 5.5 × 7.3 мм.",
+          "PartId": "cassette_screw_-1_2",
+          "Position": [
+            -47.97513718893197,
+            -9.900454589226205,
+            24.432988553086712
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.8 × 5.7 × 7.5 мм.",
+          "PartId": "cassette_insert_-1_3",
+          "Position": [
+            -53.10781691064562,
+            -12.245263081745485,
+            17.282084162863725
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 5.5 × 7.3 мм.",
+          "PartId": "cassette_screw_-1_3",
+          "Position": [
+            -54.642245949142634,
+            -12.946250175365721,
+            20.210551258202933
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 143.1 × 134.3 × 114.1 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            -38.5050628118237,
+            -16.912975231344845,
+            -1.8868965553292378
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cover_anchors",
+          "Status": "pass",
+          "Message": "Крепёжные отверстия в замкнутой панели: 4.",
+          "PartId": "skin_main_0",
+          "Position": [
+            -40.047953787867336,
+            -16.575437497380843,
+            -6.17089029973135
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 149.5 × 156.6 × 130.8 мм.",
+          "PartId": "skin_main_0",
+          "Position": [
+            -40.047953787867336,
+            -16.575437497380843,
+            -6.17089029973135
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cover_anchors",
+          "Status": "pass",
+          "Message": "Крепёжные отверстия в замкнутой панели: 4.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            -32.34011565748142,
+            -25.20177316982503,
+            30.308412638782947
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 64.0 × 40.2 × 36.9 мм.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            -32.34011565748142,
+            -25.20177316982503,
+            30.308412638782947
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_0",
+          "Position": [
+            -15.383815131490003,
+            15.383815131495004,
+            19.228141072740634
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_1",
+          "Position": [
+            15.383815131495002,
+            15.383815131495002,
+            19.228141072740637
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_2",
+          "Position": [
+            15.383815131495002,
+            -15.38381513149,
+            19.228141072740634
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_3",
+          "Position": [
+            -15.383815131489996,
+            -15.383815131489996,
+            19.228141072740627
+          ],
+          "Scope": "assembly"
+        }
+      ]
+    },
+    {
+      "Id": "author65_j7",
+      "Issues": [
+        {
+          "Code": "cover_enclosure",
+          "Status": "pass",
+          "Message": "Каркас вне цельного контура: 0 мм³.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "shell_continuity",
+          "Status": "pass",
+          "Message": "Цельная кассетная оболочка до отделения крышки.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "monocoque_structure",
+          "Status": "pass",
+          "Message": "Кассетная геометрия: непрерывный короб вместо трубы с наружной седловой лапкой.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "inset_panel",
+          "Status": "pass",
+          "Message": "Отдельная закруглённая крышка в углублении с чёрным кантом; утопленных винтов: 4.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца stator_mount: 4 × Ø3.4 мм.",
+          "PartId": "rear_cover",
+          "Position": [
+            0,
+            0,
+            -99.2
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца rotor_output: 4 × Ø2.5 мм.",
+          "PartId": "output_flange",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца trim_mount: 4 × Ø5.7 мм.",
+          "PartId": "joint_trim",
+          "Position": [
+            0,
+            0,
+            6
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца link_input: 4 × Ø3.4 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "bolt_pattern",
+          "Status": "pass",
+          "Message": "Реальные отверстия фланца tool_mount: 4 × Ø3.4 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            20.967557249944118,
+            44.14142702483741,
+            95.40791859891073
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "root_contact",
+          "Status": "pass",
+          "Message": "Контакт несущего фланца с выходным: 0.0 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            0,
+            0,
+            12.3
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "drive_selection",
+          "Status": "pending",
+          "Message": "Фланцы соединены геометрически. Внутреннюю передачу и её выходной носитель нужно согласовать с выбранным редуктором; передаточное число само по себе не задаёт механизм.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cable_routing",
+          "Status": "pending",
+          "Message": "Внутренние проходы в каркасе сохранены. Гибкая проводка через шарниры, разъёмы и допустимый перекрут требуют отдельной трассировки; условные наружные стержни не показываются как готовые кабели.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "strength",
+          "Status": "pending",
+          "Message": "Прочность стыков, вставок, валов и печатного материала требует расчёта по реальным данным.",
+          "PartId": null,
+          "Position": [
+            0,
+            0,
+            0
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-93.2_0",
+          "Position": [
+            30.971277015970998,
+            30.971277015970998,
+            -90.20000000000002
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-93.2_1",
+          "Position": [
+            -30.971277015970003,
+            30.971277015971005,
+            -90.20000000000002
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-93.2_2",
+          "Position": [
+            -30.971277015970003,
+            -30.971277015970003,
+            -90.2
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-93.2_3",
+          "Position": [
+            30.971277015971,
+            -30.971277015969996,
+            -90.2
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-8.0_0",
+          "Position": [
+            -30.971277015970006,
+            30.97127701597101,
+            -11.000000000000004
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-8.0_1",
+          "Position": [
+            30.971277015971005,
+            30.97127701597099,
+            -10.999999999999998
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-8.0_2",
+          "Position": [
+            30.971277015970994,
+            -30.971277015969996,
+            -10.999999999999996
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 4.6 × 4.6 × 6.0 мм.",
+          "PartId": "case_insert_-8.0_3",
+          "Position": [
+            -30.97127701597,
+            -30.97127701597,
+            -11.000000000000004
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 98.6 × 85.2 × 49.2 мм.",
+          "PartId": "actuator_left",
+          "Position": [
+            -4.629777554110836e-11,
+            -27.251065502224815,
+            -49.84968037544846
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 98.6 × 85.2 × 49.2 мм.",
+          "PartId": "actuator_right",
+          "Position": [
+            -3.764058216469998e-11,
+            27.251065502226066,
+            -49.84968037544815
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 98.6 × 98.6 × 14.0 мм.",
+          "PartId": "front_support",
+          "Position": [
+            -9.234686245664535e-15,
+            -2.7464108747547974e-15,
+            -0.8791014567431136
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 98.6 × 98.6 × 6.0 мм.",
+          "PartId": "rear_cover",
+          "Position": [
+            -4.797752026086765e-16,
+            -5.277527228695441e-15,
+            -96.19999999999999
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_0",
+          "Position": [
+            30.971277015970998,
+            30.971277015971,
+            -103.33548387096775
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_1",
+          "Position": [
+            -30.97127701597,
+            30.971277015970998,
+            -103.33548387096772
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_2",
+          "Position": [
+            -30.971277015969992,
+            -30.971277015970003,
+            -103.33548387096772
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 22.4 мм.",
+          "PartId": "stator_rear_3",
+          "Position": [
+            30.971277015970998,
+            -30.971277015969996,
+            -103.33548387096775
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 20.4 мм.",
+          "PartId": "stator_front_0",
+          "Position": [
+            -30.97127701597,
+            30.971277015970998,
+            0.07709497206703325
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 20.4 мм.",
+          "PartId": "stator_front_1",
+          "Position": [
+            30.971277015970994,
+            30.971277015970998,
+            0.07709497206703926
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 20.4 мм.",
+          "PartId": "stator_front_2",
+          "Position": [
+            30.971277015970998,
+            -30.97127701597,
+            0.07709497206703897
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 20.4 мм.",
+          "PartId": "stator_front_3",
+          "Position": [
+            -30.97127701597,
+            -30.971277015970006,
+            0.07709497206703203
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 55.5 × 55.5 × 22.3 мм.",
+          "PartId": "output_flange",
+          "Position": [
+            -2.0351586892038154e-14,
+            -1.7505801368274524e-14,
+            8.434480423701714
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 97.2 × 97.2 × 2.4 мм.",
+          "PartId": "joint_trim",
+          "Position": [
+            4.69259161188162e-16,
+            -1.3217466373466564e-14,
+            7.200000000000001
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 7.6 × 7.1 мм.",
+          "PartId": "cassette_insert_1_0",
+          "Position": [
+            4.4337479044096435,
+            -5.388271174154475,
+            55.28091317186379
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.1 × 7.3 × 6.8 мм.",
+          "PartId": "cassette_screw_1_0",
+          "Position": [
+            3.2110619715163113,
+            -7.962300243813585,
+            57.097830441901436
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 7.6 × 7.1 мм.",
+          "PartId": "cassette_insert_1_1",
+          "Position": [
+            -6.9778607598565365,
+            0.032341028692629954,
+            55.280913171863595
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.1 × 7.3 × 6.8 мм.",
+          "PartId": "cassette_screw_1_1",
+          "Position": [
+            -8.200546692748636,
+            -2.541688040965589,
+            57.09783044190097
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 7.6 × 7.1 мм.",
+          "PartId": "cassette_insert_1_2",
+          "Position": [
+            9.724952481614626,
+            5.7509053133114865,
+            74.6224902898276
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.1 × 7.3 × 6.8 мм.",
+          "PartId": "cassette_screw_1_2",
+          "Position": [
+            8.50226654872169,
+            3.1768762436535742,
+            76.43940755986523
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 7.6 × 7.1 мм.",
+          "PartId": "cassette_insert_1_3",
+          "Position": [
+            -1.6866561826504773,
+            11.17151751615951,
+            74.62249028982754
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.1 × 7.3 × 6.8 мм.",
+          "PartId": "cassette_screw_1_3",
+          "Position": [
+            -2.90934211554356,
+            8.597488446501442,
+            76.43940755986524
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 7.6 × 7.1 мм.",
+          "PartId": "cassette_insert_-1_0",
+          "Position": [
+            20.822516345325564,
+            29.11377489340043,
+            30.927123196946354
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.1 × 7.3 × 6.8 мм.",
+          "PartId": "cassette_screw_-1_0",
+          "Position": [
+            22.045202278217488,
+            31.687803963057657,
+            29.11020592690925
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 7.6 × 7.1 мм.",
+          "PartId": "cassette_insert_-1_1",
+          "Position": [
+            9.410907681059255,
+            34.534387096247286,
+            30.927123196946383
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.1 × 7.3 × 6.8 мм.",
+          "PartId": "cassette_screw_-1_1",
+          "Position": [
+            10.633593613952316,
+            37.108416165905574,
+            29.11020592690914
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 7.6 × 7.1 мм.",
+          "PartId": "cassette_insert_-1_2",
+          "Position": [
+            26.1137209225306,
+            40.25295138086634,
+            50.26870031491121
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.1 × 7.3 × 6.8 мм.",
+          "PartId": "cassette_screw_-1_2",
+          "Position": [
+            27.336406855422574,
+            42.826980450524324,
+            48.451783044873935
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.5 × 7.6 × 7.1 мм.",
+          "PartId": "cassette_insert_-1_3",
+          "Position": [
+            14.702112258264336,
+            45.67356358371461,
+            50.268700314911094
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 6.1 × 7.3 × 6.8 мм.",
+          "PartId": "cassette_screw_-1_3",
+          "Position": [
+            15.924798191157294,
+            48.247592653372394,
+            48.45178304487379
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 107.3 × 113.4 × 84.3 мм.",
+          "PartId": "frame_0",
+          "Position": [
+            10.434623202024245,
+            21.967335347919136,
+            57.727882553967525
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cover_anchors",
+          "Status": "pass",
+          "Message": "Крепёжные отверстия в замкнутой панели: 4.",
+          "PartId": "skin_main_0",
+          "Position": [
+            13.32589346927864,
+            28.05400492886031,
+            63.63360075648851
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 145.2 × 71.1 × 96.6 мм.",
+          "PartId": "skin_main_0",
+          "Position": [
+            13.32589346927864,
+            28.05400492886031,
+            63.63360075648851
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "cover_anchors",
+          "Status": "pass",
+          "Message": "Крепёжные отверстия в замкнутой панели: 4.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            0.13118939926227996,
+            0.2761831930924163,
+            68.77155675349702
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 74.4 × 78.2 × 52.8 мм.",
+          "PartId": "skin_panel_0",
+          "Position": [
+            0.13118939926227996,
+            0.2761831930924163,
+            68.77155675349702
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_0",
+          "Position": [
+            -15.383815131490003,
+            15.383815131495004,
+            19.228141072740634
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_1",
+          "Position": [
+            15.383815131495002,
+            15.383815131495002,
+            19.228141072740637
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_2",
+          "Position": [
+            15.383815131495002,
+            -15.38381513149,
+            19.228141072740634
+          ],
+          "Scope": "assembly"
+        },
+        {
+          "Code": "printer",
+          "Status": "pass",
+          "Message": "Габариты детали: 5.4 × 5.4 × 16.4 мм.",
+          "PartId": "root_bolt_3",
+          "Position": [
+            -15.383815131489996,
+            -15.383815131489996,
+            19.228141072740627
+          ],
+          "Scope": "assembly"
+        }
+      ]
+    }
+  ],
+  "TrialDecision": "REJECTED_NOT_FOR_PRINTING_OR_OPERATION",
+  "Reason": "Overbuilt solid-volume candidate: 18.21 kg estimated total and about 99.46 Nm shoulder demand with safety factor 2. Actual motor torque curve and real transmissions unknown; 10 printable CAD bodies exceed a simple 246 mm envelope.",
+  "MassConvention": "Mass estimate of this generated candidate using full solid CAD volumes, PETG assumed density 1270 kg/m3, motor template mass 0.29 kg; not measured mass and not mass of the author source mesh."
+}

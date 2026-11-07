@@ -687,3 +687,28 @@ Gear Lab — справка|GearLab — Help
 Два противоположных эксцентрика; междисковый зазор задан отдельно. Опоры и крепёж требуют CAD.|Two opposite eccentrics; separately specified disc spacing. Verify bearings and fasteners in CAD.
 Зубья шкивов показаны условно: конкретный профиль ремня нужно выбрать по каталогу.|Pulley teeth are schematic: choose a belt tooth profile from a catalog.
 Корень зуба упрощён, без галтели и силового расчёта. Эскиз для компоновки, не готовая технология изготовления.|Simplified tooth root without fillet or stress analysis. Layout sketch, not a manufacturing specification.
+
+Новый дизайн · 1 м / 300 г…|New design · 1 m / 300 g…
+Проверка нового дизайна…|New design audit…
+Новый дизайн манипулятора|New manipulator design
+Высота в исходной позе, мм|Height in the source pose, mm
+Полезная нагрузка, г|Payload, g
+Открыть новый дизайн|Open new design
+Проверка нового дизайна|New design audit
+Сначала откройте новый дизайн манипулятора.|Open the new manipulator design first.
+Авторский дизайн: референс. Прочность, приводы, посадки и готовность к печати не подтверждены.|Author design: reference. Strength, drives, fits and print readiness are unverified.
+Принтер, материал и приводы ещё не выбраны. Экспорт исходных поверхностей для печати отключён.|Printer, material and drives have not been selected. Printing export of the source surfaces is disabled.
+Высота и нагрузка нового дизайна…|New design height and payload…
+Открыть образцы посадок|Open fit specimens
+В этапе 4 доступна демонстрация движения. Инженерный статус указан в отчёте.|Stage 4 provides a motion demonstration. See the report for engineering status.
+Bambu Lab P1S / PETG / сопло 0,4 мм (допущение). Приводы ещё не выбраны. Экспорт исходных поверхностей для печати отключён.|Bambu Lab P1S / PETG / nozzle 0.4 mm (assumed). Drives are unselected. Print export of source surfaces is disabled.
+
+Bambu Lab P1S / PETG / сопло 0,4 мм (допущение). Выбраны прежние NEMA17; рабочий момент и передачи не подтверждены. Экспорт исходных поверхностей для печати отключён.|Bambu Lab P1S / PETG / nozzle 0.4 mm (assumed). Previous NEMA17 selected; working torque and transmissions unverified. Source print export disabled.
+
+Высота и груз — в окне нового дизайна; движение — на этапе 4.|Height and payload: new design dialog; movement: stage 4.
+Принтер / материал|Printer / material
+Мотор: шаблон|Motor template
+Груз, г|Payload, g
+референс|reference
+
+NEMA17 · 42,3 × 42,3 × 44 мм (44 мм — допущение) · вал 5 мм|NEMA17 · 42.3 × 42.3 × 44 mm (44 mm assumed) · shaft 5 mm
