@@ -23,9 +23,10 @@ namespace GearLab {
   public static double[] Matrix(Matrix3D m){return new[]{m.M11,m.M12,m.M13,m.M14,m.M21,m.M22,m.M23,m.M24,m.M31,m.M32,m.M33,m.M34,m.OffsetX,m.OffsetY,m.OffsetZ,m.M44};}
 
   public void ApplyAppearance(){if(disposed)return;if(appearanceRevision==AppSettings.AppearanceRevision&&languageRevision==AppSettings.LanguageRevision&&orbitSensitivity==AppSettings.Current.OrbitSensitivity)return;appearanceRevision=AppSettings.AppearanceRevision;languageRevision=AppSettings.LanguageRevision;orbitSensitivity=AppSettings.Current.OrbitSensitivity;var colors=UiPalette.Keys.ToDictionary(k=>k,k=>ColorTranslator.ToHtml(UiPalette.Get(k)));Send(new{type="appearance",colors=colors,language=I18n.English?"en":"ru",orbitSensitivity=AppSettings.Current.OrbitSensitivity});}
-  public void Clear(){Send(new{type="clear"});}
+  internal int ClearCount,PartUploadCount;
+  public void Clear(){ClearCount++;Send(new{type="clear"});}
 
-  public void Part(string id,string label,SceneMesh mesh,Matrix3D matrix,Color color,bool visible=true,string role=null){var vertices=new double[mesh.Points.Length*3];var normals=new double[vertices.Length];for(int i=0;i<mesh.Points.Length;i++){var p=mesh.Points[i];var n=mesh.Normals[i];vertices[i*3]=Math.Round(p.X,5);vertices[i*3+1]=Math.Round(p.Y,5);vertices[i*3+2]=Math.Round(p.Z,5);normals[i*3]=Math.Round(n.X,5);normals[i*3+1]=Math.Round(n.Y,5);normals[i*3+2]=Math.Round(n.Z,5);}Send(new{type="part",id=id,label=label,positions=vertices,normals=normals,indices=mesh.Indices,matrix=Matrix(matrix),color=ColorTranslator.ToHtml(color),visible=visible,role=role});}
+  public void Part(string id,string label,SceneMesh mesh,Matrix3D matrix,Color color,bool visible=true,string role=null){PartUploadCount++;var vertices=new double[mesh.Points.Length*3];var normals=new double[vertices.Length];for(int i=0;i<mesh.Points.Length;i++){var p=mesh.Points[i];var n=mesh.Normals[i];vertices[i*3]=Math.Round(p.X,5);vertices[i*3+1]=Math.Round(p.Y,5);vertices[i*3+2]=Math.Round(p.Z,5);normals[i*3]=Math.Round(n.X,5);normals[i*3+1]=Math.Round(n.Y,5);normals[i*3+2]=Math.Round(n.Z,5);}Send(new{type="part",id=id,label=label,positions=vertices,normals=normals,indices=mesh.Indices,matrix=Matrix(matrix),color=ColorTranslator.ToHtml(color),visible=visible,role=role});}
 
   public void Camera(OrbitCamera camera){Send(new{type="camera",position=new[]{camera.Camera.Position.X,camera.Camera.Position.Y,camera.Camera.Position.Z},target=new[]{camera.Target.X,camera.Target.Y,camera.Target.Z},width=camera.Width});}
 

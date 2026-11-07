@@ -96,7 +96,7 @@ def build(spec,folder,k):
    poly=BRepBuilderAPI_MakePolygon();angle0=i*math.pi/4;angle1=(i+1)*math.pi/4
    for q in [[0,0,base_z-1],[base_r*2*math.cos(angle0),base_r*2*math.sin(angle0),base_z-1],[base_r*2*math.cos(angle1),base_r*2*math.sin(angle1),base_z-1]]:poly.Add(gp_Pnt(*q))
    poly.Close();wedge=BRepPrimAPI_MakePrism(BRepBuilderAPI_MakeFace(poly.Wire()).Face(),gp_Vec(0,0,h+2)).Shape();part=k.checked(BRepAlgoAPI_Common(shell,wedge).Shape());add('base_sector_'+str(i),'Сектор низкого основания '+str(i+1),part,True,'frame')
-  top_ring=annulus(base_r-22,54,5,[0,0,base_z+h-5])
+  top_ring=annulus(base_r-36-gap,d['stator_r']+gap,5,[0,0,base_z+h-5])
   for i in range(8):
    poly=BRepBuilderAPI_MakePolygon();a0=i*math.pi/4;a1=(i+1)*math.pi/4
    for q in [[0,0,base_z+h-6],[base_r*2*math.cos(a0),base_r*2*math.sin(a0),base_z+h-6],[base_r*2*math.cos(a1),base_r*2*math.sin(a1),base_z+h-6]]:poly.Add(gp_Pnt(*q))
@@ -104,15 +104,16 @@ def build(spec,folder,k):
   # Separate central mounting plate and cardinal anchor feet, with actual bores.
   for i in range(4):
    ang=i*math.pi/2;rot=gp_Trsf();rot.SetRotation(gp_Ax1(gp_Pnt(0,0,0),gp_Dir(0,0,1)),ang)
-   foot=box([base_r-40,-38,base_z,base_r+40,38,base_z+9])
+   foot=box([base_r-12,-38,base_z,base_r+40,38,base_z+9])
    for y in [-22,22]:foot=cut(foot,cylinder(2.75,11,[base_r+22,y,base_z-1]))
    for y in [-25,20]:
     poly=BRepBuilderAPI_MakePolygon()
     for q in [[base_r-12,y,base_z+9],[base_r-12,y,base_z+78],[base_r+28,y,base_z+9]]:poly.Add(gp_Pnt(*q))
     poly.Close();rib=BRepPrimAPI_MakePrism(BRepBuilderAPI_MakeFace(poly.Wire()).Face(),gp_Vec(0,5,0)).Shape();foot=fuse(foot,rib)
+   foot=cut(foot,shell)
    add('anchor_foot_'+str(i),'Анкерная лапа с рёбрами '+str(i+1),BRepBuilderAPI_Transform(foot,rot,False).Shape(),True)
   turn=annulus(175,bi/2+3.2,12,[0,0,rootz]);turn=drill(turn,frame([0,0,rootz-1],[0,0,1]),d['root_pc'],1.7,14);rootplate=fuse(rootplate,turn)
-  a=[0,0,180];vdir=vec(a,b);u=norm(vdir);v=norm(cross([0,1,0],u));bone=saddle((plus(a,[0,-32,0]),u,v,[0,1,0]),math.dist(a,b),64,88,64);inner=saddle((plus(a,[0,-28,0]),u,v,[0,1,0]),math.dist(a,b),60,84,56);power=cut(bone,inner);power=fuse(power,rootplate);poly=BRepBuilderAPI_MakePolygon()
+  a=[0,b[1],180];vdir=vec(a,b);u=norm(vdir);v=norm(cross([0,1,0],u));bone=saddle((plus(a,[0,-32,0]),u,v,[0,1,0]),math.dist(a,b),64,88,64);inner=saddle((plus(a,[0,-28,0]),u,v,[0,1,0]),math.dist(a,b),60,84,56);power=cut(bone,inner);power=fuse(power,rootplate);poly=BRepBuilderAPI_MakePolygon()
   for q in [[-145,-40,30],[20,-40,30],[20,-40,160],[-100,-40,160],[-145,-40,105]]:poly.Add(gp_Pnt(*q))
   poly.Close();pedestal=BRepPrimAPI_MakePrism(BRepBuilderAPI_MakeFace(poly.Wire()).Face(),gp_Vec(0,80,0)).Shape();pedestal=cut(pedestal,box([-125,-36,34,16,36,140]));power=fuse(power,pedestal)
  elif index==2:
@@ -129,16 +130,24 @@ def build(spec,folder,k):
  else:
   outer,axes=loft(a,b,[(0,24),(.35,34),(.8,34),(1,33)],18);inner,_=loft(a,b,[(0,24),(.35,34),(.8,34),(1,33)],18,wall);power=fuse(cut(outer,inner),rootplate)
  power=fuse(power,tipplate)
+ # Rotating skirts close the exposed output journals. They stop beyond the
+ # stationary mating plate (0..8), leaving an explicit axial clearance.
+ guard_r=d['stator_r'];guard_z=8+gap
+ guard=annulus(guard_r,guard_r-skin,rootz+4-guard_z,[0,0,guard_z])
+ guard=fuse(guard,annulus(guard_r,bi/2+3.2,4,[0,0,rootz+4]))
+ power=fuse(power,guard)
  # Physical keepouts around the fixed case and the next moving flange.
- obstacles=[cylinder(d['stator_r']+gap,-d['rear'],[0,0,d['rear']]),cylinder(d['root_r']+gap,6,[0,0,rootz-6])]
+ root_clearance=(92 if index in (2,3) else d['stator_r']+6)+gap
+ obstacles=[cylinder(root_clearance,8+gap-d['rear'],[0,0,d['rear']]),cylinder(d['root_r']+gap,rootz,[0,0,0])]
  if child:
-  obstacles+=[transform(cylinder(cd['stator_r']+gap,-cd['rear'],[0,0,cd['rear']]),fr),transform(cylinder(cd['root_r']+gap,80,[0,0,8.2]),fr)]
+  swing_r=(92 if index in (1,2) else cd['stator_r']+6)+gap
+  obstacles+=[transform(cylinder(cd['stator_r']+gap,-cd['rear'],[0,0,cd['rear']]),fr),transform(cylinder(swing_r,100,[0,0,8+gap]),fr),transform(cylinder(cd['root_r']+gap,cd['root_z']+8,[0,0,0]),fr)]
  for obstacle in obstacles:power=cut(power,obstacle)
  if index==1:power=k.checked(BRepAlgoAPI_Common(power,box([-1000,-1000,rootz,1000,1000,2000])).Shape())
  # Reassert the real mating plates after trimming the cosmetic envelope.
  power=fuse(power,rootplate);power=fuse(power,tipplate)
  if index==2:
-  aa,uu,vv,nn=axes;half=20 if index==2 else 38;mid=plus(aa,times(vec(aa,b),.5));length=max(30,distance-150);w=23 if index==2 else 22
+  aa,uu,vv,nn=axes;half=20 if index==2 else 38;mid=plus(aa,times(vec(aa,b),.5));length=max(30,distance-220);w=23 if index==2 else 22
   def plate_rect(extra,z,height):
    ff=(plus(mid,times(nn,z)),uu,vv,nn);wire=curve_profile(ff,length/2+extra,w+extra,'rounded_rectangle',.2);return BRepPrimAPI_MakePrism(BRepBuilderAPI_MakeFace(wire).Face(),gp_Vec(*times(nn,height))).Shape()
   opening=plate_rect(0,half-wall-1,wall+skin+gap+3);power=cut(power,opening);panel=plate_rect(6,half+gap,skin)
@@ -151,14 +160,22 @@ def build(spec,folder,k):
   for i,fraction in enumerate([.24,.43,.62]):
    origin=plus(aa,times(vec(aa,b),fraction));face=plus(origin,times(uu,44));ff=(origin,vv,nn,uu);body=transform(box([-21.15,-21.15,0,21.15,21.15,44]),ff);add('remote_motor_'+str(i),'NEMA17 · дистанционный привод кисти '+str(i+1),body,False,'motor',.29/(42.3*42.3*44*1e-9),'#454a50')
    shaft=cylinder(2.5,15,face,uu);add('remote_shaft_'+str(i),'Вал NEMA17 Ø5',shaft,False,'metal',7850)
-   support=annulus(39,11.3,4,face,uu)
+   mount_r=49+(32-49)*(fraction+44/distance)-wall-gap
+   support=annulus(mount_r,11.3,4,face,uu)
    for x in [-15.5,15.5]:
     for y in [-15.5,15.5]:support=cut(support,cylinder(1.7,6,plus(plus(plus(face,times(vv,x)),times(nn,y)),times(uu,-1)),uu))
+   for k0 in range(4):
+    angle=k0*math.pi/2;pos=plus(plus(face,times(vv,(mount_r-4)*math.cos(angle))),times(nn,(mount_r-4)*math.sin(angle)))
+    support=cut(support,cylinder(1.7,6,plus(pos,times(uu,-1)),uu))
+    boss=cylinder(6,10,plus(pos,times(uu,4)),uu);power=fuse(power,boss);power=cut(power,cylinder(1.25,12,plus(pos,times(uu,3)),uu));bolt('remote_retention_'+str(i)+'_'+str(k0),pos,uu,12)
    add('remote_mount_'+str(i),'Съёмная монтажная пластина двигателя кисти',support)
    spool=annulus(13,2.6,9,plus(face,times(uu,4)),uu);add('wrist_capstan_'+str(i),'Барабан дистанционного привода · компоновка',spool,False,'metal',7850)
   issue('remote_wrist','pending','Двигатели кисти размещены в предплечье; силовые тяги, направляющие, натяжение и передаточные отношения ещё не рассчитаны.')
  if index==1:
-  hatch=transform(box([-24,-32,0,24,32,5]),([0,-37,180],[1,0,0],[0,0,1],[0,-1,0]));add('lower_access_hatch','Нижняя сервисная крышка',hatch)
+  hatch_y=b[1]-32-gap;hatch=transform(box([-24,-32,0,24,32,5]),([0,hatch_y,200],[1,0,0],[0,0,1],[0,-1,0]))
+  for k0,(xx,zz) in enumerate((xx,zz) for xx in [-16,16] for zz in [176,224]):
+   pos=[xx,hatch_y-5,zz];hatch=cut(hatch,cylinder(1.7,7,plus(pos,[0,-1,0]),[0,1,0]));power=cut(power,cylinder(1.25,12,pos,[0,1,0]));bolt('hatch_'+str(k0),pos,[0,1,0],10)
+  add('lower_access_hatch','Нижняя сервисная крышка',hatch)
  if index==3:
   from OCP.Geom import Geom_BezierCurve
   from OCP.collections import Array1_gp_Pnt as TColgp_Array1OfPnt
@@ -176,7 +193,8 @@ def build(spec,folder,k):
   unify=ShapeUpgrade_UnifySameDomain(power,True,True,False);unify.Build();power=k.checked(unify.Shape())
  add('frame_0','Силовой корпус по компоновке визуального образца',power)
  port('link_input','frame_0',frame([0,0,rootz],[0,0,1]),d['root_pc'])
- port('link_child' if child else 'tool_mount','frame_0',fr,cd['stator_pc'] if child else 17,child['Id'] if child else None)
+ tool_frame=fr if child else (plus(fr[0],times(fr[3],8)),fr[1],fr[2],fr[3])
+ port('link_child' if child else 'tool_mount','frame_0',tool_frame,cd['stator_pc'] if child else 17,child['Id'] if child else None)
  issue('reference_silhouette','info','Новая компоновка по визуальному образцу. Сходство оценивается сравнением видов; игровые данные не использованы.')
  issue('engineering_review','pending','Прочность, передача момента, осевая фиксация, секционирование и сборочные допуски новой компоновки требуют отдельного завершения.')
  # Export exact STEP and matching viewport meshes. Printing is explicitly not approved.

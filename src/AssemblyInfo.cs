@@ -6,9 +6,9 @@
 
 [assembly:AssemblyProduct("Gear Lab")]
 
-[assembly:AssemblyVersion("6.7.0.0")]
+[assembly:AssemblyVersion("6.7.1.0")]
 
-[assembly:AssemblyFileVersion("6.7.0.0")]
+[assembly:AssemblyFileVersion("6.7.1.0")]
 
 [assembly:ComVisible(false)]
 

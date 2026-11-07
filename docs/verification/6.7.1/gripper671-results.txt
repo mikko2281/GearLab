@@ -1,0 +1,1 @@
+﻿PASS 81 assertions: live gripper, no mesh rebuild/upload, preserved camera and arm pose, undo/redo and current export.

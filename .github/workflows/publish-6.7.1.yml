@@ -1,0 +1,81 @@
+﻿name: Build, verify and publish GearLab 6.7.1
+on:
+  push:
+    branches: [main]
+    paths: ['docs/RELEASE_6.7.1.md']
+permissions:
+  contents: read
+concurrency:
+  group: gearlab-publish-6.7.1
+  cancel-in-progress: true
+jobs:
+  release:
+    if: github.repository == 'mikko2281/GearLab'
+    runs-on: windows-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.10'
+          architecture: x64
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build executable and pinned native runtime
+        shell: powershell
+        run: ./tools/ci_build.ps1
+      - name: Verify cached projects, fast preview and native regressions
+        shell: powershell
+        run: ./tools/ci_verify.ps1
+      - name: Verify preferences and all transmission workspaces
+        shell: powershell
+        run: |
+          $out = Join-Path $PWD 'docs/verification/6.7.1-ci'
+          New-Item -ItemType Directory -Force $out | Out-Null
+          foreach($suite in @('gripper671-core','reference67','reference67-native','industrial66','optimization641','workspace64','workspace','settings63','upgrade62','audit-fix','transmission60','train60','robot-transmission60','ui60','ui')) {
+            $env:GEARLAB_PROFILE_DIR = Join-Path $out ('profile-'+$suite)
+            $p = Start-Process -FilePath ./Windows/GearLab.exe -ArgumentList @("--$suite-test", ('"'+$out+'"')) -PassThru -WindowStyle Hidden
+            $limit=if($suite -eq 'reference67-native'){900000}else{300000}
+            if(-not $p.WaitForExit($limit)){$p.Kill();throw "Test timeout: $suite"}
+            $p.Refresh()
+            if($p.ExitCode -ne 0){Get-ChildItem $out -Filter '*error*.txt'|ForEach-Object {Get-Content $_.FullName};throw "Test failed: $suite"}
+          }
+          $contactOut = Join-Path $out 'contacts'
+          $p = Start-Process -FilePath ./Windows/GearLab.exe -ArgumentList @('--robot671-audit', ('"'+$contactOut+'"')) -PassThru -WindowStyle Hidden
+          if(-not $p.WaitForExit(900000)){$p.Kill();throw 'Assembly contact audit timed out'}
+          $p.Refresh()
+          if($p.ExitCode -ne 0){Get-Content (Join-Path $contactOut '*results.json');throw 'CAD assembly intersections remain'}
+          node tools/test_render_scheduler.mjs
+          if($LASTEXITCODE -ne 0){throw 'Render scheduler checks failed'}
+          node --check web/render-scheduler.js
+          if($LASTEXITCODE -ne 0){throw 'Scheduler syntax failed'}
+          node --check web/scene.js
+          if($LASTEXITCODE -ne 0){throw 'Scene syntax failed'}
+          node --check web/joint-controller.js
+          if($LASTEXITCODE -ne 0){throw 'Controller syntax failed'}
+      - name: Package and independently verify archives
+        shell: powershell
+        run: |
+          python -X utf8 tools/package_671.py dist Windows $env:GITHUB_SHA
+          if($LASTEXITCODE -ne 0){throw 'Packaging failed'}
+          python -X utf8 tools/verify_package.py dist/GearLab_6.7.1 dist/GearLab_6.7.1_Windows.zip
+          if($LASTEXITCODE -ne 0){throw 'Archive verification failed'}
+      - name: Publish only verified 6.7.1 assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -X utf8 tools/publish_671.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: GearLab-6.7.1-verification
+          path: |
+            docs/verification/6.7.1-ci/**/*results.json
+            docs/verification/6.7.1-ci/*results.txt
+            docs/verification/6.7.1-ci/*error*.txt
+            test-results-ci/**/*results.*
+            test-results-ci/**/*error*.txt
+            dist/*.sha256
+            dist/GearLab_6.7.1/build-info.json

@@ -487,6 +487,9 @@ namespace GearLab {
    if(args.Length>0&&args[0]=="--industrial66-export"){return IndustrialRobot66.Export(args[1]);}
    if(args.Length>0&&args[0]=="--reference67-view-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Reference67ViewTests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--reference67-native-test")return Reference67Tests.Native(args[1]);
+   if(args.Length>0&&args[0]=="--gripper671-core-test")return Gripper671CoreTests.Run(args[1]);
+   if(args.Length>0&&args[0]=="--robot671-audit")return Robot671Audit.Run(args[1]);
+   if(args.Length>0&&args[0]=="--gripper671-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Gripper671Tests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--reference67-test")return Reference67Tests.Run(args[1]);
    if(args.Length>0&&args[0]=="--reference67-scene")return ReferenceRobot67.Scene(args[1]);
    if(args.Length>0&&args[0]=="--reference67-generate")return ReferenceRobot67.Generate(args[1]);

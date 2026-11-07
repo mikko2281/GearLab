@@ -1,0 +1,32 @@
+﻿PASS playback speed applies immediately
+PASS speed controls synchronize across workspaces
+PASS speed persists
+PASS minimum playback speed
+PASS maximum playback speed
+PASS stepper text never overlaps buttons
+PASS new stepper preserves decimal input
+PASS new stepper rejects invalid input
+PASS new stepper accepts signed comma input
+PASS new stepper preserves increment behavior
+PASS reducer workspace starts
+PASS docking initialization preserves valid starter dimensions
+PASS parameter sliders hidden by default
+PASS same editor is reparented into floating window
+PASS detach preserves pending input and project parameters
+PASS floating content resizes with window
+PASS floating panel language updates immediately
+PASS top bar reflects language
+PASS language preserves pending numeric edit
+PASS language saved without Apply
+PASS floating panel hides with inactive workspace
+PASS floating panel returns with workspace
+PASS dock left reparents same editor
+PASS docked panel width is adjustable
+PASS dock right preserves controls and edits
+PASS settings selector switches to Russian without Apply
+PASS settings selector switches to English without Apply
+PASS applying other preferences preserves speed changed outside settings
+PASS floating X returns panel to workspace
+PASS layout saves floating position and size
+PASS floating layout restores on next launch
+PASS 31 assertions
