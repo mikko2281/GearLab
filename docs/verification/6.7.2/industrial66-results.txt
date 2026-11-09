@@ -1,0 +1,35 @@
+﻿PASS independent engineering preset validates
+PASS six engineering axes, no game rig
+PASS preset contains parameters, not an imported model
+PASS industrial geometry uses mechanical interfaces
+PASS 300 g payload
+PASS NEMA17 envelope is independent of visual example
+PASS unknown working torque is not invented
+PASS one metre nominal vertical kinematic height
+PASS height parameter changes link dimensions
+PASS scaling the arm does not scale motors and purchased bearings
+PASS no baked game geometry or source metadata in project
+PASS engineering project roundtrip
+PASS link length invalidates real CAD
+PASS FrameWall invalidates real CAD
+PASS SkinWall invalidates real CAD
+PASS Clearance invalidates real CAD
+PASS MotorLength invalidates mounting geometry
+PASS MotorShaft invalidates mounting geometry
+PASS BearingOuter invalidates mounting geometry
+PASS BearingWidth invalidates mounting geometry
+PASS Fit invalidates mounting geometry
+PASS payload invalidates structural sizing
+PASS legacy native cache unchanged: Robot1_800mm / J1 · Основание Z
+PASS legacy native cache unchanged: Robot1_800mm / J2 · Плечо −Y
+PASS legacy native cache unchanged: Robot1_800mm / J3 · Локоть +Y
+PASS legacy native cache unchanged: Robot1_800mm / J4 · Кисть −Y
+PASS legacy native cache unchanged: Robot1_800mm / J5 · Поворот кисти Z
+PASS legacy native cache unchanged: Robot1_800mm / J6 · Инструмент +Y
+PASS legacy native cache unchanged: SixAxis_Connected / J1 · Основание
+PASS legacy native cache unchanged: SixAxis_Connected / J2 · Плечо
+PASS legacy native cache unchanged: SixAxis_Connected / J3 · Локоть
+PASS legacy native cache unchanged: SixAxis_Connected / J4 · Поворот запястья
+PASS legacy native cache unchanged: SixAxis_Connected / J5 · Наклон запястья
+PASS legacy native cache unchanged: SixAxis_Connected / J6 · Фланец инструмента
+PASS 34 assertions

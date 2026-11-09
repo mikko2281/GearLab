@@ -1,0 +1,15 @@
+{
+  "Version": "6.7.1",
+  "MedianMs": 201.6,
+  "SamplesMs": [
+    188.8,
+    189.3,
+    191.3,
+    198.3,
+    201.6,
+    227.9,
+    261.6,
+    265.9
+  ],
+  "Scope": "local machine, eight gripper toggles"
+}

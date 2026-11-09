@@ -487,6 +487,13 @@ namespace GearLab {
    if(args.Length>0&&args[0]=="--industrial66-export"){return IndustrialRobot66.Export(args[1]);}
    if(args.Length>0&&args[0]=="--reference67-view-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Reference67ViewTests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--reference67-native-test")return Reference67Tests.Native(args[1]);
+   if(args.Length>0&&args[0]=="--robot-lifecycle672-core-test")return Robot672LifecycleTests.Core(args[1]);
+   if(args.Length>0&&args[0]=="--robot-lifecycle672-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return UiTestLoop672.Run(()=>Robot672LifecycleTests.Run(args[1]));}
+   if(args.Length>0&&args[0]=="--print-export672-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return UiTestLoop672.Run(()=>PrintExport672Tests.Run(args[1]));}
+   if(args.Length>0&&args[0]=="--procedural-cancel672-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return UiTestLoop672.Run(()=>ProceduralCancel672Tests.Run(args[1]));}
+   if(args.Length>0&&args[0]=="--stability672-core-test")return Stability672Tests.Core(args[1]);
+   if(args.Length>0&&args[0]=="--stability672-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return UiTestLoop672.Run(()=>Stability672Tests.Run(args[1]));}
+   if(args.Length>0&&args[0]=="--web-preferences672-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return UiTestLoop672.Run(()=>WebPreferences672Tests.Run(args[1]));}
    if(args.Length>0&&args[0]=="--gripper671-core-test")return Gripper671CoreTests.Run(args[1]);
    if(args.Length>0&&args[0]=="--robot671-audit")return Robot671Audit.Run(args[1]);
    if(args.Length>0&&args[0]=="--gripper671-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Gripper671Tests.Run(args[1]);}

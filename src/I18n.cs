@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,13 +34,13 @@ namespace GearLab {
   // No editable text or project identifiers are rewritten by the localization layer.
 
  }
- public static class UiMessage {
-  public static DialogResult Show(string text){return MessageBox.Show(I18n.T(text));}
-  public static DialogResult Show(IWin32Window owner,string text){return MessageBox.Show(owner,I18n.T(text));}
-  public static DialogResult Show(string text,string title){return MessageBox.Show(I18n.T(text),I18n.T(title));}
-  public static DialogResult Show(IWin32Window owner,string text,string title){return MessageBox.Show(owner,I18n.T(text),I18n.T(title));}
-  public static DialogResult Show(IWin32Window owner,string text,string title,MessageBoxButtons buttons){return MessageBox.Show(owner,I18n.T(text),I18n.T(title),buttons);}
-  public static DialogResult Show(IWin32Window owner,string text,string title,MessageBoxButtons buttons,MessageBoxIcon icon){return MessageBox.Show(owner,I18n.T(text),I18n.T(title),buttons,icon);}
-  public static DialogResult Show(string text,string title,MessageBoxButtons buttons,MessageBoxIcon icon){return MessageBox.Show(I18n.T(text),I18n.T(title),buttons,icon);}
+ public static class UiMessage { internal static Action<string> TestSink;
+  public static DialogResult Show(string text){if(TestSink!=null){TestSink(text);return DialogResult.Cancel;}return MessageBox.Show(I18n.T(text));}
+  public static DialogResult Show(IWin32Window owner,string text){if(TestSink!=null){TestSink(text);return DialogResult.Cancel;}return MessageBox.Show(owner,I18n.T(text));}
+  public static DialogResult Show(string text,string title){if(TestSink!=null){TestSink(text);return DialogResult.Cancel;}return MessageBox.Show(I18n.T(text),I18n.T(title));}
+  public static DialogResult Show(IWin32Window owner,string text,string title){if(TestSink!=null){TestSink(text);return DialogResult.Cancel;}return MessageBox.Show(owner,I18n.T(text),I18n.T(title));}
+  public static DialogResult Show(IWin32Window owner,string text,string title,MessageBoxButtons buttons){if(TestSink!=null){TestSink(text);return DialogResult.Cancel;}return MessageBox.Show(owner,I18n.T(text),I18n.T(title),buttons);}
+  public static DialogResult Show(IWin32Window owner,string text,string title,MessageBoxButtons buttons,MessageBoxIcon icon){if(TestSink!=null){TestSink(text);return DialogResult.Cancel;}return MessageBox.Show(owner,I18n.T(text),I18n.T(title),buttons,icon);}
+  public static DialogResult Show(string text,string title,MessageBoxButtons buttons,MessageBoxIcon icon){if(TestSink!=null){TestSink(text);return DialogResult.Cancel;}return MessageBox.Show(I18n.T(text),I18n.T(title),buttons,icon);}
  }
 }

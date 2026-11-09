@@ -1,4 +1,4 @@
-﻿using System.Reflection;using System.Runtime.InteropServices;
+using System.Reflection;using System.Runtime.InteropServices;
 
 [assembly:AssemblyTitle("GearLab — передачи и робототехника")]
 
@@ -6,9 +6,9 @@
 
 [assembly:AssemblyProduct("Gear Lab")]
 
-[assembly:AssemblyVersion("6.7.1.0")]
+[assembly:AssemblyVersion("6.7.2.0")]
 
-[assembly:AssemblyFileVersion("6.7.1.0")]
+[assembly:AssemblyFileVersion("6.7.2.0")]
 
 [assembly:ComVisible(false)]
 

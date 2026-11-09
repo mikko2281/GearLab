@@ -1,0 +1,33 @@
+{
+  "Version": "6.7.2",
+  "ExecutableSHA256": "1D9769CB5C3CF4A1302321BEB011F9156F7BE5227611B8C1BA0A4A4144E7373B",
+  "SuitesPassed": [
+    "industrial66",
+    "optimization641",
+    "workspace64",
+    "workspace",
+    "settings63",
+    "upgrade62",
+    "audit-fix",
+    "transmission60",
+    "train60",
+    "robot-transmission60",
+    "ui60",
+    "ui"
+  ],
+  "RenderScheduler": "PASS",
+  "EvidenceFiles": [
+    "audit-fixes-results.json",
+    "industrial66-results.txt",
+    "optimization641-results.txt",
+    "robot-transmission60-results.json",
+    "settings63-results.txt",
+    "train60-results.json",
+    "transmissions60-results.json",
+    "ui-results.txt",
+    "ui60-results.json",
+    "upgrade62-results.json",
+    "workspace-results.txt",
+    "workspace64-results.txt"
+  ]
+}

@@ -1,0 +1,1 @@
+﻿PASS 19 assertions: real ZIP, responsive UI, reentry/close guards and error rollback.

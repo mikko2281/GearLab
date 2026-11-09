@@ -4,7 +4,7 @@ namespace GearLab {
 
  public sealed class RobotWebViewport:UserControl {
 
-  readonly WebView2 browser=new WebView2();readonly Label status=new Label();bool initialized,disposed;int appearanceRevision=-1,languageRevision=-1;double orbitSensitivity=double.NaN;public bool Ready{get;private set;}public event Action ReadyChanged;public event Action<Dictionary<string,object>> Message;readonly Queue<string> pending=new Queue<string>();
+  readonly WebView2 browser=new WebView2();readonly Label status=new Label();bool initialized,disposed;int appearanceRevision=-1,languageRevision=-1,previewQuality=-1,snapEnabled=-1;double orbitSensitivity=double.NaN,snapStep=double.NaN;public bool Ready{get;private set;}public event Action ReadyChanged;public event Action<Dictionary<string,object>> Message;readonly Queue<string> pending=new Queue<string>();
 
   public RobotWebViewport(){Dock=DockStyle.Fill;BackColor=Color.FromArgb(244,247,251);browser.Dock=DockStyle.Fill;Controls.Add(browser);status.Dock=DockStyle.Fill;status.TextAlign=ContentAlignment.MiddleCenter;status.Text="Подготовка интерактивной сцены Three.js…";Controls.Add(status);status.BringToFront();Load+=(s,e)=>Initialize();AppSettings.Changed+=ApplyAppearance;}
 
@@ -22,7 +22,7 @@ namespace GearLab {
 
   public static double[] Matrix(Matrix3D m){return new[]{m.M11,m.M12,m.M13,m.M14,m.M21,m.M22,m.M23,m.M24,m.M31,m.M32,m.M33,m.M34,m.OffsetX,m.OffsetY,m.OffsetZ,m.M44};}
 
-  public void ApplyAppearance(){if(disposed)return;if(appearanceRevision==AppSettings.AppearanceRevision&&languageRevision==AppSettings.LanguageRevision&&orbitSensitivity==AppSettings.Current.OrbitSensitivity)return;appearanceRevision=AppSettings.AppearanceRevision;languageRevision=AppSettings.LanguageRevision;orbitSensitivity=AppSettings.Current.OrbitSensitivity;var colors=UiPalette.Keys.ToDictionary(k=>k,k=>ColorTranslator.ToHtml(UiPalette.Get(k)));Send(new{type="appearance",colors=colors,language=I18n.English?"en":"ru",orbitSensitivity=AppSettings.Current.OrbitSensitivity});}
+  public void ApplyAppearance(){if(disposed||!Ready)return;var settings=AppSettings.Current;int enabled=settings.SnapEnabled?1:0;if(appearanceRevision==AppSettings.AppearanceRevision&&languageRevision==AppSettings.LanguageRevision&&orbitSensitivity==settings.OrbitSensitivity&&previewQuality==(int)settings.Quality&&snapEnabled==enabled&&snapStep==settings.SnapStep)return;appearanceRevision=AppSettings.AppearanceRevision;languageRevision=AppSettings.LanguageRevision;orbitSensitivity=settings.OrbitSensitivity;previewQuality=(int)settings.Quality;snapEnabled=enabled;snapStep=settings.SnapStep;var colors=UiPalette.Keys.ToDictionary(k=>k,k=>ColorTranslator.ToHtml(UiPalette.Get(k)));Send(new{type="appearance",colors=colors,language=I18n.English?"en":"ru",orbitSensitivity=settings.OrbitSensitivity,quality=(int)settings.Quality,snapEnabled=settings.SnapEnabled,snapStep=settings.SnapStep});}
   internal int ClearCount,PartUploadCount;
   public void Clear(){ClearCount++;Send(new{type="clear"});}
 

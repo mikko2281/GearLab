@@ -32,11 +32,11 @@ namespace GearLab {
 
   void RefreshQuickLoad(){if(quickLoad==null||Analysis==null)return;var state=Analysis.Joints.FirstOrDefault(x=>x.Id==selectedJoint);if(state!=null)quickLoad.Text="Нужно с запасом: "+Engine.F(state.Required)+" "+state.Unit+"\nДоступно: "+Engine.F(state.Available)+" "+state.Unit+"\n"+state.Message;}
 
-  void BeginPoseEdit(){if(poseEditing)return;Stop();poseEditing=true;poseBefore=Document.Serialize();if(Math.Abs(phase)>1e-9){var current=RobotKinematics.Evaluate(Document,phase,true);foreach(var j in Document.Joints)j.Position=current[j.Id].Value;phase=0;}}
+  void BeginPoseEdit(){if(poseEditing)return;Stop();EnsurePoseSaveBaseline();poseEditing=true;poseBefore=CapturePoseHistory();if(Math.Abs(phase)>1e-9){var current=RobotKinematics.Evaluate(Document,phase,true);foreach(var j in Document.Joints)j.Position=current[j.Id].Value;phase=0;}}
 
   internal void SetJointPose(string id,double value){var joint=Document.Find(id);if(joint==null||!MechanismCad.Finite(value))return;Stop();joint.Position=Math.Max(joint.Minimum,Math.Min(joint.Maximum,value));RefreshManualPose();}
 
-  void EndPoseEdit(){if(!poseEditing)return;string current=Document.Serialize();if(poseBefore!=current){undo.Push(poseBefore);redo.Clear();}last=current;poseEditing=false;poseBefore=null;Text="GearLab 6.7.1 · "+Document.Name+(last!=saved?" *":"");SyncJointControllers();}
+  void EndPoseEdit(){if(!poseEditing)return;string current=CapturePoseHistory();if(poseBefore!=current){PushRobotHistory(undo,poseBefore);redo.Clear();}poseEditing=false;poseBefore=null;UpdatePoseTitle();SyncJointControllers();}
 
   W.Point ProjectBone(Point3D point){var d=point-Scene.Camera.Target;double scale=Scene.Root.ActualWidth/Math.Max(.01,Scene.Camera.Width);return new W.Point(Scene.Root.ActualWidth/2+Vector3D.DotProduct(d,Scene.Camera.Right)*scale,Scene.Root.ActualHeight/2-Vector3D.DotProduct(d,Scene.Camera.Up)*scale);}
 

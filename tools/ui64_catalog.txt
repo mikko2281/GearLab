@@ -703,3 +703,4 @@ STL сохранены: |STL files saved:
 Архивная компоновка 6.6…|Archived 6.6 layout…
 Параметры корпуса|Housing settings
 Параметры и посадки — в редакторе корпуса. Положение руки и раскрытие захвата — во вкладке управления. Конструкция пока требует инженерной проверки.|Dimensions and fits are in the housing editor. Arm pose and gripper opening are in the control tab. Engineering validation is still pending.
+Построение отменено. Предыдущий корпус сохранён.|Generation cancelled. The previous housing is preserved.

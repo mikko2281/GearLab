@@ -216,7 +216,7 @@ namespace GearLab {
 
   static JavaScriptSerializer Serializer(){return new JavaScriptSerializer{MaxJsonLength=128*1024*1024,RecursionLimit=64};}
 
-  public string Serialize(){return Serializer().Serialize(this);}public RobotDocument Clone(){return Serializer().Deserialize<RobotDocument>(Serialize());}
+  internal static int SerializationCalls;public string Serialize(){System.Threading.Interlocked.Increment(ref SerializationCalls);return Serializer().Serialize(this);}public RobotDocument Clone(){return Serializer().Deserialize<RobotDocument>(Serialize());}
 
   public static RobotDocument Parse(string text){if(text==null||text.Length>128*1024*1024)throw new Exception("Файл робота слишком большой.");var d=Serializer().Deserialize<RobotDocument>(text);if(d==null)throw new Exception("Не удалось прочитать проект.");var e=d.Validate();if(e.Count>0)throw new Exception(string.Join("\n",e.Take(8)));return d;}
 

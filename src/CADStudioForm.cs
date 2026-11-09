@@ -1,4 +1,4 @@
-﻿using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.Collections.Generic;using System.Threading.Tasks;using System.Windows.Forms;using System.Windows.Forms.Integration;using System.Windows.Media.Media3D;
+using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.Collections.Generic;using System.Threading.Tasks;using System.Windows.Forms;using System.Windows.Forms.Integration;using System.Windows.Media.Media3D;
 
 using Wpf=System.Windows;using Media=System.Windows.Media;using WControls=System.Windows.Controls;using WInput=System.Windows.Input;
 
@@ -80,7 +80,7 @@ namespace GearLab {
 
   async void Parameters(){if(busy)return;using(var dialog=new CADParametersDialog(Document.Parameters))if(dialog.ShowLocalizedDialog(this)==DialogResult.OK){var next=Document.Clone();next.Parameters=dialog.Values;await BuildCandidate(next,true);}}
 
-  void UpdateTitle(){Text="GearLab 6.7.1 · "+Document.Name+(Document.Serialize()!=saved||editingSketch!=null?" *":"");}
+  void UpdateTitle(){Text="GearLab 6.7.2 · "+Document.Name+(Document.Serialize()!=saved||editingSketch!=null?" *":"");}
 
   bool Confirm(){if(busy){UiMessage.Show(this,"Дождитесь расчёта или отмените его.");return false;}if(editingSketch!=null){UiMessage.Show(this,"Завершите или отмените текущий эскиз.");return false;}if(Document.Serialize()==saved)return true;var answer=UiMessage.Show(this,"Сохранить CAD-проект?","CAD-проект",MessageBoxButtons.YesNoCancel);return answer==DialogResult.No||(answer==DialogResult.Yes&&Save(false));}
 
