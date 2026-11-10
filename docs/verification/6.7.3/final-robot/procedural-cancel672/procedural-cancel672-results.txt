@@ -1,0 +1,1 @@
+﻿PASS 25 assertions: actual native cancellation, pending/debounce suppression, unchanged previous CAD, disabled stale apply, explicit retry and variant batch rollback.

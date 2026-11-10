@@ -539,6 +539,8 @@ namespace GearLab {
 
    if(args.Length>0&&args[0]=="--cad-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return CADStudioTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
 
+   if(args.Length>0&&args[0]=="--add-link673-view-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return AddLink673Tests.View(args[1]);}
+   if(args.Length>0&&args[0]=="--add-link673-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return AddLink673Tests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--robot-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return RoboticsTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
 
    if(args.Length>0&&(args[0]=="--robot"||args[0].EndsWith(".robot.json",StringComparison.OrdinalIgnoreCase))){string file=args[0]=="--robot"?(args.Length>1?args[1]:null):args[0];return RunWindow(()=>new RobotDesignerForm(file));}

@@ -1,0 +1,2 @@
+﻿PASS UI: Micro -> each normal type and preset, 3D mode retained and meshes attached, manual 3D reset, ordinary/Micro round trip.
+PASS 182 checks: Micro to all 16 normal type/preset combinations, screenshot reproduced/recovered, working dimensions preserved, STEP exports.

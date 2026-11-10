@@ -1,0 +1,7 @@
+﻿PASS type 0: closed fitted loops, sampled 0.002 mm tolerance, 255 solids exported.
+PASS type 1: closed fitted loops, sampled 0.002 mm tolerance, 92 solids exported.
+PASS type 2: closed fitted loops, sampled 0.002 mm tolerance, 93 solids exported.
+PASS type 3: closed fitted loops, sampled 0.002 mm tolerance, 158 solids exported.
+PASS Micro 25:1 profile, segments=360
+PASS Micro 25:1 profile, segments=2400
+PASS Micro 25:1 profile, segments=20000

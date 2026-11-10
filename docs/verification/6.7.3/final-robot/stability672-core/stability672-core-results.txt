@@ -1,0 +1,1 @@
+﻿PASS 14 actual gripper mass/pose/TCP checks.
