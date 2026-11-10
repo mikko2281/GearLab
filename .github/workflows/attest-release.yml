@@ -1,0 +1,92 @@
+name: Build and attest GearLab 6.7.2
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/attest-release.yml', 'tools/attest_release.py', 'docs/BUILD_ATTESTATION.md']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: gearlab-attest-6.7.2
+  cancel-in-progress: false
+jobs:
+  attest:
+    if: github.repository == 'mikko2281/GearLab' && github.ref == 'refs/heads/main'
+    runs-on: windows-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.10'
+          architecture: x64
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Guard unchanged release code and preserve published assets
+        run: python -X utf8 tools/attest_release.py guard
+      - name: Build executable and pinned runtime from this source commit
+        shell: powershell
+        run: ./tools/ci_build.ps1
+      - name: Verify native CAD and executable
+        shell: powershell
+        run: ./tools/ci_verify.ps1
+      - name: Verify 6.7.2 lifecycle, exports and gripper
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $out=Join-Path $PWD 'test-results-attestation'
+          New-Item -ItemType Directory -Force $out | Out-Null
+          foreach($suite in @('stability672-core','robot-lifecycle672-core','print-export672','gripper671-core','reference67')) {
+            $env:GEARLAB_PROFILE_DIR=Join-Path $out ('profile-'+$suite)
+            $p=Start-Process -FilePath ./Windows/GearLab.exe -ArgumentList @("--$suite-test", ('"'+$out+'"')) -PassThru -WindowStyle Hidden
+            if(-not $p.WaitForExit(300000)){$p.Kill();throw "Timeout: $suite"}
+            $p.Refresh()
+            if($p.ExitCode -ne 0){throw "Failed: $suite"}
+          }
+          node --experimental-vm-modules tools/test_web_preferences672.mjs
+          if($LASTEXITCODE -ne 0){throw 'Web preferences failed'}
+          node tools/test_render_scheduler.mjs
+          if($LASTEXITCODE -ne 0){throw 'Render scheduler failed'}
+      - name: Package and verify new archives
+        shell: powershell
+        run: |
+          python -X utf8 tools/package_672.py dist Windows $env:GITHUB_SHA
+          if($LASTEXITCODE -ne 0){throw 'Packaging failed'}
+          python -X utf8 tools/verify_package.py dist/GearLab_6.7.2 dist/GearLab_6.7.2_Windows.zip
+          if($LASTEXITCODE -ne 0){throw 'Package verification failed'}
+          python -X utf8 tools/attest_release.py prepare
+          if($LASTEXITCODE -ne 0){throw 'Attestation preparation failed'}
+      - name: Sign build provenance using GitHub OIDC and Sigstore
+        id: provenance
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-path: |
+            Windows/GearLab.exe
+            attested/*.zip
+            attested/*_SHA256SUMS.txt
+            attested/*_build-info.json
+      - name: Independently verify signatures and add new release assets
+        env:
+          ATTESTATION_BUNDLE: ${{ steps.provenance.outputs.bundle-path }}
+          ATTESTATION_URL: ${{ steps.provenance.outputs.attestation-url }}
+        run: python -X utf8 tools/attest_release.py publish
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: GearLab-6.7.2-attestation-evidence
+          path: |
+            attested/*
+            test-results-attestation/**/*results.*
+            test-results-ci/**/*results.*
+            test-results-ci/**/*error*.txt
+          retention-days: 90
