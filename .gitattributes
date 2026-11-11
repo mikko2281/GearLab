@@ -3,4 +3,6 @@
 # normalize source endings only in a separate reviewed migration.
 *.cs -text
 *.ps1 -text
+# The pinned SDK notices are stored with upstream CRLF bytes as well.
+src/vendor/WebView2/*.txt -text
 *.ico binary
