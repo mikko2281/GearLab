@@ -36,7 +36,7 @@ jobs:
         run: |
           $out=Join-Path $PWD 'test-results-release'
           New-Item -ItemType Directory -Force $out | Out-Null
-          foreach($suite in @('appearance680','add-link673','robot-lifecycle672-core','stability672-core','print-export672','gripper671-core','reference67','reference67-native','industrial66','settings63','workspace64','upgrade62','ui60','ui')) {
+          foreach($suite in @('appearance680','variant-history680','variant-check','add-link673','robot-lifecycle672-core','stability672-core','print-export672','gripper671-core','reference67','reference67-native','industrial66','settings63','workspace64','upgrade62','ui60','ui')) {
             $folder=Join-Path $out $suite
             New-Item -ItemType Directory -Force $folder | Out-Null
             $env:GEARLAB_PROFILE_DIR=Join-Path $folder 'profile'
@@ -72,5 +72,6 @@ jobs:
             test-results-ci/**/*error*.txt
             test-results-release/**/*results.*
             test-results-release/**/*error*.txt
+            test-results-release/**/*-check.txt
             dist/*.sha256
             dist/GearLab_*/build-info.json

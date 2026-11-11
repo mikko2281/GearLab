@@ -39,6 +39,12 @@ namespace GearLab {
 
  public sealed partial class RobotDesignerForm {
 
+  // Вариант корпуса одного звена: 0 — РОБОТ1 (Г-образный), 1 — кассетный по референсу. Трубчатая «петля» в выбор не входит.
+  internal static readonly string[] BodyVariantNames={"РОБОТ1 · Г-образный","Кассетный · по референсу"};
+  internal static int BodyVariantOf(RobotJoint j){var g=j.BodyGenerator;if(g==null||!g.Enabled||!g.ReferenceDesign||g.IndustrialDesign||g.Variant=="Reference67")return -1;return g.BlenderDesign?0:1;}
+  internal static void ApplyBodyVariant(RobotJoint j,int variant){j.BodyStyle=RobotBodyStyle.Закрытый_трубчатый;if(j.BodyGenerator==null)j.BodyGenerator=new ProceduralBodySettings();var g=j.BodyGenerator;g.Connected=g.Enabled=g.AutoRegenerate=g.ReferenceDesign=true;g.IndustrialDesign=false;g.BlenderDesign=variant==0;if(variant==0)g.FrameWall=Math.Max(6.4,g.FrameWall);}
+  internal void SetBodyVariant(string jointId,int variant){if(variant<0||variant>=BodyVariantNames.Length)return;Mutate(()=>{var j=Document.Find(jointId);if(j!=null)ApplyBodyVariant(j,variant);});}
+
   internal void ApplyReferenceDesign(){Mutate(()=>{UpgradeReferenceSpacing(Document);foreach(var j in Document.Joints){j.BodyStyle=RobotBodyStyle.Закрытый_трубчатый;if(j.BodyGenerator==null)j.BodyGenerator=new ProceduralBodySettings();j.BodyGenerator.Connected=j.BodyGenerator.Enabled=j.BodyGenerator.AutoRegenerate=j.BodyGenerator.ReferenceDesign=true;j.BodyGenerator.BlenderDesign=false;}});}
 
   internal void ApplyBlenderDesign(){Mutate(()=>{foreach(var j in Document.Joints){j.BodyStyle=RobotBodyStyle.Закрытый_трубчатый;if(j.BodyGenerator==null)j.BodyGenerator=new ProceduralBodySettings();j.BodyGenerator.Connected=j.BodyGenerator.Enabled=j.BodyGenerator.AutoRegenerate=j.BodyGenerator.ReferenceDesign=j.BodyGenerator.BlenderDesign=true;j.BodyGenerator.FrameWall=Math.Max(6.4,j.BodyGenerator.FrameWall);}});}

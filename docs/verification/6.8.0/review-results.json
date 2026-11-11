@@ -1,0 +1,16 @@
+{
+  "Version": "6.8.0",
+  "LocalDate": "2026-11-12",
+  "ManufacturingReady": false,
+  "MainSuites": 10,
+  "RobotSuites": 18,
+  "NativeProceduralAssertions": 66,
+  "NativeProceduralRuns": 14,
+  "VariantNativeGenerations": 8,
+  "AppearanceAssertions": 33,
+  "BinarySHA256": {
+    "Windows-latest2": "7c3dc4c922471cb3b0fb4699f61bd50ae351604270aa5c25d246e4f6491c03db",
+    "Windows-candidate2": "7861b960c1b7460d7820d1765b393c716e6b2cb78cb5c3abe28ad78d2aa94d82",
+    "Windows-release": "6cfb1be811c113dc4fe8438765157f5d8c313ddc5e66b382ed67edaddb0a93bd"
+  }
+}

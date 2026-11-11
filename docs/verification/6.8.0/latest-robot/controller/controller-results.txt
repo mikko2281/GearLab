@@ -1,0 +1,3 @@
+﻿PASS load envelopes: offsets, own-origin invariance, actual COM, 40 poses, early linear block.
+PASS controllers: all joints, limits, no rebuild, descendant motion, loads, grouped undo/redo, WebView messages, cancellation and linear units.
+PASS 84 controller/load assertions.

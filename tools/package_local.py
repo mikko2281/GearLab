@@ -5,9 +5,11 @@ root=Path(__file__).resolve().parents[1];dest=Path(sys.argv[1]).resolve();binary
 version=".".join(re.search(r'AssemblyFileVersion\("([0-9.]+)"\)',(root/"src/AssemblyInfo.cs").read_text(encoding="utf-8-sig")).group(1).split(".")[:3])
 prefix='GearLab_'+version;stage=dest/prefix
 release='--release' in sys.argv[4:]
+source_dirty=bool(subprocess.check_output(['git','status','--porcelain','--untracked-files=no'],cwd=root,text=True).strip())
 if release:
     assert os.environ.get('GITHUB_REPOSITORY')=='mikko2281/GearLab' and os.environ.get('GITHUB_REF')=='refs/heads/main'
     assert len(sys.argv)>3 and sys.argv[3]==os.environ.get('GITHUB_SHA')
+    assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()==sys.argv[3] and not source_dirty,'Release checkout does not match committed sources'
 def exe_version(path):
     api=ctypes.windll.version
     size=api.GetFileVersionInfoSizeW(ctypes.c_wchar_p(str(path)),None)
@@ -51,7 +53,7 @@ for name in ['LibTessDotNet','WebView2']:
     target=stage/'licenses'/name;target.mkdir(exist_ok=True)
     for p in (root/'src/vendor'/name).glob('*.txt'):shutil.copy2(p,target/p.name)
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest().upper()
-info={'Version':version,'Signature':'NotSigned','LocalReviewOnly':not release,'Sha256':sha(stage/'GearLab.exe'),'SourceCommit':sys.argv[3] if len(sys.argv)>3 else subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'TrustedLaunchGuaranteed':False,'ReadyForManufacture':False,'ReleaseType':('GitHub preliminary release' if release else 'Local review build')+'; robot NOT manufacturing ready; see docs/RELEASE_'+version+'.md','Evidence':'Local GUI results describe the tested desktop binary; CI runs headless/native tests separately.'}
+info={'Version':version,'Signature':'NotSigned','LocalReviewOnly':not release,'Sha256':sha(stage/'GearLab.exe'),'SourceCommit':sys.argv[3] if len(sys.argv)>3 else subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'SourceDirty':source_dirty,'TrustedLaunchGuaranteed':False,'ReadyForManufacture':False,'ReleaseType':('GitHub preliminary release' if release else 'Local review build')+'; robot NOT manufacturing ready; see docs/RELEASE_'+version+'.md','Evidence':'Local GUI results describe the tested desktop binary; CI runs headless/native tests separately.'}
 (stage/'build-info.json').write_text(json.dumps(info,indent=2),encoding='utf-8')
 (stage/'SHA256SUMS.txt').write_text('\n'.join(sha(p)+'  '+p.relative_to(stage).as_posix() for p in sorted(stage.rglob('*')) if p.is_file())+'\n',encoding='utf-8')
 def archive(path,items,base,pref):

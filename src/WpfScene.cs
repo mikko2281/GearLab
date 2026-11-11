@@ -48,7 +48,8 @@ namespace GearLab {
 
   }
 
-  static List<SceneNode> BuildNodes(Result result,CancellationToken token){lock(buildLock){token.ThrowIfCancellationRequested();var list=new List<SceneNode>();int index=0;foreach(var part in result.Model.Parts){token.ThrowIfCancellationRequested();var mesh=SceneMesher.Build(part,token);var node=new SceneNode{Part=part,Source=mesh,Frozen=mesh.Geometry(),Motion=PartMotion.Bind(result,part),Index=index++};if(part.Role=="shaft")node.Marker=MakeMarker(part);else if(result.P.CycloidLayout==1&&part.Id.EndsWith("_CASE_WALL"))node.Marker=CaseMarker(part);if(node.Marker!=null)node.MarkerFrozen=node.Marker.Geometry();list.Add(node);}return list;}}
+  static List<SceneNode> BuildNodes(Result result,CancellationToken token){lock(buildLock){token.ThrowIfCancellationRequested();// Детали одного подшипника (кольца, шарики, сепаратор) получают общий номер: в разнесённом виде подшипник остаётся целым.
+   var list=new List<SceneNode>();int index=0;var bearingIndex=new Dictionary<CadPart,int>();foreach(var part in result.Model.Parts){token.ThrowIfCancellationRequested();var mesh=SceneMesher.Build(part,token);int own;if(part.BearingSource==null)own=index++;else if(!bearingIndex.TryGetValue(part.BearingSource,out own)){own=index++;bearingIndex[part.BearingSource]=own;}var node=new SceneNode{Part=part,Source=mesh,Frozen=mesh.Geometry(),Motion=PartMotion.Bind(result,part),Index=own};if(part.Role=="shaft")node.Marker=MakeMarker(part);else if(result.P.CycloidLayout==1&&part.Id.EndsWith("_CASE_WALL"))node.Marker=CaseMarker(part);if(node.Marker!=null)node.MarkerFrozen=node.Marker.Geometry();list.Add(node);}return list;}}
 
   static SceneMesh CaseMarker(CadPart part){var s=part.Sections[0];if(!s.Outer.Circle)return null;double r=s.Outer.R+.03,a=-Math.PI/4-.035,b=a+.07,lo=part.Sections.Min(q=>q.Bottom),hi=part.Sections.Max(q=>q.Top),z0=lo+(hi-lo)*.2,z1=lo+(hi-lo)*.8;return new SceneMesh{Points=new[]{new Point3D(r*Math.Cos(a),r*Math.Sin(a),z0),new Point3D(r*Math.Cos(b),r*Math.Sin(b),z0),new Point3D(r*Math.Cos(b),r*Math.Sin(b),z1),new Point3D(r*Math.Cos(a),r*Math.Sin(a),z1)},Normals=new[]{new Vector3D(Math.Cos(a),Math.Sin(a),0),new Vector3D(Math.Cos(b),Math.Sin(b),0),new Vector3D(Math.Cos(b),Math.Sin(b),0),new Vector3D(Math.Cos(a),Math.Sin(a),0)},Indices=new[]{0,1,2,0,2,3}};}
 
@@ -82,7 +83,7 @@ namespace GearLab {
 
   public Rect3D Bounds(bool visibleOnly){Rect3D bounds=Rect3D.Empty;if(!Ready)return bounds;foreach(var n in Nodes){if(visibleOnly&&!Visible(n))continue;var transformed=new MatrixTransform3D(n.Pose).TransformBounds(n.Frozen.Bounds);bounds.Union(transformed);}return bounds;}
 
-  public void Fit(){var bounds=Bounds(true);if(bounds.IsEmpty)bounds=Bounds(false);if(HasConstruction)bounds.Union(constructionMesh.Geometry().Bounds);if(bounds.IsEmpty)bounds=new Rect3D(-50,-50,0,100,100,20);Camera.Fit(bounds,Math.Max(.1,Root.ActualWidth/Math.Max(1,Root.ActualHeight)));environmentWidth=-1;UpdateEnvironment();}
+  public void Fit(){CancelCameraTween();var bounds=Bounds(true);if(bounds.IsEmpty)bounds=Bounds(false);if(HasConstruction)bounds.Union(constructionMesh.Geometry().Bounds);if(bounds.IsEmpty)bounds=new Rect3D(-50,-50,0,100,100,20);Camera.Fit(bounds,Math.Max(.1,Root.ActualWidth/Math.Max(1,Root.ActualHeight)));environmentWidth=-1;UpdateEnvironment();}
 
   public void FocusPart(string id){var node=Nodes.FirstOrDefault(n=>n.Part.Id==id);if(node==null)return;Camera.Fit(new MatrixTransform3D(node.Pose).TransformBounds(node.Frozen.Bounds),Math.Max(.1,Root.ActualWidth/Math.Max(1,Root.ActualHeight)));}
 

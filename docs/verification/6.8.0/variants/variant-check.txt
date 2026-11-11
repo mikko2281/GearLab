@@ -1,0 +1,24 @@
+﻿== РОБОТ1 + 2 звена
+added Звено 7 blender=True
+added Звено 8 blender=True
+spec 0 Звено 8 mode Вращение_X reversed True end 0,140,0 offset 0,0,0
+OK   Звено 8 | blender-elbow | parts 45 | 
+spec 1 Звено 7 mode Вращение_X reversed False end 0,140,0 offset 0,0,0
+OK   Звено 7 | blender-elbow | parts 45 | 
+spec 2 J6 · Инструмент +Y mode Вращение_Y reversed False end 0,100,0 offset 0,0,0
+OK   J6 · Инструмент +Y | blender-elbow | parts 45 | 
+assembly valid True | connection issues 0
+== РОБОТ1 + 1 звено
+spec 3 Звено 7 mode Вращение_X reversed False end 0,140,0 offset 0,0,0
+OK   Звено 7 | blender-elbow | parts 45 | 
+spec 4 J6 · Инструмент +Y mode Вращение_Y reversed False end 0,100,0 offset 0,0,0
+OK   J6 · Инструмент +Y | blender-elbow | parts 45 | 
+assembly valid True | connection issues 0
+== новый робот, 3 звена
+spec 5 Звено 3 mode Вращение_Y reversed False end 140,0,0 offset 0,0,0
+OK   Звено 3 | blender-elbow | parts 45 | 
+spec 6 Звено 2 mode Вращение_Y reversed True end 140,0,0 offset 0,0,0
+OK   Звено 2 | blender-elbow | parts 45 | 
+spec 7 Звено 1 mode Вращение_Y reversed False end 160,0,0 offset 0,0,95
+OK   Звено 1 | blender-elbow | parts 46 | 
+assembly valid True | connection issues 0

@@ -1,0 +1,6 @@
+﻿PASS kind 0: XYZ/screen drag, axes, cancel, animation, hidden parts, explosion, clipping, mesh reuse, reset and original STEP.
+PASS kind 1: XYZ/screen drag, axes, cancel, animation, hidden parts, explosion, clipping, mesh reuse, reset and original STEP.
+PASS kind 2: XYZ/screen drag, axes, cancel, animation, hidden parts, explosion, clipping, mesh reuse, reset and original STEP.
+PASS kind 3: XYZ/screen drag, axes, cancel, animation, hidden parts, explosion, clipping, mesh reuse, reset and original STEP.
+PASS kind 4: XYZ/screen drag, axes, cancel, animation, hidden parts, explosion, clipping, mesh reuse, reset and original STEP.
+PASS 252 placement checks; native drag handlers share the tested placement path; toolbar/number/axis/reset controls exercised.

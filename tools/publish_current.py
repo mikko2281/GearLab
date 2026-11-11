@@ -23,6 +23,8 @@ def api(path, method='GET', data=None):
     return json.loads(result.stdout)
 
 assert api('git/ref/heads/main')['object']['sha'] == commit, 'Superseded source commit'
+existing_tag = subprocess.check_output(['git', 'ls-remote', 'origin', 'refs/tags/'+tag], text=True).strip()
+assert not existing_tag or existing_tag.split()[0] == commit, 'Existing tag belongs to another source commit'
 releases = []
 for page in range(1, 101):
     batch = api('releases?per_page=100&page='+str(page))

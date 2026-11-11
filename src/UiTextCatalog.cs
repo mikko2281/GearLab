@@ -1,4 +1,4 @@
-﻿using System;using System.Linq;using System.Collections.Generic;using System.Text.RegularExpressions;
+using System;using System.Linq;using System.Collections.Generic;using System.Text.RegularExpressions;
 namespace GearLab {public static partial class I18n {
  static readonly Dictionary<string,string> Catalog=new Dictionary<string,string>(StringComparer.Ordinal){
 {"Проект","Project"},
@@ -828,6 +828,11 @@ namespace GearLab {public static partial class I18n {
 {"Шаг 4 из 4 · Движение. Двигайте шарниры ползунками и смотрите в таблице внизу, хватает ли моторам момента.","Step 4 of 4 · Motion. Move the joints with the sliders and check the table below for motor torque."},
 {"К чему прикреплено это звено","This link is attached to"},
 {"Основные параметры — по шагам ниже.","Main settings are in the steps below."},
+{"Вариант корпуса этого звена","Housing variant for this link"},
+{"РОБОТ1 · Г-образный","ROBOT1 · L-shaped"},
+{"Кассетный · по референсу","Cassette · reference style"},
+{"Трубчатый · устаревший","Tubular · legacy"},
+{"У этого звена старый трубчатый корпус. Выберите вариант выше, чтобы заменить его.","This link uses the legacy tubular housing. Select a variant above to replace it."},
 {"Редукторы · ","Reducers · "}};
  static readonly Lazy<Regex> Parts=new Lazy<Regex>(()=>new Regex(string.Join("|",Catalog.Keys.OrderByDescending(k=>k.Length).Select(k=>(char.IsLetter(k[0])?@"(?<![\p{L}\p{N}_])":"")+Regex.Escape(k)+(char.IsLetter(k[k.Length-1])?@"(?![\p{L}\p{N}_])":""))),RegexOptions.Compiled));
  static string TranslateParts(string text){return Parts.Value.Replace(text,m=>Catalog.ContainsKey(m.Value)?Catalog[m.Value]:m.Value);}

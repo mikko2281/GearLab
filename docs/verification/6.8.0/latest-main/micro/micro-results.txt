@@ -1,0 +1,4 @@
+﻿PASS micro-20: 42×42×26 nominal; 287 full bodies; 5 printable parts; STEP/STL/CSV/SVG/DXF; mesh volumes; animation/cut/exploded images.
+PASS micro-20-rollers: 42×42×26 nominal; 327 full bodies; 5 printable parts; STEP/STL/CSV/SVG/DXF; mesh volumes; animation/cut/exploded images.
+PASS UI: Micro/ordinary layout, preset from other kinds, mode-specific controls, 3D run/pause, hiding, returning to planetary.
+PASS 645 Micro assertions. Internal geometry is independently assigned; ratings of the commercial reference are not validated or transferred.

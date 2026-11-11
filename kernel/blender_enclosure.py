@@ -12,6 +12,8 @@ from procedural_body import plus,times,dot,cross,norm,vec,cylinder,transform
 def terminal(c):
  """Short coaxial tool carrier; a long spline detour is unnecessary here."""
  k=c['k'];cut=c['cut'];fuse=c['fuse'];a=c['root_z'];b=c['target_fr'][0][2];bolt=c['bolt'];r=c['root_r'];plate=c['frame_plate']
+ end=c['end'];lateral=math.hypot(end[0],end[1])
+ if lateral>max(8,r*.5):return terminal_elbow(c,lateral)
  if b<a+4:raise ValueError('Фланец инструмента слишком близко к выходному валу.')
  power=cut(cylinder(r,b-a,[0,0,a]),cylinder(c['bi']/2+.1,b-a+2,[0,0,a-1]))
  power=cut(power,cylinder(c['pilot_r']+.1,2.15,[0,0,a-.01]))
@@ -28,6 +30,14 @@ def terminal(c):
  c['issue']('shell_continuity','pass','Компактный фланец — единое тело.','frame_0')
  c['issue']('axis_tangency','pass','Короткий фланец соосен выходному валу.','frame_0')
  return dict(power=power,boot=power,mounts=[],reference_anchors=lambda shape:0)
+
+def terminal_elbow(c,lateral):
+ """A closed adapter preserves the requested tool axis when a single elbow cannot."""
+ from reference_enclosure import build
+ local=dict(c);local['spec']=dict(c['spec'],BlenderDesign=False)
+ result=build(local)
+ c['issue']('terminal_adapter','pending','Поперечный конец выполнен замкнутым адаптером с креплением на заданной оси инструмента; прочность требует проверки.','frame_0')
+ return result
 
 def geometry(c):
  k=c['k'];fuse=c['fuse'];child=c['child'];fr=c['fr'];cd=c['cd'];gap=c['gap'];fw=c['fw'];skin=c['skin']

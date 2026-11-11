@@ -14,7 +14,8 @@ namespace GearLab {
   const double ExplodeSeconds=.85,AssemblePartSeconds=.5,AssembleSpreadSeconds=1.1;
   readonly Stopwatch motionClock=Stopwatch.StartNew();DispatcherTimer motionTimer;
   bool exploding,explodeOpening,assembling,cameraTween;double explodeStart,explodeProgress,assembleStart,assembleSeconds,assembleStep,assembleDrop;
-  Dictionary<string,double> explodeFrom;
+  Dictionary<string,double> explodeFrom;int lastIndex;
+  void CountIndexes(){lastIndex=0;foreach(var n in Nodes)if(n.Index>lastIndex)lastIndex=n.Index;}
   Point3D cameraFromTarget,cameraToTarget;double cameraFromWidth,cameraToWidth,cameraFromSpan,cameraToSpan;
   public bool Animating{get{return exploding||assembling;}}
 
@@ -25,17 +26,17 @@ namespace GearLab {
   internal void CancelCameraTween(){cameraTween=false;}
 
   // Смещение детали вдоль оси сборки. Во время анимации детали расходятся по очереди, начиная с верхней.
-  double ExplosionOf(SceneNode node){double full=node.Index*2.5;if(!exploding)return Exploded?full:0;double from;from=explodeFrom!=null&&explodeFrom.TryGetValue(node.Part.Id,out from)?from:(explodeOpening?0:full);double order=Nodes.Count<2?0:(double)node.Index/(Nodes.Count-1);if(explodeOpening)order=1-order;double f=SceneAnimation.EaseInOut(explodeProgress*1.6-.6*order);return from+((Exploded?full:0)-from)*f;}
+  double ExplosionOf(SceneNode node){double full=node.Index*2.5;if(!exploding)return Exploded?full:0;double from;from=explodeFrom!=null&&explodeFrom.TryGetValue(node.Part.Id,out from)?from:(explodeOpening?0:full);double order=lastIndex<1?0:(double)node.Index/lastIndex;if(explodeOpening)order=1-order;double f=SceneAnimation.EaseInOut(explodeProgress*1.6-.6*order);return from+((Exploded?full:0)-from)*f;}
 
   // Положение детали на экране во время сборки: до своей очереди деталь не видна, затем опускается на место.
   Matrix3D AssemblyPose(SceneNode node,Matrix3D pose){double local=(assembleSeconds-node.Index*assembleStep)/AssemblePartSeconds;var b=node.Frozen==null?Rect3D.Empty:node.Frozen.Bounds;if(b.IsEmpty)return pose;var centre=pose.Transform(new Point3D(b.X+b.SizeX/2,b.Y+b.SizeY/2,b.Z+b.SizeZ/2));if(local<=0){pose.ScaleAt(new Vector3D(.0001,.0001,.0001),centre);return pose;}if(local>=1)return pose;double scale=.6+.4*SceneAnimation.Settle(local),lift=(1-SceneAnimation.EaseOut(local))*assembleDrop;pose.ScaleAt(new Vector3D(scale,scale,scale),centre);pose.Translate(new Vector3D(0,0,lift));return pose;}
 
-  void BeginAssembly(){if(!CanAnimate)return;exploding=false;assembleStep=Math.Min(.07,AssembleSpreadSeconds/Math.Max(1,Nodes.Count));assembleDrop=Math.Max(15,Camera.Span*.3);assembleStart=motionClock.Elapsed.TotalSeconds;assembleSeconds=0;assembling=true;UpdatePose(Phase,true);StartMotion();}
+  void BeginAssembly(){if(!CanAnimate)return;CountIndexes();exploding=false;assembleStep=Math.Min(.07,AssembleSpreadSeconds/Math.Max(1,lastIndex+1));assembleDrop=Math.Max(15,Camera.Span*.3);assembleStart=motionClock.Elapsed.TotalSeconds;assembleSeconds=0;assembling=true;UpdatePose(Phase,true);StartMotion();}
 
-  void BeginExplode(bool enabled){var from=Nodes.ToDictionary(n=>n.Part.Id,n=>ExplosionOf(n));exploding=false;assembling=false;var target=Camera.Target;double width=Camera.Width,span=Camera.Span;Exploded=enabled;UpdatePose(Phase,true);Fit();cameraToTarget=Camera.Target;cameraToWidth=Camera.Width;cameraToSpan=Camera.Span;cameraFromTarget=target;cameraFromWidth=width;cameraFromSpan=span;Camera.Target=target;Camera.Width=width;Camera.Span=span;Camera.Update();explodeOpening=enabled;explodeFrom=from;explodeProgress=0;explodeStart=motionClock.Elapsed.TotalSeconds;cameraTween=true;exploding=true;UpdatePose(Phase,true);StartMotion();}
+  void BeginExplode(bool enabled){CountIndexes();var from=Nodes.ToDictionary(n=>n.Part.Id,n=>ExplosionOf(n));exploding=false;assembling=false;var target=Camera.Target;double width=Camera.Width,span=Camera.Span;Exploded=enabled;UpdatePose(Phase,true);Fit();cameraToTarget=Camera.Target;cameraToWidth=Camera.Width;cameraToSpan=Camera.Span;cameraFromTarget=target;cameraFromWidth=width;cameraFromSpan=span;Camera.Target=target;Camera.Width=width;Camera.Span=span;Camera.Update();explodeOpening=enabled;explodeFrom=from;explodeProgress=0;explodeStart=motionClock.Elapsed.TotalSeconds;cameraTween=true;exploding=true;UpdatePose(Phase,true);StartMotion();}
 
   void MotionTick(object sender,EventArgs e){if(disposed||!Ready){StopMotion();return;}double now=motionClock.Elapsed.TotalSeconds;bool finishedExplode=false;
-   if(assembling){assembleSeconds=now-assembleStart;if(assembleSeconds>=(Nodes.Count-1)*assembleStep+AssemblePartSeconds)assembling=false;}
+   if(assembling){assembleSeconds=now-assembleStart;if(assembleSeconds>=lastIndex*assembleStep+AssemblePartSeconds)assembling=false;}
    if(exploding){explodeProgress=Math.Min(1,(now-explodeStart)/ExplodeSeconds);if(cameraTween){double k=SceneAnimation.EaseInOut(explodeProgress);Camera.Target=cameraFromTarget+(cameraToTarget-cameraFromTarget)*k;Camera.Width=cameraFromWidth+(cameraToWidth-cameraFromWidth)*k;Camera.Span=cameraFromSpan+(cameraToSpan-cameraFromSpan)*k;Camera.Update();}if(explodeProgress>=1){exploding=false;finishedExplode=true;}}
    UpdatePose(Phase,!Animating);if(finishedExplode){explodeFrom=null;if(cameraTween)Fit();}if(!Animating&&motionTimer!=null)motionTimer.Stop();}
  }

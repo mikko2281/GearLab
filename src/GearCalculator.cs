@@ -562,7 +562,7 @@ namespace GearLab {
    if(args.Length>0&&args[0]=="--visibility-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return VisibilityTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
 
    if(args.Length>0&&args[0]=="--appearance680-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return UiTestLoop672.Run(()=>Appearance680Tests.Run(args[1]));}
-   if(args.Length>0&&args[0]=="--ui-shots"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return UiShots.Run(args.Length>1?args[1]:Path.GetTempPath());}if(args.Length>0&&args[0]=="--ui-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return PrintTests.Ui(args.Length>1?args[1]:Path.GetTempPath());}
+   if(args.Length>0&&args[0]=="--variant-history680-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return UiTestLoop672.Run(()=>VariantCheck.History(args[1]));}if(args.Length>0&&(args[0]=="--variant-check"||args[0]=="--variant-check-test")){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return UiTestLoop672.Run(()=>VariantCheck.Run(args.Length>1?args[1]:Path.GetTempPath()));}if(args.Length>0&&args[0]=="--ui-shots"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return UiShots.Run(args.Length>1?args[1]:Path.GetTempPath());}if(args.Length>0&&args[0]=="--ui-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return PrintTests.Ui(args.Length>1?args[1]:Path.GetTempPath());}
 
    if(args.Length>0&&args[0]=="--print-test")return PrintTests.Run(args.Length>1?args[1]:Path.GetTempPath());
 
