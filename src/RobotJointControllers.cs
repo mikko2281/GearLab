@@ -64,7 +64,7 @@ namespace GearLab {
 
   internal void ResetJointPose(){BeginPoseEdit();foreach(var j in Document.Joints.Where(j=>j.Mode!=RobotJointMode.Неподвижный))j.Position=Math.Max(j.Minimum,Math.Min(j.Maximum,0));RefreshManualPose();EndPoseEdit();}
 
-  void RefreshManualPose(){if(Build==null)return;phase=0;Build.InvalidatePose();Build.Current=RobotKinematics.Evaluate(Document,0,false);Scene.UpdatePose(0);RefreshAnimatedLoads(0);UpdateWebPose();RefreshBoneOverlay();revision++;Text="GearLab 6.7.2 · "+Document.Name+" *";}
+  void RefreshManualPose(){if(Build==null)return;phase=0;Build.InvalidatePose();Build.Current=RobotKinematics.Evaluate(Document,0,false);Scene.UpdatePose(0);RefreshAnimatedLoads(0);UpdateWebPose();RefreshBoneOverlay();revision++;Text="GearLab 6.8.0 · "+Document.Name+" *";}
 
   void SyncJointControllers(){if(syncingControllers||jointControllers.Count==0||Build==null)return;syncingControllers=true;try{var poses=RobotKinematics.Evaluate(Document,phase,playing||Math.Abs(phase)>1e-9);foreach(var pair in jointControllers){var row=pair.Value;var j=Document.Find(row.Id);if(j==null||row.Value.IsDisposed)continue;double value=poses[j.Id].Value;row.Value.Value=Math.Max(row.Value.Minimum,Math.Min(row.Value.Maximum,(decimal)value));row.Slider.Value=Math.Max(row.Slider.Minimum,Math.Min(row.Slider.Maximum,(int)Math.Round(value*100)));var load=Analysis==null?null:Analysis.Joints.FirstOrDefault(x=>x.Id==j.Id);row.Load.Text=Engine.F(j.Minimum)+" … "+Engine.F(j.Maximum)+(load==null?"":" · "+Engine.F(load.Required)+" / "+Engine.F(load.Available)+" "+load.Unit);row.Load.ForeColor=load!=null&&!load.Enough?Color.Firebrick:Color.SlateGray;}}finally{syncingControllers=false;}}
 
@@ -74,7 +74,7 @@ namespace GearLab {
 
    if(type=="jointBegin"){BeginPoseEdit();return;}
 
-   if(type=="jointCancel"){if(poseEditing&&poseBefore!=null){var old=RobotDocument.Parse(poseBefore);foreach(var item in Document.Joints){var previous=old.Find(item.Id);if(previous!=null)item.Position=previous.Position;}string restored=poseBefore;poseEditing=false;poseBefore=null;RefreshManualPose();last=restored;Text="GearLab 6.7.2 · "+Document.Name+(last!=saved?" *":"");}return;}
+   if(type=="jointCancel"){if(poseEditing&&poseBefore!=null){var before=CADDocument.Serializer().Deserialize<RobotPoseFrame672>(poseBefore.Substring(PoseHistoryPrefix.Length));if(!before.ValidFor(Document))throw new InvalidOperationException("История положения не соответствует текущему роботу.");for(int i=0;i<Document.Joints.Count;i++)Document.Joints[i].Position=before.Positions[i];poseEditing=false;poseBefore=null;RefreshManualPose();UpdatePoseTitle();}return;}
 
    if(type=="jointPose"){double value=Convert.ToDouble(data["value"]);UpdateJointController(id,value,false);}
 

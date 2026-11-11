@@ -12,6 +12,7 @@ from joint_geometry import saddle
 
 def build(c):
  k=c['k'];cut=c['cut'];fuse=c['fuse'];add=c['add'];issue=c['issue'];gap=c['gap'];skin=c['skin'];fw=c['fw'];plate=c['frame_plate'];bolt=c['bolt'];insert_d=c['insert_d'];insert_l=c['insert_l']
+ compact_axial=c['child'] is not None and abs(c['end'][2])<100 and math.hypot(c['end'][0],c['end'][1])<1e-6
  child=c['child'];root_z=c['root_z'];root_r=c['root_r'];tip_r=c['tip_r'];tip_axis=c['tip_axis'];tip_center=c['tip_center'];target_fr=c['target_fr'];tip_pc=c['tip_pc'];tip_bore=c['tip_bore'];root_pc=c['root_pc']
  a=[0,0,root_z+plate/2];b=plus(tip_center,times(tip_axis,plate/2));delta=vec(a,b);length=math.sqrt(dot(delta,delta));u=norm(delta)
  normal=plus([0,0,1],times(u,-u[2]))
@@ -100,7 +101,12 @@ def build(c):
   direction=times(cn,sign);records=[]
   if c['spec'].get('BlenderDesign'):
    locations=[(ps+pl*f,offset+s*pr*.32) for f in [.15,.85] for s in [-1,1]]+[(ps+pl*f,offset) for f in [.15,.85,.3,.7,.45,.55]]
-  else:locations=[(ps+pl*f,offset+s*pr*.32) for f in [.3,.65,.45,.55,.8,.2] for s in [-1,1]]
+  else:
+   locations=[(ps+pl*f,offset+s*pr*.32) for f in [.3,.65,.45,.55,.8,.2] for s in [-1,1]]
+   # Short coaxial links can leave only the panel's outer strips clear of the
+   # next motor. Search those strips before rejecting a valid cover surface.
+   if compact_axial:locations.extend((ps+pl*f,offset+pr*t) for f in [.1,.9,.25,.75,.5,0,1] for t in [-.75,.75,-.9,.9,-.5,.5,0])
+   if compact_axial:locations.extend((end+side*pr*f,offset+pr*t) for end,side in [(ps,-1),(ps+pl,1)] for f in [.35,.6,.8] for t in [-.5,.5,0])
   if sign==-1:locations.extend([(length*f,s*min(r0,r1)) for f in [.3,.5,.7,.2,.8] for s in [0,-.25,.25,-.5,.5]])
   if c['spec'].get('IndustrialDesign'):locations=[(ps+pl*f,across) for f in [.15,.85,.3,.7,.45,.55,.05,.95] for across in [0,-pr*.25,pr*.25,-pr*.5,pr*.5]]
   for index,(along,across) in enumerate(locations):
@@ -119,6 +125,17 @@ def build(c):
      common=BRepAlgoAPI_Common(boss,obstacle).Shape()
      if k.shapes(common,k.TopAbs_SOLID) and abs(k.props(common)[0])>.01:blocked=True;break
     if not blocked:selected=boss;break
+    if compact_axial and not c['spec'].get('BlenderDesign') and not c['spec'].get('IndustrialDesign'):
+     # Preserve a full-length insertion socket while trimming only the rib
+     # behind it around occupied motor volumes. A whole-cylinder collision
+     # used to discard usable mounts on short coaxial links.
+     socket=cylinder(insert_d/2+fw,insert_l,plus(core_face,times(direction,-insert_l)),direction)
+     if any(k.shapes(common:=BRepAlgoAPI_Common(socket,o).Shape(),k.TopAbs_SOLID) and abs(k.props(common)[0])>.01 for o in obstacles):continue
+     trimmed=boss
+     for obstacle in obstacles:trimmed=cut(trimmed,obstacle)
+     if len(k.shapes(trimmed,k.TopAbs_SOLID))!=1:continue
+     contact=BRepAlgoAPI_Common(power,trimmed).Shape()
+     if k.shapes(contact,k.TopAbs_SOLID) and abs(k.props(contact)[0])>=1:selected=trimmed;break
    if selected is None:continue
    records.append((front,direction,core_face,selected))
    if len(records)==4:break

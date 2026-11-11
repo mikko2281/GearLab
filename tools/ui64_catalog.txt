@@ -704,3 +704,62 @@ STL сохранены: |STL files saved:
 Параметры корпуса|Housing settings
 Параметры и посадки — в редакторе корпуса. Положение руки и раскрытие захвата — во вкладке управления. Конструкция пока требует инженерной проверки.|Dimensions and fits are in the housing editor. Arm pose and gripper opening are in the control tab. Engineering validation is still pending.
 Построение отменено. Предыдущий корпус сохранён.|Generation cancelled. The previous housing is preserved.
+Сбросить всё|Reset all
+Управление и 3D|Controls and 3D
+Свои цвета|Custom colors
+Тема и акцентный цвет действуют во всех разделах программы.|Theme and accent color apply to every section.
+Тема|Theme
+Как в Windows|Match Windows
+Акцентный цвет|Accent color
+Им выделяются главные кнопки, выбранные вкладки и активные элементы.|Used for main buttons, selected tabs and active elements.
+Синий|Blue
+Фиолетовый|Violet
+Бирюзовый|Teal
+Зелёный|Green
+Оранжевый|Orange
+Розовый|Pink
+Показывать подсказки|Show hints
+Короткие пояснения в разделе «Робототехника» и под 3D-сценой. Отключите, когда освоитесь.|Short explanations in Robotics and under the 3D scene. Turn off once you are comfortable.
+Что открывать при запуске|Open at startup
+Сейчас часть цветов изменена вручную (раздел «Свои цвета»). Они сохраняются при смене темы.|Some colors are customized (see Custom colors). They are kept when the theme changes.
+Как выглядит и ведёт себя трёхмерная сцена.|How the 3D scene looks and behaves.
+Качество 3D-картинки|3D preview quality
+Быстрое|Fast
+Обычное|Normal
+Подробное|Detailed
+Влияет только на предпросмотр. На слабом компьютере выберите «Быстрое». Файлы STEP всегда точные.|Affects the preview only. Choose Fast on a slow computer. STEP files are always exact.
+Скорость вращения камеры мышью|Camera orbit speed
+Детали и звенья двигаются шагами, а не плавно — проще попадать в ровные размеры.|Parts and links move in steps, which makes round dimensions easier.
+Язык меняется сразу, без кнопки «Сохранить».|The language changes immediately, no Save needed.
+Названия ваших проектов и числа в них не меняются.|Your project names and numbers are not changed.
+Запасные копии на случай сбоя или случайного закрытия.|Backup copies in case of a crash or accidental close.
+Программа сама делает запасную копию проекта робота. Основной файл записывается только командой «Сохранить».|GearLab keeps a backup copy of the robot project. The main file is written only by Save.
+Открыть папку|Open folder
+Для тех, кому мало готовых тем. Нажмите на образец или введите цвет в виде #RRGGBB.|For when the presets are not enough. Click a swatch or type a color as #RRGGBB.
+Вернуть цвета темы|Restore theme colors
+Стандартные значения подготовлены. Нажмите «Сохранить».|Defaults are ready. Click Save.
+Тема выбрана. Нажмите «Сохранить».|Theme selected. Click Save.
+Цвет выбран. Нажмите «Сохранить».|Color selected. Click Save.
+Цвета темы подготовлены. Нажмите «Сохранить».|Theme colors are ready. Click Save.
+Робот пока пуст|The robot is empty
+Робот собирается из звеньев: каждое звено — это шарнир с мотором и «кость» до следующего шарнира. Начните с первого звена или откройте готовый пример и меняйте его.|A robot is built from links: each link is a motorized joint plus a bone to the next joint. Start with the first link or open a ready example and edit it.
+Первое звено будет закреплено на основании.|The first link is fixed to the base.
+Шаг 1 из 4 · Скелет. Задайте длину и направление звена и нажмите «Применить звено». Конец звена можно и просто тянуть мышью за цветную ручку в сцене.|Step 1 of 4 · Skeleton. Set the link length and direction, then click Apply link. You can also drag the colored handle in the scene.
+Как движется шарнир|Joint motion
+Направление звена|Link direction
+Оставить как есть|Keep as is
+Вдоль оси X|Along X
+Против оси X|Against X
+Вдоль оси Y|Along Y
+Против оси Y|Against Y
+Вдоль оси Z|Along Z
+Против оси Z|Against Z
+Задать конец звена точно (X / Y / Z)|Set the link end exactly (X / Y / Z)
+Сдвинуть начало звена (X / Y / Z)|Offset the link start (X / Y / Z)
+Длина звена должна быть больше нуля.|Link length must be greater than zero.
+Шаг 2 из 4 · Моторы. Выберите мотор и передачу для этого шарнира. Хватает ли момента, покажет шаг 4.|Step 2 of 4 · Motors. Choose the motor and gearing for this joint. Step 4 shows whether the torque is enough.
+Шаг 3 из 4 · Корпус. Выберите внешний вид звеньев. Корпус строится вокруг уже заданных моторов и скелета.|Step 3 of 4 · Housing. Choose how the links look. The housing is built around the motors and skeleton.
+Тип корпуса|Housing type
+Шаг 4 из 4 · Движение. Двигайте шарниры ползунками и смотрите в таблице внизу, хватает ли моторам момента.|Step 4 of 4 · Motion. Move the joints with the sliders and check the table below for motor torque.
+К чему прикреплено это звено|This link is attached to
+Основные параметры — по шагам ниже.|Main settings are in the steps below.

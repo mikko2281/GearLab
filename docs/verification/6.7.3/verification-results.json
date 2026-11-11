@@ -1,0 +1,85 @@
+{
+  "version": "6.7.3",
+  "base": "d5d0c1850a16c350af585350b57956e32460851e",
+  "branch": "fix/add-link-direction",
+  "standard": [
+    "wave56-fast",
+    "author-view",
+    "controller",
+    "self",
+    "mechanism",
+    "step",
+    "placement",
+    "preset",
+    "micro",
+    "print"
+  ],
+  "robot": [
+    "add-link673",
+    "robot",
+    "robot-transmission60",
+    "controller",
+    "procedural",
+    "connected",
+    "reference67",
+    "reference67-native",
+    "industrial66",
+    "gripper671-core",
+    "gripper671",
+    "robot-lifecycle672-core",
+    "robot-lifecycle672",
+    "print-export672",
+    "procedural-cancel672",
+    "stability672-core",
+    "stability672",
+    "web-preferences672"
+  ],
+  "addLinkChecks": 42,
+  "nativeProceduralChecks": 66,
+  "nativeProceduralRuns": 14,
+  "geometry": [
+    {
+      "id": "6b57364bc7e148c7a7b8225db5b69352",
+      "valid": true,
+      "parts": 44,
+      "seconds": 43.875,
+      "massKg": 0.9357812658254283,
+      "errors": [],
+      "positiveVolumes": true
+    },
+    {
+      "id": "ab7645761a654013bd8bfab6d6bb675c",
+      "valid": true,
+      "parts": 37,
+      "seconds": 40.86,
+      "massKg": 0.8736861633931484,
+      "errors": [],
+      "positiveVolumes": true
+    },
+    {
+      "id": "b6f0afdf6e97441f8119928f7a99adb0",
+      "valid": true,
+      "parts": 36,
+      "seconds": 31.109,
+      "massKg": 0.8221445158857683,
+      "errors": [],
+      "positiveVolumes": true
+    },
+    {
+      "id": "c7499e0300c54939a22e336186fb59bf",
+      "valid": true,
+      "parts": 43,
+      "seconds": 47.797,
+      "massKg": 0.8017397123034773,
+      "errors": [],
+      "positiveVolumes": true
+    }
+  ],
+  "binaries": {
+    "Windows-673": "15fededc56e5816e97294f227b67ba6f6c824307662047aaa6a14d2f37a06df9",
+    "Windows-review": "43effff267545f2bf77daa08000bce6729702a54923209b1f6ab6c62f944813d",
+    "Windows-delivery": "d80b6971bf072f384b8b1bd70bd2f1832866169fc48dadccac2d4bc962c3eede",
+    "Windows-verified": "d3a8eb2f80d81f4476a8f56d54b0bfb65a2cacba108d338818124809e784cf94"
+  },
+  "manufacturingReady": false
+}

@@ -1,0 +1,1 @@
+﻿PASS 35 checks: geometry refresh, settings, idle recovery, animation snapshots, responsive export and close guards

@@ -539,6 +539,8 @@ namespace GearLab {
 
    if(args.Length>0&&args[0]=="--cad-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return CADStudioTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
 
+   if(args.Length>0&&args[0]=="--add-link673-view-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return AddLink673Tests.View(args[1]);}
+   if(args.Length>0&&args[0]=="--add-link673-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return AddLink673Tests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--robot-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return RoboticsTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
 
    if(args.Length>0&&(args[0]=="--robot"||args[0].EndsWith(".robot.json",StringComparison.OrdinalIgnoreCase))){string file=args[0]=="--robot"?(args.Length>1?args[1]:null):args[0];return RunWindow(()=>new RobotDesignerForm(file));}
@@ -559,7 +561,8 @@ namespace GearLab {
 
    if(args.Length>0&&args[0]=="--visibility-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return VisibilityTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
 
-   if(args.Length>0&&args[0]=="--ui-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return PrintTests.Ui(args.Length>1?args[1]:Path.GetTempPath());}
+   if(args.Length>0&&args[0]=="--appearance680-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return UiTestLoop672.Run(()=>Appearance680Tests.Run(args[1]));}
+   if(args.Length>0&&args[0]=="--ui-shots"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return UiShots.Run(args.Length>1?args[1]:Path.GetTempPath());}if(args.Length>0&&args[0]=="--ui-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return PrintTests.Ui(args.Length>1?args[1]:Path.GetTempPath());}
 
    if(args.Length>0&&args[0]=="--print-test")return PrintTests.Run(args.Length>1?args[1]:Path.GetTempPath());
 
@@ -577,7 +580,7 @@ namespace GearLab {
    if(args.Length>0&&args[0]=="--wave56-export-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return WaveExport56Tests.Run(args.Length>1?args[1]:Path.GetTempPath());}
    if(args.Length>0&&args[0]=="--wave56-fast-test")return Wave56FastTests.Run(args.Length>1?args[1]:Path.GetTempPath());
    if(args.Length>0&&(args[0]=="--train"||args[0].EndsWith(".train.json",StringComparison.OrdinalIgnoreCase)))return RunWindow(()=>new TrainDesignerForm(args[0]=="--train"?TransmissionTrain.Example():TransmissionTrain.Read(args[0])));
-   if(args.Length==0)return RunWindow(()=>new ReducerWorkspaceForm());
+   if(args.Length==0)return RunWindow(()=>AppSettings.Current.StartSection==GearStart.Робототехника?(Form)new RobotDesignerForm():AppSettings.Current.StartSection==GearStart.Ступени?(Form)new TrainDesignerForm():new ReducerWorkspaceForm());
 
    if(args.Length>0&&args[0]=="--reducer")return RunWindow(()=>new ReducerWorkspaceForm());
 
@@ -585,7 +588,7 @@ namespace GearLab {
 
   }
 
-  static int RunWindow(Func<Form> create){Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);Application.ThreadException+=(s,e)=>ReleaseSupport.Report(e.Exception);Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);try{Application.Run(new WorkspaceShell(create()));return 0;}catch(Exception ex){ReleaseSupport.Report(ex);return 1;}}
+  static int RunWindow(Func<Form> create){SceneAnimation.Enabled=true;Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);Application.ThreadException+=(s,e)=>ReleaseSupport.Report(e.Exception);Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);try{Application.Run(new WorkspaceShell(create()));return 0;}catch(Exception ex){ReleaseSupport.Report(ex);return 1;}}
 
  }
 

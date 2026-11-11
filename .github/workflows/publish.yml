@@ -1,0 +1,76 @@
+name: Publish current verified GearLab
+on:
+  push:
+    branches: [main]
+    paths: ['docs/RELEASE.md']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: gearlab-publish-current
+  cancel-in-progress: false
+jobs:
+  release:
+    if: github.repository == 'mikko2281/GearLab' && github.ref == 'refs/heads/main'
+    runs-on: windows-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.10'
+          architecture: x64
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build pinned native runtime and executable
+        shell: powershell
+        run: ./tools/ci_build.ps1
+      - name: Verify native CAD and cached projects
+        shell: powershell
+        run: ./tools/ci_verify.ps1
+      - name: Check appearance, link placement and robot regressions
+        shell: powershell
+        run: |
+          $out=Join-Path $PWD 'test-results-release'
+          New-Item -ItemType Directory -Force $out | Out-Null
+          foreach($suite in @('appearance680','add-link673','robot-lifecycle672-core','stability672-core','print-export672','gripper671-core','reference67','reference67-native','industrial66','settings63','workspace64','upgrade62','ui60','ui')) {
+            $folder=Join-Path $out $suite
+            New-Item -ItemType Directory -Force $folder | Out-Null
+            $env:GEARLAB_PROFILE_DIR=Join-Path $folder 'profile'
+            $p=Start-Process ./Windows/GearLab.exe -ArgumentList @("--$suite-test",('"'+$folder+'"')) -PassThru -WindowStyle Hidden
+            if(-not $p.WaitForExit(1200000)){$p.Kill();throw "Timeout: $suite"}
+            $p.Refresh()
+            if($p.ExitCode -ne 0){Get-ChildItem $folder -Filter '*error*.txt'|ForEach-Object {Get-Content $_.FullName};throw "Failed: $suite"}
+          }
+          foreach($test in @('test_scene_intro.mjs','test_render_scheduler.mjs','test_web_preferences672.mjs')) {
+            node --experimental-vm-modules (Join-Path tools $test)
+            if($LASTEXITCODE -ne 0){throw "Failed: $test"}
+          }
+          node --check web/scene.js
+          if($LASTEXITCODE -ne 0){throw 'Scene syntax failed'}
+      - name: Package immutable versioned archives
+        shell: powershell
+        run: |
+          python -X utf8 tools/package_local.py dist Windows $env:GITHUB_SHA --release
+          if($LASTEXITCODE -ne 0){throw 'Packaging failed'}
+          $info=Get-Content dist/GearLab_*/build-info.json | ConvertFrom-Json
+          python -X utf8 tools/verify_package.py ("dist/GearLab_"+$info.Version) ("dist/GearLab_"+$info.Version+"_Windows.zip")
+          if($LASTEXITCODE -ne 0){throw 'Archive verification failed'}
+      - name: Publish only after archive and upload verification
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -X utf8 tools/publish_current.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: GearLab-current-verification
+          path: |
+            test-results-ci/**/*results.*
+            test-results-ci/**/*error*.txt
+            test-results-release/**/*results.*
+            test-results-release/**/*error*.txt
+            dist/*.sha256
+            dist/GearLab_*/build-info.json

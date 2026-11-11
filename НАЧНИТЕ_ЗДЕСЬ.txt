@@ -1,6 +1,9 @@
-﻿GearLab 6.7.2
-Распакуйте весь Windows-архив и запустите GearLab.exe.
-Reference.cmd открывает CAD-компоновку манипулятора.
-Отчёт: docs/verification/6.7.2/README.md
-Изменения: docs/RELEASE_6.7.2.md
-Это исправление программы и её производительности. Инженерная готовность всей руки к изготовлению по-прежнему не подтверждена.
+GearLab 6.8.0
+
+Запуск: GearLab.exe или Robotics.cmd.
+Отчёт: docs/verification/6.8.0/README.md
+Изменения: docs/RELEASE_6.8.0.md
+Карта исходников: docs/PROJECT_MAP.md
+GitHub: https://github.com/mikko2281/GearLab/releases/tag/v6.8.0
+
+Конструкция предварительная; готовность к изготовлению не подтверждена.

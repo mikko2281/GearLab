@@ -1,0 +1,256 @@
+{
+  "passed": [
+    "Reference: []",
+    "Reference: no false manufacturing certification",
+    "Reference: solid volumes and real meshes",
+    "Reference: exact STEP parts",
+    "Ultra_Slim: []",
+    "Ultra_Slim: no false manufacturing certification",
+    "Ultra_Slim: solid volumes and real meshes",
+    "Ultra_Slim: exact STEP parts",
+    "Lightweight: []",
+    "Lightweight: no false manufacturing certification",
+    "Lightweight: solid volumes and real meshes",
+    "Lightweight: exact STEP parts",
+    "High_Strength: []",
+    "High_Strength: no false manufacturing certification",
+    "High_Strength: solid volumes and real meshes",
+    "High_Strength: exact STEP parts",
+    "Easy_Print: []",
+    "Easy_Print: no false manufacturing certification",
+    "Easy_Print: solid volumes and real meshes",
+    "Easy_Print: exact STEP parts",
+    "length_240: []",
+    "length_240: no false manufacturing certification",
+    "length_240: solid volumes and real meshes",
+    "length_240: exact STEP parts",
+    "length preserves motor/reducer mount module",
+    "length rebuilds load-bearing frame",
+    "motor_60: []",
+    "motor_60: no false manufacturing certification",
+    "motor_60: solid volumes and real meshes",
+    "motor_60: exact STEP parts",
+    "long motor locally updates joint housing",
+    "motor length preserves independent link frame",
+    "repeat: []",
+    "repeat: no false manufacturing certification",
+    "repeat: solid volumes and real meshes",
+    "repeat: exact STEP parts",
+    "identical inputs preserve all feature keys",
+    "loaded_Y_axis: []",
+    "loaded_Y_axis: no false manufacturing certification",
+    "loaded_Y_axis: solid volumes and real meshes",
+    "loaded_Y_axis: exact STEP parts",
+    "axial_link: []",
+    "axial_link: no false manufacturing certification",
+    "axial_link: solid volumes and real meshes",
+    "axial_link: exact STEP parts",
+    "manual_STEP: []",
+    "manual_STEP: no false manufacturing certification",
+    "manual_STEP: solid volumes and real meshes",
+    "manual_STEP: exact STEP parts",
+    "manual exact CAD overrides kept and structural review pending",
+    "shaft_fit_025: []",
+    "shaft_fit_025: no false manufacturing certification",
+    "shaft_fit_025: solid volumes and real meshes",
+    "shaft_fit_025: exact STEP parts",
+    "shaft fit invalidates hub but preserves independent motor housing",
+    "new shaft clearance really changes the native cylindrical bore",
+    "slimness_01: []",
+    "slimness_01: no false manufacturing certification",
+    "slimness_01: solid volumes and real meshes",
+    "slimness_01: exact STEP parts",
+    "style waist dimension participates in feature dependencies",
+    "physical_STEP: []",
+    "physical_STEP: no false manufacturing certification",
+    "physical_STEP: solid volumes and real meshes",
+    "physical_STEP: exact STEP parts",
+    "imported exact component gets independent mounting-clearance volume"
+  ],
+  "runs": [
+    {
+      "name": "Reference",
+      "seconds": 108.563,
+      "mass": 0.2959195015712524,
+      "parts": 10,
+      "valid": true,
+      "changed": [
+        "cable",
+        "actuator",
+        "frame_0",
+        "skin_0",
+        "panel_mount_0"
+      ]
+    },
+    {
+      "name": "Ultra_Slim",
+      "seconds": 108.0,
+      "mass": 0.2803821718990371,
+      "parts": 10,
+      "valid": true,
+      "changed": [
+        "cable",
+        "actuator",
+        "frame_0",
+        "skin_0",
+        "panel_mount_0"
+      ]
+    },
+    {
+      "name": "Lightweight",
+      "seconds": 132.656,
+      "mass": 0.28327025604754286,
+      "parts": 10,
+      "valid": true,
+      "changed": [
+        "cable",
+        "actuator",
+        "frame_0",
+        "skin_0",
+        "panel_mount_0"
+      ]
+    },
+    {
+      "name": "High_Strength",
+      "seconds": 162.218,
+      "mass": 0.3760683023203389,
+      "parts": 10,
+      "valid": true,
+      "changed": [
+        "cable",
+        "actuator",
+        "frame_0",
+        "skin_0",
+        "panel_mount_0"
+      ]
+    },
+    {
+      "name": "Easy_Print",
+      "seconds": 162.312,
+      "mass": 0.32277431126969164,
+      "parts": 10,
+      "valid": true,
+      "changed": [
+        "cable",
+        "actuator",
+        "frame_0",
+        "skin_0",
+        "panel_mount_0"
+      ]
+    },
+    {
+      "name": "length_240",
+      "seconds": 265.375,
+      "mass": 0.339540313264301,
+      "parts": 15,
+      "valid": true,
+      "changed": [
+        "cable",
+        "frame_0",
+        "frame_1",
+        "skin_0",
+        "panel_mount_0",
+        "skin_1",
+        "panel_mount_1"
+      ]
+    },
+    {
+      "name": "motor_60",
+      "seconds": 79.234,
+      "mass": 0.3209595408974886,
+      "parts": 10,
+      "valid": true,
+      "changed": [
+        "actuator"
+      ]
+    },
+    {
+      "name": "repeat",
+      "seconds": 65.86,
+      "mass": 0.2959195015712524,
+      "parts": 10,
+      "valid": true,
+      "changed": []
+    },
+    {
+      "name": "loaded_Y_axis",
+      "seconds": 101.625,
+      "mass": 0.3130870123324701,
+      "parts": 10,
+      "valid": true,
+      "changed": [
+        "cable",
+        "actuator",
+        "frame_0",
+        "skin_0",
+        "panel_mount_0"
+      ]
+    },
+    {
+      "name": "axial_link",
+      "seconds": 84.282,
+      "mass": 0.2903054570326582,
+      "parts": 10,
+      "valid": true,
+      "changed": [
+        "cable",
+        "actuator",
+        "frame_0",
+        "skin_0",
+        "panel_mount_0"
+      ]
+    },
+    {
+      "name": "manual_STEP",
+      "seconds": 62.453,
+      "mass": 0.2959195013606124,
+      "parts": 10,
+      "valid": true,
+      "changed": [
+        "cable",
+        "actuator",
+        "frame_0",
+        "skin_0",
+        "panel_mount_0"
+      ]
+    },
+    {
+      "name": "shaft_fit_025",
+      "seconds": 91.985,
+      "mass": 0.29576775768940233,
+      "parts": 10,
+      "valid": true,
+      "changed": [
+        "frame_0",
+        "skin_0",
+        "panel_mount_0"
+      ]
+    },
+    {
+      "name": "slimness_01",
+      "seconds": 114.656,
+      "mass": 0.324099445798781,
+      "parts": 10,
+      "valid": true,
+      "changed": [
+        "frame_0",
+        "skin_0",
+        "panel_mount_0"
+      ]
+    },
+    {
+      "name": "physical_STEP",
+      "seconds": 62.422,
+      "mass": 0.296309013294105,
+      "parts": 10,
+      "valid": true,
+      "changed": [
+        "cable",
+        "actuator",
+        "frame_0",
+        "skin_0",
+        "panel_mount_0"
+      ]
+    }
+  ]
+}

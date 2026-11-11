@@ -1,0 +1,8 @@
+﻿PASS kind 0: 10 printable parts out of 255; ZIP/STL, filtered STEP/CSV/SVG/DXF; positive mesh volumes.
+PASS kind 1: 5 printable parts out of 92; ZIP/STL, filtered STEP/CSV/SVG/DXF; positive mesh volumes.
+PASS kind 2: 3 printable parts out of 93; ZIP/STL, filtered STEP/CSV/SVG/DXF; positive mesh volumes.
+PASS kind 3: 8 printable parts out of 158; ZIP/STL, filtered STEP/CSV/SVG/DXF; positive mesh volumes.
+PASS extra printable standard-integrated: 6 parts.
+PASS extra printable planet-60: 15 parts.
+PASS UI: integrated/legacy switch, print scope, bridge errors disable exports and recover with auto width.
+PASS 215 assertions; 32 integrated ring/output/preset/ratio combinations, each with 360 sampled input phases and both discs. Sampling is not continuous collision certification.

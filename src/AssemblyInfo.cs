@@ -6,9 +6,9 @@ using System.Reflection;using System.Runtime.InteropServices;
 
 [assembly:AssemblyProduct("Gear Lab")]
 
-[assembly:AssemblyVersion("6.7.2.0")]
+[assembly:AssemblyVersion("6.8.0.0")]
 
-[assembly:AssemblyFileVersion("6.7.2.0")]
+[assembly:AssemblyFileVersion("6.8.0.0")]
 
 [assembly:ComVisible(false)]
 

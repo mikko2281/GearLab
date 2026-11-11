@@ -1,0 +1,1 @@
+﻿{"Passed":true,"Changes":[{"Name":"length","BeforeVolume":1006030.042478307,"AfterVolume":1022200.9826280605,"GeometryValid":true},{"Name":"wall","BeforeVolume":1006030.042478307,"AfterVolume":1045618.3612643427,"GeometryValid":true},{"Name":"motor","BeforeVolume":1006030.042478307,"AfterVolume":1009354.5220001029,"GeometryValid":true}]}

@@ -1,0 +1,88 @@
+﻿PASS editable reference layout validates
+PASS six independent CAD axes
+PASS 300 g is a payload requirement
+PASS unknown working motor torque remains unknown
+PASS native CAD solids valid reference67_j1
+PASS current cache reference67_j1
+PASS real mating bores reference67_j1
+PASS manufacturing approval remains false reference67_j1
+PASS embedded independent STEP parts reference67_j1
+PASS native CAD solids valid reference67_j2
+PASS current cache reference67_j2
+PASS real mating bores reference67_j2
+PASS manufacturing approval remains false reference67_j2
+PASS embedded independent STEP parts reference67_j2
+PASS native CAD solids valid reference67_j3
+PASS current cache reference67_j3
+PASS real mating bores reference67_j3
+PASS manufacturing approval remains false reference67_j3
+PASS embedded independent STEP parts reference67_j3
+PASS native CAD solids valid reference67_j4
+PASS current cache reference67_j4
+PASS real mating bores reference67_j4
+PASS manufacturing approval remains false reference67_j4
+PASS embedded independent STEP parts reference67_j4
+PASS native CAD solids valid reference67_j5
+PASS current cache reference67_j5
+PASS real mating bores reference67_j5
+PASS manufacturing approval remains false reference67_j5
+PASS embedded independent STEP parts reference67_j5
+PASS native CAD solids valid reference67_j6
+PASS current cache reference67_j6
+PASS real mating bores reference67_j6
+PASS manufacturing approval remains false reference67_j6
+PASS embedded independent STEP parts reference67_j6
+PASS assembly builds
+PASS all world mounting frames coincide
+PASS two detailed bearing supports per axis
+PASS rolling elements and cages move relative to rings
+PASS three wrist NEMA17 envelopes in forearm
+PASS motors excluded from printable parts
+PASS kinematic mates in pose 0
+PASS kinematic mates in pose 1
+PASS kinematic mates in pose 2
+PASS kinematic mates in pose 3
+PASS kinematic mates in pose 4
+PASS kinematic mates in pose 5
+PASS kinematic mates in pose 6
+PASS kinematic mates in pose 7
+PASS kinematic mates in pose 8
+PASS kinematic mates in pose 9
+PASS kinematic mates in pose 10
+PASS kinematic mates in pose 11
+PASS kinematic mates in pose 12
+PASS kinematic mates in pose 13
+PASS kinematic mates in pose 14
+PASS kinematic mates in pose 15
+PASS kinematic mates in pose 16
+PASS kinematic mates in pose 17
+PASS kinematic mates in pose 18
+PASS kinematic mates in pose 19
+PASS kinematic mates in pose 20
+PASS kinematic mates in pose 21
+PASS kinematic mates in pose 22
+PASS kinematic mates in pose 23
+PASS cache invalidated by FrameWall
+PASS cache invalidated by SkinWall
+PASS cache invalidated by Clearance
+PASS cache invalidated by Density
+PASS stale native CAD cannot be exported after dimension edit
+PASS legacy CAD cache Robot1_800mm / 5da067328cc64496beb55007e1ba3ef6
+PASS legacy CAD cache Robot1_800mm / 6cd58241a20742198afbf0d29ce698d6
+PASS legacy CAD cache Robot1_800mm / d25a990a495644449a1caf84dd29b51f
+PASS legacy CAD cache Robot1_800mm / c79c8d741bc5483c9420951c53a3c6d2
+PASS legacy CAD cache Robot1_800mm / 3510f56e839541bc952986c76df07223
+PASS legacy CAD cache Robot1_800mm / 01f0a881dbf04e2ca5e8c546703d8877
+PASS legacy CAD cache SixAxis_Connected / 643295123b2d4f6ea3b1edf48294beaf
+PASS legacy CAD cache SixAxis_Connected / 1eaf12f5e9a345d88c4c63f6f4b9a6bd
+PASS legacy CAD cache SixAxis_Connected / 9c46782b32764aeabc383e009d351dcd
+PASS legacy CAD cache SixAxis_Connected / 8b1172430f254c4bbc245db758bf5e14
+PASS legacy CAD cache SixAxis_Connected / 269a4da1eb7b49769159545419b90de0
+PASS legacy CAD cache SixAxis_Connected / fa13de4558574acf86b0a6dfc85bb679
+PASS legacy CAD cache Industrial_1000mm / industrial66_j1
+PASS legacy CAD cache Industrial_1000mm / industrial66_j2
+PASS legacy CAD cache Industrial_1000mm / industrial66_j3
+PASS legacy CAD cache Industrial_1000mm / industrial66_j4
+PASS legacy CAD cache Industrial_1000mm / industrial66_j5
+PASS legacy CAD cache Industrial_1000mm / industrial66_j6
+PASS 87 assertions

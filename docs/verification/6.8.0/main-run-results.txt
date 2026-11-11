@@ -1,0 +1,15 @@
+PASS: wave56-fast
+PASS: author-view
+PASS: controller
+PASS: self
+PASS: mechanism
+PASS: step
+PASS: placement
+PASS: preset
+PASS: micro
+PASS: print
+PASS 8 native kernel numerical checks
+PASS 6 exported robot STEP edit checks
+PASS 20 section and sketch regression checks
+PASS 22 shipped gizmo math checks
+PASS 8 interval/exact CAD motion assertions

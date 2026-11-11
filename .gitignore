@@ -9,6 +9,15 @@ runtime/
 __pycache__/
 *.pyc
 
+# Downloaded dependencies and CAD caches produced by ci_build/unpack_examples.
+src/vendor/WebView2/*.dll
+web/vendor/
+examples/Industrial_1000mm.robot.json
+examples/Procedural_180_NEMA17.robot.json
+examples/Reference67.robot.json
+examples/Robot1_800mm.robot.json
+examples/SixAxis_Connected.robot.json
+
 test-results-*/
 
 publication/
