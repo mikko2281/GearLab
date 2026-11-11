@@ -5,11 +5,12 @@ root=Path(__file__).resolve().parents[1];dest=Path(sys.argv[1]).resolve();binary
 version=".".join(re.search(r'AssemblyFileVersion\("([0-9.]+)"\)',(root/"src/AssemblyInfo.cs").read_text(encoding="utf-8-sig")).group(1).split(".")[:3])
 prefix='GearLab_'+version;stage=dest/prefix
 release='--release' in sys.argv[4:]
-source_dirty=bool(subprocess.check_output(['git','status','--porcelain','--untracked-files=no'],cwd=root,text=True).strip())
+source_changes=subprocess.check_output(['git','status','--porcelain','--untracked-files=no'],cwd=root,text=True).strip()
+source_dirty=bool(source_changes)
 if release:
     assert os.environ.get('GITHUB_REPOSITORY')=='mikko2281/GearLab' and os.environ.get('GITHUB_REF')=='refs/heads/main'
     assert len(sys.argv)>3 and sys.argv[3]==os.environ.get('GITHUB_SHA')
-    assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()==sys.argv[3] and not source_dirty,'Release checkout does not match committed sources'
+    assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()==sys.argv[3] and not source_dirty,'Release checkout does not match committed sources: '+source_changes
 def exe_version(path):
     api=ctypes.windll.version
     size=api.GetFileVersionInfoSizeW(ctypes.c_wchar_p(str(path)),None)

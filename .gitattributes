@@ -1,4 +1,6 @@
 * text=auto
-*.cs text eol=crlf
-*.ps1 text eol=crlf
+# Historical snapshots contain mixed CRLF/CRCRLF. Preserve their recorded bytes;
+# normalize source endings only in a separate reviewed migration.
+*.cs -text
+*.ps1 -text
 *.ico binary
