@@ -1,0 +1,79 @@
+﻿commit 511a3d06fb0ce155b4a610746d3a50294853426d
+Author:     Codex <codex@openai.com>
+AuthorDate: Sat Nov 14 17:59:43 2026 +0500
+Commit:     Codex <codex@openai.com>
+CommitDate: Sat Nov 14 17:59:43 2026 +0500
+
+    feat: add materials, output shaft loads and schematic overload checks (6.9.0)
+
+M	README.md
+A	docs/MATERIALS_AND_LOADS.md
+A	docs/RELEASE_6.9.0.md
+A	docs/verification/6.9.0/README.md
+A	docs/verification/6.9.0/build-info.json
+A	docs/verification/6.9.0/compound-compound-results.json
+A	docs/verification/6.9.0/compound-ui-compound-3d.png
+A	docs/verification/6.9.0/compound-ui-compound-exploded.png
+A	docs/verification/6.9.0/compound-ui-compound-section.png
+A	docs/verification/6.9.0/compound-ui-compound-ui-results.json
+A	docs/verification/6.9.0/gizmo-joint-controller-results.json
+A	docs/verification/6.9.0/kernel-kernel-results.json
+A	docs/verification/6.9.0/legacy-procedural-results.json
+A	docs/verification/6.9.0/loads-loads-kernel-results.json
+A	docs/verification/6.9.0/materials-native-results.json
+A	docs/verification/6.9.0/motion-motion-results.json
+A	docs/verification/6.9.0/overload-clutch.stl.audit.json
+A	docs/verification/6.9.0/overload-compound.stl.audit.json
+A	docs/verification/6.9.0/overload-materials.stl.audit.json
+A	docs/verification/6.9.0/overload-overload-results.json
+A	docs/verification/6.9.0/overload-overload.csv
+A	docs/verification/6.9.0/overload-overload.json
+A	docs/verification/6.9.0/overload-overload.txt
+A	docs/verification/6.9.0/overload-ui-overload-3d.png
+A	docs/verification/6.9.0/overload-ui-overload-table.png
+A	docs/verification/6.9.0/overload-ui-overload-ui-results.json
+A	docs/verification/6.9.0/overload-ui-shaft-loads.png
+A	docs/verification/6.9.0/robot-transmission60-robot-transmission60-results.json
+A	docs/verification/6.9.0/step-edit-step-edit-results.json
+A	docs/verification/6.9.0/train60-train60-results.json
+M	examples/Compound_80.train.json
+A	examples/Compound_Materials_80.train.json
+M	kernel/transmission_assembly.py
+M	src/AssemblyInfo.cs
+M	src/CADStudioForm.cs
+M	src/CadGeometry.cs
+M	src/CompoundDesigner.cs
+M	src/CompoundExport.cs
+M	src/CompoundReducer.cs
+M	src/CompoundTests.cs
+M	src/GearCalculator.cs
+M	src/MainForm.cs
+A	src/MaterialConverters.cs
+A	src/MaterialLibrary.cs
+A	src/MaterialLoadsDesigner.cs
+A	src/OverloadAnimation.cs
+A	src/OverloadTests.cs
+A	src/OverloadUiTests.cs
+M	src/PrintExport.cs
+M	src/ReferenceRobotDesign.cs
+M	src/ReleaseSupport.cs
+M	src/RobotCad.cs
+M	src/RobotDesignerForm.cs
+M	src/RobotJointControllers.cs
+M	src/RobotPoseHistory672.cs
+A	src/RobotReducerLoads.cs
+M	src/RobotSolver.cs
+M	src/RobotTrainIntegration.cs
+M	src/RobotTransmission60.cs
+M	src/RobotWorkspaceUX.cs
+A	src/TrainClutch.cs
+M	src/TrainDesignerForm.cs
+A	src/TrainJson.cs
+A	src/TrainStrength.cs
+M	src/TransmissionExport.cs
+M	src/TransmissionTrain.cs
+M	src/UiTextCatalog.cs
+M	src/WorkspaceShell.cs
+M	tools/test_compound_stl.py
+A	tools/test_materials_native.py
+M	tools/ui64_catalog.txt

@@ -1,0 +1,48 @@
+﻿commit 30e4a2c016a8a22771eeb83b812ce9a6f578d093
+Author:     Codex <codex@openai.com>
+AuthorDate: Sat Nov 14 17:08:08 2026 +0500
+Commit:     Codex <codex@openai.com>
+CommitDate: Sat Nov 14 17:08:08 2026 +0500
+
+    feat: add modular shared housing for coaxial reducer trains (6.8.0)
+
+M	README.md
+A	docs/COMPOUND_REDUCER.md
+A	docs/RELEASE_6.8.0.md
+A	docs/verification/6.8.0/compound-3d.png
+A	docs/verification/6.8.0/compound-exploded.png
+A	docs/verification/6.8.0/compound-results.json
+A	docs/verification/6.8.0/compound-section.png
+A	docs/verification/6.8.0/compound-ui-results.json
+A	docs/verification/6.8.0/compound.audit.json
+A	docs/verification/6.8.0/compound.layout.json
+A	docs/verification/6.8.0/compound.stl.audit.json
+A	docs/verification/6.8.0/compound.variants.audit.json
+A	examples/Compound_80.train.json
+M	src/AssemblyInfo.cs
+M	src/CADStudioForm.cs
+M	src/CadBuilder.cs
+A	src/CompoundConverters.cs
+A	src/CompoundDesigner.cs
+A	src/CompoundExport.cs
+A	src/CompoundReducer.cs
+A	src/CompoundTests.cs
+A	src/CompoundUiTests.cs
+M	src/GearCalculator.cs
+M	src/MainForm.cs
+M	src/PrintExport.cs
+M	src/ReferenceRobotDesign.cs
+M	src/ReleaseSupport.cs
+M	src/RobotDesignerForm.cs
+M	src/RobotJointControllers.cs
+M	src/RobotPoseHistory672.cs
+M	src/RobotTrainIntegration.cs
+M	src/RobotTransmission60.cs
+M	src/TrainDesignerForm.cs
+M	src/TransmissionTrain.cs
+M	src/UiTextCatalog.cs
+M	src/WorkspaceShell.cs
+M	src/WpfScene.cs
+A	tools/test_compound_native.py
+A	tools/test_compound_stl.py
+M	tools/ui64_catalog.txt
