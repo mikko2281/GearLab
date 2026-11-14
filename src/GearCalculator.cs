@@ -579,7 +579,7 @@ namespace GearLab {
    if(args.Length>0&&args[0]=="--wave56-export-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return WaveExport56Tests.Run(args.Length>1?args[1]:Path.GetTempPath());}
    if(args.Length>0&&args[0]=="--wave56-fast-test")return Wave56FastTests.Run(args.Length>1?args[1]:Path.GetTempPath());
    if(args.Length>0&&(args[0]=="--train"||args[0].EndsWith(".train.json",StringComparison.OrdinalIgnoreCase)))return RunWindow(()=>new TrainDesignerForm(args[0]=="--train"?TransmissionTrain.Example():TransmissionTrain.Read(args[0])));
-   if(args.Length==0)return RunWindow(()=>new ReducerWorkspaceForm());
+   if(args.Length==0)return RunWindow(()=>AppSettings.Current.StartSection==GearStart.Робототехника?(Form)new RobotDesignerForm():AppSettings.Current.StartSection==GearStart.Ступени?(Form)new TrainDesignerForm():new ReducerWorkspaceForm());
 
    if(args.Length>0&&args[0]=="--reducer")return RunWindow(()=>new ReducerWorkspaceForm());
 
