@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 using System.IO;
 
@@ -481,6 +481,8 @@ namespace GearLab {
  static class Program {
 
   [STAThread] static int Main(string[] args){
+   if(args.Length>0&&args[0]=="--compound-ui-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return CompoundUiTests.Run(args[1]);}
+   if(args.Length>0&&args[0]=="--compound-test")return CompoundTests.Run(args[1]);
    if(args.Length>0&&args[0]=="--performance-web-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return WebPerformanceTests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--industrial66-native-test"){return Industrial66NativeTests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--industrial66-view-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Industrial66ViewTests.Run(args[1]);}

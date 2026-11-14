@@ -763,3 +763,65 @@ STL сохранены: |STL files saved:
 Шаг 4 из 4 · Движение. Двигайте шарниры ползунками и смотрите в таблице внизу, хватает ли моторам момента.|Step 4 of 4 · Motion. Move the joints with the sliders and check the table below for motor torque.
 К чему прикреплено это звено|This link is attached to
 Основные параметры — по шагам ниже.|Main settings are in the steps below.
+
+Общий корпус|Shared housing
+Толщина перегородки, мм|Partition thickness, mm
+Зазор, мм|Clearance, mm
+Наружная форма|Outer shape
+Количество шпилек|Stud count
+Диаметр шпильки, мм|Stud diameter, mm
+Соединение ступеней|Stage connection
+Делить по ступеням|Split into stage modules
+Круг|Round housing
+Квадрат|Square housing
+Общий вал|Common shaft
+D-вал|D shaft
+Шлицы|Splines
+Планетарный → циклоидальный в одном корпусе|Planetary → cycloidal in one housing
+Планетарный 4:1|Planetary 4:1
+Циклоидальный 20:1|Cycloidal 20:1
+Включите общий корпус и дождитесь расчёта.|Enable shared housing and wait for calculation.
+Схематический разрез · конструкция предварительная|Schematic section · preliminary design
+Предварительная конструкция. Прочность, ресурс подшипников и нагрев не рассчитаны. ReadyForManufacture=false.|Preliminary design. Strength, bearing life and heat are not calculated. ReadyForManufacture=false.
+Общий корпус: нужна одна цепочка без разветвлений и циклов.|Shared housing requires one chain without branches or cycles.
+Общий корпус: число шпилек 3–12.|Shared housing: use 3–12 studs.
+Общий корпус: выберите круг или квадрат.|Shared housing: choose round or square.
+Общий корпус: неизвестное соединение ступеней.|Shared housing: unknown stage connection.
+Общий корпус: для этой версии включите деление на модули.|Shared housing: enable modular construction for this version.
+В общем корпусе допускаются 2–4 ступени.|A shared housing accepts 2–4 stages.
+: общий корпус требует одного входа без деления мощности.|: shared housing requires one input without power splitting.
+: эта ступень не ставится в общий корпус; выберите соосную передачу.|: this stage cannot share a housing; choose a coaxial transmission.
+: выберите неподвижное кольцо (RingOutput=false).|: select a fixed ring (RingOutput=false).
+: интерфейс волновой ПТК пока не подходит для общего вала; выберите планетарную или циклоидальную ступень.|: the wave PTK interface does not fit the common shaft; choose a planetary or cycloidal stage.
+: выберите стандартную циклоидальную схему.|: choose the standard cycloidal layout.
+: выходной вал Ø|: output shaft Ø
+ мм не совпадает со входом Ø| mm does not match input Ø
+ мм. Задайте одинаковые диаметры.| mm. Set matching diameters.
+: задайте одну внутреннюю планетарную ступень; остальные добавьте в граф.|: use one internal planetary stage; add further stages to the graph.
+Общий корпус Ø|Shared housing Ø
+ мм не помещается на стол 256 × 256 мм. Уменьшите ступени.| mm exceeds a 256 × 256 mm bed. Reduce the stages.
+Моторная плита|Motor plate
+Входная опора · габарит|Input bearing envelope
+Модуль |Module 
+Неподвижное кольцо и стенка — одно тело. Предварительная конструкция.|The fixed ring and wall are one solid. Preliminary design.
+Перегородка |Partition 
+ с опорой| with bearing
+Верхняя крышка с выходной опорой|Top cover with output bearing
+Выходная опора в крышке · габарит|Output bearing envelope in cover
+Выходной фланец с валом|Output flange with shaft
+: для разъёмного соединения задайте вал не менее 6 мм.|: a detachable joint requires a shaft at least 6 mm in diameter.
+: недостаточно длины входной шейки для соединения.|: the input journal is too short for the joint.
+Входной вал с D-гнездом|Input shaft with D socket
+Входной вал со шлицевым гнездом|Input shaft with spline socket
+Разъёмное соединение, длина зацепления |Detachable joint, engagement length 
+ мм. Профиль компоновочный; концентрации и контакт требуют проверки.| mm. Layout profile; stress concentrations and contact require verification.
+Сквозная шпилька M|Through stud M
+Общий корпус: опоры по габаритам d/D/B, реакции, ресурс, посадки и осевая фиксация не рассчитаны. ReadyForManufacture=false.|Shared housing: d/D/B bearing envelopes; reactions, life, fits and axial retention are not calculated. ReadyForManufacture=false.
+Некорректный объём: |Invalid volume: 
+: деталь не помещается в 256 × 256 × 256 мм.|: part exceeds 256 × 256 × 256 mm.
+: допустимо |: allowed range 
+Минимальная стенка|Minimum wall
+Перегородка|Partition
+Диаметр шпильки|Stud diameter
+: входной момент |: input torque 
+ Н·м превышает заданный допустимый либо предел задан неверно.| Nm exceeds the specified input limit or the limit is invalid.
