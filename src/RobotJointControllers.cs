@@ -64,7 +64,7 @@ namespace GearLab {
 
   internal void ResetJointPose(){BeginPoseEdit();foreach(var j in Document.Joints.Where(j=>j.Mode!=RobotJointMode.Неподвижный))j.Position=Math.Max(j.Minimum,Math.Min(j.Maximum,0));RefreshManualPose();EndPoseEdit();}
 
-  void RefreshManualPose(){if(Build==null)return;phase=0;Build.InvalidatePose();Build.Current=RobotKinematics.Evaluate(Document,0,false);Scene.UpdatePose(0);RefreshAnimatedLoads(0);UpdateWebPose();RefreshBoneOverlay();revision++;Text="GearLab 6.9.0 · "+Document.Name+" *";}
+  void RefreshManualPose(){if(Build==null)return;phase=0;Build.InvalidatePose();Build.Current=RobotKinematics.Evaluate(Document,0,false);Scene.UpdatePose(0);RefreshAnimatedLoads(0);UpdateWebPose();RefreshBoneOverlay();revision++;Text="GearLab 6.9.1 · "+Document.Name+" *";}
 
   void SyncJointControllers(){if(syncingControllers||jointControllers.Count==0||Build==null)return;syncingControllers=true;try{var poses=RobotKinematics.Evaluate(Document,phase,playing||Math.Abs(phase)>1e-9);foreach(var pair in jointControllers){var row=pair.Value;var j=Document.Find(row.Id);if(j==null||row.Value.IsDisposed)continue;double value=poses[j.Id].Value;row.Value.Value=Math.Max(row.Value.Minimum,Math.Min(row.Value.Maximum,(decimal)value));row.Slider.Value=Math.Max(row.Slider.Minimum,Math.Min(row.Slider.Maximum,(int)Math.Round(value*100)));var load=Analysis==null?null:Analysis.Joints.FirstOrDefault(x=>x.Id==j.Id);row.Load.Text=Engine.F(j.Minimum)+" … "+Engine.F(j.Maximum)+(load==null?"":" · "+Engine.F(load.Required)+" / "+Engine.F(load.Available)+" "+load.Unit);row.Load.ForeColor=load!=null&&!load.Enough?Color.Firebrick:Color.SlateGray;}}finally{syncingControllers=false;}}
 

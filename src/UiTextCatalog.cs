@@ -1,6 +1,12 @@
 ﻿using System;using System.Linq;using System.Collections.Generic;using System.Text.RegularExpressions;
 namespace GearLab {public static partial class I18n {
  static readonly Dictionary<string,string> Catalog=new Dictionary<string,string>(StringComparer.Ordinal){
+{"Согласовать валы","Match shaft diameters"},
+{"ПТК → планетарный в одном корпусе","PTK → planetary in a shared housing"},
+{"Входной вал, мм","Input shaft, mm"},
+{"Выходной вал, мм","Output shaft, mm"},
+{"Выход через кольцо","Ring output"},
+
 {"Параметры общего корпуса должны быть конечными числами.","Shared housing parameters must be finite numbers."},
 {"Момент муфты, Н·м","Clutch torque, Nm"},
 {"Прижим муфты, Н","Clutch clamp force, N"},
@@ -918,8 +924,8 @@ namespace GearLab {public static partial class I18n {
 {"Параметры корпуса","Housing settings"},
 {"Параметры и посадки — в редакторе корпуса. Положение руки и раскрытие захвата — во вкладке управления. Конструкция пока требует инженерной проверки.","Dimensions and fits are in the housing editor. Arm pose and gripper opening are in the control tab. Engineering validation is still pending."},
 {"Построение отменено. Предыдущий корпус сохранён.","Generation cancelled. The previous housing is preserved."},
-{"Gear Lab 6.9.0 · Калькулятор редукторов","GearLab 6.9.0 · Reducer calculator"},
-{"GearLab 6.9.0 · Робототехника","GearLab 6.9.0 · Robotics"},
+{"Gear Lab 6.9.1 · Калькулятор редукторов","GearLab 6.9.1 · Reducer calculator"},
+{"GearLab 6.9.1 · Робототехника","GearLab 6.9.1 · Robotics"},
 {"Шаг 0,01–100 мм; чувствительность 1–30; анимация 0,01–10; автосохранение 15–600 с.","Step 0.01–100 mm; sensitivity 1–30; animation 0.01–10; autosave 15–600 s."},
 {"ЛКМ — вращение · СКМ / Shift+ЛКМ — сдвиг · колесо — масштаб · F — вписать","Left-drag: orbit · Middle / Shift+left: pan · Wheel: zoom · F: frame all"},
 {" мм/с"," mm/s"},

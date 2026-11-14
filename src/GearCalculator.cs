@@ -485,6 +485,7 @@ namespace GearLab {
    if(args.Length>0&&args[0]=="--overload-ui-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return OverloadUiTests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--overload-test")return OverloadTests.Run(args[1]);
    if(args.Length>0&&args[0]=="--compound-test")return CompoundTests.Run(args[1]);
+   if(args.Length>0&&args[0]=="--shared-ptk-test")return SharedPtkTests.Run(args[1]);
    if(args.Length>0&&args[0]=="--performance-web-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return WebPerformanceTests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--industrial66-native-test"){return Industrial66NativeTests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--industrial66-view-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Industrial66ViewTests.Run(args[1]);}
@@ -587,11 +588,11 @@ namespace GearLab {
 
    if(args.Length>0&&args[0]=="--reducer")return RunWindow(()=>new ReducerWorkspaceForm());
 
-   Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);Application.ThreadException+=(sender,e)=>ReleaseSupport.Report(e.Exception);AppDomain.CurrentDomain.UnhandledException+=(sender,e)=>ReleaseSupport.Report(e.ExceptionObject as Exception);Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);try{var form=new MainForm();if(args.Length>0)form.LoadProjectFile(args[0]);if(args.Length>1&&args[1]=="--3d")form.ShowFullModel();Application.Run(new WorkspaceShell(form));return 0;}catch(Exception ex){ReleaseSupport.Report(ex);return 1;}
+   Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);Application.ThreadException+=(sender,e)=>ReleaseSupport.Report(e.Exception);AppDomain.CurrentDomain.UnhandledException+=(sender,e)=>ReleaseSupport.Report(e.ExceptionObject as Exception);Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);try{SceneAnimation.Enabled=true;var form=new MainForm();if(args.Length>0)form.LoadProjectFile(args[0]);if(args.Length>1&&args[1]=="--3d")form.ShowFullModel();Application.Run(new WorkspaceShell(form));return 0;}catch(Exception ex){ReleaseSupport.Report(ex);return 1;}
 
   }
 
-  static int RunWindow(Func<Form> create){Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);Application.ThreadException+=(s,e)=>ReleaseSupport.Report(e.Exception);Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);try{Application.Run(new WorkspaceShell(create()));return 0;}catch(Exception ex){ReleaseSupport.Report(ex);return 1;}}
+  static int RunWindow(Func<Form> create){SceneAnimation.Enabled=true;Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);Application.ThreadException+=(s,e)=>ReleaseSupport.Report(e.Exception);Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);try{Application.Run(new WorkspaceShell(create()));return 0;}catch(Exception ex){ReleaseSupport.Report(ex);return 1;}}
 
  }
 

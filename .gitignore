@@ -19,6 +19,7 @@ examples/Robot1_800mm.robot.json
 examples/SixAxis_Connected.robot.json
 
 test-results-*/
+/tmp/
 
 publication/
 docs/verification/6.3*/profile*/

@@ -1,0 +1,15 @@
+{
+  "Passed": true,
+  "AuditedGeometryMatchesFinalFixtures": true,
+  "Fixtures": [
+    "ptk-CommonShaft-phase-1.assembly.json",
+    "ptk-CommonShaft-phase-2.assembly.json",
+    "ptk-CommonShaft-phase-3.assembly.json",
+    "ptk-CommonShaft-reverse.assembly.json",
+    "ptk-CommonShaft.assembly.json",
+    "ptk-D-reverse.assembly.json",
+    "ptk-D.assembly.json",
+    "ptk-Spline-reverse.assembly.json",
+    "ptk-Spline.assembly.json"
+  ]
+}

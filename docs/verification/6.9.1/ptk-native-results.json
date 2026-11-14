@@ -1,0 +1,65 @@
+[
+  {
+    "Fixture": "ptk-CommonShaft-phase-1.assembly.json",
+    "SignificantPairs": [],
+    "Complete": true,
+    "TestedPairs": 155,
+    "Pairs": []
+  },
+  {
+    "Fixture": "ptk-CommonShaft-phase-2.assembly.json",
+    "SignificantPairs": [],
+    "Complete": true,
+    "TestedPairs": 155,
+    "Pairs": []
+  },
+  {
+    "Fixture": "ptk-CommonShaft-phase-3.assembly.json",
+    "SignificantPairs": [],
+    "Complete": true,
+    "TestedPairs": 155,
+    "Pairs": []
+  },
+  {
+    "Fixture": "ptk-CommonShaft-reverse.assembly.json",
+    "SignificantPairs": [],
+    "Complete": true,
+    "TestedPairs": 156,
+    "Pairs": []
+  },
+  {
+    "Fixture": "ptk-CommonShaft.assembly.json",
+    "SignificantPairs": [],
+    "Complete": true,
+    "TestedPairs": 155,
+    "Pairs": []
+  },
+  {
+    "Fixture": "ptk-D-reverse.assembly.json",
+    "SignificantPairs": [],
+    "Complete": true,
+    "TestedPairs": 151,
+    "Pairs": []
+  },
+  {
+    "Fixture": "ptk-D.assembly.json",
+    "SignificantPairs": [],
+    "Complete": true,
+    "TestedPairs": 150,
+    "Pairs": []
+  },
+  {
+    "Fixture": "ptk-Spline-reverse.assembly.json",
+    "SignificantPairs": [],
+    "Complete": true,
+    "TestedPairs": 151,
+    "Pairs": []
+  },
+  {
+    "Fixture": "ptk-Spline.assembly.json",
+    "SignificantPairs": [],
+    "Complete": true,
+    "TestedPairs": 150,
+    "Pairs": []
+  }
+]
