@@ -92,7 +92,28 @@ def generate(request, k):
                 if volume>1e-5:pairs.append({'First':spec[i]['Id'],'Second':spec[j]['Id'],'Volume':volume})
             if not complete:break
         return {'Ok':True,'Audit':{'Complete':complete,'TestedPairs':tested,'Pairs':pairs}}
-    writer=k.STEPControl_Writer();writer.Transfer(k.compound(results),k.STEPControl_AsIs)
+    if any(item.get('Material') for item in spec):
+        from OCP.TDocStd import TDocStd_Document
+        from OCP.TCollection import TCollection_ExtendedString, TCollection_HAsciiString
+        from OCP.XCAFDoc import XCAFDoc_DocumentTool
+        from OCP.TDataStd import TDataStd_Name
+        from OCP.STEPCAFControl import STEPCAFControl_Writer
+        document=TDocStd_Document(TCollection_ExtendedString('BinXCAF'))
+        shapes=XCAFDoc_DocumentTool.ShapeTool_s(document.Main())
+        materials=XCAFDoc_DocumentTool.MaterialTool_s(document.Main())
+        for item,shape in zip(spec,results):
+            label=shapes.AddShape(shape,False)
+            TDataStd_Name.Set_s(label,TCollection_ExtendedString(item['Id']+' '+item.get('Label','')))
+            if item.get('Material'):
+                description=json.dumps(dict(Density_kg_m3=item.get('Density'),Source=item.get('MaterialSource'),ReadyForManufacture=False),ensure_ascii=True)
+                # Keep SI density explicit in the description, independent of a reader's density unit convention.
+                materials.SetMaterial(label,TCollection_HAsciiString(item['Material']),TCollection_HAsciiString(description),0.,TCollection_HAsciiString(''),TCollection_HAsciiString(''))
+        writer=STEPCAFControl_Writer();writer.SetNameMode(True);writer.SetMaterialMode(True)
+        if not writer.Transfer(document,k.STEPControl_AsIs):raise ValueError('Material-aware STEP transfer failed')
+    else:
+        writer=k.STEPControl_Writer();writer.Transfer(k.compound(results),k.STEPControl_AsIs)
     if writer.Write(str(request['Path']))!=k.IFSelect_RetDone:raise ValueError('STEP write failed')
+    step_path=Path(request['Path'])
+    step_path.write_bytes(step_path.read_bytes().replace(b'HEADER;',b'HEADER;\n/* GearLab: preliminary design; ReadyForManufacture=false. Strength, fatigue, bearing life and heat are not certified. */',1))
     Path(str(request['Path'])+'.validation.json').write_text(json.dumps({'Ok':True,'Parts':report},indent=2),encoding='utf-8')
     return {'Ok':True,'Notes':['Parametric B-rep; tooth conjugacy is not validated.']}

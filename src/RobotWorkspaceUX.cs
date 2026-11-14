@@ -71,7 +71,7 @@ namespace GearLab {
     QuickButton(flow,"Трубчатый корпус всем звеньям",ApplyEnclosedStyle);QuickButton(flow,"Показать варианты корпусов",Variants);}
    else{QuickHint(flow,"Шаг 4 из 4 · Движение. Двигайте шарниры ползунками и смотрите в таблице внизу, хватает ли моторам момента.");BuildJointControllers(flow);}
    quickInspector.ResumeLayout();}
-  void RefreshQuickLoad(){if(quickLoad==null||Analysis==null)return;var state=Analysis.Joints.FirstOrDefault(x=>x.Id==selectedJoint);if(state!=null)quickLoad.Text="Нужно с запасом: "+Engine.F(state.Required)+" "+state.Unit+"\nДоступно: "+Engine.F(state.Available)+" "+state.Unit+"\n"+state.Message;}
+  void RefreshQuickLoad(){if(quickLoad==null||Analysis==null)return;var state=Analysis.Joints.FirstOrDefault(x=>x.Id==selectedJoint);if(state!=null)quickLoad.Text="Нужно с запасом: "+Engine.F(state.Required)+" "+state.Unit+"\nДоступно: "+Engine.F(state.Available)+" "+state.Unit+"\n"+state.Message+(state.ReducerLimit.HasValue?"\nПредел редуктора ≈ "+Engine.F(state.ReducerLimit.Value)+" Н·м":"")+"\n"+state.StrengthMessage;}
 
   void BeginPoseEdit(){if(poseEditing)return;Stop();EnsurePoseSaveBaseline();poseEditing=true;poseBefore=CapturePoseHistory();if(Math.Abs(phase)>1e-9){var current=RobotKinematics.Evaluate(Document,phase,true);foreach(var j in Document.Joints)j.Position=current[j.Id].Value;phase=0;}}
 

@@ -1,7 +1,7 @@
 ﻿import collections,json,struct,sys,zipfile
 from pathlib import Path
 folder=Path(sys.argv[1]);reports=[]
-with zipfile.ZipFile(folder/'compound-print.zip') as zip:
+with zipfile.ZipFile(folder/(sys.argv[2] if len(sys.argv)>2 else 'compound-print.zip')) as zip:
  assert 'BOM_all_parts.csv' in zip.namelist()
  for name in zip.namelist():
   if not name.endswith('.stl'):continue

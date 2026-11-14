@@ -1,0 +1,12 @@
+{
+  "passed": [
+    "full rotating interval proves separated height planes",
+    "OCCT intersection gives actual colliding pose",
+    "overlapping conservative bounds are not falsely called an actual collision or a full-range pass",
+    "sin interval includes interior extrema (-8, -5)",
+    "sin interval includes interior extrema (-1, 4)",
+    "sin interval includes interior extrema (0, 0.1)",
+    "sin interval includes interior extrema (3.1, 3.2)",
+    "sin interval includes interior extrema (0, 8)"
+  ]
+}

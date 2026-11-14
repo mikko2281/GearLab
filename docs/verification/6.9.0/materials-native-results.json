@@ -1,0 +1,22 @@
+[
+  {
+    "Fixture": "materials",
+    "Solids": 46,
+    "MaterialsStored": true,
+    "ToleranceMm3": 0.001,
+    "SignificantPairs": [],
+    "Complete": true,
+    "TestedPairs": 126,
+    "Pairs": []
+  },
+  {
+    "Fixture": "clutch",
+    "Solids": 53,
+    "MaterialsStored": true,
+    "ToleranceMm3": 0.001,
+    "SignificantPairs": [],
+    "Complete": true,
+    "TestedPairs": 144,
+    "Pairs": []
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "passed": [
+    "local rotation/wrap 0,0,1 / 45",
+    "local rotation/wrap 0,0,1 / 179",
+    "local rotation/wrap 0,0,1 / 181",
+    "local rotation/wrap 0,0,1 / 270",
+    "release flushes last pose 0,0,1",
+    "local rotation/wrap 0,1,0 / 45",
+    "local rotation/wrap 0,1,0 / 179",
+    "local rotation/wrap 0,1,0 / 181",
+    "local rotation/wrap 0,1,0 / 270",
+    "release flushes last pose 0,1,0",
+    "local rotation/wrap 1,0,0 / 45",
+    "local rotation/wrap 1,0,0 / 179",
+    "local rotation/wrap 1,0,0 / 181",
+    "local rotation/wrap 1,0,0 / 270",
+    "release flushes last pose 1,0,0",
+    "negative rotation",
+    "escape cancels transaction",
+    "gizmo enforces upper joint limit",
+    "linear local-axis projection 0,0,1",
+    "linear local-axis projection 0,1,0",
+    "linear local-axis projection 1,0,0",
+    "orthogonal displacement does not move prismatic coordinate"
+  ]
+}
