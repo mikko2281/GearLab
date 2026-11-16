@@ -52,3 +52,5 @@
 ```
 
 Проверено 1968 файлов по SHA-256, 1969 записей ZIP по CRC и побайтному соответствию комплекту; изолированная CAD-операция дала 24000 мм³. EXE 7.0.0.0 собран официальным build.ps1. Архив содержит обновлённые web/scene.js и index.html, examples, kernel, runtime и лицензии.
+
+Опубликовано: [GearLab 7.0.0](https://github.com/mikko2281/GearLab/releases/tag/v7.0.0), тег `v7.0.0`, коммит слияния `3b02d71259e0790f20ca4871b4429a611da14382`. [PR #2](https://github.com/mikko2281/GearLab/pull/2); [Windows CI](https://github.com/mikko2281/GearLab/actions/runs/43919275816) — PASS.

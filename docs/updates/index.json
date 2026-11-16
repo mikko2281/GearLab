@@ -1,8 +1,8 @@
-﻿{
+{
   "ApplicationVersion": "7.0.0",
   "CodeBaselineCommit": "715f4c574e4d666f70f5c2028b870fe31dbb7afb",
-  "PreparedDate": "2026-11-14",
-  "Published": false,
+  "PreparedDate": "2026-11-16",
+  "Published": true,
   "ReadyForManufacture": false,
   "HistoryType": "local branch ancestry, not a full merge of other Claude branches",
   "Updates": [
@@ -36,30 +36,47 @@
     },
     {
       "Version": "6.10.0",
-      "Commit": "не закоммичено (рабочее дерево на базе 79920016)",
+      "Commit": "25e0b1a56ff2098600966933a16124194256b41a",
       "Record": "6.10.0.md",
       "Patch": "patches/6.10.0.patch",
       "Files": "files/6.10.0.txt",
       "Author": "Claude (Cowork)",
-      "Status": "проверено локально в Wine; WPF 3D не проверен на Windows"
+      "Status": "Проверено на Windows, включено в опубликованный GearLab 7.0.0",
+      "IncludedInRelease": "7.0.0",
+      "Tag": "v7.0.0",
+      "ReleaseCommit": "3b02d71259e0790f20ca4871b4429a611da14382",
+      "ReleaseUrl": "https://github.com/mikko2281/GearLab/releases/tag/v7.0.0"
     },
     {
       "Version": "6.11.0",
-      "Commit": "не закоммичено (рабочее дерево поверх 6.10.0)",
+      "Commit": "daa2a35a3c0075d6ba1537241322582ce14784ca",
       "Record": "6.11.0.md",
       "Patch": "patches/6.11.0.patch",
       "Files": "files/6.11.0.txt",
       "Author": "Claude (Cowork)",
-      "Status": "проверено локально в Wine; Three.js-значки проверены в Chromium; на Windows не проверено"
+      "Status": "Проверено на Windows, включено в опубликованный GearLab 7.0.0",
+      "IncludedInRelease": "7.0.0",
+      "Tag": "v7.0.0",
+      "ReleaseCommit": "3b02d71259e0790f20ca4871b4429a611da14382",
+      "ReleaseUrl": "https://github.com/mikko2281/GearLab/releases/tag/v7.0.0"
     },
     {
       "Version": "7.0.0",
-      "Commit": "не закоммичено (рабочее дерево поверх 6.11.0)",
+      "Commit": "5802d74e926d9c606ae551764b59e0032b69badd",
       "Record": "7.0.0.md",
       "Patch": "patches/7.0.0.patch",
       "Files": "files/7.0.0.txt",
       "Author": "Claude (Cowork)",
-      "Status": "проверено локально в Wine; режим «Просмотр» проверен в Chromium; на Windows не проверено"
+      "Status": "Проверено на Windows, включено в опубликованный GearLab 7.0.0",
+      "IncludedInRelease": "7.0.0",
+      "Tag": "v7.0.0",
+      "ReleaseCommit": "3b02d71259e0790f20ca4871b4429a611da14382",
+      "ReleaseUrl": "https://github.com/mikko2281/GearLab/releases/tag/v7.0.0",
+      "Published": true
     }
-  ]
+  ],
+  "Commit": "3b02d71259e0790f20ca4871b4429a611da14382",
+  "Tag": "v7.0.0",
+  "ReleaseUrl": "https://github.com/mikko2281/GearLab/releases/tag/v7.0.0",
+  "ArchiveSha256": "829B392CE6CFC96A40ACF37BF96EEE5B40756336927A1028E49C8E127261AC19"
 }

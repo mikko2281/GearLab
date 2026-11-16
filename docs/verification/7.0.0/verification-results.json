@@ -13,5 +13,11 @@
   "NativeProceduralRuns": 14,
   "ManualScreenshots": 10,
   "ReadyForManufacture": false,
-  "Published": false
+  "Published": true,
+  "Tag": "v7.0.0",
+  "ReleaseCommit": "3b02d71259e0790f20ca4871b4429a611da14382",
+  "ReleaseUrl": "https://github.com/mikko2281/GearLab/releases/tag/v7.0.0",
+  "ArchiveSha256": "829B392CE6CFC96A40ACF37BF96EEE5B40756336927A1028E49C8E127261AC19",
+  "PullRequest": "https://github.com/mikko2281/GearLab/pull/2",
+  "PullRequestCi": "https://github.com/mikko2281/GearLab/actions/runs/43919275816"
 }
