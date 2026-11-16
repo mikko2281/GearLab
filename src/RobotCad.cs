@@ -16,7 +16,10 @@ namespace GearLab {
 
   public void InvalidatePose(){poses=null;cachedPhase=double.NaN;cachedAnimation=false;}
 
-  public double Mass(RobotCadEntry e){return e.Guide?0:e.MassOverride>=0?e.MassOverride:e.Part.Volume()*1e-9*e.Density;}
+  // 7.0.0: объём и центр детали считаются по сетке один раз на сборку (раньше — на каждый шарнир и каждую позу проверки диапазона).
+  readonly System.Collections.Concurrent.ConcurrentDictionary<string,double> volumeCache=new System.Collections.Concurrent.ConcurrentDictionary<string,double>();readonly System.Collections.Concurrent.ConcurrentDictionary<string,Point3D> centreCache=new System.Collections.Concurrent.ConcurrentDictionary<string,Point3D>();
+  public double Mass(RobotCadEntry e){return e.Guide?0:e.MassOverride>=0?e.MassOverride:volumeCache.GetOrAdd(e.Id,k=>e.Part.Volume())*1e-9*e.Density;}
+  internal Point3D CachedCentre(RobotCadEntry e){return centreCache.GetOrAdd(e.Id,k=>Centre(e.Part));}
 
   public static Point3D Centre(CadPart p){if(p.NativeStep!=null)return p.NativeCentre;if(p.MeshOverride!=null){var mesh=p.MeshOverride;double signed=0;var centreVector=new Vector3D();for(int i=0;i<mesh.Indices.Length;i+=3){var a=RobotMath.Vector(mesh.Points[mesh.Indices[i]]);var b=RobotMath.Vector(mesh.Points[mesh.Indices[i+1]]);var c=RobotMath.Vector(mesh.Points[mesh.Indices[i+2]]);double v=Vector3D.DotProduct(a,Vector3D.CrossProduct(b,c))/6;signed+=v;centreVector+=(a+b+c)*(v/4);}return Math.Abs(signed)>1e-9?RobotMath.Point(centreVector/signed):new Point3D();}double volume=0,x=0,y=0,z=0;foreach(var s in p.Sections){Func<CadLoop,Point3D> centre=l=>{if(l.Circle)return new Point3D(l.X,l.Y,0);double polyArea=0,cx=0,cy=0;for(int i=0;i<l.Points.Length;i++){var a=l.Points[i];var b=l.Points[(i+1)%l.Points.Length];double cross=(double)a.X*b.Y-(double)b.X*a.Y;polyArea+=cross;cx+=(a.X+b.X)*cross;cy+=(a.Y+b.Y)*cross;}return Math.Abs(polyArea)<1e-12?new Point3D():new Point3D(cx/(3*polyArea),cy/(3*polyArea),0);};double outer=s.Outer.SurfaceArea(),area=outer-s.Holes.Sum(h=>h.SurfaceArea());var c=centre(s.Outer);double sx=c.X*outer,sy=c.Y*outer;foreach(var h in s.Holes){c=centre(h);sx-=c.X*h.SurfaceArea();sy-=c.Y*h.SurfaceArea();}double height=s.Top-s.Bottom,v=area*height;x+=sx*height;y+=sy*height;z+=v*(s.Bottom+s.Top)/2;volume+=v;}return volume>1e-9?new Point3D(x/volume,y/volume,z/volume):new Point3D();}
 

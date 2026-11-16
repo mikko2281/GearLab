@@ -1,5 +1,5 @@
-{
-  "ApplicationVersion": "6.11.0",
+﻿{
+  "ApplicationVersion": "7.0.0",
   "CodeBaselineCommit": "715f4c574e4d666f70f5c2028b870fe31dbb7afb",
   "PreparedDate": "2026-11-14",
   "Published": false,
@@ -51,6 +51,15 @@
       "Files": "files/6.11.0.txt",
       "Author": "Claude (Cowork)",
       "Status": "проверено локально в Wine; Three.js-значки проверены в Chromium; на Windows не проверено"
+    },
+    {
+      "Version": "7.0.0",
+      "Commit": "не закоммичено (рабочее дерево поверх 6.11.0)",
+      "Record": "7.0.0.md",
+      "Patch": "patches/7.0.0.patch",
+      "Files": "files/7.0.0.txt",
+      "Author": "Claude (Cowork)",
+      "Status": "проверено локально в Wine; режим «Просмотр» проверен в Chromium; на Windows не проверено"
     }
   ]
 }

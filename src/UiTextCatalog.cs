@@ -1,6 +1,10 @@
 ﻿using System;using System.Linq;using System.Collections.Generic;using System.Text.RegularExpressions;
 namespace GearLab {public static partial class I18n {
  static readonly Dictionary<string,string> Catalog=new Dictionary<string,string>(StringComparer.Ordinal){
+{"◎ Просмотр","◎ Inspect"},
+{"Наведите курсор на звено — оно разлетится на детали, чтобы было видно, что внутри. Уберите курсор — звено соберётся.","Hover over a link to explode it into parts and see inside. Move the cursor away and it reassembles."},
+{"Режим «Просмотр» работает в Three.js-сцене (нужен Microsoft Edge WebView2).","\"Inspect\" mode works in the Three.js scene (Microsoft Edge WebView2 is required)."},
+
 {"«Мои редукторы» пока пусты","\"My reducers\" is empty"},
 {"Без модели редуктора","No reducer model"},
 {"В роботе пока нет подвижных звеньев. Сделайте редуктор в разделе «Редукторы» или «Ступени» и нажмите «＋ В робота».","The robot has no moving joints yet. Make a reducer in \"Reducers\" or \"Stages\" and press \"＋ To robot\"."},
@@ -1102,8 +1106,8 @@ namespace GearLab {public static partial class I18n {
 {"Параметры корпуса","Housing settings"},
 {"Параметры и посадки — в редакторе корпуса. Положение руки и раскрытие захвата — во вкладке управления. Конструкция пока требует инженерной проверки.","Dimensions and fits are in the housing editor. Arm pose and gripper opening are in the control tab. Engineering validation is still pending."},
 {"Построение отменено. Предыдущий корпус сохранён.","Generation cancelled. The previous housing is preserved."},
-{"Gear Lab 6.11.0 · Калькулятор редукторов","GearLab 6.11.0 · Reducer calculator"},
-{"GearLab 6.11.0 · Робототехника","GearLab 6.11.0 · Robotics"},
+{"Gear Lab 7.0.0 · Калькулятор редукторов","GearLab 7.0.0 · Reducer calculator"},
+{"GearLab 7.0.0 · Робототехника","GearLab 7.0.0 · Robotics"},
 {"Шаг 0,01–100 мм; чувствительность 1–30; анимация 0,01–10; автосохранение 15–600 с.","Step 0.01–100 mm; sensitivity 1–30; animation 0.01–10; autosave 15–600 s."},
 {"ЛКМ — вращение · СКМ / Shift+ЛКМ — сдвиг · колесо — масштаб · F — вписать","Left-drag: orbit · Middle / Shift+left: pan · Wheel: zoom · F: frame all"},
 {" мм/с"," mm/s"},
