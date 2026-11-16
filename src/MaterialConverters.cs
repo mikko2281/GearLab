@@ -7,5 +7,6 @@ namespace GearLab {
   public override object ConvertFrom(ITypeDescriptorContext c,CultureInfo culture,object value){string text=value as string;for(int i=0;i<Keys.Length;i++)if(text==Keys[i]||text==Labels[i]||text==I18n.T(Labels[i]))return Keys[i];throw new FormatException(I18n.T("Выберите значение из списка."));}
  }
  public sealed class MaterialKindConverter:EngineeringChoiceConverter {protected override string[] Keys{get{return new[]{"FDM","Metal","Polymer"};}}protected override string[] Labels{get{return new[]{"Печать FDM","Металл","Покупной полимер"};}}}
+ public sealed class MaterialFinishConverter:EngineeringChoiceConverter {protected override string[] Keys{get{return MaterialLook.Finishes;}}protected override string[] Labels{get{return MaterialLook.FinishNames;}}}
  public sealed class AxialSupportConverter:EngineeringChoiceConverter {protected override string[] Keys{get{return new[]{"Unknown","First","Second"};}}protected override string[] Labels{get{return new[]{"Не задана","Первая опора","Вторая опора"};}}}
 }
