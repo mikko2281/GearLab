@@ -1,0 +1,15 @@
+PASS version is 7.0.0
+PASS first pose message carries every part (395)
+PASS unchanged pose sends nothing
+PASS jogging the last joint sends only moved parts (150 of 395)
+PASS moved parts belong to that joint or its children
+PASS robot with two reducer joints
+PASS inspect mode turns on
+PASS inspect payload lists both joints
+PASS each joint lists only its own visible parts
+PASS each joint has parts and an axis
+PASS joint label shows its order
+PASS reducer badges keep order after optimisation
+PASS inspect mode turns off
+PASS no error messages: 
+PASS 14 assertions

@@ -1,0 +1,38 @@
+{
+  "passed": [
+    "analytic pure bending",
+    "analytic pure torsion with exact polar inertia",
+    "analytic pure axial load",
+    "combined von Mises stress",
+    "torsion expands automatic section",
+    "axial force expands automatic section",
+    "impossible 70mm section rejected",
+    "parallel: explicit degeneracy error False",
+    "parallel: explicit degeneracy error True",
+    "perpendicular: explicit degeneracy error False",
+    "perpendicular: explicit degeneracy error True",
+    "angle: explicit degeneracy error False",
+    "angle: explicit degeneracy error True",
+    "tangent: explicit degeneracy error False",
+    "tangent: explicit degeneracy error True",
+    "horizontal: explicit degeneracy error False",
+    "horizontal: explicit degeneracy error True",
+    "vertical: explicit degeneracy error False",
+    "vertical: explicit degeneracy error True",
+    "valid perpendicular sketch still solves"
+  ],
+  "section_examples": {
+    "baseline": [
+      18,
+      0.040209343375500854
+    ],
+    "torsion": [
+      35.5,
+      11.748571409682816
+    ],
+    "axial": [
+      51.5,
+      11.964660508970114
+    ]
+  }
+}

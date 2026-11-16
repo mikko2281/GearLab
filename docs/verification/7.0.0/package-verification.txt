@@ -1,0 +1,9 @@
+isolated CAD: 24000 mm3
+{
+  "archive": "GearLab-7.0.0-windows.zip",
+  "bytes": 178036205,
+  "entries": 1969,
+  "verified_files": 1968,
+  "sha256": "829B392CE6CFC96A40ACF37BF96EEE5B40756336927A1028E49C8E127261AC19",
+  "version": "7.0.0"
+}
