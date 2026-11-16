@@ -1,11 +1,12 @@
-*   3b02d71 (HEAD -> release/7.0.0, tag: v7.0.0, github/main) GearLab 7.0.0
-|\  
+* 9029958 (HEAD -> release/7.0.0, github/main) docs: record 7.0.0 release
+*   3b02d71 (tag: v7.0.0) GearLab 7.0.0
+|\
 | * cbbc363 (github/release/7.0.0) docs: record verified 7.0.0 archive and complete Windows evidence
 | * e5817c1 docs: verify GearLab 7.0.0 on Windows and record release scope
 | *   8f6ded7 merge: retain reviewed 7.0.0 snapshot and preserve GitHub main ancestry
-| |\  
-| |/  
-|/|   
+| |\
+| |/
+|/|
 * | da216ea Clarify SDK byte-preservation comment [skip ci]
 * | 3a66c45 (tag: v6.8.0) Preserve exact upstream WebView2 notice bytes during SDK refresh
 * | 30b080c Preserve historical source bytes and keep strict release checkout verification
@@ -22,7 +23,7 @@
 | * 30e4a2c (tag: v6.8.0-compound-preview) feat: add modular shared housing for coaxial reducer trains (6.8.0)
 | * 1637465 chore: preserve existing local UI changes before compound reducer work
 | * b23c2d6 Fix added-link direction and connected housings in 6.7.3
-|/  
+|/
 * d5d0c18 Build and verify GitHub provenance attestations for GearLab 6.7.2
 * dbdaae4 (tag: v6.7.2) Release 6.7.2: reduce robot pose overhead and fix lifecycle, export and cancellation
 * 6c607e3 (tag: v6.7.1) Fix gripper updates and robot CAD intersections in 6.7.1
@@ -36,10 +37,10 @@
 * b45acad Fix GearLab 6.2 release documentation links without changing packages
 * f353e9c (tag: v6.2.0) GearLab 6.2: rolling-element wave reducer, detailed bearings and stage workflow
 *   f902810 (tag: v6.1.0) Release GearLab 6.1: audited reducer fixes, current UI tests and verified publishing
-|\  
+|\
 | * f20c22f (tag: v6.0.0-preview.2) Preview 2: separate rack tooth loads from useful force and reject globoid bore breakthrough
 | * 38efdd1 (tag: v6.0.0-preview.1) GearLab 6.0 Preview 1: unified transmission library, stage graphs and robot drive integration
-|/  
+|/
 * 2df588d (tag: v5.6.0) GearLab 5.6: share the reducer UI and build wave previews without OCCT
 * be1b209 (tag: v5.5.0) GearLab 5.5: remove standalone modelers and rebuild flat wave reducer workspace
 * b48395a (tag: v5.4.0) Package releases on GitHub and keep hosted verification independent of desktop windows

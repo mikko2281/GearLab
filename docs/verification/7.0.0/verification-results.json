@@ -19,5 +19,17 @@
   "ReleaseUrl": "https://github.com/mikko2281/GearLab/releases/tag/v7.0.0",
   "ArchiveSha256": "829B392CE6CFC96A40ACF37BF96EEE5B40756336927A1028E49C8E127261AC19",
   "PullRequest": "https://github.com/mikko2281/GearLab/pull/2",
-  "PullRequestCi": "https://github.com/mikko2281/GearLab/actions/runs/43919275816"
+  "PullRequestCi": "https://github.com/mikko2281/GearLab/actions/runs/43919275816",
+  "PostReleaseCI": {
+    "InitialFailure": "Preview exceeded 3 seconds",
+    "TagMergeRerun": "success",
+    "DocsCommitCI": "success",
+    "LimitRelaxed": false,
+    "LocalPreviewSeconds": [
+      0.213379,
+      0.0932676,
+      0.1353202
+    ],
+    "ArchiveAndTagUnchanged": true
+  }
 }

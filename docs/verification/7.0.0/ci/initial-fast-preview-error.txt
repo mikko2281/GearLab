@@ -1,0 +1,2 @@
+﻿System.Exception: Preview exceeded 3 seconds
+   at GearLab.Wave56FastTests.Run(String folder)

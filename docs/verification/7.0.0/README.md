@@ -43,3 +43,11 @@ GitHub main `da216ea9324bb92108a5125a23bbbe9495e5df90` содержит друг
 `GearLab-7.0.0-windows.zip`: 178036205 байт; SHA-256 `829B392CE6CFC96A40ACF37BF96EEE5B40756336927A1028E49C8E127261AC19`. `verify_package.py` — PASS: CRC, 1968 файлов манифеста, точное соответствие ZIP/stage, изолированное ядро (24000 мм³). [Исходный вывод](package-verification.txt). SourceCommit в build-info — `e5817c15055b9aeb49e8d6f08a717801a1b3739d`; следующие коммиты добавляют только отчёты и описание архива. `web/scene.js` и `index.html` побайтно совпадают с проверенной сборкой.
 
 Опубликовано: [GearLab 7.0.0](https://github.com/mikko2281/GearLab/releases/tag/v7.0.0), тег `v7.0.0`, коммит слияния `3b02d71259e0790f20ca4871b4429a611da14382`. [PR #2](https://github.com/mikko2281/GearLab/pull/2); [Windows CI](https://github.com/mikko2281/GearLab/actions/runs/43919275816) — PASS.
+
+## Дополнительная проверка после публикации
+
+Первый push-прогон merge-коммита на GitHub Actions упал в `wave56-fast`: `Preview exceeded 3 seconds`. Ошибок геометрии этот отчёт не содержит. PR-прогон ранее прошёл. Тот же неизменённый исходный код прошёл независимый CI docs-коммита, а затем повторный запуск самого merge-коммита (attempt 2). Лимит теста 3 секунды не менялся; опубликованные архивы и тег не заменялись.
+
+На официальном локальном EXE повторён именно этот тест: 0,2134 / 0,0933 / 0,1353 секунды для отношений 17 / 30 / 50, все сетки непустые и положительного объёма, native workers = 0. Первоначальное превышение времени не воспроизвелось; конкретная причина замедления hosted runner не установлена.
+
+Результаты: [merge CI, attempt 2](https://github.com/mikko2281/GearLab/actions/runs/43919729338/attempts/2), [CI docs-коммита](https://github.com/mikko2281/GearLab/actions/runs/43920073478), исходная ошибка и повторный локальный замер — в `docs/verification/7.0.0/ci/`.
