@@ -482,7 +482,7 @@ namespace GearLab {
 
   [STAThread] static int Main(string[] args){
    if(args.Length>0&&args[0]=="--compound-ui-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return CompoundUiTests.Run(args[1]);}
-   if(args.Length>0&&args[0]=="--ui610-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Ui610Tests.Run(args[1]);}
+   if(args.Length>0&&args[0]=="--ui611-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Ui611Tests.Run(args[1]);}if(args.Length>0&&args[0]=="--ui610-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Ui610Tests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--overload-ui-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return OverloadUiTests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--overload-test")return OverloadTests.Run(args[1]);
    if(args.Length>0&&args[0]=="--compound-test")return CompoundTests.Run(args[1]);

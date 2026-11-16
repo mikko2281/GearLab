@@ -1,0 +1,585 @@
+diff --git a/src/AssemblyInfo.cs b/src/AssemblyInfo.cs
+index 09f8949..fd16ff4 100644
+--- a/src/AssemblyInfo.cs
++++ b/src/AssemblyInfo.cs
+@@ -6,9 +6,9 @@
+ 
+ [assembly:AssemblyProduct("Gear Lab")]
+ 
+-[assembly:AssemblyVersion("6.10.0.0")]
++[assembly:AssemblyVersion("6.11.0.0")]
+ 
+-[assembly:AssemblyFileVersion("6.10.0.0")]
++[assembly:AssemblyFileVersion("6.11.0.0")]
+ 
+ [assembly:ComVisible(false)]
+ 
+diff --git a/src/CADStudioForm.cs b/src/CADStudioForm.cs
+index 8e70562..cd1d84b 100644
+--- a/src/CADStudioForm.cs
++++ b/src/CADStudioForm.cs
+@@ -80,7 +80,7 @@ namespace GearLab {
+ 
+   async void Parameters(){if(busy)return;using(var dialog=new CADParametersDialog(Document.Parameters))if(dialog.ShowLocalizedDialog(this)==DialogResult.OK){var next=Document.Clone();next.Parameters=dialog.Values;await BuildCandidate(next,true);}}
+ 
+-  void UpdateTitle(){Text="GearLab 6.10.0 · "+Document.Name+(Document.Serialize()!=saved||editingSketch!=null?" *":"");}
++  void UpdateTitle(){Text="GearLab 6.11.0 · "+Document.Name+(Document.Serialize()!=saved||editingSketch!=null?" *":"");}
+ 
+   bool Confirm(){if(busy){UiMessage.Show(this,"Дождитесь расчёта или отмените его.");return false;}if(editingSketch!=null){UiMessage.Show(this,"Завершите или отмените текущий эскиз.");return false;}if(Document.Serialize()==saved)return true;var answer=UiMessage.Show(this,"Сохранить CAD-проект?","CAD-проект",MessageBoxButtons.YesNoCancel);return answer==DialogResult.No||(answer==DialogResult.Yes&&Save(false));}
+ 
+diff --git a/src/GearCalculator.cs b/src/GearCalculator.cs
+index 382e52b..6767c01 100644
+--- a/src/GearCalculator.cs
++++ b/src/GearCalculator.cs
+@@ -482,7 +482,7 @@ namespace GearLab {
+ 
+   [STAThread] static int Main(string[] args){
+    if(args.Length>0&&args[0]=="--compound-ui-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return CompoundUiTests.Run(args[1]);}
+-   if(args.Length>0&&args[0]=="--ui610-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Ui610Tests.Run(args[1]);}
++   if(args.Length>0&&args[0]=="--ui611-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Ui611Tests.Run(args[1]);}if(args.Length>0&&args[0]=="--ui610-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Ui610Tests.Run(args[1]);}
+    if(args.Length>0&&args[0]=="--overload-ui-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return OverloadUiTests.Run(args[1]);}
+    if(args.Length>0&&args[0]=="--overload-test")return OverloadTests.Run(args[1]);
+    if(args.Length>0&&args[0]=="--compound-test")return CompoundTests.Run(args[1]);
+diff --git a/src/MainForm.cs b/src/MainForm.cs
+index afa86d0..0bf0ef3 100644
+--- a/src/MainForm.cs
++++ b/src/MainForm.cs
+@@ -34,7 +34,7 @@ namespace GearLab {
+  public partial class MainForm:Form {
+   internal event Action<int> HostedKindChanged;
+ 
+-  internal void ConfigureHostedKind(){kind.Visible=false;foreach(Control c in controls.Controls)if(c is Label&&I18n.Raw(c)=="Тип передачи")c.Visible=false;}
++  internal void ConfigureHostedKind(){AddRobotButton();kind.Visible=false;foreach(Control c in controls.Controls)if(c is Label&&I18n.Raw(c)=="Тип передачи")c.Visible=false;}
+ 
+   internal void SetHostedKind(int index){if(index>=0&&index<TransmissionCatalog.All.Length&&kind.SelectedIndex!=index)kind.SelectedIndex=index;}
+ 
+@@ -64,7 +64,7 @@ namespace GearLab {
+ 
+   public MainForm(IUserDialogs userDialogs){dialogs=userDialogs;Icon=Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+ 
+-   Text="Gear Lab 6.10.0 · Калькулятор редукторов";Font=new Font("Segoe UI",9);Size=new Size(1460,980);MinimumSize=new Size(980,650);AutoScaleDimensions=new SizeF(96,96);StartPosition=FormStartPosition.CenterScreen;AutoScaleMode=AutoScaleMode.Dpi;BackColor=Color.White;
++   Text="Gear Lab 6.11.0 · Калькулятор редукторов";Font=new Font("Segoe UI",9);Size=new Size(1460,980);MinimumSize=new Size(980,650);AutoScaleDimensions=new SizeF(96,96);StartPosition=FormStartPosition.CenterScreen;AutoScaleMode=AutoScaleMode.Dpi;BackColor=Color.White;
+ 
+    var menu=new MenuStrip{BackColor=Color.FromArgb(239,244,249)};var project=new ToolStripMenuItem("Проект");saveMenu=new ToolStripMenuItem("Сохранить…",null,(a,b)=>SaveProject()){ShortcutKeys=Keys.Control|Keys.S};saveAsMenu=new ToolStripMenuItem("Сохранить как…",null,(a,b)=>SaveProject(true)){ShortcutKeys=Keys.Control|Keys.Shift|Keys.S};openMenu=new ToolStripMenuItem("Открыть…",null,(a,b)=>OpenProject()){ShortcutKeys=Keys.Control|Keys.O};resetMenu=new ToolStripMenuItem("Сбросить текущий тип",null,(a,b)=>{if(ConfirmChanges())Apply(Engine.Starter(p.Kind),true);});project.DropDownItems.AddRange(new ToolStripItem[]{saveMenu,saveAsMenu,openMenu,resetMenu});
+ 
+@@ -280,7 +280,7 @@ namespace GearLab {
+ 
+   bool HasChanges(){return savedState!=null&&(dirty||ReleaseSupport.Serialize(p)!=savedState);}
+ 
+-  void UpdateCaption(){Text="Gear Lab 6.10.0 · "+(string.IsNullOrEmpty(currentFile)?"Новый проект":Path.GetFileName(currentFile))+(HasChanges()?" *":"");}
++  void UpdateCaption(){Text="Gear Lab 6.11.0 · "+(string.IsNullOrEmpty(currentFile)?"Новый проект":Path.GetFileName(currentFile))+(HasChanges()?" *":"");}
+ 
+   bool ConfirmChanges(){if(!HasChanges())return true;var answer=dialogs.Unsaved(this);return answer==DialogResult.No||answer==DialogResult.Yes&&SaveProject();}
+ 
+diff --git a/src/PrintExport.cs b/src/PrintExport.cs
+index 915e7a9..17075a1 100644
+--- a/src/PrintExport.cs
++++ b/src/PrintExport.cs
+@@ -13,7 +13,7 @@ namespace GearLab {
+   public static SceneMesh OrientedMesh(CadPart part){var mesh=Mesh(part);if(part.PrintAngles!=null&&part.PrintAngles.Length==3){var rotation=RobotMath.Rotation(new Vector3D(1,0,0),part.PrintAngles[0])*RobotMath.Rotation(new Vector3D(0,1,0),part.PrintAngles[1])*RobotMath.Rotation(new Vector3D(0,0,1),part.PrintAngles[2]);mesh=new SceneMesh{Points=mesh.Points.Select(rotation.Transform).ToArray(),Normals=mesh.Normals.Select(rotation.Transform).ToArray(),Indices=mesh.Indices};}return mesh;}
+ 
+   public static void Stl(CadPart part,Stream stream){using(var native=part.NativeStep==null?null:new CADKernel())Stl(part,stream,native);}
+-  static void Stl(CadPart part,Stream stream,CADKernel native){var mesh=part.NativeStep==null?OrientedMesh(part):NativePrintMesh.Load(part,native);if(mesh.Indices.Length==0||mesh.SignedVolume()<=0)throw new Exception("Некорректная сетка: "+part.Label);double x=(mesh.Points.Min(v=>v.X)+mesh.Points.Max(v=>v.X))/2,y=(mesh.Points.Min(v=>v.Y)+mesh.Points.Max(v=>v.Y))/2,z=mesh.Points.Min(v=>v.Z);using(var writer=new BinaryWriter(stream,Encoding.ASCII,true)){var head=new byte[80];Encoding.ASCII.GetBytes("GearLab 6.10.0 binary STL; units=mm; part="+part.Id).Take(80).ToArray().CopyTo(head,0);writer.Write(head);writer.Write((uint)mesh.Triangles);for(int j=0;j<mesh.Indices.Length;j+=3){var a=mesh.Points[mesh.Indices[j]];var b=mesh.Points[mesh.Indices[j+1]];var c=mesh.Points[mesh.Indices[j+2]];var n=Vector3D.CrossProduct(b-a,c-a);n.Normalize();writer.Write((float)n.X);writer.Write((float)n.Y);writer.Write((float)n.Z);foreach(var v in new[]{a,b,c}){writer.Write((float)(v.X-x));writer.Write((float)(v.Y-y));writer.Write((float)(v.Z-z));}writer.Write((ushort)0);}}}
++  static void Stl(CadPart part,Stream stream,CADKernel native){var mesh=part.NativeStep==null?OrientedMesh(part):NativePrintMesh.Load(part,native);if(mesh.Indices.Length==0||mesh.SignedVolume()<=0)throw new Exception("Некорректная сетка: "+part.Label);double x=(mesh.Points.Min(v=>v.X)+mesh.Points.Max(v=>v.X))/2,y=(mesh.Points.Min(v=>v.Y)+mesh.Points.Max(v=>v.Y))/2,z=mesh.Points.Min(v=>v.Z);using(var writer=new BinaryWriter(stream,Encoding.ASCII,true)){var head=new byte[80];Encoding.ASCII.GetBytes("GearLab 6.11.0 binary STL; units=mm; part="+part.Id).Take(80).ToArray().CopyTo(head,0);writer.Write(head);writer.Write((uint)mesh.Triangles);for(int j=0;j<mesh.Indices.Length;j+=3){var a=mesh.Points[mesh.Indices[j]];var b=mesh.Points[mesh.Indices[j+1]];var c=mesh.Points[mesh.Indices[j+2]];var n=Vector3D.CrossProduct(b-a,c-a);n.Normalize();writer.Write((float)n.X);writer.Write((float)n.Y);writer.Write((float)n.Z);foreach(var v in new[]{a,b,c}){writer.Write((float)(v.X-x));writer.Write((float)(v.Y-y));writer.Write((float)(v.Z-z));}writer.Write((ushort)0);}}}
+ 
+   public static void Zip(CadAssembly model,string path){if(!model.Valid)throw new Exception("Нет допустимых деталей для печати.");string full=Path.GetFullPath(path),temp=Path.Combine(Path.GetDirectoryName(full),".gearlab-print-"+Guid.NewGuid().ToString("N")+".tmp");try{using(var native=model.Parts.Any(p=>p.NativeStep!=null)?new CADKernel():null)using(var output=File.Create(temp))using(var archive=new ZipArchive(output,ZipArchiveMode.Create)){var manifest=new StringBuilder("Файл;Деталь;Количество;Размер X мм;Размер Y мм;Размер Z мм\r\n");foreach(var part in model.Parts){if(!Candidate(part))throw new Exception("Непечатный компонент: "+part.Label);string name=part.Id+".stl";using(var stream=archive.CreateEntry(name,CompressionLevel.Optimal).Open())Stl(part,stream,native);var printed=OrientedMesh(part);double[] dims={printed.Points.Min(v=>v.X),printed.Points.Max(v=>v.X),printed.Points.Min(v=>v.Y),printed.Points.Max(v=>v.Y),printed.Points.Min(v=>v.Z),printed.Points.Max(v=>v.Z)};manifest.AppendLine(name+";\""+part.Label.Replace("\"","\"\"")+"\";1;"+Engine.F(dims[1]-dims[0])+";"+Engine.F(dims[3]-dims[2])+";"+Engine.F(dims[5]-dims[4]));}using(var w=new StreamWriter(archive.CreateEntry("Состав.csv").Open(),new UTF8Encoding(true)))w.Write(manifest);using(var w=new StreamWriter(archive.CreateEntry("Прочитай_перед_печатью.txt").Open(),new UTF8Encoding(true)))w.Write("Каждый STL — отдельная деталь в миллиметрах. При импорте выберите мм: STL сам по себе не хранит стандартных единиц. Каждая деталь центрирована по XY, нижняя точка Z=0. Один файл соответствует одному экземпляру; повторяющиеся детали сохранены отдельно. Не включайте автоматическое масштабирование до стола.\r\nСначала проверьте размеры в слайсере, зазоры/усадку, направление слоёв и опоры. Экспорт не подтверждает прочность пластикового редуктора. Водила с валом — геометрические заготовки: способ передачи момента и материал не рассчитаны. Круги аппроксимированы с целевой погрешностью хорды 0,01 мм; зубчатые профили наследуют дискретизацию расчёта. Встроенные зацепы не вращаются на осях: контакт со скольжением, нужен подбор материала и проверка износа.\r\n");}if(File.Exists(full))File.Replace(temp,full,null);else File.Move(temp,full);}finally{if(File.Exists(temp))File.Delete(temp);}}
+ 
+diff --git a/src/ReferenceRobotDesign.cs b/src/ReferenceRobotDesign.cs
+index 340b229..ab0ed6c 100644
+--- a/src/ReferenceRobotDesign.cs
++++ b/src/ReferenceRobotDesign.cs
+@@ -47,7 +47,7 @@ namespace GearLab {
+ 
+   void ToggleGripperOpening(){if(Document.ReferenceGripper)SetGripperOpening(Document.GripperOpening<10?26:2);}
+   internal void SetGripperOpening(double opening){if(!MechanismCad.Finite(opening)||opening<0||opening>40)throw new ArgumentOutOfRangeException("opening");if(!Document.ReferenceGripper||Build==null||opening==Document.GripperOpening)return;EndPoseEdit();BeginPoseEdit();double delta=(opening-Document.GripperOpening)/2;Document.GripperOpening=opening;foreach(var e in Build.Entries.Values.Where(e=>e.GripperSide!=0))e.Shape.X+=e.GripperSide*delta;RefreshManualPose();EndPoseEdit();}
+-  bool RestorePoseOnly(RobotDocument target){if(target.Joints.Count!=Document.Joints.Count||target.Joints.Where((j,i)=>j.Id!=Document.Joints[i].Id).Any())return false;double opening=Document.GripperOpening;var positions=Document.Joints.Select(j=>j.Position).ToArray();bool same;try{Document.GripperOpening=target.GripperOpening;for(int i=0;i<positions.Length;i++)Document.Joints[i].Position=target.Joints[i].Position;same=Document.Serialize()==target.Serialize();}finally{Document.GripperOpening=opening;for(int i=0;i<positions.Length;i++)Document.Joints[i].Position=positions[i];}if(!same)return false;double delta=(target.GripperOpening-opening)/2;Document.GripperOpening=target.GripperOpening;for(int i=0;i<positions.Length;i++)Document.Joints[i].Position=target.Joints[i].Position;foreach(var e in Build.Entries.Values.Where(e=>e.GripperSide!=0))e.Shape.X+=e.GripperSide*delta;RefreshManualPose();last=Document.Serialize();Text="GearLab 6.10.0 · "+Document.Name+(last!=saved?" *":"");return true;}
++  bool RestorePoseOnly(RobotDocument target){if(target.Joints.Count!=Document.Joints.Count||target.Joints.Where((j,i)=>j.Id!=Document.Joints[i].Id).Any())return false;double opening=Document.GripperOpening;var positions=Document.Joints.Select(j=>j.Position).ToArray();bool same;try{Document.GripperOpening=target.GripperOpening;for(int i=0;i<positions.Length;i++)Document.Joints[i].Position=target.Joints[i].Position;same=Document.Serialize()==target.Serialize();}finally{Document.GripperOpening=opening;for(int i=0;i<positions.Length;i++)Document.Joints[i].Position=positions[i];}if(!same)return false;double delta=(target.GripperOpening-opening)/2;Document.GripperOpening=target.GripperOpening;for(int i=0;i<positions.Length;i++)Document.Joints[i].Position=target.Joints[i].Position;foreach(var e in Build.Entries.Values.Where(e=>e.GripperSide!=0))e.Shape.X+=e.GripperSide*delta;RefreshManualPose();last=Document.Serialize();Text="GearLab 6.11.0 · "+Document.Name+(last!=saved?" *":"");return true;}
+ 
+  }
+ 
+diff --git a/src/ReleaseSupport.cs b/src/ReleaseSupport.cs
+index e190cd3..f239c54 100644
+--- a/src/ReleaseSupport.cs
++++ b/src/ReleaseSupport.cs
+@@ -26,9 +26,9 @@ namespace GearLab {
+ 
+  public static class ReleaseSupport {
+ 
+-  public const string Version="6.10.0";
++  public const string Version="6.11.0";
+ 
+-  public const string HelpText=@"GEARLAB 6.10.0 — КАК ПОЛЬЗОВАТЬСЯ
++  public const string HelpText=@"GEARLAB 6.11.0 — КАК ПОЛЬЗОВАТЬСЯ
+ 
+ РЕДУКТОРЫ
+ В одной вкладке доступны 13 типов: циклоидальный, зубчатая пара, зубчатый ремень, планетарный, волновой, червячный, конический, RV, дифференциальный планетарный, гипоидный, глобоидный, магнитный и реечный. Используйте категории и поиск. Переключение типа сохраняет его текущие параметры.
+@@ -65,7 +65,7 @@ Ctrl+S — сохранить, Ctrl+O — открыть. Форматы: .gear.
+ 
+ B-rep-проверка относится к текущей позе и имеет лимит 250 пар; программа явно сообщает неполный результат. Полный диапазон движения, ресурс, динамика, нагрев, посадки, шпонки, крепёж, материалы и прочность требуют отдельной инженерной проверки. Подробные формулы, ограничения и отчёты находятся в docs рядом с программой.";
+ 
+-  public const string EnglishHelp=@"GEARLAB 6.10.0 — HELP
++  public const string EnglishHelp=@"GEARLAB 6.11.0 — HELP
+ 
+ REDUCERS
+ Choose one of 13 transmission types using categories and search. Each type retains its edited parameters. Enter dimensions, then click Calculate or press Enter. Both decimal separators are accepted. Invalid fields are highlighted; exports are disabled while edits are pending. Automatic fitting locks dimensions it controls; turn it off to enter those dimensions manually. Failed fitting preserves your inputs.
+diff --git a/src/RobotDesignerForm.cs b/src/RobotDesignerForm.cs
+index 0300c15..a722cc3 100644
+--- a/src/RobotDesignerForm.cs
++++ b/src/RobotDesignerForm.cs
+@@ -8,7 +8,7 @@ namespace GearLab {
+ 
+   public RobotDesignerForm():this(null){}
+ 
+-  public RobotDesignerForm(string file){try{Document=LoadInitialRobotDocument(file,RobotDocument.DefaultReference);if(file!=null)path=file;}catch(Exception ex){Document=RobotDocument.DefaultReference();UiMessage.Show(ex.Message,"Открытие робота");}Text="GearLab 6.10.0 · Робототехника";Font=new Font("Segoe UI",10);Size=new Size(1600,1000);MinimumSize=new Size(1180,760);StartPosition=FormStartPosition.CenterScreen;Icon=Icon.ExtractAssociatedIcon(Application.ExecutablePath);
++  public RobotDesignerForm(string file){try{Document=LoadInitialRobotDocument(file,RobotDocument.DefaultReference);if(file!=null)path=file;}catch(Exception ex){Document=RobotDocument.DefaultReference();UiMessage.Show(ex.Message,"Открытие робота");}Text="GearLab 6.11.0 · Робототехника";Font=new Font("Segoe UI",10);Size=new Size(1600,1000);MinimumSize=new Size(1180,760);StartPosition=FormStartPosition.CenterScreen;Icon=Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+ 
+    var top=new ToolStrip{GripStyle=ToolStripGripStyle.Hidden,Height=40,AutoSize=false};Add(top,"Новый",()=>Replace(new RobotDocument(),null));Add(top,"Манипулятор 3 DOF",()=>Replace(RobotDocument.Example(),null));Add(top,"Корпус как на фото",()=>{Replace(RobotDocument.DefaultReference(),null);view.SelectedIndex=1;});Add(top,"Ваш NEMA 17 / STEP",()=>Replace(RobotDocument.SuppliedMotorExample(),null));Add(top,"Пример ветвления",()=>{var d=RobotDocument.Example();d.Name="Общий скелет · разветвлённый механизм";var branch=d.Add(d.Joints[0].Id);branch.Name="Вторая ветвь";branch.EndX=120;branch.OffsetY=-100;branch.Mode=RobotJointMode.Вращение_Z;branch.Payload=.2;Replace(d,null);});Add(top,"Открыть…",Open);Add(top,"Сохранить",()=>Save(false));Add(top,"Сохранить как…",()=>Save(true));Add(top,"Автосохранение",RestoreRecovery);Add(top,"Отмена",Undo);Add(top,"Повтор",Redo);Add(top,"Настройки",()=>{using(var d=new SettingsForm(this))d.ShowLocalizedDialog(this);});Add(top,"Справка",Help);
+ 
+@@ -32,7 +32,7 @@ namespace GearLab {
+ 
+   internal void SetDocument(RobotDocument document){EndPoseEdit();Document=document;selectedJoint=document.Joints.Select(j=>j.Id).FirstOrDefault();selectedPart=null;fitNext=true;Rebuild();if(document.Joints.Any(j=>j.BodyStyle==RobotBodyStyle.Закрытый_трубчатый))view.SelectedIndex=1;if(Document.Joints.Count>0&&Document.Joints.All(j=>j.GeneratedBody!=null&&j.GeneratedBody.Result.GeometryValid))SetStage(2);}
+ 
+-  void Rebuild(RobotBuild prepared=null){if(fitNext)webFit=true;EndPoseEdit();Stop();revision++;restoreCamera=!fitNext&&Scene.Ready;if(restoreCamera){cameraTarget=Scene.Camera.Target;cameraWidth=Scene.Camera.Width;cameraYaw=Scene.Camera.Yaw;cameraPitch=Scene.Camera.Pitch;}Build=prepared??RobotCad.Build(Document);Analysis=RobotSolver.Solve(Build);updating=true;try{tree.BeginUpdate();tree.Nodes.Clear();var nodes=new Dictionary<string,TreeNode>();foreach(var j in Document.Ordered()){var n=new TreeNode(j.Name){Tag="j|"+j.Id};nodes[j.Id]=n;if(j.ParentId==null||!nodes.ContainsKey(j.ParentId))tree.Nodes.Add(n);else nodes[j.ParentId].Nodes.Add(n);var parts=new TreeNode("Детали");foreach(var e in Build.Entries.Values.Where(e=>e.JointId==j.Id&&!e.Guide))parts.Nodes.Add(new TreeNode(e.Part.Label){Tag="p|"+e.Id});n.Nodes.Add(parts);n.Expand();}tree.EndUpdate();}finally{updating=false;}phase=0;Scene.Phase=0;Scene.SetResult(new Result{P=new Parameters{Kind=9},Model=Build.Model,Robot=Build},true);fitNext=false;UpdateAnalysis();if(Joint==null)selectedJoint=Document.Joints.Select(j=>j.Id).FirstOrDefault();if(Entry==null)selectedPart=null;Select(selectedJoint,selectedPart);last=Document.Serialize();QueueBodyRegeneration();RenderWebRobot();Text="GearLab 6.10.0 · "+(path==null?Document.Name:Path.GetFileName(path))+(last!=saved?" *":"");}
++  void Rebuild(RobotBuild prepared=null){if(fitNext)webFit=true;EndPoseEdit();Stop();revision++;restoreCamera=!fitNext&&Scene.Ready;if(restoreCamera){cameraTarget=Scene.Camera.Target;cameraWidth=Scene.Camera.Width;cameraYaw=Scene.Camera.Yaw;cameraPitch=Scene.Camera.Pitch;}Build=prepared??RobotCad.Build(Document);Analysis=RobotSolver.Solve(Build);updating=true;try{tree.BeginUpdate();tree.Nodes.Clear();var nodes=new Dictionary<string,TreeNode>();foreach(var j in Document.Ordered()){var n=new TreeNode(j.Name){Tag="j|"+j.Id};nodes[j.Id]=n;if(j.ParentId==null||!nodes.ContainsKey(j.ParentId))tree.Nodes.Add(n);else nodes[j.ParentId].Nodes.Add(n);var parts=new TreeNode("Детали");foreach(var e in Build.Entries.Values.Where(e=>e.JointId==j.Id&&!e.Guide))parts.Nodes.Add(new TreeNode(e.Part.Label){Tag="p|"+e.Id});n.Nodes.Add(parts);n.Expand();}tree.EndUpdate();}finally{updating=false;}phase=0;Scene.Phase=0;Scene.SetResult(new Result{P=new Parameters{Kind=9},Model=Build.Model,Robot=Build},true);fitNext=false;UpdateAnalysis();if(Joint==null)selectedJoint=Document.Joints.Select(j=>j.Id).FirstOrDefault();if(Entry==null)selectedPart=null;Select(selectedJoint,selectedPart);last=Document.Serialize();QueueBodyRegeneration();RenderWebRobot();Text="GearLab 6.11.0 · "+(path==null?Document.Name:Path.GetFileName(path))+(last!=saved?" *":"");}
+ 
+   void Filter(){if(Build==null||!Scene.Ready)return;Scene.Hidden.Clear();foreach(var e in Build.Entries.Values){bool show=view.SelectedIndex==0?(e.Guide||e.Category=="Мотор"):view.SelectedIndex==2?e.Printable&&!e.Guide:!e.Guide;if(!show)Scene.Hidden.Add(e.Id);}Scene.RefreshVisibility();FilterWebRobot();}
+ 
+@@ -54,7 +54,9 @@ namespace GearLab {
+ 
+   void ChangeParent(){if(updating||Joint==null||!(parent.SelectedItem is ParentItem))return;var joint=Joint;var item=(ParentItem)parent.SelectedItem;if(item.Id==joint.ParentId)return;Mutate(()=>{var world=Build.Current[joint.Id].Origin;var frame=item.Id==null?Matrix3D.Identity:Build.Current[item.Id].End;frame.Invert();var point=frame.Transform(world);joint.ParentId=item.Id;joint.OffsetX=point.X;joint.OffsetY=point.Y;joint.OffsetZ=point.Z;});}
+ 
+-  void AddJoint(){CapturePose();var previous=Joint;Mutate(()=>{var j=Document.Add(previous==null?null:previous.Id);if(previous==null)j.OffsetZ=95;else{var direction=new Vector3D(previous.EndX,previous.EndY,previous.EndZ);if(direction.Length<1e-6)direction=new Vector3D(1,0,0);direction.Normalize();j.Mode=Math.Abs(direction.Y)>.7?RobotJointMode.Вращение_X:RobotJointMode.Вращение_Y;j.EndX=direction.X*140;j.EndY=direction.Y*140;j.EndZ=direction.Z*140;double side=previous.BodyGenerator==null?100:0;j.OffsetX=j.Axis.X*side;j.OffsetY=j.Axis.Y*side;j.OffsetZ=j.Axis.Z*side;}j.Appearance=RobotAppearance.Чёрный_оранжевый;j.BodyStyle=RobotBodyStyle.Закрытый_трубчатый;j.BodyGenerator=new ProceduralBodySettings{Connected=true};selectedJoint=j.Id;selectedPart=null;});}
++  void AddJoint(){CapturePose();var previous=Joint;Mutate(()=>{var j=NewJointAfter(previous);selectedJoint=j.Id;selectedPart=null;});}
++  // Новое звено продолжает направление родителя; ось шарнира перпендикулярна звену (6.7.3).
++  RobotJoint NewJointAfter(RobotJoint previous){var j=Document.Add(previous==null?null:previous.Id);if(previous==null)j.OffsetZ=95;else{var direction=new Vector3D(previous.EndX,previous.EndY,previous.EndZ);if(direction.Length<1e-6)direction=new Vector3D(1,0,0);direction.Normalize();j.Mode=Math.Abs(direction.Y)>.7?RobotJointMode.Вращение_X:RobotJointMode.Вращение_Y;j.EndX=direction.X*140;j.EndY=direction.Y*140;j.EndZ=direction.Z*140;double side=previous.BodyGenerator==null?100:0;j.OffsetX=j.Axis.X*side;j.OffsetY=j.Axis.Y*side;j.OffsetZ=j.Axis.Z*side;}j.Appearance=RobotAppearance.Чёрный_оранжевый;j.BodyStyle=RobotBodyStyle.Закрытый_трубчатый;j.BodyGenerator=new ProceduralBodySettings{Connected=true};return j;}
+ 
+   void Delete(){if(Joint==null)return;string id=Joint.Id;Mutate(()=>{Document.Remove(id);selectedJoint=null;selectedPart=null;});}
+ 
+@@ -70,7 +72,7 @@ namespace GearLab {
+ 
+   void RestorePart(){if(Entry!=null){string id=Entry.Id;Mutate(()=>Document.BodyEdits.RemoveAll(e=>e.PartId==id));}}
+ 
+-  void Reducer(){var joint=Joint;if(joint==null)return;string jointId=joint.Id;var seed=joint.ReducerSettings==null?Engine.Starter(0):Engine.Clone(joint.ReducerSettings);if(joint.ReducerSettings==null){Engine.SetPreset(seed,2);seed.Ratio=Math.Max(3,Math.Min(120,Math.Round(joint.Reduction)));seed.RingOutput=true;seed.Overall=Math.Max(80,joint.GearboxDiameter);Engine.FitOverall(seed);}var form=new MainForm();form.ConfigureForRobot(seed,p=>Mutate(()=>{joint=Document.Find(jointId);if(joint==null)throw new Exception("Звено удалено. Откройте редактор для существующего звена.");var r=Engine.Calculate(p);r.Model=CadBuilder.Build(r);RobotTransmission60.ValidateJoint(joint,r);joint.Efficiency=r.Engineering==null?p.Efficiency:r.Engineering.Efficiency;if(p.Kind==12)joint.ScrewLead=Math.PI*p.Module*p.Teeth;joint.TrainSettings=null;joint.TrainOutput=null;joint.ReducerSettings=p;joint.CustomTransmission=null;joint.TransmissionOutput=null;joint.Reduction=r.Actual;var bounds=r.Model.Bounds();joint.GearboxDiameter=Math.Max(joint.GearboxDiameter,Math.Min(250,2*Math.Max(Math.Max(Math.Abs(bounds[0]),Math.Abs(bounds[1])),Math.Max(Math.Abs(bounds[2]),Math.Abs(bounds[3])))+2*joint.Wall));}));form.ShowWorkspace(this);}
++  void Reducer(){var joint=Joint;if(joint==null)return;string jointId=joint.Id;var seed=joint.ReducerSettings==null?Engine.Starter(0):Engine.Clone(joint.ReducerSettings);if(joint.ReducerSettings==null){Engine.SetPreset(seed,2);seed.Ratio=Math.Max(3,Math.Min(120,Math.Round(joint.Reduction)));seed.RingOutput=true;seed.Overall=Math.Max(80,joint.GearboxDiameter);Engine.FitOverall(seed);}var form=new MainForm();form.ConfigureForRobot(seed,p=>Mutate(()=>{joint=Document.Find(jointId);if(joint==null)throw new Exception("Звено удалено. Откройте редактор для существующего звена.");RobotReducerKit.ApplyParameters(joint,p);}));form.ShowWorkspace(this);}
+ 
+   void Transmission(){var joint=Joint;if(joint==null)return;string jointId=joint.Id;var seed=joint.CustomTransmission??joint.CreateTransmissionTemplate();var form=new MechanismForm();form.ConfigureForRobot(seed,(project,output)=>Mutate(()=>{joint=Document.Find(jointId);if(joint==null)throw new Exception("Звено удалено. Откройте редактор для существующего звена.");var solution=MechanismSolver.Solve(project);var shaft=project.Find(output);var motor=project.Find(project.DriveShaftId);joint.TrainSettings=null;joint.TrainOutput=null;joint.CustomTransmission=project;joint.TransmissionOutput=output;joint.ReducerSettings=null;joint.Reduction=1/Math.Abs(solution.Shafts[output].SpeedRatio);joint.Efficiency=solution.Shafts[output].PathEfficiency;joint.MotorOffsetX=motor.X-shaft.X;joint.MotorOffsetY=motor.Y-shaft.Y;motor.Bore=Math.Max(motor.Bore,joint.MotorShaft+2*joint.Fit);double top=shaft.Z+project.ShaftLength(shaft);joint.GearboxLength=Math.Max(15,Math.Min(180,top-motor.Z-joint.Wall));var bounds=MechanismCad.Build(project).Bounds();double radial=new[]{Math.Abs(bounds[0]-shaft.X),Math.Abs(bounds[1]-shaft.X),Math.Abs(bounds[2]-shaft.Y),Math.Abs(bounds[3]-shaft.Y),Math.Sqrt(Math.Pow(Math.Abs(joint.MotorOffsetX)+joint.MotorFrame/2,2)+Math.Pow(Math.Abs(joint.MotorOffsetY)+joint.MotorFrame/2,2))}.Max();joint.GearboxDiameter=Math.Max(joint.GearboxDiameter,2*(radial+joint.Wall+joint.Fit));}));form.ShowWorkspace(this);}
+ 
+@@ -92,7 +94,7 @@ namespace GearLab {
+ 
+   void Open(){if(!Confirm())return;using(var d=new OpenFileDialog{Filter="Проект робота|*.robot.json"})if(d.ShowLocalizedDialog(this)==DialogResult.OK)try{var doc=RobotDocument.Parse(File.ReadAllText(d.FileName));Document=doc;path=d.FileName;selectedJoint=null;selectedPart=null;undo.Clear();redo.Clear();saved=doc.Serialize();fitNext=true;Rebuild();}catch(Exception ex){UiMessage.Show(this,ex.Message);}}
+ 
+-  bool Save(bool choose){try{CapturePose();string file=path;if(choose||file==null)using(var d=new SaveFileDialog{Filter="Проект робота|*.robot.json",FileName="Мой_робот.robot.json"}){if(d.ShowLocalizedDialog(this)!=DialogResult.OK)return false;file=d.FileName;}Document.Save(file);path=file;saved=Document.Serialize();last=saved;Text="GearLab 6.10.0 · "+Path.GetFileName(file);return true;}catch(Exception ex){UiMessage.Show(this,ex.Message);return false;}}
++  bool Save(bool choose){try{CapturePose();string file=path;if(choose||file==null)using(var d=new SaveFileDialog{Filter="Проект робота|*.robot.json",FileName="Мой_робот.robot.json"}){if(d.ShowLocalizedDialog(this)!=DialogResult.OK)return false;file=d.FileName;}Document.Save(file);path=file;saved=Document.Serialize();last=saved;Text="GearLab 6.11.0 · "+Path.GetFileName(file);return true;}catch(Exception ex){UiMessage.Show(this,ex.Message);return false;}}
+ 
+   void RestoreRecovery(){try{var d=RobotDocument.Parse(AppSettings.ReadRecovery("robot"));Replace(d,null);}catch(Exception ex){UiMessage.Show(this,ex.Message);}}
+ 
+diff --git a/src/RobotJointControllers.cs b/src/RobotJointControllers.cs
+index aa2a55e..077c98c 100644
+--- a/src/RobotJointControllers.cs
++++ b/src/RobotJointControllers.cs
+@@ -64,7 +64,7 @@ namespace GearLab {
+ 
+   internal void ResetJointPose(){BeginPoseEdit();foreach(var j in Document.Joints.Where(j=>j.Mode!=RobotJointMode.Неподвижный))j.Position=Math.Max(j.Minimum,Math.Min(j.Maximum,0));RefreshManualPose();EndPoseEdit();}
+ 
+-  void RefreshManualPose(){if(Build==null)return;phase=0;Build.InvalidatePose();Build.Current=RobotKinematics.Evaluate(Document,0,false);Scene.UpdatePose(0);RefreshAnimatedLoads(0);UpdateWebPose();RefreshBoneOverlay();revision++;Text="GearLab 6.10.0 · "+Document.Name+" *";}
++  void RefreshManualPose(){if(Build==null)return;phase=0;Build.InvalidatePose();Build.Current=RobotKinematics.Evaluate(Document,0,false);Scene.UpdatePose(0);RefreshAnimatedLoads(0);UpdateWebPose();RefreshBoneOverlay();revision++;Text="GearLab 6.11.0 · "+Document.Name+" *";}
+ 
+   void SyncJointControllers(){if(syncingControllers||jointControllers.Count==0||Build==null)return;syncingControllers=true;try{var poses=RobotKinematics.Evaluate(Document,phase,playing||Math.Abs(phase)>1e-9);foreach(var pair in jointControllers){var row=pair.Value;var j=Document.Find(row.Id);if(j==null||row.Value.IsDisposed)continue;double value=poses[j.Id].Value;row.Value.Value=Math.Max(row.Value.Minimum,Math.Min(row.Value.Maximum,(decimal)value));row.Slider.Value=Math.Max(row.Slider.Minimum,Math.Min(row.Slider.Maximum,(int)Math.Round(value*100)));var load=Analysis==null?null:Analysis.Joints.FirstOrDefault(x=>x.Id==j.Id);row.Load.Text=Engine.F(j.Minimum)+" … "+Engine.F(j.Maximum)+(load==null?"":" · "+Engine.F(load.Required)+" / "+Engine.F(load.Available)+" "+load.Unit);row.Load.ForeColor=load!=null&&!load.Enough?Color.Firebrick:Color.SlateGray;}}finally{syncingControllers=false;}}
+ 
+diff --git a/src/RobotPoseHistory672.cs b/src/RobotPoseHistory672.cs
+index 20b88ac..fc06676 100644
+--- a/src/RobotPoseHistory672.cs
++++ b/src/RobotPoseHistory672.cs
+@@ -13,7 +13,7 @@ namespace GearLab {
+   string CapturePoseHistory(){return PoseHistoryPrefix+CADDocument.Serializer().Serialize(RobotPoseFrame672.Capture(Document));}
+   void PushRobotHistory(Stack<string> stack,string value){stack.Push(value);var newest=stack.ToArray();long bytes=0;int keep=0;foreach(var s in newest){if(keep>0&&(keep>=128||bytes+(long)s.Length*2>64L*1024*1024))break;bytes+=(long)s.Length*2;keep++;}if(keep==newest.Length)return;stack.Clear();for(int i=keep-1;i>=0;i--)stack.Push(newest[i]);}
+   void EnsurePoseSaveBaseline(){bool changed=!ReferenceEquals(poseSavedSource,saved);if(changed){poseSavedSource=saved;savedPoseFrame=last==saved?RobotPoseFrame672.Capture(Document):RobotPoseFrame672.Capture(RobotDocument.Parse(saved));}if(!changed&&ReferenceEquals(poseStructuralSource,last))return;poseStructuralSource=last;structureMatchesSaved=last==saved;if(!structureMatchesSaved&&savedPoseFrame.ValidFor(Document)){var current=RobotPoseFrame672.Capture(Document);try{Document.GripperOpening=savedPoseFrame.Opening;for(int i=0;i<Document.Joints.Count;i++)Document.Joints[i].Position=savedPoseFrame.Positions[i];structureMatchesSaved=Document.Serialize()==saved;}finally{Document.GripperOpening=current.Opening;for(int i=0;i<Document.Joints.Count;i++)Document.Joints[i].Position=current.Positions[i];}}}
+-  void UpdatePoseTitle(){bool dirty=!structureMatchesSaved||savedPoseFrame==null||!savedPoseFrame.Same(RobotPoseFrame672.Capture(Document));Text="GearLab 6.10.0 · "+Document.Name+(dirty?" *":"");}
++  void UpdatePoseTitle(){bool dirty=!structureMatchesSaved||savedPoseFrame==null||!savedPoseFrame.Same(RobotPoseFrame672.Capture(Document));Text="GearLab 6.11.0 · "+Document.Name+(dirty?" *":"");}
+   void RestoreRobotHistory(Stack<string> source,Stack<string> destination){if(source.Count==0)return;Stop();string value=source.Peek();if(value.StartsWith(PoseHistoryPrefix,StringComparison.Ordinal)){var p=CADDocument.Serializer().Deserialize<RobotPoseFrame672>(value.Substring(PoseHistoryPrefix.Length));if(!p.ValidFor(Document))throw new InvalidOperationException("История положения не соответствует текущему роботу.");EnsurePoseSaveBaseline();string before=CapturePoseHistory();double delta=(p.Opening-Document.GripperOpening)/2;Document.GripperOpening=p.Opening;for(int i=0;i<p.Positions.Length;i++)Document.Joints[i].Position=p.Positions[i];foreach(var e in Build.Entries.Values.Where(e=>e.GripperSide!=0))e.Shape.X+=e.GripperSide*delta;source.Pop();PushRobotHistory(destination,before);RefreshManualPose();UpdatePoseTitle();}else{var target=RobotDocument.Parse(value);string before=Document.Serialize();source.Pop();PushRobotHistory(destination,before);Document=target;Rebuild();}}
+  }
+ }
+diff --git a/src/RobotProceduralWorkspace.cs b/src/RobotProceduralWorkspace.cs
+index a8df4ba..64779d7 100644
+--- a/src/RobotProceduralWorkspace.cs
++++ b/src/RobotProceduralWorkspace.cs
+@@ -24,9 +24,9 @@ namespace GearLab {
+ 
+   void FilterWebRobot(){if(!robotWeb.Ready||Build==null)return;robotWeb.Send(new{type="visibility",hidden=Build.Entries.Values.Where(e=>e.Guide||(view.SelectedIndex==0?e.Category!="Мотор":view.SelectedIndex==2?!e.Printable:false)).Select(e=>e.Id).ToArray()});}
+ 
+-  void UpdateWebPose(){SyncJointControllers();if(!robotWeb.Ready||Build==null)return;robotWeb.Send(new{type="poses",parts=Build.Entries.Values.Where(e=>!e.Guide).Select(e=>new{id=e.Id,matrix=RobotWebViewport.Matrix(Build.Pose(e.Id,phase,playing||Math.Abs(phase)>1e-9))}).ToArray()});var poses=RobotKinematics.Evaluate(Document,phase,playing||Math.Abs(phase)>1e-9);robotWeb.Send(new{type="bones",bones=(stage==0||view.SelectedIndex==0||move!=null&&move.Checked?Document.Joints:Enumerable.Empty<RobotJoint>()).Select(j=>new{id=j.Id,label=j.Name+" · "+Engine.F(j.Length)+" мм",origin=new[]{poses[j.Id].Origin.X,poses[j.Id].Origin.Y,poses[j.Id].Origin.Z},tip=new[]{poses[j.Id].Tip.X,poses[j.Id].Tip.Y,poses[j.Id].Tip.Z},selected=j.Id==selectedJoint}).ToArray()});SendJointController();}
++  void UpdateWebPose(){SyncJointControllers();if(!robotWeb.Ready||Build==null)return;robotWeb.Send(new{type="poses",parts=Build.Entries.Values.Where(e=>!e.Guide).Select(e=>new{id=e.Id,matrix=RobotWebViewport.Matrix(Build.Pose(e.Id,phase,playing||Math.Abs(phase)>1e-9))}).ToArray()});var poses=RobotKinematics.Evaluate(Document,phase,playing||Math.Abs(phase)>1e-9);robotWeb.Send(new{type="bones",bones=(stage==0||view.SelectedIndex==0||move!=null&&move.Checked?Document.Joints:Enumerable.Empty<RobotJoint>()).Select(j=>new{id=j.Id,label=j.Name+" · "+Engine.F(j.Length)+" мм",origin=new[]{poses[j.Id].Origin.X,poses[j.Id].Origin.Y,poses[j.Id].Origin.Z},tip=new[]{poses[j.Id].Tip.X,poses[j.Id].Tip.Y,poses[j.Id].Tip.Z},selected=j.Id==selectedJoint}).ToArray()});SendReducerPins(poses);SendJointController();}
+ 
+-  void HandleWebRobot(Dictionary<string,object> data){try{string type=Convert.ToString(data["type"]);if(type=="controllerMode"){OpenJointControllers();}else if(type.StartsWith("joint",StringComparison.Ordinal)){HandleJointControlMessage(data);}else if(type=="moveMode"){move.Checked=Convert.ToBoolean(data["enabled"]);if(move.Checked){Stop();CapturePose();}UpdateWebPose();}else if(type=="select"){string id=data.ContainsKey("id")?Convert.ToString(data["id"]):null;RobotCadEntry e;if(id!=null&&Build.Entries.TryGetValue(id,out e))Select(e.JointId,e.Guide?null:id);else if(Document.Find(id)!=null)Select(id,null);}else if(type=="boneMoved"||type=="partMoved"){Stop();CapturePose();string id=Convert.ToString(data["id"]);var delta=RobotWebViewport.Numbers(data["delta"],3);CommitWebDrag(id,new Vector3D(delta[0],delta[1],delta[2]));UpdateWebPose();}}catch(Exception ex){notes.AppendText("\r\nСцена: "+ex.Message);RenderWebRobot();}}
++  void HandleWebRobot(Dictionary<string,object> data){try{string type=Convert.ToString(data["type"]);if(type=="controllerMode"){OpenJointControllers();}else if(type.StartsWith("joint",StringComparison.Ordinal)){HandleJointControlMessage(data);}else if(type=="moveMode"){move.Checked=Convert.ToBoolean(data["enabled"]);if(move.Checked){Stop();CapturePose();}UpdateWebPose();}else if(type=="reducerPick"){PickReducer(Convert.ToString(data["id"]));}else if(type=="select"){string id=data.ContainsKey("id")?Convert.ToString(data["id"]):null;RobotCadEntry e;if(id!=null&&Build.Entries.TryGetValue(id,out e))Select(e.JointId,e.Guide?null:id);else if(Document.Find(id)!=null)Select(id,null);}else if(type=="boneMoved"||type=="partMoved"){Stop();CapturePose();string id=Convert.ToString(data["id"]);var delta=RobotWebViewport.Numbers(data["delta"],3);CommitWebDrag(id,new Vector3D(delta[0],delta[1],delta[2]));UpdateWebPose();}}catch(Exception ex){notes.AppendText("\r\nСцена: "+ex.Message);RenderWebRobot();}}
+ 
+  }
+ 
+diff --git a/src/RobotReducerKit.cs b/src/RobotReducerKit.cs
+new file mode 100644
+index 0000000..8a33296
+--- /dev/null
++++ b/src/RobotReducerKit.cs
+@@ -0,0 +1,106 @@
++﻿using System;using System.IO;using System.Linq;using System.Text;using System.Drawing;using System.Drawing.Drawing2D;using System.Collections.Generic;using System.Windows.Forms;using System.Windows.Media.Media3D;
++using W=System.Windows;using WC=System.Windows.Controls;using WM=System.Windows.Media;
++namespace GearLab {
++ // 6.11.0: редуктор, сделанный пользователем в разделе «Редукторы» или «Ступени», который можно поставить в сустав робота.
++ // Ровно одно из полей задано: Reducer (одиночный редуктор) или Train + Output (последовательная цепь ступеней).
++ public sealed class SavedReducer {
++  public string Name{get;set;}public DateTime Saved{get;set;}public Parameters Reducer{get;set;}public TransmissionTrain Train{get;set;}public string Output{get;set;}
++  internal bool Valid{get{return Reducer!=null||Train!=null&&Train.Stages!=null&&Train.Stages.Count>0&&!string.IsNullOrEmpty(Output);}}
++ }
++ // Сводка для значка на суставе и карточки в инспекторе.
++ public sealed class ReducerBadge {public string JointId,Label,Detail,Status,Tooltip,Type;public bool HasModel;}
++ public static class RobotReducerKit {
++  internal static string LibraryOverride;
++  public static string LibraryPath{get{return LibraryOverride??Path.Combine(AppSettings.Folder,"my-reducers.json");}}
++  public static string TypeName(int kind){var t=TransmissionCatalog.All.FirstOrDefault(x=>x.Id==kind);return t==null?"Редуктор":t.Name;}
++  // Одиночный редуктор в сустав: КПД, i и габарит берутся из рассчитанной модели (раньше это было внутри RobotDesignerForm.Reducer).
++  public static void ApplyParameters(RobotJoint joint,Parameters p){var r=Engine.Calculate(p);r.Model=CadBuilder.Build(r);RobotTransmission60.ValidateJoint(joint,r);joint.Efficiency=r.Engineering==null?p.Efficiency:r.Engineering.Efficiency;if(p.Kind==12)joint.ScrewLead=Math.PI*p.Module*p.Teeth;joint.TrainSettings=null;joint.TrainOutput=null;joint.ReducerSettings=p;joint.CustomTransmission=null;joint.TransmissionOutput=null;joint.Reduction=r.Actual;var bounds=r.Model.Bounds();joint.GearboxDiameter=Math.Max(joint.GearboxDiameter,Math.Min(250,2*Math.Max(Math.Max(Math.Abs(bounds[0]),Math.Abs(bounds[1])),Math.Max(Math.Abs(bounds[2]),Math.Abs(bounds[3])))+2*joint.Wall));}
++  public static void Apply(RobotJoint joint,SavedReducer r){if(r==null||!r.Valid)throw new Exception("Редуктор не задан.");if(r.Reducer!=null){var p=Engine.Clone(r.Reducer);p.UseUniversalBase=false;ApplyParameters(joint,p);}else RobotTrainIntegration.Apply(joint,r.Train,r.Output);}
++  // Новое звено подстраивается под редуктор: габарит — от редуктора и мотора, длина звена растёт с крупным редуктором.
++  public static void PrepareFresh(RobotJoint j){j.GearboxDiameter=Math.Max(40,j.MotorFrame+24);}
++  public static void FitLink(RobotJoint j){var end=new Vector3D(j.EndX,j.EndY,j.EndZ);double length=end.Length,wanted=Math.Max(140,Math.Round(j.GearboxDiameter*1.7/10)*10);if(length<1e-6||length>=wanted)return;end*=wanted/length;j.EndX=end.X;j.EndY=end.Y;j.EndZ=end.Z;}
++  public static bool HasModel(RobotJoint j){return j.ReducerSettings!=null||j.TrainSettings!=null||j.CustomTransmission!=null;}
++  public static SavedReducer FromJoint(RobotJoint j){if(j.ReducerSettings!=null)return new SavedReducer{Name=TypeName(j.ReducerSettings.Kind)+" · i "+Engine.F(j.Reduction),Reducer=Engine.Clone(j.ReducerSettings),Saved=DateTime.Now};if(j.TrainSettings!=null&&j.TrainOutput!=null)return new SavedReducer{Name=TrainName(j.TrainSettings,j.Reduction),Train=Copy(j.TrainSettings),Output=j.TrainOutput,Saved=DateTime.Now};return null;}
++  public static string TrainName(TransmissionTrain t,double ratio){var names=t.Stages.Where(s=>s!=null).Select(s=>TypeName(s.Parameters==null?-1:s.Parameters.Kind)).ToArray();string text=string.Join(" → ",names);if(text.Length>48)text=names.Length+" ступ.";return text+" · i "+Engine.F(ratio);}
++  internal static TransmissionTrain Copy(TransmissionTrain t){var s=CADDocument.Serializer();return s.Deserialize<TransmissionTrain>(s.Serialize(t));}
++  public static string Describe(RobotJoint j){if(j.ReducerSettings!=null)return TypeName(j.ReducerSettings.Kind);if(j.TrainSettings!=null)return "Ступени ×"+j.TrainSettings.Stages.Count;if(j.CustomTransmission!=null)return "Своя передача";return "Без модели редуктора";}
++  public static ReducerBadge Badge(RobotDocument d,RobotJoint j,RobotJointLoad load){int index=d.Ordered().IndexOf(j);var b=new ReducerBadge{JointId=j.Id,HasModel=HasModel(j),Type=Describe(j)};b.Label=(index+1)+" · "+j.Name;b.Detail=I18n.T(b.Type)+" · i "+Engine.F(j.Reduction);b.Status=Status(load,b.HasModel);b.Tooltip=load==null?"":I18n.T(load.Message)+(load.ReducerLimit.HasValue?"\n"+I18n.T("Предел редуктора")+" ≈ "+Engine.F(load.ReducerLimit.Value)+" "+I18n.T("Н·м"):"");return b;}
++  // error — мотору или редуктору не хватает момента; warn — запас меньше 20 %; none — у сустава нет модели редуктора, только число i.
++  public static string Status(RobotJointLoad load,bool model){if(load!=null&&!load.Enough)return "error";if(load!=null&&load.ReducerLimit.HasValue&&load.Required>load.ReducerLimit.Value+1e-9)return "error";if(!model)return "none";if(load!=null&&load.Available>0&&load.Required>.8*load.Available)return "warn";return "ok";}
++  public static bool Shown(RobotJoint j){return j.Mode!=RobotJointMode.Неподвижный;}
++  // «Мои редукторы»: последние 30 редукторов, добавленных в робота или сохранённых вручную. Файл в папке настроек.
++  public static List<SavedReducer> Load(){try{if(!File.Exists(LibraryPath))return new List<SavedReducer>();var list=CADDocument.Serializer().Deserialize<List<SavedReducer>>(File.ReadAllText(LibraryPath,Encoding.UTF8));return list==null?new List<SavedReducer>():list.Where(x=>x!=null&&x.Valid).ToList();}catch{return new List<SavedReducer>();}}
++  static string Key(SavedReducer r){var s=CADDocument.Serializer();return r.Reducer!=null?s.Serialize(r.Reducer):s.Serialize(r.Train)+"|"+r.Output;}
++  public static void Remember(SavedReducer r){if(r==null||!r.Valid)return;var list=Load();string key=Key(r);list.RemoveAll(x=>Key(x)==key);list.Insert(0,r);if(list.Count>30)list.RemoveRange(30,list.Count-30);Directory.CreateDirectory(Path.GetDirectoryName(LibraryPath));File.WriteAllText(LibraryPath,CADDocument.Serializer().Serialize(list),Encoding.UTF8);}
++  public static void Forget(SavedReducer r){var list=Load();string key=Key(r);list.RemoveAll(x=>Key(x)==key);File.WriteAllText(LibraryPath,CADDocument.Serializer().Serialize(list),Encoding.UTF8);}
++  // Меню «＋ В робота» из редакторов. Робот берётся из открытой вкладки «Робототехника»; если её нет — создаётся.
++  public static void ShowPlacementMenu(Control owner,Control anchor,SavedReducer entry){var shell=WorkspaceHost.Find(owner);var robot=shell==null?null:shell.Existing("robot") as RobotDesignerForm;bool has=robot!=null&&robot.Document.Joints.Count>0;var menu=new ContextMenuStrip();
++   menu.Items.Add(I18n.T(has?"Следующим звеном робота":"Новый робот с этим редуктором"),null,(s,e)=>Place(owner,entry,null,!has));
++   if(has){var into=new ToolStripMenuItem(I18n.T("Вместо редуктора звена"));foreach(var j in robot.Document.Ordered().Where(Shown)){string id=j.Id;into.DropDownItems.Add((robot.Document.Ordered().IndexOf(j)+1)+" · "+j.Name+"  ("+I18n.T(Describe(j))+", i "+Engine.F(j.Reduction)+")",null,(s,e)=>Place(owner,entry,id,false));}menu.Items.Add(into);menu.Items.Add(I18n.T("Новый робот с этим редуктором"),null,(s,e)=>Place(owner,entry,null,true));}
++   menu.Items.Add(new ToolStripSeparator());menu.Items.Add(I18n.T("Только сохранить в «Мои редукторы»"),null,(s,e)=>{try{Remember(entry);UiMessage.Show(owner,I18n.T("Сохранено")+": "+entry.Name,"GearLab");}catch(Exception ex){UiMessage.Show(owner,ex.Message);}});
++   AppSettings.Apply(menu);menu.Show(anchor,new Point(0,anchor.Height));}
++  internal static bool Place(Control owner,SavedReducer entry,string target,bool newRobot){try{Remember(entry);}catch{}var shell=WorkspaceHost.Find(owner);if(shell==null){UiMessage.Show(owner,"Откройте программу через главное окно, чтобы добавить редуктор в робота.");return false;}bool existed=shell.Existing("robot")!=null;shell.Navigate("robot");var robot=shell.Existing("robot") as RobotDesignerForm;if(robot==null)return false;return robot.PlaceReducer(entry,target,newRobot||!existed);}
++ }
++ public sealed partial class RobotDesignerForm {
++  bool reducerMode;ToolStripButton reducerButton;
++  internal bool ReducerMode{get{return reducerMode;}}
++  void InitializeReducerKit(ToolStrip top){reducerButton=new ToolStripButton("⚙ Редукторы"){Padding=new Padding(6),CheckOnClick=false,ToolTipText="Показать редукторы на модели. Щёлкните значок — откроются настройки редуктора."};reducerButton.Click+=(s,e)=>ShowReducers(!reducerMode);top.Items.Add(reducerButton);}
++  internal void ShowReducers(bool on){reducerMode=on;if(reducerButton!=null)reducerButton.Checked=on;RefreshQuickInspector();RefreshBoneOverlay();UpdateWebPose();}
++  internal void PickReducer(string id){if(Document.Find(id)==null)return;if(!reducerMode){reducerMode=true;if(reducerButton!=null)reducerButton.Checked=true;}Select(id,null);}
++  RobotJointLoad LoadOf(string id){return Analysis==null?null:Analysis.Joints.FirstOrDefault(x=>x.Id==id);}
++  internal List<ReducerBadge> ReducerBadges(){return Document.Ordered().Where(RobotReducerKit.Shown).Select(j=>RobotReducerKit.Badge(Document,j,LoadOf(j.Id))).ToList();}
++  // Значки на Three.js-сцене: позиция — начало звена, где стоит мотор с редуктором.
++  void SendReducerPins(Dictionary<string,RobotPose> poses){if(!robotWeb.Ready)return;if(!reducerMode){robotWeb.Send(new{type="reducers",enabled=false});return;}robotWeb.Send(new{type="reducers",enabled=true,items=ReducerBadges().Where(b=>poses.ContainsKey(b.JointId)).Select(b=>new{id=b.JointId,label=b.Label,detail=b.Detail,status=b.Status,tooltip=b.Tooltip,selected=b.JointId==selectedJoint,position=new[]{poses[b.JointId].Origin.X,poses[b.JointId].Origin.Y,poses[b.JointId].Origin.Z}}).ToArray()});}
++  // Те же значки поверх WPF-сцены, если WebView2 недоступен.
++  void AddReducerPins(){if(!reducerMode)return;var poses=RobotKinematics.Evaluate(Document,phase,Math.Abs(phase)>1e-9);foreach(var b in ReducerBadges()){if(!poses.ContainsKey(b.JointId))continue;var at=ProjectBone(poses[b.JointId].Origin);var color=UiPalette.Get(b.Status=="error"?"Error":b.Status=="warn"?"Warning":b.Status=="none"?"Muted":"Success");var text=new WC.TextBlock{Text="⚙ "+b.Label+"\n"+b.Detail,Foreground=WM.Brushes.White,FontSize=12};var pin=new WC.Button{Content=text,Padding=new W.Thickness(8,3,10,3),Background=new WM.SolidColorBrush(WM.Color.FromArgb(235,color.R,color.G,color.B)),BorderBrush=b.JointId==selectedJoint?WM.Brushes.White:WM.Brushes.Transparent,BorderThickness=new W.Thickness(2),ToolTip=string.IsNullOrEmpty(b.Tooltip)?null:b.Tooltip,Cursor=System.Windows.Input.Cursors.Hand};string id=b.JointId;pin.Click+=(s,e)=>PickReducer(id);WC.Canvas.SetLeft(pin,at.X+16);WC.Canvas.SetTop(pin,at.Y-18);boneOverlay.Children.Add(pin);}}
++  // Конец цепочки: от выбранного звена (или основания) по первым потомкам до последнего звена.
++  RobotJoint ChainEnd(){var current=Joint??Document.Ordered().FirstOrDefault();if(current==null)return null;for(int guard=0;guard<Document.Joints.Count;guard++){var child=Document.Joints.FirstOrDefault(x=>x.ParentId==current.Id);if(child==null)break;current=child;}return current;}
++  // Ставит редуктор: новым звеном в конец руки, в существующее звено или первым звеном нового робота. Одно действие — один шаг отмены.
++  internal bool PlaceReducer(SavedReducer entry,string target,bool newRobot){if(entry==null||!entry.Valid)return false;Stop();if(newRobot){Replace(new RobotDocument{Name=I18n.T("Робот из моих редукторов")},null);if(Document.Joints.Count>0)return false;}CapturePose();bool ok=Mutate(()=>{RobotJoint j;bool fresh=target==null;if(fresh){var end=ChainEnd();j=NewJointAfter(end);if(end==null){j.Mode=RobotJointMode.Вращение_Z;j.EndX=0;j.EndY=0;j.EndZ=140;}RobotReducerKit.PrepareFresh(j);}else{j=Document.Find(target);if(j==null)throw new Exception("Звено удалено.");}RobotReducerKit.Apply(j,entry);if(fresh)RobotReducerKit.FitLink(j);selectedJoint=j.Id;selectedPart=null;});if(ok){fitNext=fitNext||newRobot;ShowReducers(true);}return ok;}
++  void OpenReducerEditor(RobotJoint j){if(j==null)return;if(j.TrainSettings!=null)TrainTransmission();else if(j.CustomTransmission!=null)Transmission();else Reducer();}
++  void BuildReducerInspector(FlowLayoutPanel flow,RobotJoint j){
++   flow.Controls.Add(QuickTitle("Редукторы робота"));
++   QuickHint(flow,"Значки ⚙ на модели показывают, где стоит редуктор. Щёлкните значок или строку — ниже откроются его настройки.");
++   var badges=ReducerBadges();
++   if(badges.Count==0){flow.Controls.Add(QuickNote("В роботе пока нет подвижных звеньев. Сделайте редуктор в разделе «Редукторы» или «Ступени» и нажмите «＋ В робота»."));UiAppearance.Primary(QuickButton(flow,"Открыть раздел «Редукторы»",()=>WorkspaceHost.Navigate(this,"reducer")));QuickButton(flow,"Открыть раздел «Ступени»",()=>WorkspaceHost.Navigate(this,"train"));return;}
++   foreach(var b in badges){var row=new ReducerRow{Title=b.Label,Detail=b.Detail,Status=b.Status,Selected=j!=null&&b.JointId==j.Id};string id=b.JointId;row.Click+=(s,e)=>PickReducer(id);flow.Controls.Add(row);}
++   if(j==null||!RobotReducerKit.Shown(j)){flow.Controls.Add(QuickNote("Выберите сустав в списке или на модели."));return;}
++   var load=LoadOf(j.Id);var badge=RobotReducerKit.Badge(Document,j,load);
++   var card=new FlowLayoutPanel{AutoSize=true,FlowDirection=FlowDirection.TopDown,WrapContents=false,Width=285,Padding=new Padding(0,6,0,0),Margin=new Padding(0,10,0,0)};flow.Controls.Add(card);
++   card.Controls.Add(QuickTitle(j.Name));
++   Action<string,string> line=(caption,value)=>{var l=new Label{AutoSize=true,MaximumSize=new Size(285,0),Margin=new Padding(0,1,0,1),Text=I18n.T(caption)+": "+value};card.Controls.Add(l);};
++   line("Тип",I18n.T(badge.Type));line("Передаточное число","i "+Engine.F(j.Reduction));line("КПД",Engine.F(j.Efficiency));line("Габарит редуктора","Ø"+Engine.F(j.GearboxDiameter)+" × "+Engine.F(j.GearboxLength)+" "+I18n.T("мм"));
++   line("Предел редуктора",load!=null&&load.ReducerLimit.HasValue?Engine.F(load.ReducerLimit.Value)+" "+I18n.T("Н·м"):I18n.T("не определено"));
++   if(load!=null){var state=new StatusLabel{MaximumSize=new Size(285,0),Margin=new Padding(0,6,0,4),Font=new Font("Segoe UI Semibold",10f)};state.Set(I18n.T("Нужно")+" "+Engine.F(load.Required)+" / "+I18n.T("доступно")+" "+Engine.F(load.Available)+" "+I18n.T(load.Unit)+(badge.Status=="error"?" · "+I18n.T("не хватает"):badge.Status=="warn"?" · "+I18n.T("мало запаса"):""),badge.Status=="error"?"Error":badge.Status=="warn"?"Warning":"Success");card.Controls.Add(state);}
++   if(!badge.HasModel)card.Controls.Add(QuickNote("У сустава задано только передаточное число — 3D-модели и предела редуктора нет. Поставьте свой редуктор."));
++   UiAppearance.Primary(QuickButton(card,badge.HasModel?"Настроить редуктор…":"Спроектировать редуктор…",()=>OpenReducerEditor(j)));
++   var swap=QuickButton(card,"Заменить на  ▾",()=>{});swap.Click+=(s,e)=>ShowSwapMenu(swap,j.Id);
++   if(badge.HasModel&&j.CustomTransmission==null)QuickButton(card,"Сохранить в «Мои редукторы»",()=>{try{RobotReducerKit.Remember(RobotReducerKit.FromJoint(j));summary.Text=I18n.T("Сохранено в «Мои редукторы»")+": "+RobotReducerKit.FromJoint(j).Name;}catch(Exception ex){UiMessage.Show(this,ex.Message);}});
++   if(badge.HasModel){var clear=QuickButton(card,"Убрать модель, оставить i",()=>{string id=j.Id;Mutate(()=>{var live=Document.Find(id);live.ReducerSettings=null;live.TrainSettings=null;live.TrainOutput=null;live.CustomTransmission=null;live.TransmissionOutput=null;});});clear.ForeColor=Color.Firebrick;}
++   flow.Controls.Add(QuickNote("Новый редуктор: раздел «Редукторы» или «Ступени» → «＋ В робота»."));}
++  void ShowSwapMenu(Control anchor,string id){var menu=new ContextMenuStrip();var saved=RobotReducerKit.Load();if(saved.Count==0)menu.Items.Add(new ToolStripMenuItem(I18n.T("«Мои редукторы» пока пусты")){Enabled=false});foreach(var item in saved){var entry=item;menu.Items.Add(entry.Name,null,(s,e)=>{var j=Document.Find(id);if(j==null)return;CapturePose();Mutate(()=>RobotReducerKit.Apply(Document.Find(id),entry));});}
++   menu.Items.Add(new ToolStripSeparator());menu.Items.Add(I18n.T("Новый редуктор в редакторе…"),null,(s,e)=>{Select(id,null);Reducer();});menu.Items.Add(I18n.T("Цепь ступеней…"),null,(s,e)=>{Select(id,null);TrainTransmission();});
++   AppSettings.Apply(menu);menu.Show(anchor,new Point(0,anchor.Height));}
++ }
++ // Строка списка редукторов: круглый значок состояния, название сустава и тип редуктора.
++ public sealed class ReducerRow:Control {
++  public string Title,Detail,Status;public bool Selected;bool hover;
++  public ReducerRow(){SetStyle(ControlStyles.OptimizedDoubleBuffer|ControlStyles.AllPaintingInWmPaint|ControlStyles.UserPaint|ControlStyles.ResizeRedraw,true);Size=new Size(285,50);Margin=new Padding(0,0,0,4);Cursor=Cursors.Hand;}
++  protected override void OnMouseEnter(EventArgs e){hover=true;Invalidate();base.OnMouseEnter(e);}protected override void OnMouseLeave(EventArgs e){hover=false;Invalidate();base.OnMouseLeave(e);}
++  protected override void OnPaint(PaintEventArgs e){var g=e.Graphics;g.SmoothingMode=SmoothingMode.AntiAlias;g.Clear(Parent==null?UiPalette.Get("Panel"):Parent.BackColor);var box=new RectangleF(.5f,.5f,Width-1.5f,Height-1.5f);var fill=Selected?UiPalette.Get("Selection"):hover?UiPalette.Get("Field"):UiPalette.Blend(UiPalette.Get("Panel"),UiPalette.Get("Field"),.45);using(var path=UiAppearance.Rounded(box,8))using(var brush=new SolidBrush(fill))using(var pen=new Pen(Selected?UiPalette.Get("Accent"):UiPalette.Get("Border"),Selected?1.6f:1f)){g.FillPath(brush,path);g.DrawPath(pen,path);}
++   var color=UiPalette.Get(Status=="error"?"Error":Status=="warn"?"Warning":Status=="none"?"Muted":"Success");var circle=new RectangleF(9,(Height-30)/2f,30,30);if(Status=="none")using(var pen=new Pen(color,1.5f){DashStyle=DashStyle.Dash})g.DrawEllipse(pen,circle);else using(var brush=new SolidBrush(color))g.FillEllipse(brush,circle);TextRenderer.DrawText(g,"⚙",new Font("Segoe UI Symbol",13f),Rectangle.Round(circle),Status=="none"?color:Color.White,TextFormatFlags.HorizontalCenter|TextFormatFlags.VerticalCenter|TextFormatFlags.NoPadding);
++   using(var bold=new Font("Segoe UI Semibold",9.75f))TextRenderer.DrawText(g,Title,bold,new Rectangle(48,6,Width-54,20),UiPalette.Get("Text"),TextFormatFlags.EndEllipsis|TextFormatFlags.NoPrefix);TextRenderer.DrawText(g,Detail,Font,new Rectangle(48,26,Width-54,19),UiPalette.Get("Muted"),TextFormatFlags.EndEllipsis|TextFormatFlags.NoPrefix);}
++ }
++ public sealed partial class WorkspaceShell {
++  internal Form Existing(string key){TabPage page;return sections.TryGetValue(key,out page)&&!page.IsDisposed?page.Tag as Form:null;}
++ }
++ public partial class MainForm {
++  // «＋ Добавить в робота» в разделе «Редукторы»: текущий редуктор ставится в сустав робота.
++  internal void AddRobotButton(){var b=new Button{Text="＋ Добавить в робота  ▾",Width=280,Height=40,Margin=new Padding(0,2,0,10)};UiAppearance.Primary(b);b.Click+=(s,e)=>{if(!ReadControls())return;Recalculate();if(result==null||!result.Valid||result.Model==null||!result.Model.Valid){dialogs.Info(this,"Исправьте геометрию перед добавлением в робота.","Робот");return;}var copy=Engine.Clone(p);copy.UseUniversalBase=false;RobotReducerKit.ShowPlacementMenu(this,b,new SavedReducer{Name=RobotReducerKit.TypeName(copy.Kind)+" · i "+Engine.F(result.Actual),Reducer=copy,Saved=DateTime.Now});};controls.Controls.Add(b);controls.Controls.SetChildIndex(b,0);}
++ }
++ public sealed partial class TrainDesignerForm {
++  Button addToRobot;
++  // «＋ В робота» в разделе «Ступени»: последовательная цепь с одним выходом ставится в сустав.
++  void AddTrainToRobot(){Calculate();if(solution==null||!solution.Valid){status.Text=I18n.T("Сначала исправьте цепь.");return;}var leaves=solution.States.Values.Where(st=>!document.Stages.Any(n=>n.Parent==st.Id||n.SecondParent==st.Id)).ToList();if(leaves.Count!=1){status.Text=I18n.T("Для сустава нужен один выход.");return;}double ratio=1/Math.Max(1e-12,Math.Abs(leaves[0].OutputGain));RobotReducerKit.ShowPlacementMenu(this,addToRobot,new SavedReducer{Name=RobotReducerKit.TrainName(document,ratio),Train=RobotReducerKit.Copy(document),Output=leaves[0].Id,Saved=DateTime.Now});}
++ }
++}
+diff --git a/src/RobotTrainIntegration.cs b/src/RobotTrainIntegration.cs
+index c60bcdc..efc2744 100644
+--- a/src/RobotTrainIntegration.cs
++++ b/src/RobotTrainIntegration.cs
+@@ -8,6 +8,6 @@ namespace GearLab {
+   public static void Apply(RobotJoint j,TransmissionTrain train,string output){ValidateOutput(train,output);var solution=TrainSolver.Solve(train);TrainState state;if(!solution.Valid||!solution.States.TryGetValue(output,out state))throw new Exception("Граф не рассчитан.");if(train.Stages.Any(n=>n.PowerShare!=1||n.SecondParent!=null)||train.Stages.Count(n=>n.Parent==null)!=1||train.Stages.GroupBy(n=>n.Parent??"MOTOR").Any(g=>g.Count()>1))throw new Exception("Один сустав использует последовательную цепь с одним выходом. Разветвлённые графы остаются в конструкторе механизмов.");RobotTransmission60.ValidateJoint(j,state.Result);double length=Math.Max(j.GearboxLength,solution.Compound!=null?solution.Compound.OutputPlane:solution.Scene.Model.Bounds()[5]-solution.Scene.Model.Bounds()[4]);if(length>180)throw new Exception("Цепь длиннее 180 мм — измените компоновку ступеней.");if(solution.Compound!=null)j.GearboxDiameter=Math.Max(j.GearboxDiameter,solution.Compound.Diameter*(train.SharedHousing.Shape=="Square"?Math.Sqrt(2):1)+2*j.Wall);j.TrainSettings=CADDocument.Serializer().Deserialize<TransmissionTrain>(CADDocument.Serializer().Serialize(train));j.TrainOutput=output;j.ReducerSettings=null;j.CustomTransmission=null;j.TransmissionOutput=null;j.Reduction=1/Math.Abs(j.Linear?state.InputGain:state.OutputGain);j.Efficiency=solution.States.Values.Aggregate(1.0,(v,n)=>v*n.Efficiency);if(state.Result.P.Kind==12)j.ScrewLead=Math.PI*state.Result.P.Module*state.Result.P.Teeth;j.GearboxLength=length;if(j.GearboxLength>180)throw new Exception("Цепь длиннее 180 мм — текущий генератор сустава не может корректно разместить её. Измените компоновку в конструкторе ступеней.");}
+  }
+  public sealed partial class TrainDesignerForm {
+-  public void ConfigureForRobot(Func<TransmissionTrain,string,bool> accept){var b=new Button{Text="Использовать цепь в суставе",Dock=DockStyle.Bottom,Height=40,BackColor=Color.FromArgb(39,128,98),ForeColor=Color.White};b.Click+=(s,e)=>{Calculate();if(solution==null||!solution.Valid)return;var leaves=solution.States.Values.Where(st=>!document.Stages.Any(n=>n.Parent==st.Id||n.SecondParent==st.Id)).ToList();if(leaves.Count!=1){status.Text="Для сустава нужен один выход.";return;}if(accept(document,leaves[0].Id)){approved=true;Close();}};Controls.Add(b);b.BringToFront();}
++  public void ConfigureForRobot(Func<TransmissionTrain,string,bool> accept){if(addToRobot!=null)addToRobot.Visible=false;var b=new Button{Text="Использовать цепь в суставе",Dock=DockStyle.Bottom,Height=40,BackColor=Color.FromArgb(39,128,98),ForeColor=Color.White};b.Click+=(s,e)=>{Calculate();if(solution==null||!solution.Valid)return;var leaves=solution.States.Values.Where(st=>!document.Stages.Any(n=>n.Parent==st.Id||n.SecondParent==st.Id)).ToList();if(leaves.Count!=1){status.Text="Для сустава нужен один выход.";return;}if(accept(document,leaves[0].Id)){approved=true;Close();}};Controls.Add(b);b.BringToFront();}
+  }
+ }
+diff --git a/src/RobotWorkspaceUX.cs b/src/RobotWorkspaceUX.cs
+index 0805de3..94934cc 100644
+--- a/src/RobotWorkspaceUX.cs
++++ b/src/RobotWorkspaceUX.cs
+@@ -14,7 +14,7 @@ namespace GearLab {
+ 
+   void InitializeInspector(Control parentControl){AppSettings.Changed+=SyncHints;Disposed+=(s,e)=>AppSettings.Changed-=SyncHints;var basic=new TabPage("Основное");var advanced=new TabPage("Все параметры");basic.Controls.Add(quickInspector);advanced.Controls.Add(properties);inspectorTabs.TabPages.AddRange(new[]{basic,advanced});parentControl.Controls.Add(inspectorTabs);}
+ 
+-  void InitializeRobotUX(ToolStrip top,ToolStrip tools,SplitContainer content){sceneLayout=content;tools.Visible=false;top.Items.Clear();var file=new ToolStripDropDownButton("Проект");file.DropDownItems.Add("Новый с нуля",null,(s,e)=>Replace(new RobotDocument(),null));file.DropDownItems.Add("РОБОТ1 · NEMA 17 · 800 мм",null,(s,e)=>Replace(RobotDocument.DefaultReference(),null));file.DropDownItems.Add("По твоему дизайну · новая компоновка…",null,(s,e)=>OpenReference67());file.DropDownItems.Add("Архивная компоновка 6.6…",null,(s,e)=>OpenIndustrial66());file.DropDownItems.Add("Кассетный корпус · другой вариант",null,(s,e)=>Replace(RobotDocument.CassetteReference(),null));file.DropDownItems.Add("Процедурный пример · NEMA 17 / 180 мм",null,(s,e)=>OpenProceduralExample());file.DropDownItems.Add("Открыть…",null,(s,e)=>Open());file.DropDownItems.Add("Сохранить",null,(s,e)=>Save(false));file.DropDownItems.Add("Сохранить как…",null,(s,e)=>Save(true));file.DropDownItems.Add("Восстановить автокопию",null,(s,e)=>RestoreRecovery());top.Items.Add(file);foreach(string title in new[]{"1 · Звенья","2 · Моторы","3 · Корпус","4 · Движение и нагрузки"}){int index=stages.Count;var b=new ToolStripButton(title){Padding=new Padding(6),CheckOnClick=false};b.Click+=(s,e)=>SetStage(index);stages.Add(b);top.Items.Add(b);}top.Items.Add(new ToolStripSeparator());Add(top,"Отмена",Undo);Add(top,"Повтор",Redo);var advanced=new ToolStripDropDownButton("Детали / экспорт");while(tools.Items.Count>0){var item=tools.Items[0];tools.Items.RemoveAt(0);advanced.DropDownItems.Add(item);}top.Items.Add(advanced);Add(top,"Справка",Help);Scene.Root.Children.Add(boneOverlay);Scene.ViewChanged+=RefreshBoneOverlay;Scene.Root.SizeChanged+=(s,e)=>RefreshBoneOverlay();Scene.Root.PreviewMouseWheel+=(s,e)=>Scene.Root.Dispatcher.BeginInvoke(new Action(RefreshBoneOverlay));Scene.Root.AddHandler(W.UIElement.MouseMoveEvent,new System.Windows.Input.MouseEventHandler((s,e)=>{if(e.LeftButton==System.Windows.Input.MouseButtonState.Pressed||e.MiddleButton==System.Windows.Input.MouseButtonState.Pressed)Scene.Root.Dispatcher.BeginInvoke(new Action(RefreshBoneOverlay));}),true);Scene.Root.AddHandler(W.UIElement.MouseUpEvent,new System.Windows.Input.MouseButtonEventHandler((s,e)=>Scene.Root.Dispatcher.BeginInvoke(new Action(RefreshBoneOverlay))),true);SetStage(0);}
++  void InitializeRobotUX(ToolStrip top,ToolStrip tools,SplitContainer content){sceneLayout=content;tools.Visible=false;top.Items.Clear();var file=new ToolStripDropDownButton("Проект");file.DropDownItems.Add("Новый с нуля",null,(s,e)=>Replace(new RobotDocument(),null));file.DropDownItems.Add("РОБОТ1 · NEMA 17 · 800 мм",null,(s,e)=>Replace(RobotDocument.DefaultReference(),null));file.DropDownItems.Add("По твоему дизайну · новая компоновка…",null,(s,e)=>OpenReference67());file.DropDownItems.Add("Архивная компоновка 6.6…",null,(s,e)=>OpenIndustrial66());file.DropDownItems.Add("Кассетный корпус · другой вариант",null,(s,e)=>Replace(RobotDocument.CassetteReference(),null));file.DropDownItems.Add("Процедурный пример · NEMA 17 / 180 мм",null,(s,e)=>OpenProceduralExample());file.DropDownItems.Add("Открыть…",null,(s,e)=>Open());file.DropDownItems.Add("Сохранить",null,(s,e)=>Save(false));file.DropDownItems.Add("Сохранить как…",null,(s,e)=>Save(true));file.DropDownItems.Add("Восстановить автокопию",null,(s,e)=>RestoreRecovery());top.Items.Add(file);foreach(string title in new[]{"1 · Звенья","2 · Моторы","3 · Корпус","4 · Движение и нагрузки"}){int index=stages.Count;var b=new ToolStripButton(title){Padding=new Padding(6),CheckOnClick=false};b.Click+=(s,e)=>SetStage(index);stages.Add(b);top.Items.Add(b);}top.Items.Add(new ToolStripSeparator());InitializeReducerKit(top);top.Items.Add(new ToolStripSeparator());Add(top,"Отмена",Undo);Add(top,"Повтор",Redo);var advanced=new ToolStripDropDownButton("Детали / экспорт");while(tools.Items.Count>0){var item=tools.Items[0];tools.Items.RemoveAt(0);advanced.DropDownItems.Add(item);}top.Items.Add(advanced);Add(top,"Справка",Help);Scene.Root.Children.Add(boneOverlay);Scene.ViewChanged+=RefreshBoneOverlay;Scene.Root.SizeChanged+=(s,e)=>RefreshBoneOverlay();Scene.Root.PreviewMouseWheel+=(s,e)=>Scene.Root.Dispatcher.BeginInvoke(new Action(RefreshBoneOverlay));Scene.Root.AddHandler(W.UIElement.MouseMoveEvent,new System.Windows.Input.MouseEventHandler((s,e)=>{if(e.LeftButton==System.Windows.Input.MouseButtonState.Pressed||e.MiddleButton==System.Windows.Input.MouseButtonState.Pressed)Scene.Root.Dispatcher.BeginInvoke(new Action(RefreshBoneOverlay));}),true);Scene.Root.AddHandler(W.UIElement.MouseUpEvent,new System.Windows.Input.MouseButtonEventHandler((s,e)=>Scene.Root.Dispatcher.BeginInvoke(new Action(RefreshBoneOverlay))),true);SetStage(0);}
+ 
+   internal void SetStage(int value){EndPoseEdit();stage=value;for(int i=0;i<stages.Count;i++)stages[i].Checked=i==value;if(sceneLayout!=null)sceneLayout.Panel2Collapsed=value!=3;inspectorTabs.SelectedIndex=0;RefreshQuickInspector();RefreshBoneOverlay();UpdateWebPose();}
+ 
+@@ -28,6 +28,7 @@ namespace GearLab {
+   bool hintsShown=AppSettings.Current.ShowHints;
+   void SyncHints(){if(IsDisposed||hintsShown==AppSettings.Current.ShowHints)return;hintsShown=AppSettings.Current.ShowHints;if(headerHint!=null&&headerHint.Parent!=null){headerHint.Visible=hintsShown;headerHint.Parent.Height=hintsShown?176:150;}RefreshQuickInspector();}
+   void RefreshQuickInspector(){if(quickInspector.Parent==null||poseEditing)return;quickLoad=null;jointControllers.Clear();quickInspector.SuspendLayout();foreach(Control old in quickInspector.Controls.Cast<Control>().ToArray())old.Dispose();quickInspector.Controls.Clear();var flow=new FlowLayoutPanel{Dock=DockStyle.Top,AutoSize=true,FlowDirection=FlowDirection.TopDown,WrapContents=false,Padding=new Padding(10,10,8,14)};quickInspector.Controls.Add(flow);var j=Joint;
++   if(reducerMode){BuildReducerInspector(flow,j);quickInspector.ResumeLayout();return;}
+    if(j==null){
+     flow.Controls.Add(QuickTitle("Робот пока пуст"));
+     QuickHint(flow,"Робот собирается из звеньев: каждое звено — это шарнир с мотором и «кость» до следующего шарнира. Начните с первого звена или откройте готовый пример и меняйте его.");
+@@ -81,7 +82,7 @@ namespace GearLab {
+ 
+   W.Point ProjectBone(Point3D point){var d=point-Scene.Camera.Target;double scale=Scene.Root.ActualWidth/Math.Max(.01,Scene.Camera.Width);return new W.Point(Scene.Root.ActualWidth/2+Vector3D.DotProduct(d,Scene.Camera.Right)*scale,Scene.Root.ActualHeight/2-Vector3D.DotProduct(d,Scene.Camera.Up)*scale);}
+ 
+-  void RefreshBoneOverlay(){if(boneDragging||boneOverlay.Parent==null||Build==null||!Scene.Ready)return;boneOverlay.Children.Clear();if(stage!=0&&view.SelectedIndex!=0&&(move==null||!move.Checked))return;var poses=RobotKinematics.Evaluate(Document,phase,Math.Abs(phase)>1e-9);foreach(var j in Document.Joints){var p=poses[j.Id];var origin=ProjectBone(p.Origin);var dot=new WC.Button{Content=(Document.Joints.IndexOf(j)+1).ToString(),Width=27,Height=27,Background=j.Id==selectedJoint?WM.Brushes.DarkOrange:WM.Brushes.SteelBlue,Foreground=WM.Brushes.White,ToolTip=j.Name+" · выбрать шарнир"};WC.Canvas.SetLeft(dot,origin.X-13);WC.Canvas.SetTop(dot,origin.Y-13);string id=j.Id;dot.Click+=(s,e)=>Select(id,null);boneOverlay.Children.Add(dot);if(j.Id!=selectedJoint)continue;var tip=ProjectBone(p.Tip);var line=new Shapes.Line{X1=origin.X,Y1=origin.Y,X2=tip.X,Y2=tip.Y,Stroke=WM.Brushes.DarkOrange,StrokeThickness=2,StrokeDashArray=new WM.DoubleCollection(new[]{4.0,3}),IsHitTestVisible=false};boneOverlay.Children.Add(line);var label=new WC.TextBlock{Text=j.Name+" · "+Engine.F(j.Length)+" мм",Background=WM.Brushes.White,Foreground=WM.Brushes.DarkSlateGray,Padding=new W.Thickness(5),IsHitTestVisible=false};WC.Canvas.SetLeft(label,tip.X+16);WC.Canvas.SetTop(label,tip.Y-10);boneOverlay.Children.Add(label);if(playing||Math.Abs(phase)>1e-9)continue;var thumb=new System.Windows.Controls.Primitives.Thumb{Width=23,Height=23,Background=WM.Brushes.OrangeRed,ToolTip="Потяните конец звена. Ось перемещения задаётся над сценой."};var border=new W.FrameworkElementFactory(typeof(WC.Border));border.SetValue(WC.Border.BackgroundProperty,WM.Brushes.OrangeRed);border.SetValue(WC.Border.CornerRadiusProperty,new W.CornerRadius(12));thumb.Template=new WC.ControlTemplate(typeof(System.Windows.Controls.Primitives.Thumb)){VisualTree=border};WC.Canvas.SetLeft(thumb,tip.X-11);WC.Canvas.SetTop(thumb,tip.Y-11);thumb.DragStarted+=(s,e)=>{boneDragging=true;boneStart=System.Windows.Input.Mouse.GetPosition(Scene.Root);boneDelta=new Vector3D();};thumb.DragDelta+=(s,e)=>{boneDelta=Scene.DragDelta(boneStart,System.Windows.Input.Mouse.GetPosition(Scene.Root));WC.Canvas.SetLeft(thumb,ProjectBone(p.Tip+boneDelta).X-11);WC.Canvas.SetTop(thumb,ProjectBone(p.Tip+boneDelta).Y-11);};thumb.DragCompleted+=(s,e)=>{boneDragging=false;if(!e.Canceled&&boneDelta.LengthSquared>1e-8)CommitDrag(id+"_end_guide",boneDelta);RefreshBoneOverlay();};boneOverlay.Children.Add(thumb);}}
++  void RefreshBoneOverlay(){if(boneDragging||boneOverlay.Parent==null||Build==null||!Scene.Ready)return;boneOverlay.Children.Clear();AddReducerPins();if(stage!=0&&view.SelectedIndex!=0&&(move==null||!move.Checked))return;var poses=RobotKinematics.Evaluate(Document,phase,Math.Abs(phase)>1e-9);foreach(var j in Document.Joints){var p=poses[j.Id];var origin=ProjectBone(p.Origin);var dot=new WC.Button{Content=(Document.Joints.IndexOf(j)+1).ToString(),Width=27,Height=27,Background=j.Id==selectedJoint?WM.Brushes.DarkOrange:WM.Brushes.SteelBlue,Foreground=WM.Brushes.White,ToolTip=j.Name+" · выбрать шарнир"};WC.Canvas.SetLeft(dot,origin.X-13);WC.Canvas.SetTop(dot,origin.Y-13);string id=j.Id;dot.Click+=(s,e)=>Select(id,null);boneOverlay.Children.Add(dot);if(j.Id!=selectedJoint)continue;var tip=ProjectBone(p.Tip);var line=new Shapes.Line{X1=origin.X,Y1=origin.Y,X2=tip.X,Y2=tip.Y,Stroke=WM.Brushes.DarkOrange,StrokeThickness=2,StrokeDashArray=new WM.DoubleCollection(new[]{4.0,3}),IsHitTestVisible=false};boneOverlay.Children.Add(line);var label=new WC.TextBlock{Text=j.Name+" · "+Engine.F(j.Length)+" мм",Background=WM.Brushes.White,Foreground=WM.Brushes.DarkSlateGray,Padding=new W.Thickness(5),IsHitTestVisible=false};WC.Canvas.SetLeft(label,tip.X+16);WC.Canvas.SetTop(label,tip.Y-10);boneOverlay.Children.Add(label);if(playing||Math.Abs(phase)>1e-9)continue;var thumb=new System.Windows.Controls.Primitives.Thumb{Width=23,Height=23,Background=WM.Brushes.OrangeRed,ToolTip="Потяните конец звена. Ось перемещения задаётся над сценой."};var border=new W.FrameworkElementFactory(typeof(WC.Border));border.SetValue(WC.Border.BackgroundProperty,WM.Brushes.OrangeRed);border.SetValue(WC.Border.CornerRadiusProperty,new W.CornerRadius(12));thumb.Template=new WC.ControlTemplate(typeof(System.Windows.Controls.Primitives.Thumb)){VisualTree=border};WC.Canvas.SetLeft(thumb,tip.X-11);WC.Canvas.SetTop(thumb,tip.Y-11);thumb.DragStarted+=(s,e)=>{boneDragging=true;boneStart=System.Windows.Input.Mouse.GetPosition(Scene.Root);boneDelta=new Vector3D();};thumb.DragDelta+=(s,e)=>{boneDelta=Scene.DragDelta(boneStart,System.Windows.Input.Mouse.GetPosition(Scene.Root));WC.Canvas.SetLeft(thumb,ProjectBone(p.Tip+boneDelta).X-11);WC.Canvas.SetTop(thumb,ProjectBone(p.Tip+boneDelta).Y-11);};thumb.DragCompleted+=(s,e)=>{boneDragging=false;if(!e.Canceled&&boneDelta.LengthSquared>1e-8)CommitDrag(id+"_end_guide",boneDelta);RefreshBoneOverlay();};boneOverlay.Children.Add(thumb);}}
+ 
+  }
+ 
+diff --git a/src/TrainDesignerForm.cs b/src/TrainDesignerForm.cs
+index 266a86e..f789074 100644
+--- a/src/TrainDesignerForm.cs
++++ b/src/TrainDesignerForm.cs
+@@ -12,6 +12,8 @@ namespace GearLab {
+    button("Открыть…",Open);button("Сохранить…",Save);
+    var gap=new Panel{Width=14,Height=10,Margin=Padding.Empty};menu.Controls.Add(gap);button("↶ Отменить",()=>History(false));button("↷ Повторить",()=>History(true));
+    menu.Controls.Add(new Panel{Width=14,Height=10,Margin=Padding.Empty});dropdown("Экспорт",new[]{"STEP — точная сборка…","STL — детали для печати (ZIP)…","-","Отменить экспорт"},new Action[]{Export,()=>{try{using(var d=new SaveFileDialog{Filter="ZIP STL|*.zip"})if(d.ShowLocalizedDialog(this)==DialogResult.OK)ExportStlFile(d.FileName);}catch(Exception ex){Error(ex.Message);}},null,()=>kernel.Cancel()});
++   // 6.11.0: цепь ступеней в сустав робота.
++   menu.Controls.Add(new Panel{Width=14,Height=10,Margin=Padding.Empty});addToRobot=B("＋ В робота  ▾",()=>{});addToRobot.Click+=(s,e)=>AddTrainToRobot();UiAppearance.Primary(addToRobot);menu.Controls.Add(addToRobot);
+    Controls.Add(menu);
+    var outer=new SplitContainer{Dock=DockStyle.Fill,Size=new Size(1500,900),FixedPanel=FixedPanel.Panel1,SplitterDistance=300,Panel1MinSize=275};Controls.Add(outer);outer.BringToFront();var side=new TableLayoutPanel{Dock=DockStyle.Fill,ColumnCount=1,RowCount=5,Padding=new Padding(9)};side.RowStyles.Add(new RowStyle(SizeType.Absolute,34));side.RowStyles.Add(new RowStyle(SizeType.Absolute,120));side.RowStyles.Add(new RowStyle(SizeType.Percent,100));side.RowStyles.Add(new RowStyle(SizeType.Absolute,80));side.RowStyles.Add(new RowStyle(SizeType.Absolute,46));outer.Panel1.Controls.Add(side);side.Controls.Add(new Label{Text="Двигатель",Dock=DockStyle.Fill,Font=new Font("Segoe UI Semibold",12f)},0,0);
+    var motor=new FlowLayoutPanel{Dock=DockStyle.Fill,FlowDirection=FlowDirection.TopDown,WrapContents=false};side.Controls.Add(motor,0,1);MotorNumber(motor,rpm,"Обороты, об/мин",-100000,100000,2);MotorNumber(motor,torque,"Момент, Н·м",0,10000,3);rpm.ValueChanged+=(s,e)=>MotorChanged();torque.ValueChanged+=(s,e)=>MotorChanged();rpm.Leave+=(s,e)=>MotorChanged();torque.Leave+=(s,e)=>MotorChanged();
+diff --git a/src/Ui611Tests.cs b/src/Ui611Tests.cs
+new file mode 100644
+index 0000000..9e2bc89
+--- /dev/null
++++ b/src/Ui611Tests.cs
+@@ -0,0 +1,49 @@
++﻿using System;using System.IO;using System.Linq;using System.Text;using System.Threading;using System.Diagnostics;using System.Collections.Generic;using System.Windows.Forms;using System.Windows.Media.Media3D;
++namespace GearLab {
++ // 6.11.0: свои редукторы в роботе — «＋ В робота», значки редукторов на суставах и их настройка.
++ public static class Ui611Tests {
++  static readonly List<string> lines=new List<string>();static int failures;static string progress;
++  static void Check(bool ok,string name){lines.Add((ok?"PASS ":"FAIL ")+name);if(!ok)failures++;if(progress!=null)File.WriteAllLines(progress,lines);}
++  static void Wait(Func<bool> f,double seconds){var w=Stopwatch.StartNew();while(!f()&&w.Elapsed.TotalSeconds<seconds){Application.DoEvents();Thread.Sleep(10);}}
++  static IEnumerable<Control> All(Control root){foreach(Control c in root.Controls){yield return c;foreach(var d in All(c))yield return d;}}
++  static SavedReducer Cycloid(){var p=Engine.Starter(0);Engine.SetPreset(p,2);p.Ratio=30;p.RingOutput=true;p.Overall=90;Engine.FitOverall(p);return new SavedReducer{Name="Циклоидальный 30",Reducer=p,Saved=DateTime.Now};}
++  static SavedReducer Planetary(){var p=Engine.Starter(2);return new SavedReducer{Name="Планетарный",Reducer=p,Saved=DateTime.Now};}
++  public static int Run(string folder){Directory.CreateDirectory(folder);progress=Path.Combine(folder,"ui611-progress.txt");var old=AppSettings.Current;var messages=new List<string>();var oldSink=UiMessage.TestSink;
++   try{AppSettings.Current=new AppSettings{AutoSave=false};UiMessage.TestSink=m=>messages.Add(m);RobotReducerKit.LibraryOverride=Path.Combine(folder,"my-reducers.json");if(File.Exists(RobotReducerKit.LibraryOverride))File.Delete(RobotReducerKit.LibraryOverride);
++    // Библиотека «Мои редукторы».
++    var cycloid=Cycloid();var planetary=Planetary();RobotReducerKit.Remember(cycloid);RobotReducerKit.Remember(planetary);RobotReducerKit.Remember(cycloid);var saved=RobotReducerKit.Load();Check(saved.Count==2&&saved[0].Reducer.Kind==0&&saved[1].Reducer.Kind==2,"library keeps newest first without duplicates");
++    var train=TransmissionTrain.Example();var tsol=TrainSolver.Solve(train);var leaf=tsol.States.Values.First(st=>!train.Stages.Any(n=>n.Parent==st.Id||n.SecondParent==st.Id));var trainEntry=new SavedReducer{Name="Цепь",Train=train,Output=leaf.Id,Saved=DateTime.Now};RobotReducerKit.Remember(trainEntry);Check(RobotReducerKit.Load().Count==3&&RobotReducerKit.Load()[0].Train!=null,"stage train is stored in the library");
++    File.WriteAllText(RobotReducerKit.LibraryOverride,"{broken",Encoding.UTF8);Check(RobotReducerKit.Load().Count==0,"broken library file does not crash");
++    string empty=Path.Combine(folder,"empty.robot.json");File.WriteAllText(empty,new RobotDocument{Name="Пусто"}.Serialize(),Encoding.UTF8);using(var robot=new RobotDesignerForm(empty))using(var shell=new WorkspaceShell(robot)){shell.Show();Application.DoEvents();Action quiet=()=>{foreach(var jj in robot.Document.Joints)if(jj.BodyGenerator!=null)jj.BodyGenerator.AutoRegenerate=false;};
++     // Новый робот из редуктора.
++     Check(robot.PlaceReducer(cycloid,null,true),"new robot from a user reducer");var d=robot.Document;Check(d.Joints.Count==1,"robot has one joint");var j1=d.Joints[0];Check(j1.ReducerSettings!=null&&j1.ReducerSettings.Kind==0,"joint carries the cycloid reducer");
++     var r=Engine.Calculate(Engine.Clone(j1.ReducerSettings));r.Model=CadBuilder.Build(r);Check(Math.Abs(j1.Reduction-r.Actual)<1e-9,"joint ratio equals the reducer ratio");Check(j1.Mode==RobotJointMode.Вращение_Z&&j1.EndZ>0,"first joint is a vertical base rotation");Check(j1.GearboxDiameter>=Math.Min(250,r.Model.Bounds()[1]*2)-1e-6,"gearbox envelope fits the reducer");Check(robot.ReducerMode,"reducer view opens after adding");
++     // Следующее звено.
++     Check(robot.PlaceReducer(planetary,null,false),"second reducer becomes the next joint");d=robot.Document;Check(d.Joints.Count==2&&d.Joints[1].ParentId==d.Joints[0].Id,"next joint is attached to the end of the arm");var poses=RobotKinematics.Evaluate(d,0,false);Check((poses[d.Joints[1].Id].Origin-poses[d.Joints[0].Id].Tip).Length<1e-6,"next joint starts at the parent tip");Check(d.Joints[1].ReducerSettings!=null&&d.Joints[1].ReducerSettings.Kind==2,"second joint carries the planetary reducer");
++     // Значки и инспектор.
++     var badges=robot.ReducerBadges();Check(badges.Count==2&&badges.All(b=>b.HasModel&&b.Status!="none"),"each joint has a reducer badge");Check(badges[0].Label.StartsWith("1 · ")&&badges[1].Detail.Contains("i "),"badge shows order and ratio");
++     string second=d.Joints[1].Id;robot.PickReducer(d.Joints[0].Id);robot.PickReducer(second);var rows=All(robot).OfType<ReducerRow>().ToList();Check(rows.Count==2&&rows.Count(x=>x.Selected)==1&&rows[1].Selected,"clicking a badge selects that reducer in the list");
++     var inspector=(Control)typeof(RobotDesignerForm).GetField("quickInspector",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).GetValue(robot);quiet();Application.DoEvents();if(inspector.Width>0&&inspector.Height>0)using(var bmp=new System.Drawing.Bitmap(inspector.Width,inspector.Height)){inspector.DrawToBitmap(bmp,new System.Drawing.Rectangle(0,0,bmp.Width,bmp.Height));bmp.Save(Path.Combine(folder,"ui611-inspector.png"));}
++     var buttons=All(robot).OfType<Button>().Select(b=>I18n.Raw(b)).ToList();Check(buttons.Contains("Настроить редуктор…")&&buttons.Contains("Заменить на  ▾"),"reducer card offers configure and replace");
++     // Замена на цепь ступеней и отмена.
++     string first=d.Joints[0].Id;Check(robot.PlaceReducer(trainEntry,first,false),"replace a joint reducer with a stage train");var live=robot.Document.Find(first);Check(live.TrainSettings!=null&&live.ReducerSettings==null&&live.TrainOutput==leaf.Id,"joint now uses the stage train");Check(Math.Abs(live.Reduction-1/Math.Abs(leaf.OutputGain))<1e-6,"train ratio applied to the joint");
++     typeof(RobotDesignerForm).GetMethod("Undo",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).Invoke(robot,null);live=robot.Document.Find(first);Check(live!=null&&live.ReducerSettings!=null&&live.TrainSettings==null,"undo restores the previous reducer");
++     // Сохранение проекта.
++     var copy=RobotDocument.Parse(robot.Document.Serialize());Check(copy.Joints.Count==2&&copy.Joints[0].ReducerSettings!=null&&copy.Joints[1].ReducerSettings.Kind==2,"robot with user reducers survives save and load");
++     // Сустав без модели редуктора.
++     var plain=RobotDocument.Example();var badge=RobotReducerKit.Badge(plain,plain.Joints[0],null);Check(!badge.HasModel&&badge.Status=="none","joint without a reducer model is marked as number only");
++     // Кнопки в редакторах.
++     // Процедурный корпус в Wine не строится (нет ядра), сообщение об этом в скрытой вкладке роняет Wine — тест отключает только автоперестроение.
++     quiet();
++     shell.Navigate("reducer");Wait(()=>shell.Existing("reducer") is ReducerWorkspaceForm&&((ReducerWorkspaceForm)shell.Existing("reducer")).MainView!=null,20);var workspace=shell.Existing("reducer") as ReducerWorkspaceForm;var main=workspace==null?null:workspace.MainView;Check(main!=null&&All(main).OfType<Button>().Any(b=>I18n.Raw(b)=="＋ Добавить в робота  ▾"),"reducer editor has «＋ Добавить в робота»");
++     if(main!=null){int before=robot.Document.Joints.Count;Check(RobotReducerKit.Place(main,cycloid,null,false),"reducer editor places into the open robot");quiet();Check(robot.Document.Joints.Count==before+1&&shell.Existing("robot")==robot,"open robot gained a joint instead of being replaced");}
++     using(var trainForm=new TrainDesignerForm()){Check(All(trainForm).OfType<Button>().Any(b=>I18n.Raw(b)=="＋ В робота  ▾"),"stage editor has «＋ В робота»");}
++     using(var linked=new TrainDesignerForm()){linked.ConfigureForRobot((t,o)=>true);Check(All(linked).OfType<Button>().Where(b=>I18n.Raw(b)=="＋ В робота  ▾").All(b=>!b.Visible),"robot-linked stage editor hides «＋ В робота»");}
++     Check(messages.Count==0,"no error messages: "+string.Join(" | ",messages.Take(3)));
++     robot.ShowReducers(false);Check(!robot.ReducerMode,"reducer view can be closed");
++     shell.ApproveTestClose();}
++    lines.Add((failures==0?"PASS ":"FAIL ")+lines.Count+" assertions");File.WriteAllLines(Path.Combine(folder,"ui611-results.txt"),lines);return failures==0?0:1;}
++   catch(Exception ex){lines.Add("ERROR "+ex);File.WriteAllLines(Path.Combine(folder,"ui611-results.txt"),lines);return 1;}
++   finally{AppSettings.Current=old;UiMessage.TestSink=oldSink;RobotReducerKit.LibraryOverride=null;}}
++ }
++}
+diff --git a/src/UiTextCatalog.cs b/src/UiTextCatalog.cs
+index 97329b7..1ac4d80 100644
+--- a/src/UiTextCatalog.cs
++++ b/src/UiTextCatalog.cs
+@@ -1,6 +1,52 @@
+ ﻿using System;using System.Linq;using System.Collections.Generic;using System.Text.RegularExpressions;
+ namespace GearLab {public static partial class I18n {
+  static readonly Dictionary<string,string> Catalog=new Dictionary<string,string>(StringComparer.Ordinal){
++{"«Мои редукторы» пока пусты","\"My reducers\" is empty"},
++{"Без модели редуктора","No reducer model"},
++{"В роботе пока нет подвижных звеньев. Сделайте редуктор в разделе «Редукторы» или «Ступени» и нажмите «＋ В робота».","The robot has no moving joints yet. Make a reducer in \"Reducers\" or \"Stages\" and press \"＋ To robot\"."},
++{"Вместо редуктора звена","Replace the reducer of joint"},
++{"Выберите сустав в списке или на модели.","Pick a joint in the list or on the model."},
++{"Габарит редуктора","Reducer envelope"},
++{"Для сустава нужен один выход.","A joint needs a single output."},
++{"Заменить на  ▾","Replace with  ▾"},
++{"Звено удалено.","The joint was deleted."},
++{"Значки ⚙ на модели показывают, где стоит редуктор. Щёлкните значок или строку — ниже откроются его настройки.","The ⚙ badges on the model show where each reducer sits. Click a badge or a row to open its settings below."},
++{"Исправьте геометрию перед добавлением в робота.","Fix the geometry before adding it to the robot."},
++{"Н·м","N·m"},
++{"Настроить редуктор…","Configure reducer…"},
++{"Новый редуктор в редакторе…","New reducer in the editor…"},
++{"Новый редуктор: раздел «Редукторы» или «Ступени» → «＋ В робота».","New reducer: \"Reducers\" or \"Stages\" → \"＋ To robot\"."},
++{"Новый робот с этим редуктором","New robot with this reducer"},
++{"Нужно","Required"},
++{"Откройте программу через главное окно, чтобы добавить редуктор в робота.","Open the program from the main window to add a reducer to a robot."},
++{"Открыть раздел «Редукторы»","Open \"Reducers\""},
++{"Открыть раздел «Ступени»","Open \"Stages\""},
++{"Показать редукторы на модели. Щёлкните значок — откроются настройки редуктора.","Show reducers on the model. Click a badge to open the reducer settings."},
++{"Предел редуктора","Reducer limit"},
++{"Редуктор не задан.","No reducer is set."},
++{"Редукторы робота","Robot reducers"},
++{"Робот из моих редукторов","Robot from my reducers"},
++{"Своя передача","Custom transmission"},
++{"Следующим звеном робота","As the next robot joint"},
++{"Сначала исправьте цепь.","Fix the train first."},
++{"Сохранено","Saved"},
++{"Сохранено в «Мои редукторы»","Saved to \"My reducers\""},
++{"Сохранить в «Мои редукторы»","Save to \"My reducers\""},
++{"Ступени ×","Stages ×"},
++{" ступ."," stages"},
++{"Тип","Type"},
++{"Только сохранить в «Мои редукторы»","Only save to \"My reducers\""},
++{"У сустава задано только передаточное число — 3D-модели и предела редуктора нет. Поставьте свой редуктор.","This joint only has a ratio — no 3D reducer model and no reducer limit. Put your own reducer in."},
++{"Убрать модель, оставить i","Remove model, keep i"},
++{"Цепь ступеней…","Stage train…"},
++{"доступно","available"},
++{"мм","mm"},
++{"не определено","not determined"},
++{"не хватает","not enough"},
++{"⚙ Редукторы","⚙ Reducers"},
++{"＋ Добавить в робота  ▾","＋ Add to robot  ▾"},
++{"＋ В робота  ▾","＋ To robot  ▾"},
++
+ {"Матовая","Matte"},
+ {"Полуматовая","Satin"},
+ {"Глянцевая","Gloss"},
+@@ -1056,8 +1102,8 @@ namespace GearLab {public static partial class I18n {
+ {"Параметры корпуса","Housing settings"},
+ {"Параметры и посадки — в редакторе корпуса. Положение руки и раскрытие захвата — во вкладке управления. Конструкция пока требует инженерной проверки.","Dimensions and fits are in the housing editor. Arm pose and gripper opening are in the control tab. Engineering validation is still pending."},
+ {"Построение отменено. Предыдущий корпус сохранён.","Generation cancelled. The previous housing is preserved."},
+-{"Gear Lab 6.10.0 · Калькулятор редукторов","GearLab 6.10.0 · Reducer calculator"},
+-{"GearLab 6.10.0 · Робототехника","GearLab 6.10.0 · Robotics"},
++{"Gear Lab 6.11.0 · Калькулятор редукторов","GearLab 6.11.0 · Reducer calculator"},
++{"GearLab 6.11.0 · Робототехника","GearLab 6.11.0 · Robotics"},
+ {"Шаг 0,01–100 мм; чувствительность 1–30; анимация 0,01–10; автосохранение 15–600 с.","Step 0.01–100 mm; sensitivity 1–30; animation 0.01–10; autosave 15–600 s."},
+ {"ЛКМ — вращение · СКМ / Shift+ЛКМ — сдвиг · колесо — масштаб · F — вписать","Left-drag: orbit · Middle / Shift+left: pan · Wheel: zoom · F: frame all"},
+ {" мм/с"," mm/s"},
+diff --git a/src/WorkspaceShell.cs b/src/WorkspaceShell.cs
+index 5fc6c9f..46c1d45 100644
+--- a/src/WorkspaceShell.cs
++++ b/src/WorkspaceShell.cs
+@@ -18,11 +18,11 @@ namespace GearLab {
+ 
+  }
+ 
+- public sealed class WorkspaceShell:Form {
++ public sealed partial class WorkspaceShell:Form {
+ 
+   internal readonly TabControl Pages=new EditorTabs();readonly Dictionary<string,TabPage> sections=new Dictionary<string,TabPage>();readonly List<Form> documents=new List<Form>();readonly Dictionary<string,ToolStripButton> navButtons=new Dictionary<string,ToolStripButton>();Form active;bool approved;
+ 
+-  public WorkspaceShell(Form initial){Text="GearLab 6.10.0";Font=new Font("Segoe UI",9);Size=new Size(1660,1050);MinimumSize=new Size(1180,760);StartPosition=FormStartPosition.CenterScreen;Icon=Icon.ExtractAssociatedIcon(Application.ExecutablePath);BackColor=Color.FromArgb(239,243,249);var nav=new ToolStrip{Dock=DockStyle.Top,GripStyle=ToolStripGripStyle.Hidden,Padding=new Padding(12,7,12,7),AutoSize=false,Height=48,BackColor=Color.FromArgb(224,232,244)};nav.Items.Add(new ToolStripLabel("GearLab"){Font=new Font("Segoe UI Semibold",12.5f),Margin=new Padding(2,0,18,0),ToolTipText="GearLab 6.10.0"});foreach(var pair in new[]{new[]{"robot","Робототехника"},new[]{"reducer","Редукторы"},new[]{"train","Ступени"},new[]{"settings","Настройки"}}){string key=pair[0];var button=new ToolStripButton(pair[1]){Padding=new Padding(12,4,12,4),Margin=new Padding(1,0,1,0),Font=new Font("Segoe UI",10f),AutoToolTip=false};if(key=="settings")button.Alignment=ToolStripItemAlignment.Right;button.Click+=(s,e)=>Navigate(key);nav.Items.Add(button);navButtons[key]=button;}var language=new ToolStripDropDownButton{Alignment=ToolStripItemAlignment.Right,Padding=new Padding(6,4,6,4),Text=AppSettings.Current.Language==GearLanguage.English?"EN":"RU",ToolTipText="Язык / Language"};var ru=new ToolStripMenuItem("Русский");var en=new ToolStripMenuItem("English");ru.Click+=(s,e)=>{try{AppSettings.SetLanguage(GearLanguage.Русский);}catch(Exception ex){UiMessage.Show(this,ex.Message);}};en.Click+=(s,e)=>{try{AppSettings.SetLanguage(GearLanguage.English);}catch(Exception ex){UiMessage.Show(this,ex.Message);}};language.DropDownItems.AddRange(new ToolStripItem[]{ru,en});Action syncLanguage=()=>{language.Text=AppSettings.Current.Language==GearLanguage.English?"EN":"RU";ru.Checked=AppSettings.Current.Language==GearLanguage.Русский;en.Checked=!ru.Checked;};AppSettings.Changed+=syncLanguage;Disposed+=(s,e)=>AppSettings.Changed-=syncLanguage;nav.Items.Add(language);var close=new ToolStripButton("Закрыть вкладку"){Alignment=ToolStripItemAlignment.Right,Padding=new Padding(8,4,8,4),AutoToolTip=false};close.Click+=(s,e)=>CloseCurrent();nav.Items.Add(close);syncLanguage();Pages.Dock=DockStyle.Fill;Pages.Padding=new Point(14,5);Pages.SelectedIndexChanged+=(s,e)=>ActivatePage();Controls.Add(Pages);Controls.Add(nav);Pages.BringToFront();Pages.Selected+= (s,e)=>ActivatePage();AddDocument(initial,Key(initial));AppSettings.Apply(this);FormClosing+=(s,e)=>{if(approved)return;foreach(var form in documents.ToArray()){var doc=form as IWorkspaceDocument;if(doc!=null&&!doc.WorkspaceCanClose()){Pages.SelectedTab=Pages.TabPages.Cast<TabPage>().First(p=>p.Tag==form);e.Cancel=true;return;}}approved=true;foreach(var form in documents.ToArray()){var doc=form as IWorkspaceDocument;if(doc!=null)doc.WorkspaceApproveClose();form.Close();}};}
++  public WorkspaceShell(Form initial){Text="GearLab 6.11.0";Font=new Font("Segoe UI",9);Size=new Size(1660,1050);MinimumSize=new Size(1180,760);StartPosition=FormStartPosition.CenterScreen;Icon=Icon.ExtractAssociatedIcon(Application.ExecutablePath);BackColor=Color.FromArgb(239,243,249);var nav=new ToolStrip{Dock=DockStyle.Top,GripStyle=ToolStripGripStyle.Hidden,Padding=new Padding(12,7,12,7),AutoSize=false,Height=48,BackColor=Color.FromArgb(224,232,244)};nav.Items.Add(new ToolStripLabel("GearLab"){Font=new Font("Segoe UI Semibold",12.5f),Margin=new Padding(2,0,18,0),ToolTipText="GearLab 6.11.0"});foreach(var pair in new[]{new[]{"robot","Робототехника"},new[]{"reducer","Редукторы"},new[]{"train","Ступени"},new[]{"settings","Настройки"}}){string key=pair[0];var button=new ToolStripButton(pair[1]){Padding=new Padding(12,4,12,4),Margin=new Padding(1,0,1,0),Font=new Font("Segoe UI",10f),AutoToolTip=false};if(key=="settings")button.Alignment=ToolStripItemAlignment.Right;button.Click+=(s,e)=>Navigate(key);nav.Items.Add(button);navButtons[key]=button;}var language=new ToolStripDropDownButton{Alignment=ToolStripItemAlignment.Right,Padding=new Padding(6,4,6,4),Text=AppSettings.Current.Language==GearLanguage.English?"EN":"RU",ToolTipText="Язык / Language"};var ru=new ToolStripMenuItem("Русский");var en=new ToolStripMenuItem("English");ru.Click+=(s,e)=>{try{AppSettings.SetLanguage(GearLanguage.Русский);}catch(Exception ex){UiMessage.Show(this,ex.Message);}};en.Click+=(s,e)=>{try{AppSettings.SetLanguage(GearLanguage.English);}catch(Exception ex){UiMessage.Show(this,ex.Message);}};language.DropDownItems.AddRange(new ToolStripItem[]{ru,en});Action syncLanguage=()=>{language.Text=AppSettings.Current.Language==GearLanguage.English?"EN":"RU";ru.Checked=AppSettings.Current.Language==GearLanguage.Русский;en.Checked=!ru.Checked;};AppSettings.Changed+=syncLanguage;Disposed+=(s,e)=>AppSettings.Changed-=syncLanguage;nav.Items.Add(language);var close=new ToolStripButton("Закрыть вкладку"){Alignment=ToolStripItemAlignment.Right,Padding=new Padding(8,4,8,4),AutoToolTip=false};close.Click+=(s,e)=>CloseCurrent();nav.Items.Add(close);syncLanguage();Pages.Dock=DockStyle.Fill;Pages.Padding=new Point(14,5);Pages.SelectedIndexChanged+=(s,e)=>ActivatePage();Controls.Add(Pages);Controls.Add(nav);Pages.BringToFront();Pages.Selected+= (s,e)=>ActivatePage();AddDocument(initial,Key(initial));AppSettings.Apply(this);FormClosing+=(s,e)=>{if(approved)return;foreach(var form in documents.ToArray()){var doc=form as IWorkspaceDocument;if(doc!=null&&!doc.WorkspaceCanClose()){Pages.SelectedTab=Pages.TabPages.Cast<TabPage>().First(p=>p.Tag==form);e.Cancel=true;return;}}approved=true;foreach(var form in documents.ToArray()){var doc=form as IWorkspaceDocument;if(doc!=null)doc.WorkspaceApproveClose();form.Close();}};}
+ 
+   static string Key(Form f){return f is TrainDesignerForm?"train":f is CADStudioForm?"cad":f is RobotDesignerForm?"robot":f is MechanismForm?"mechanism":f is MainForm||f is ReducerWorkspaceForm?"reducer":f is WaveReducerForm?"wave":f is PolygonForm?"polygon":"settings";}
+ 
+@@ -30,13 +30,13 @@ namespace GearLab {
+ 
+   public void Navigate(string key){if(key=="cad"||key=="polygon"||key=="mechanism")throw new InvalidOperationException("Раздел моделирования удалён.");bool wave=key=="wave";if(wave)key="reducer";TabPage page;if(sections.TryGetValue(key,out page)&&!page.IsDisposed){Pages.SelectedTab=page;if(wave&&page.Tag is ReducerWorkspaceForm)((ReducerWorkspaceForm)page.Tag).SelectWave();return;}var created=Create(key);AddDocument(created,key);if(wave&&created is ReducerWorkspaceForm)((ReducerWorkspaceForm)created).SelectWave();}
+ 
+-  public void AddDocument(Form form,string key){if(key!=null&&sections.ContainsKey(key)){form.Dispose();Pages.SelectedTab=sections[key];return;}var returnTo=key==null?Pages.SelectedTab:null;var page=new TabPage{Tag=form,Padding=Padding.Empty};if(key!=null)sections[key]=page;documents.Add(form);form.TopLevel=false;form.FormBorderStyle=FormBorderStyle.None;form.StartPosition=FormStartPosition.Manual;form.Dock=DockStyle.Fill;form.MinimumSize=Size.Empty;page.Controls.Add(form);Action caption=()=>{page.Text=form.Text.Replace("GearLab 6.10.0 · ","").Replace("GearLab 4 · ","").Replace("GearLab 3 · ","");if(page.Text.Length>45)page.Text=page.Text.Substring(0,42)+"…";if(active==form)Text="GearLab 6.10.0 · "+page.Text;};form.TextChanged+=(s,e)=>caption();form.FormClosed+=(s,e)=>{documents.Remove(form);foreach(var k in sections.Where(p=>p.Value==page).Select(p=>p.Key).ToArray())sections.Remove(k);Pages.TabPages.Remove(page);page.Dispose();if(returnTo!=null&&Pages.TabPages.Contains(returnTo))Pages.SelectedTab=returnTo;else if(documents.Count==0&&!approved)Navigate("reducer");};Pages.TabPages.Add(page);Pages.SelectedTab=page;if(Visible)form.Show();else Shown+=(s,e)=>{if(!form.IsDisposed){form.Show();form.PerformLayout();}};caption();AppSettings.Apply(form);ActivatePage();}
++  public void AddDocument(Form form,string key){if(key!=null&&sections.ContainsKey(key)){form.Dispose();Pages.SelectedTab=sections[key];return;}var returnTo=key==null?Pages.SelectedTab:null;var page=new TabPage{Tag=form,Padding=Padding.Empty};if(key!=null)sections[key]=page;documents.Add(form);form.TopLevel=false;form.FormBorderStyle=FormBorderStyle.None;form.StartPosition=FormStartPosition.Manual;form.Dock=DockStyle.Fill;form.MinimumSize=Size.Empty;page.Controls.Add(form);Action caption=()=>{page.Text=form.Text.Replace("GearLab 6.11.0 · ","").Replace("GearLab 4 · ","").Replace("GearLab 3 · ","");if(page.Text.Length>45)page.Text=page.Text.Substring(0,42)+"…";if(active==form)Text="GearLab 6.11.0 · "+page.Text;};form.TextChanged+=(s,e)=>caption();form.FormClosed+=(s,e)=>{documents.Remove(form);foreach(var k in sections.Where(p=>p.Value==page).Select(p=>p.Key).ToArray())sections.Remove(k);Pages.TabPages.Remove(page);page.Dispose();if(returnTo!=null&&Pages.TabPages.Contains(returnTo))Pages.SelectedTab=returnTo;else if(documents.Count==0&&!approved)Navigate("reducer");};Pages.TabPages.Add(page);Pages.SelectedTab=page;if(Visible)form.Show();else Shown+=(s,e)=>{if(!form.IsDisposed){form.Show();form.PerformLayout();}};caption();AppSettings.Apply(form);ActivatePage();}
+ 
+   public void FocusDocument(Form form){var page=Pages.TabPages.Cast<TabPage>().FirstOrDefault(p=>p.Tag==form);if(page!=null)Pages.SelectedTab=page;}
+ 
+   public void ApplyWorkspaceSettings(){AppSettings.Apply(this);foreach(var form in documents)AppSettings.Apply(form);}
+ 
+-  void ActivatePage(){var next=Pages.SelectedTab==null?null:Pages.SelectedTab.Tag as Form;foreach(var pair in navButtons){TabPage owner;pair.Value.Checked=Pages.SelectedTab!=null&&sections.TryGetValue(pair.Key,out owner)&&owner==Pages.SelectedTab;}foreach(var document in documents){if(document!=next)document.Hide();}if(next!=null&&Visible&&!next.Visible)next.Show();if(active==next)return;var previous=active as IWorkspaceDocument;if(previous!=null)previous.WorkspaceActivate(false);active=next;var current=active as IWorkspaceDocument;if(current!=null)current.WorkspaceActivate(true);if(active!=null)Text="GearLab 6.10.0 · "+Pages.SelectedTab.Text;}
++  void ActivatePage(){var next=Pages.SelectedTab==null?null:Pages.SelectedTab.Tag as Form;foreach(var pair in navButtons){TabPage owner;pair.Value.Checked=Pages.SelectedTab!=null&&sections.TryGetValue(pair.Key,out owner)&&owner==Pages.SelectedTab;}foreach(var document in documents){if(document!=next)document.Hide();}if(next!=null&&Visible&&!next.Visible)next.Show();if(active==next)return;var previous=active as IWorkspaceDocument;if(previous!=null)previous.WorkspaceActivate(false);active=next;var current=active as IWorkspaceDocument;if(current!=null)current.WorkspaceActivate(true);if(active!=null)Text="GearLab 6.11.0 · "+Pages.SelectedTab.Text;}
+ 
+   void CloseCurrent(){var form=Pages.SelectedTab==null?null:Pages.SelectedTab.Tag as Form;if(form==null)return;var doc=form as IWorkspaceDocument;if(doc!=null&&!doc.WorkspaceCanClose())return;if(doc!=null)doc.WorkspaceApproveClose();form.Close();if(documents.Count==0)Navigate("reducer");}
+ 
+diff --git a/web/index.html b/web/index.html
+index 2db160b..211d023 100644
+--- a/web/index.html
++++ b/web/index.html
+@@ -11,4 +11,10 @@ button.active{background:var(--Selection);color:var(--Text);border-color:var(--A
+ #help,#selection,#joint-badge,.label{background:var(--Panel);color:var(--Text);border:1px solid var(--Border);border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.18)}
+ #help{bottom:14px;left:14px;padding:8px 12px;color:var(--Muted)}#status{color:var(--Muted);top:78px}#joint-badge{top:108px;padding:8px 12px}.label{border-radius:7px;padding:4px 8px}
+ #selection{padding:12px 14px}
++#reducer-pins{position:absolute;inset:0;pointer-events:none;z-index:2}
++.reducer-pin{position:absolute;pointer-events:auto;display:flex;align-items:center;gap:8px;transform:translate(-17px,-50%);padding:4px 12px 4px 4px;border-radius:999px;background:var(--Panel);color:var(--Text);border:1px solid var(--Border);box-shadow:0 4px 14px rgba(0,0,0,.28);font:12px "Segoe UI",Arial,sans-serif;white-space:nowrap;cursor:pointer}
++.reducer-pin:hover{background:var(--Field)}.reducer-pin .gear{width:28px;height:28px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--Success,#3FAE6A);color:#fff;font-size:17px;line-height:1}
++.reducer-pin.warn .gear{background:var(--Warning,#E0A526)}.reducer-pin.error .gear{background:var(--Error,#E05252)}.reducer-pin.none .gear{background:transparent;border:1.5px dashed var(--Muted);color:var(--Muted)}
++.reducer-pin.selected{border-color:var(--Accent);box-shadow:0 0 0 2px var(--Accent),0 4px 14px rgba(0,0,0,.28);z-index:1}
++.reducer-pin .text{display:flex;flex-direction:column;line-height:1.2;text-align:left}.reducer-pin b{font-weight:600}.reducer-pin small{color:var(--Muted);font-size:11px}
+ </style></head><body><div id="bar"><button id="fit">Вписать</button><button id="iso">ISO</button><button data-view="REFERENCE">Референс</button><button data-view="XY">XY</button><button data-view="XZ">XZ</button><button data-view="YZ">YZ</button><button id="move">Перемещение</button><button id="joint-control">Шарниры робота</button><button id="studio">Студия</button><select id="spaces"><option value="none">Объёмы скрыты</option><option value="all">Все защитные объёмы</option><option value="occupied">Компоненты</option><option value="clearance">Зазоры</option><option value="motion">Движение</option><option value="service">Обслуживание</option><option value="cable">Проводка</option></select></div><div id="status">3D-сцена · Three.js · миллиметры</div><div id="labels"></div><div id="selection"></div><div id="help">Левая кнопка мыши — вращать · правая — двигать вид · колесо — приближать · щелчок — выбрать деталь</div><script>window.addEventListener("error",e=>window.chrome?.webview?.postMessage({type:"error",message:e.message||"Не удалось загрузить модуль сцены"}));window.addEventListener("unhandledrejection",e=>window.chrome?.webview?.postMessage({type:"error",message:String(e.reason)}));</script><script type="module" src="./scene.js"></script></body></html>
+diff --git a/web/scene.js b/web/scene.js
+index 1d7275d..dbb010c 100644
+--- a/web/scene.js
++++ b/web/scene.js
+@@ -36,7 +36,11 @@ function skeletonData(data){clearGroup(skeleton);bones.clear();labels.replaceChi
+ function addVolume(data){const bounds=data.bounds,min=new THREE.Vector3(...bounds.slice(0,3)),max=new THREE.Vector3(...bounds.slice(3)),size=max.clone().sub(min),centre=max.clone().add(min).multiplyScalar(.5);const colors={occupied:'#748295',clearance:'#368aef',motion:'#c45fdf',service:'#edb13c',cable:'#41b785'};const mesh=new THREE.Mesh(new THREE.BoxGeometry(...size.toArray()),new THREE.MeshBasicMaterial({color:colors[data.kind]||'#7187a4',transparent:true,opacity:.13,depthWrite:false}));const group=new THREE.Group();mesh.position.copy(centre);group.add(mesh);group.matrixAutoUpdate=false;if(data.matrix)group.matrix.fromArray(data.matrix);group.userData.kind=data.kind;volumes.add(group);updateVolumes();}
+ function updateVolumes(){const mode=document.querySelector('#spaces').value;for(const child of volumes.children)child.visible=mode==='all'||mode===child.userData.kind;}
+ function setPresentation(enabled){presentation=!!enabled;document.body.classList.toggle('studio',presentation);document.querySelector('#studio').classList.toggle('active',presentation);scene.background=presentation?null:new THREE.Color(viewportColor);grid.visible=!presentation;worldAxes.visible=!presentation;for(const item of parts.values()){item.mesh.material.roughness=presentation?.4:.58;item.mesh.material.metalness=presentation?.06:.12;}}
+-function message(data){switch(data.type){case'appearance':applyAppearance(data);break;case'presentation':setPresentation(data.enabled);break;case'jointController':jointControl.receive(data);break;case'clear':introParts.clear();introArmed=introEnabled;introCount=0;jointControl.receive({enabled:false});clearGroup(model);clearGroup(skeleton);clearGroup(volumes);clearGroup(issues);labels.replaceChildren();parts.clear();bones.clear();select(null);break;case'part':addPart(data);break;case'camera':applyingCamera=true;camera.position.fromArray(data.position);orbit.target.fromArray(data.target);width=Math.max(1,data.width);camera.zoom=1;camera.lookAt(orbit.target);resize();orbit.update();applyingCamera=false;break;case'fit':fit();break;case'preset':fit(data.view);break;case'move':moving=!!data.enabled;if(moving)stopIntro();document.querySelector('#move').classList.toggle('active',moving);select(selected);break;case'axis':transform.showX=data.axis<0||data.axis===0;transform.showY=data.axis<0||data.axis===1;transform.showZ=data.axis<0||data.axis===2;break;case'select':select(data.id);break;case'poses':for(const item of data.parts||[]){const p=parts.get(item.id);if(p)p.mesh.matrix.fromArray(item.matrix);}break;case'visibility':{const hidden=new Set(data.hidden||[]);for(const [id,item]of parts)item.mesh.visible=!hidden.has(id);break;}case'bones':skeletonData(data);break;case'volume':addVolume(data);break;case'issues':clearGroup(issues);for(const issue of data.issues||[]){if(issue.status==='pass'||!issue.partId)continue;const marker=new THREE.Mesh(new THREE.SphereGeometry(5.5,14,10),new THREE.MeshBasicMaterial({color:issue.status==='error'?'#d6413d':'#e6ac30',depthTest:false}));marker.position.fromArray(issue.position);marker.renderOrder=7;marker.userData={id:issue.partId,kind:'issue',message:issue.message};issues.add(marker);}break;case'snap':transform.setTranslationSnap(data.step>0?data.step:null);break;case'clip':{if(data.axis>=0)stopIntro();const planes=data.axis>=0?[new THREE.Plane(new THREE.Vector3(data.axis===0?1:0,data.axis===1?1:0,data.axis===2?1:0),-data.coordinate)]:[];for(const item of parts.values())item.mesh.material.clippingPlanes=planes;break;}case'status':document.querySelector('#status').textContent=data.text;break;}}
++function message(data){switch(data.type){case'appearance':applyAppearance(data);break;case'presentation':setPresentation(data.enabled);break;case'jointController':jointControl.receive(data);break;case'clear':introParts.clear();introArmed=introEnabled;introCount=0;jointControl.receive({enabled:false});clearGroup(model);clearGroup(skeleton);clearGroup(volumes);clearGroup(issues);labels.replaceChildren();parts.clear();bones.clear();select(null);break;case'part':addPart(data);break;case'camera':applyingCamera=true;camera.position.fromArray(data.position);orbit.target.fromArray(data.target);width=Math.max(1,data.width);camera.zoom=1;camera.lookAt(orbit.target);resize();orbit.update();applyingCamera=false;break;case'fit':fit();break;case'preset':fit(data.view);break;case'move':moving=!!data.enabled;if(moving)stopIntro();document.querySelector('#move').classList.toggle('active',moving);select(selected);break;case'axis':transform.showX=data.axis<0||data.axis===0;transform.showY=data.axis<0||data.axis===1;transform.showZ=data.axis<0||data.axis===2;break;case'select':select(data.id);break;case'poses':for(const item of data.parts||[]){const p=parts.get(item.id);if(p)p.mesh.matrix.fromArray(item.matrix);}break;case'visibility':{const hidden=new Set(data.hidden||[]);for(const [id,item]of parts)item.mesh.visible=!hidden.has(id);break;}case'bones':skeletonData(data);break;case'volume':addVolume(data);break;case'issues':clearGroup(issues);for(const issue of data.issues||[]){if(issue.status==='pass'||!issue.partId)continue;const marker=new THREE.Mesh(new THREE.SphereGeometry(5.5,14,10),new THREE.MeshBasicMaterial({color:issue.status==='error'?'#d6413d':'#e6ac30',depthTest:false}));marker.position.fromArray(issue.position);marker.renderOrder=7;marker.userData={id:issue.partId,kind:'issue',message:issue.message};issues.add(marker);}break;case'snap':transform.setTranslationSnap(data.step>0?data.step:null);break;case'clip':{if(data.axis>=0)stopIntro();const planes=data.axis>=0?[new THREE.Plane(new THREE.Vector3(data.axis===0?1:0,data.axis===1?1:0,data.axis===2?1:0),-data.coordinate)]:[];for(const item of parts.values())item.mesh.material.clippingPlanes=planes;break;}case'status':document.querySelector('#status').textContent=data.text;break;case'reducers':setReducerPins(data);break;}}
++// 6.11.0: значки редукторов на суставах. Щелчок по значку открывает настройки редуктора этого сустава.
++const reducerLayer=document.createElement('div');reducerLayer.id='reducer-pins';document.body.append(reducerLayer);let reducerPins=[];
++function setReducerPins(data){reducerLayer.replaceChildren();reducerPins=[];if(!data.enabled)return;for(const item of data.items||[]){const button=document.createElement('button');button.type='button';button.className='reducer-pin '+(item.status||'none')+(item.selected?' selected':'');button.title=item.tooltip||'';button.dataset.id=item.id;const gear=document.createElement('span');gear.className='gear';gear.textContent='\u2699';const text=document.createElement('span');text.className='text';const name=document.createElement('b');name.textContent=item.label;const sub=document.createElement('small');sub.textContent=item.detail;text.append(name,sub);button.append(gear,text);button.addEventListener('pointerdown',event=>event.stopPropagation());button.addEventListener('click',event=>{event.stopPropagation();send({type:'reducerPick',id:item.id});});reducerLayer.append(button);reducerPins.push({element:button,position:new THREE.Vector3(...item.position)});}placeReducerPins();}
++function placeReducerPins(){for(const pin of reducerPins){const p=pin.position.clone().project(camera);pin.element.style.left=((p.x*.5+.5)*innerWidth)+'px';pin.element.style.top=((-p.y*.5+.5)*innerHeight)+'px';pin.element.style.display=p.z>1||p.z< -1?'none':'flex';}}
+ window.chrome?.webview?.addEventListener('message',event=>{try{message(event.data);requestRender();}catch(error){send({type:'error',message:error.message});}});
+ orbit.addEventListener('change',requestRender);transform.addEventListener('change',requestRender);jointControl.control.addEventListener('change',requestRender);
+ for(const event of ['pointerdown','pointermove','pointerup'])renderer.domElement.addEventListener(event,requestRender);
+@@ -46,9 +50,9 @@ orbit.addEventListener('end',()=>{if(!applyingCamera)send({type:'camera',positio
+ transform.addEventListener('dragging-changed',event=>{orbit.enabled=!event.value;});transform.addEventListener('mouseDown',()=>{dragStart=proxy.position.clone();});transform.addEventListener('objectChange',()=>{if(!activeObject||!dragStart)return;const delta=proxy.position.clone().sub(dragStart);if(activeObject.userData.kind==='bone')activeObject.position.copy(proxy.position);else if(activeObject.userData.kind==='part'){if(!activeObject.userData.originalMatrix)activeObject.userData.originalMatrix=activeObject.matrix.clone();activeObject.matrix.copy(activeObject.userData.originalMatrix);activeObject.matrix.elements[12]+=delta.x;activeObject.matrix.elements[13]+=delta.y;activeObject.matrix.elements[14]+=delta.z;}});transform.addEventListener('mouseUp',()=>{if(!dragStart||!activeObject)return;const delta=proxy.position.clone().sub(dragStart);if(activeObject.userData.kind==='part')delete activeObject.userData.originalMatrix;send({type:activeObject.userData.kind==='bone'?'boneMoved':'partMoved',id:activeObject.userData.id,delta:delta.toArray()});dragStart=null;});
+ renderer.domElement.addEventListener('pointerdown',event=>{press={x:event.clientX,y:event.clientY};});renderer.domElement.addEventListener('pointerup',event=>{if(!press||dragStart||jointControl.drag||Math.hypot(event.clientX-press.x,event.clientY-press.y)>5)return;pointer.set(event.clientX/innerWidth*2-1,1-event.clientY/innerHeight*2);ray.setFromCamera(pointer,camera);const hits=ray.intersectObjects([...issues.children,...skeleton.children.filter(x=>x.isMesh),...model.children],true).filter(x=>x.object.visible);const hit=hits[0]?.object;if(hit?.userData.kind==='issue'){select(hit.userData.id,true);info.textContent=hit.userData.message;info.style.display='block';}else if(hit){select(hit.userData.id,true);}else select(null,true);press=null;});
+ document.querySelector('#studio').onclick=()=>setPresentation(!presentation);document.querySelector('#joint-control').onclick=()=>send({type:'controllerMode'});document.querySelector('#fit').onclick=()=>fit();document.querySelector('#iso').onclick=()=>fit('ISO');for(const b of document.querySelectorAll('[data-view]'))b.onclick=()=>fit(b.dataset.view);document.querySelector('#spaces').onchange=updateVolumes;document.querySelector('#move').onclick=event=>{moving=!moving;event.target.classList.toggle('active',moving);select(selected);send({type:'moveMode',enabled:moving});};addEventListener('keydown',event=>{if(event.key.toLowerCase()==='f')fit();if(event.key==='Escape'){moving=false;transform.detach();document.querySelector('#move').classList.remove('active');}});
+-function animate(time){const cameraChanged=orbit.update();const introActive=introParts.size>0&&introApply(performance.now());for(const tip of bones.values()){const element=tip.userData.label;if(!element)continue;const p=tip.position.clone().project(camera);element.style.left=((p.x*.5+.5)*innerWidth)+'px';element.style.top=((-p.y*.5+.5)*innerHeight)+'px';element.style.display=p.z>1||p.z< -1?'none':'block';}try{renderer.render(scene,camera);}finally{introRestore();}performanceFrames++;return cameraChanged||introActive;}requestRender();send({type:'ready'});
++function animate(time){const cameraChanged=orbit.update();const introActive=introParts.size>0&&introApply(performance.now());for(const tip of bones.values()){const element=tip.userData.label;if(!element)continue;const p=tip.position.clone().project(camera);element.style.left=((p.x*.5+.5)*innerWidth)+'px';element.style.top=((-p.y*.5+.5)*innerHeight)+'px';element.style.display=p.z>1||p.z< -1?'none':'block';}placeReducerPins();try{renderer.render(scene,camera);}finally{introRestore();}performanceFrames++;return cameraChanged||introActive;}requestRender();send({type:'ready'});
+ 
+-window.gearlabSceneInfo=()=>({renderFrames:performanceFrames,parts:parts.size,bones:bones.size,selected,width,canvasWidth:renderer.domElement.width,canvasHeight:renderer.domElement.height,pixelRatio:renderer.getPixelRatio(),quality:previewQuality,translationSnap:transform.translationSnap,triangles:renderer.info.render.triangles,presentation,jointController:jointControl.info()});
++window.gearlabSceneInfo=()=>({reducerPins:reducerPins.length,renderFrames:performanceFrames,parts:parts.size,bones:bones.size,selected,width,canvasWidth:renderer.domElement.width,canvasHeight:renderer.domElement.height,pixelRatio:renderer.getPixelRatio(),quality:previewQuality,translationSnap:transform.translationSnap,triangles:renderer.info.render.triangles,presentation,jointController:jointControl.info()});
+ 
+ // Appearance is view state only: it never changes model coordinates or exported geometry.
+ const originalUi=new WeakMap();
