@@ -46,4 +46,4 @@ jobs:
             test-results-ci/**/*results.*
             test-results-ci/**/*error*.txt
             dist/*.sha256
-            dist/GearLab_5.6/build-info.json
+            dist/GearLab-*/build-info.json

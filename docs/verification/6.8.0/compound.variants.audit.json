@@ -1,0 +1,71 @@
+[
+  {
+    "Fixture": "compound-D.assembly.json",
+    "Complete": true,
+    "TestedPairs": 124,
+    "Pairs": []
+  },
+  {
+    "Fixture": "compound-phase-0.assembly.json",
+    "Complete": true,
+    "TestedPairs": 126,
+    "Pairs": []
+  },
+  {
+    "Fixture": "compound-phase-1.assembly.json",
+    "Complete": true,
+    "TestedPairs": 126,
+    "Pairs": [
+      {
+        "First": "e8e1d55533b7414888656c68a16bcc33_014_PLANET_BUSH",
+        "Second": "e8e1d55533b7414888656c68a16bcc33_015_PLANET_AXLE",
+        "Volume": 2.5868613986901323e-05
+      },
+      {
+        "First": "e8e1d55533b7414888656c68a16bcc33_017_PLANET_BUSH",
+        "Second": "e8e1d55533b7414888656c68a16bcc33_018_PLANET_AXLE",
+        "Volume": 2.1153232239987108e-05
+      }
+    ]
+  },
+  {
+    "Fixture": "compound-phase-2.assembly.json",
+    "Complete": true,
+    "TestedPairs": 127,
+    "Pairs": [
+      {
+        "First": "e8e1d55533b7414888656c68a16bcc33_014_PLANET_BUSH",
+        "Second": "e8e1d55533b7414888656c68a16bcc33_015_PLANET_AXLE",
+        "Volume": 4.397067195149873e-05
+      },
+      {
+        "First": "e8e1d55533b7414888656c68a16bcc33_017_PLANET_BUSH",
+        "Second": "e8e1d55533b7414888656c68a16bcc33_018_PLANET_AXLE",
+        "Volume": 4.3970671347537404e-05
+      }
+    ]
+  },
+  {
+    "Fixture": "compound-phase-3.assembly.json",
+    "Complete": true,
+    "TestedPairs": 126,
+    "Pairs": [
+      {
+        "First": "e8e1d55533b7414888656c68a16bcc33_014_PLANET_BUSH",
+        "Second": "e8e1d55533b7414888656c68a16bcc33_015_PLANET_AXLE",
+        "Volume": 3.734321554615949e-05
+      },
+      {
+        "First": "e8e1d55533b7414888656c68a16bcc33_017_PLANET_BUSH",
+        "Second": "e8e1d55533b7414888656c68a16bcc33_018_PLANET_AXLE",
+        "Volume": 3.0480608806948695e-05
+      }
+    ]
+  },
+  {
+    "Fixture": "compound-Spline.assembly.json",
+    "Complete": true,
+    "TestedPairs": 124,
+    "Pairs": []
+  }
+]

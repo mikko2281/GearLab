@@ -1,0 +1,23 @@
+﻿commit 163746592b766ac6327f836005153fb2dd150df6
+Author:     Codex <codex@openai.com>
+AuthorDate: Sat Nov 14 17:02:45 2026 +0500
+Commit:     Codex <codex@openai.com>
+CommitDate: Sat Nov 14 17:02:45 2026 +0500
+
+    chore: preserve existing local UI changes before compound reducer work
+
+M	src/AppSettings.cs
+M	src/EditorFields.cs
+M	src/EditorTabs.cs
+M	src/GearCalculator.cs
+M	src/I18n.cs
+M	src/RobotDesignerForm.cs
+M	src/RobotWebViewport.cs
+M	src/RobotWorkspaceUX.cs
+M	src/SettingsForm.cs
+M	src/UiAppearance.cs
+M	src/UiTextCatalog.cs
+M	src/WorkspaceShell.cs
+M	tools/ui64_catalog.txt
+M	web/index.html
+M	web/scene.js

@@ -1,0 +1,38 @@
+﻿Версия 6.10.0 — изменения рабочего дерева относительно 79920016 (кодовая база 715f4c5).
+Не закоммичено: см. команды в 6.10.0.md.
+
+M	src/AssemblyInfo.cs
+M	src/CADStudioForm.cs
+M	src/CadGeometry.cs
+M	src/CompoundReducer.cs
+M	src/EditorFields.cs
+A	src/EngineeringUi.cs
+M	src/GearCalculator.cs
+M	src/GearViewerControl.cs
+M	src/MainForm.cs
+M	src/MaterialConverters.cs
+M	src/MaterialLibrary.cs
+M	src/MaterialLoadsDesigner.cs
+A	src/MaterialLook.cs
+M	src/OverloadAnimation.cs
+M	src/OverloadUiTests.cs
+M	src/PrintExport.cs
+M	src/ReferenceRobotDesign.cs
+M	src/ReleaseSupport.cs
+M	src/RobotDesignerForm.cs
+M	src/RobotJointControllers.cs
+M	src/RobotPoseHistory672.cs
+M	src/TrainDesignerForm.cs
+A	src/Ui610Tests.cs
+M	src/UiAppearance.cs
+M	src/UiTextCatalog.cs
+M	src/WorkspaceShell.cs
+M	src/WpfScene.cs
+A	src/WpfSceneLoads.cs
+
+Документация:
+A	docs/updates/6.10.0.md
+A	docs/updates/files/6.10.0.txt
+A	docs/updates/patches/6.10.0.patch
+M	docs/updates/index.json
+M	ДЕРЕВО_ОБНОВЛЕНИЙ.md

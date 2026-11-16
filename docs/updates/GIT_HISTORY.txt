@@ -1,0 +1,29 @@
+﻿* 715f4c5 (HEAD -> codex/fix-common-housing-animation, tag: v6.9.1-compound-animation-preview) Fix shared PTK housing and restore Claude scene animations
+* 511a3d0 (tag: v6.9.0-material-loads-preview, feature/material-loads) feat: add materials, output shaft loads and schematic overload checks (6.9.0)
+* 30e4a2c (tag: v6.8.0-compound-preview, feature/compound-reducer) feat: add modular shared housing for coaxial reducer trains (6.8.0)
+* 1637465 chore: preserve existing local UI changes before compound reducer work
+* b23c2d6 (fix/add-link-direction) Fix added-link direction and connected housings in 6.7.3
+* d5d0c18 (origin/main, origin/HEAD, main) Build and verify GitHub provenance attestations for GearLab 6.7.2
+* dbdaae4 (tag: v6.7.2) Release 6.7.2: reduce robot pose overhead and fix lifecycle, export and cancellation
+* 6c607e3 (tag: v6.7.1) Fix gripper updates and robot CAD intersections in 6.7.1
+* ae91851 (tag: v6.7.0) Add reference-based robot layout 6.7.0 preview with revised joint covers
+* f2dd5aa (tag: v6.6.0) Replace game import with independent parametric industrial arm (6.6.0)
+* fe2c219 (tag: v6.5.0) Add author manipulator reference and P1S PETG calibration kit (6.5.0)
+* d11b2b1 (tag: v6.4.1) Release 6.4.1: optimize bearing meshes, settings updates and idle rendering
+* f6cb7f4 (tag: v6.4.0) Release GearLab 6.4: detachable resizable reducer panels, live playback speed and instant language switching
+* 7536bbd (tag: v6.3.0) Keep robot enum selectors independent of translated captions and verify release head
+* 3857ced Release GearLab 6.3: Blender-inspired workspaces, reliable preferences, palette and Russian/English UI
+* b45acad Fix GearLab 6.2 release documentation links without changing packages
+* f353e9c (tag: v6.2.0) GearLab 6.2: rolling-element wave reducer, detailed bearings and stage workflow
+*   f902810 (tag: v6.1.0) Release GearLab 6.1: audited reducer fixes, current UI tests and verified publishing
+|\  
+| * f20c22f (tag: v6.0.0-preview.2, origin/codex/gearlab-6.0) Preview 2: separate rack tooth loads from useful force and reject globoid bore breakthrough
+| * 38efdd1 (tag: v6.0.0-preview.1) GearLab 6.0 Preview 1: unified transmission library, stage graphs and robot drive integration
+|/  
+* 2df588d (tag: v5.6.0) GearLab 5.6: share the reducer UI and build wave previews without OCCT
+* be1b209 (tag: v5.5.0) GearLab 5.5: remove standalone modelers and rebuild flat wave reducer workspace
+* b48395a (tag: v5.4.0) Package releases on GitHub and keep hosted verification independent of desktop windows
+* eab645c GearLab 5.4: rebuild ROBOT1 as dimensioned CAD links and ship robotics workspaces
+* b906570 (tag: v1.5.0) Preserve UTF-8 signatures for Windows PowerShell and Russian sources
+* 3739672 Release Gear Lab 1.5.0 with interactive part placement and Windows tests
+* e0b5df6 Initial commit

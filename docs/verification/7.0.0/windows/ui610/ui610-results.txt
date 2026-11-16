@@ -1,0 +1,29 @@
+﻿PASS every default material has a known finish
+PASS default materials look different from each other
+PASS PETG glossy, PLA matte, steel metallic
+PASS user colour and finish override the typical look
+PASS invalid colour rejected
+PASS unknown finish rejected
+PASS empty look fields are valid
+PASS unknown FDM material gets a neutral satin look
+PASS look fields survive save/load
+PASS older material files load with the typical look
+PASS projects without materials keep the old colours
+PASS PETG housing carries the PETG look
+PASS steel shaft carries the metal look
+PASS switching the housing to PLA changes its look
+PASS materials example calculates
+PASS role choices show the assigned materials
+PASS housing swatch shows the PETG look
+PASS material card shows PETG properties and source
+PASS choosing PLA for the housing updates the project and the model
+PASS undo restores the previous material
+PASS editing the finish restyles parts made of that material
+PASS invalid density is not applied
+PASS radial force field updates the shaft load
+PASS load arrows are built for force and torque
+PASS 120 % of the limit reports a failure
+PASS 60 % of the limit holds
+PASS weakest mode is first in the chart
+PASS shaft diagram snapshot written
+PASS 28 assertions

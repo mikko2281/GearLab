@@ -50,7 +50,7 @@ namespace GearLab {
 
   Result StageResult(){return Result.Stages.Count>0?Result.Stages[Stage]:Result;}
 
-  public bool Moving{get{return Kind!="fixed";}}
+  public bool Moving{get{return Bearing!=null?BearingBase.Moving||Bearing.BearingElement!=0:Kind!="fixed";}}
 
   public Matrix3D At(double phase,double explode){if(Bearing!=null){var owner=Bearing.BearingSource;var s=owner.Sections[0];double gain=owner.Id.ToUpperInvariant().Contains("OUT")||owner.Id.ToUpperInvariant().Contains("CASE")?TrainSolver.Gain(Result):1;double factor=Bearing.BearingElement==0?0:Bearing.BearingElement==1?gain:gain*.5*(1-Bearing.BearingBall/(2*Bearing.BearingPitch));if(BearingBase.Moving)factor=0;var frame=RobotMath.Translation(s.Outer.X,s.Outer.Y,0)*owner.Placement;var inv=frame;inv.Invert();return inv*RobotMath.Rotation(new Vector3D(0,0,1),phase*factor*180/Math.PI)*frame*BearingBase.At(phase,explode);}if(Train!=null)return Train.At(phase,explode);if(Transmission!=null){var tm=Transmission.At(Result.P.Kind==12?TransmissionSizing.RackPhase(Result.P,phase):phase);tm.Translate(new Vector3D(0,0,explode));return tm;}if(Kind=="robot")return RobotInverse*Result.Robot.Pose(RobotPartId,phase,true);var p=Result.P;double angle=0,x=Centre.X,y=Centre.Y;
 

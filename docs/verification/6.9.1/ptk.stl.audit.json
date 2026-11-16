@@ -1,0 +1,125 @@
+{
+  "Passed": true,
+  "Parts": [
+    {
+      "File": "SH_MOTOR_PLATE.stl",
+      "Triangles": 3256,
+      "BadEdges": 0,
+      "Dimensions": [
+        94.0,
+        94.0,
+        7.0
+      ]
+    },
+    {
+      "File": "SH_MODULE_1.stl",
+      "Triangles": 8696,
+      "BadEdges": 0,
+      "Dimensions": [
+        94.0,
+        94.0,
+        14.6
+      ]
+    },
+    {
+      "File": "24b8607c46e8423aac60a2c0e482df7f_wave_generator.stl",
+      "Triangles": 720,
+      "BadEdges": 0,
+      "Dimensions": [
+        61.6,
+        61.6,
+        8.0
+      ]
+    },
+    {
+      "File": "SH_PARTITION_1.stl",
+      "Triangles": 2648,
+      "BadEdges": 0,
+      "Dimensions": [
+        94.0,
+        94.0,
+        6.0
+      ]
+    },
+    {
+      "File": "SH_MODULE_2.stl",
+      "Triangles": 8400,
+      "BadEdges": 0,
+      "Dimensions": [
+        94.0,
+        94.0,
+        13.2
+      ]
+    },
+    {
+      "File": "a3da78606b034cc892fd911c584e7f68_009_STAGE_1_SUN.stl",
+      "Triangles": 2400,
+      "BadEdges": 0,
+      "Dimensions": [
+        26.0,
+        26.0,
+        7.0
+      ]
+    },
+    {
+      "File": "a3da78606b034cc892fd911c584e7f68_010_STAGE_1_PLANET_1.stl",
+      "Triangles": 2384,
+      "BadEdges": 0,
+      "Dimensions": [
+        25.8612,
+        25.8612,
+        7.0
+      ]
+    },
+    {
+      "File": "a3da78606b034cc892fd911c584e7f68_013_STAGE_1_PLANET_2.stl",
+      "Triangles": 2384,
+      "BadEdges": 0,
+      "Dimensions": [
+        25.8612,
+        25.8612,
+        7.0
+      ]
+    },
+    {
+      "File": "a3da78606b034cc892fd911c584e7f68_016_STAGE_1_PLANET_3.stl",
+      "Triangles": 2384,
+      "BadEdges": 0,
+      "Dimensions": [
+        25.8612,
+        25.8612,
+        7.0
+      ]
+    },
+    {
+      "File": "SH_PARTITION_2.stl",
+      "Triangles": 2648,
+      "BadEdges": 0,
+      "Dimensions": [
+        94.0,
+        94.0,
+        8.0
+      ]
+    },
+    {
+      "File": "SH_COVER.stl",
+      "Triangles": 1472,
+      "BadEdges": 0,
+      "Dimensions": [
+        94.0,
+        94.0,
+        8.0
+      ]
+    },
+    {
+      "File": "a3da78606b034cc892fd911c584e7f68_SH_OUTPUT_CARRIER.stl",
+      "Triangles": 2024,
+      "BadEdges": 0,
+      "Dimensions": [
+        56.0,
+        56.0,
+        24.3
+      ]
+    }
+  ]
+}

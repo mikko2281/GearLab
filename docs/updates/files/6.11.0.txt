@@ -1,0 +1,29 @@
+﻿Версия 6.11.0 — изменения относительно 6.10.0 (рабочее дерево, не закоммичено).
+
+M	src/AssemblyInfo.cs
+M	src/CADStudioForm.cs
+M	src/GearCalculator.cs
+M	src/MainForm.cs
+M	src/PrintExport.cs
+M	src/ReferenceRobotDesign.cs
+M	src/ReleaseSupport.cs
+M	src/RobotDesignerForm.cs
+M	src/RobotJointControllers.cs
+M	src/RobotPoseHistory672.cs
+M	src/RobotProceduralWorkspace.cs
+A	src/RobotReducerKit.cs
+M	src/RobotTrainIntegration.cs
+M	src/RobotWorkspaceUX.cs
+M	src/TrainDesignerForm.cs
+A	src/Ui611Tests.cs
+M	src/UiTextCatalog.cs
+M	src/WorkspaceShell.cs
+M	web/index.html
+M	web/scene.js
+
+Документация:
+A	docs/updates/6.11.0.md
+A	docs/updates/files/6.11.0.txt
+A	docs/updates/patches/6.11.0.patch
+M	docs/updates/index.json
+M	ДЕРЕВО_ОБНОВЛЕНИЙ.md

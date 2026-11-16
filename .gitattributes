@@ -1,8 +1,4 @@
 * text=auto
-# Historical snapshots contain mixed CRLF/CRCRLF. Preserve their recorded bytes;
-# normalize source endings only in a separate reviewed migration.
-*.cs -text
-*.ps1 -text
-# Preserve the exact upstream SDK notice bytes on dependency refresh.
-src/vendor/WebView2/*.txt -text
+*.cs text eol=crlf
+*.ps1 text eol=crlf
 *.ico binary

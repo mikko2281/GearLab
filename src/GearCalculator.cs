@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 using System.IO;
 
@@ -481,6 +481,12 @@ namespace GearLab {
  static class Program {
 
   [STAThread] static int Main(string[] args){
+   if(args.Length>0&&args[0]=="--compound-ui-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return CompoundUiTests.Run(args[1]);}
+   if(args.Length>0&&args[0]=="--ui700-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Ui700Tests.Run(args[1]);}if(args.Length>0&&args[0]=="--ui611-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Ui611Tests.Run(args[1]);}if(args.Length>0&&args[0]=="--ui610-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Ui610Tests.Run(args[1]);}
+   if(args.Length>0&&args[0]=="--overload-ui-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return OverloadUiTests.Run(args[1]);}
+   if(args.Length>0&&args[0]=="--overload-test")return OverloadTests.Run(args[1]);
+   if(args.Length>0&&args[0]=="--compound-test")return CompoundTests.Run(args[1]);
+   if(args.Length>0&&args[0]=="--shared-ptk-test")return SharedPtkTests.Run(args[1]);
    if(args.Length>0&&args[0]=="--performance-web-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return WebPerformanceTests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--industrial66-native-test"){return Industrial66NativeTests.Run(args[1]);}
    if(args.Length>0&&args[0]=="--industrial66-view-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return Industrial66ViewTests.Run(args[1]);}
@@ -561,8 +567,7 @@ namespace GearLab {
 
    if(args.Length>0&&args[0]=="--visibility-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return VisibilityTests.Run(args.Length>1?args[1]:Path.GetTempPath());}
 
-   if(args.Length>0&&args[0]=="--appearance680-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return UiTestLoop672.Run(()=>Appearance680Tests.Run(args[1]));}
-   if(args.Length>0&&args[0]=="--variant-history680-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return UiTestLoop672.Run(()=>VariantCheck.History(args[1]));}if(args.Length>0&&(args[0]=="--variant-check"||args[0]=="--variant-check-test")){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return UiTestLoop672.Run(()=>VariantCheck.Run(args.Length>1?args[1]:Path.GetTempPath()));}if(args.Length>0&&args[0]=="--ui-shots"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return UiShots.Run(args.Length>1?args[1]:Path.GetTempPath());}if(args.Length>0&&args[0]=="--ui-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return PrintTests.Ui(args.Length>1?args[1]:Path.GetTempPath());}
+   if(args.Length>0&&args[0]=="--ui-test"){Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);return PrintTests.Ui(args.Length>1?args[1]:Path.GetTempPath());}
 
    if(args.Length>0&&args[0]=="--print-test")return PrintTests.Run(args.Length>1?args[1]:Path.GetTempPath());
 
@@ -584,7 +589,7 @@ namespace GearLab {
 
    if(args.Length>0&&args[0]=="--reducer")return RunWindow(()=>new ReducerWorkspaceForm());
 
-   Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);Application.ThreadException+=(sender,e)=>ReleaseSupport.Report(e.Exception);AppDomain.CurrentDomain.UnhandledException+=(sender,e)=>ReleaseSupport.Report(e.ExceptionObject as Exception);Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);try{var form=new MainForm();if(args.Length>0)form.LoadProjectFile(args[0]);if(args.Length>1&&args[1]=="--3d")form.ShowFullModel();Application.Run(new WorkspaceShell(form));return 0;}catch(Exception ex){ReleaseSupport.Report(ex);return 1;}
+   Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);Application.ThreadException+=(sender,e)=>ReleaseSupport.Report(e.Exception);AppDomain.CurrentDomain.UnhandledException+=(sender,e)=>ReleaseSupport.Report(e.ExceptionObject as Exception);Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);try{SceneAnimation.Enabled=true;var form=new MainForm();if(args.Length>0)form.LoadProjectFile(args[0]);if(args.Length>1&&args[1]=="--3d")form.ShowFullModel();Application.Run(new WorkspaceShell(form));return 0;}catch(Exception ex){ReleaseSupport.Report(ex);return 1;}
 
   }
 

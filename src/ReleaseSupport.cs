@@ -1,4 +1,4 @@
-using System;using System.IO;using System.Text;using System.Linq;using System.Drawing;using System.Collections.Generic;using System.Globalization;using System.Reflection;using System.Windows.Forms;using System.Web.Script.Serialization;
+﻿using System;using System.IO;using System.Text;using System.Linq;using System.Drawing;using System.Collections.Generic;using System.Globalization;using System.Reflection;using System.Windows.Forms;using System.Web.Script.Serialization;
 
 namespace GearLab {
 
@@ -26,9 +26,9 @@ namespace GearLab {
 
  public static class ReleaseSupport {
 
-  public const string Version="6.8.0";
+  public const string Version="7.0.0";
 
-  public const string HelpText=@"GEARLAB 6.8.0 — КАК ПОЛЬЗОВАТЬСЯ
+  public const string HelpText=@"GEARLAB 7.0.0 — КАК ПОЛЬЗОВАТЬСЯ
 
 РЕДУКТОРЫ
 В одной вкладке доступны 13 типов: циклоидальный, зубчатая пара, зубчатый ремень, планетарный, волновой, червячный, конический, RV, дифференциальный планетарный, гипоидный, глобоидный, магнитный и реечный. Используйте категории и поиск. Переключение типа сохраняет его текущие параметры.
@@ -53,6 +53,7 @@ namespace GearLab {
 Добавьте ступени кнопкой «＋ Ступень», выберите карточку и задайте отношение и размеры. Изменения применяются автоматически; стрелки ↑ ↓ меняют порядок. Сверху всегда видны итоговые отношение, скорость и момент. Дополнительные связи находятся под «Ветвления и два входа»; сумма на ветвлении не должна превышать 1. Два входа разрешены для соответствующей схемы дифференциала с совместимым балансом. Циклы и неподдержанная циркулирующая мощность отклоняются. Общая сборка, таблица скоростей/моментов, STEP и STL рассчитываются с текущими параметрами редактора. Перед экспортом сборка обновляется автоматически.
 
 РОБОТОТЕХНИКА
+Свои редукторы: в «Редукторах» или «Ступенях» нажмите «＋ Добавить в робота» — редуктор встанет новым звеном или вместо редуктора выбранного звена. Кнопка «⚙ Редукторы» показывает значки редукторов на суставах; щелчок по значку открывает настройки. Кнопка «◎ Просмотр»: наведите курсор на звено — оно разлетится на детали, уберите — соберётся.
 Создайте дерево суставов, задайте оси, пределы, моторы, нагрузки и размеры. Контроллеры/кольца/стрелки меняют экранную позу с undo/redo и обновлением статики. Корпус после изменения геометрии требует перестроения; устаревший корпус нельзя экспортировать. Один сустав принимает последовательную цепь с одним конечным выходом; промежуточную ступень выбирать нельзя. Физические моторы программа не подключает.
 
 Переключайтесь между редукторами, ступенями, робототехникой и настройками на верхней панели. Раздел «Свой механизм», отдельные CAD Studio и редактор полигонов удалены из пользовательского интерфейса.
@@ -65,7 +66,7 @@ Ctrl+S — сохранить, Ctrl+O — открыть. Форматы: .gear.
 
 B-rep-проверка относится к текущей позе и имеет лимит 250 пар; программа явно сообщает неполный результат. Полный диапазон движения, ресурс, динамика, нагрев, посадки, шпонки, крепёж, материалы и прочность требуют отдельной инженерной проверки. Подробные формулы, ограничения и отчёты находятся в docs рядом с программой.";
 
-  public const string EnglishHelp=@"GEARLAB 6.8.0 — HELP
+  public const string EnglishHelp=@"GEARLAB 7.0.0 — HELP
 
 REDUCERS
 Choose one of 13 transmission types using categories and search. Each type retains its edited parameters. Enter dimensions, then click Calculate or press Enter. Both decimal separators are accepted. Invalid fields are highlighted; exports are disabled while edits are pending. Automatic fitting locks dimensions it controls; turn it off to enter those dimensions manually. Failed fitting preserves your inputs.
@@ -84,6 +85,7 @@ STAGES
 Set motor speed and torque on the left. Add a Stage, select its card and edit ratio or dimensions on the right. Results update automatically and show output ratio, speed and torque above the assembly. Use arrows to reorder; Duplicate/Delete and Undo/Redo manage the sequence. All stage dimensions opens the full editor. Branches and two inputs contains advanced connections. Cycles and unsupported circulating power are rejected. Exports rebuild from the current editor values.
 
 ROBOTICS
+Your own reducers: in Reducers or Stages press ""＋ Add to robot"" to put the reducer into a new or an existing joint. ""⚙ Reducers"" shows reducer badges on the joints; click a badge to configure it. ""◎ Inspect"": hover over a link to explode it into parts, move away to reassemble.
 Build a joint tree and set axes, limits, motors, loads and dimensions. Joint controllers change the displayed pose with undo/redo and update static loads. Rebuild housing after geometric changes; stale housing cannot be exported. A joint accepts a sequential train with one final output. Physical motors are not connected by this application. Robot autosave creates recovery copies; save your main project file separately.
 
 PREFERENCES

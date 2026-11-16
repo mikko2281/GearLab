@@ -1,0 +1,17 @@
+{
+  "Version": "7.0.0",
+  "ExeVersion": "7.0.0.0",
+  "ExeSha256": "8ACA143E3603ED25C8D0AD65C803DD788427EC6EC5206A198839906C16221A12",
+  "CodeCommits": {
+    "6.10.0": "25e0b1a56ff2098600966933a16124194256b41a",
+    "6.11.0": "daa2a35a3c0075d6ba1537241322582ce14784ca",
+    "7.0.0": "5802d74e926d9c606ae551764b59e0032b69badd"
+  },
+  "WindowsSuitesPassed": 15,
+  "StandaloneJsSuitesPassed": 4,
+  "NativeProceduralChecks": 66,
+  "NativeProceduralRuns": 14,
+  "ManualScreenshots": 10,
+  "ReadyForManufacture": false,
+  "Published": false
+}

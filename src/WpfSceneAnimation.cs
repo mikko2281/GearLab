@@ -1,4 +1,4 @@
-using System;using System.Diagnostics;using System.Linq;using System.Collections.Generic;using System.Windows.Media.Media3D;using System.Windows.Threading;
+﻿using System;using System.Diagnostics;using System.Linq;using System.Collections.Generic;using System.Windows.Media.Media3D;using System.Windows.Threading;
 namespace GearLab {
  // Анимации показа: сборка модели по деталям и плавный разнесённый вид.
  // Включаются только в обычном окне программы; тесты, экспорт и снимки работают без них и получают итоговое состояние сразу.
@@ -26,7 +26,7 @@ namespace GearLab {
   internal void CancelCameraTween(){cameraTween=false;}
 
   // Смещение детали вдоль оси сборки. Во время анимации детали расходятся по очереди, начиная с верхней.
-  double ExplosionOf(SceneNode node){double full=node.Index*2.5;if(!exploding)return Exploded?full:0;double from;from=explodeFrom!=null&&explodeFrom.TryGetValue(node.Part.Id,out from)?from:(explodeOpening?0:full);double order=lastIndex<1?0:(double)node.Index/lastIndex;if(explodeOpening)order=1-order;double f=SceneAnimation.EaseInOut(explodeProgress*1.6-.6*order);return from+((Exploded?full:0)-from)*f;}
+  double ExplosionOf(SceneNode node){double full=CompoundReducer.Enabled(Result.Train)?CompoundExport.Explode(Result,node.Part):node.Index*2.5;if(!exploding)return Exploded?full:0;double from;from=explodeFrom!=null&&explodeFrom.TryGetValue(node.Part.Id,out from)?from:(explodeOpening?0:full);double order=lastIndex<1?0:(double)node.Index/lastIndex;if(explodeOpening)order=1-order;double f=SceneAnimation.EaseInOut(explodeProgress*1.6-.6*order);return from+((Exploded?full:0)-from)*f;}
 
   // Положение детали на экране во время сборки: до своей очереди деталь не видна, затем опускается на место.
   Matrix3D AssemblyPose(SceneNode node,Matrix3D pose){double local=(assembleSeconds-node.Index*assembleStep)/AssemblePartSeconds;var b=node.Frozen==null?Rect3D.Empty:node.Frozen.Bounds;if(b.IsEmpty)return pose;var centre=pose.Transform(new Point3D(b.X+b.SizeX/2,b.Y+b.SizeY/2,b.Z+b.SizeZ/2));if(local<=0){pose.ScaleAt(new Vector3D(.0001,.0001,.0001),centre);return pose;}if(local>=1)return pose;double scale=.6+.4*SceneAnimation.Settle(local),lift=(1-SceneAnimation.EaseOut(local))*assembleDrop;pose.ScaleAt(new Vector3D(scale,scale,scale),centre);pose.Translate(new Vector3D(0,0,lift));return pose;}

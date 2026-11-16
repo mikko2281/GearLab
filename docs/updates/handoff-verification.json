@@ -1,0 +1,15 @@
+{
+  "PreparedDate": "2026-11-14",
+  "ApplicationVersion": "6.9.1",
+  "CodeBaselineCommit": "715f4c574e4d666f70f5c2028b870fe31dbb7afb",
+  "ReadyExeSHA256": "1977083bd72ad9531594da89ea38cbff2618611fd42990148622d206977dbac8",
+  "ProductionSourceHashesMatch": true,
+  "HandoffDocumentationLinksValid": true,
+  "RebuiltFromIncludedSources": true,
+  "SourceBuildSharedPtkChecks": 110,
+  "SourceBuildCompoundUiPassed": true,
+  "BundledNativeCadValid": true,
+  "IncludesGitHistory": true,
+  "IncludesOfflineDependencies": true,
+  "ReadyForManufacture": false
+}

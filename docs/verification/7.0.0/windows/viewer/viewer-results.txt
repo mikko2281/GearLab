@@ -1,0 +1,8 @@
+﻿PASS watertight mesh: normals/winding; six half-tube cuts; cap area excludes bore; volume +/-1.3% circular preview tolerance.
+PASS rendered depth: rear plate visible through front bore; front ring occludes rear plate in both insertion orders; picking follows the same surfaces.
+Kind 0: 255 bodies, 373976 triangles; initial mesh 73,9 ms; pose 0,3559 ms/frame (CPU updates only); cached Z cut 0,456 ms/frame; crossing X cut 139,0 ms/frame.
+Kind 1: 92 bodies, 135440 triangles; initial mesh 27,1 ms; pose 0,1404 ms/frame (CPU updates only); cached Z cut 0,189 ms/frame; crossing X cut 44,3 ms/frame.
+Kind 2: 93 bodies, 131920 triangles; initial mesh 15,7 ms; pose 0,1285 ms/frame (CPU updates only); cached Z cut 0,165 ms/frame; crossing X cut 41,2 ms/frame.
+Kind 3: 280 bodies, 471392 triangles; initial mesh 146,4 ms; pose 0,4576 ms/frame (CPU updates only); cached Z cut 0,561 ms/frame; crossing X cut 167,9 ms/frame.
+PASS native UI: async worker attachment; run/pause in 3D; RPM/scope reuse CAD; housing toggle; fit button.
+PASS camera anchor/pan/orbit; frozen meshes; motion all four transmissions; hidden components; three cut planes; screenshots; model unaffected by view.

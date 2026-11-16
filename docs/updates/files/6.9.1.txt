@@ -1,0 +1,56 @@
+﻿commit 715f4c574e4d666f70f5c2028b870fe31dbb7afb
+Author:     Codex <codex@openai.com>
+AuthorDate: Sat Nov 14 18:38:20 2026 +0500
+Commit:     Codex <codex@openai.com>
+CommitDate: Sat Nov 14 18:38:20 2026 +0500
+
+    Fix shared PTK housing and restore Claude scene animations
+
+M	.gitignore
+M	README.md
+M	docs/COMPOUND_REDUCER.md
+A	docs/RELEASE_6.9.1.md
+A	docs/verification/6.9.1/README.md
+A	docs/verification/6.9.1/build-info.json
+A	docs/verification/6.9.1/compound-section.png
+A	docs/verification/6.9.1/compound-ui-results.json
+A	docs/verification/6.9.1/compound.audit.json
+A	docs/verification/6.9.1/compound.stl.audit.json
+A	docs/verification/6.9.1/compound.variants.audit.json
+A	docs/verification/6.9.1/geometry-identity.json
+A	docs/verification/6.9.1/overload-ui-results.json
+A	docs/verification/6.9.1/ptk-native-results.json
+A	docs/verification/6.9.1/ptk-step-validation.json
+A	docs/verification/6.9.1/ptk-workflow-3d.png
+A	docs/verification/6.9.1/ptk.stl.audit.json
+A	docs/verification/6.9.1/shared-ptk-results.json
+A	examples/Compound_PTK_Planetary_68.train.json
+M	src/AssemblyInfo.cs
+M	src/CADStudioForm.cs
+M	src/CompoundDesigner.cs
+M	src/CompoundReducer.cs
+M	src/CompoundUiTests.cs
+M	src/GearCalculator.cs
+M	src/MainForm.cs
+M	src/PartPlacement.cs
+M	src/PrintExport.cs
+M	src/ReferenceRobotDesign.cs
+M	src/ReleaseSupport.cs
+M	src/RobotDesignerForm.cs
+M	src/RobotJointControllers.cs
+M	src/RobotPoseHistory672.cs
+M	src/RobotWebViewport.cs
+M	src/SceneMesh.cs
+M	src/SceneMotion.cs
+M	src/SceneWorkspace.cs
+A	src/SharedPtkTests.cs
+M	src/TrainDesignerForm.cs
+M	src/TransmissionTrain.cs
+M	src/UiTextCatalog.cs
+M	src/WorkspaceShell.cs
+M	src/WpfScene.cs
+A	src/WpfSceneAnimation.cs
+A	tools/test_scene_intro.mjs
+A	tools/test_shared_ptk_native.py
+M	tools/test_web_preferences672.mjs
+M	web/scene.js

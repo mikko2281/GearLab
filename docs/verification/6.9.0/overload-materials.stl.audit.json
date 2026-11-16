@@ -1,0 +1,125 @@
+{
+  "Passed": true,
+  "Parts": [
+    {
+      "File": "SH_MOTOR_PLATE.stl",
+      "Triangles": 3232,
+      "BadEdges": 0,
+      "Dimensions": [
+        92.3,
+        92.3,
+        7.0
+      ]
+    },
+    {
+      "File": "SH_MODULE_1.stl",
+      "Triangles": 8368,
+      "BadEdges": 0,
+      "Dimensions": [
+        92.3,
+        92.3,
+        13.2
+      ]
+    },
+    {
+      "File": "8084777d01c14ad48b652f1f7eec752a_009_STAGE_1_SUN.stl",
+      "Triangles": 2352,
+      "BadEdges": 0,
+      "Dimensions": [
+        26.0,
+        26.0,
+        7.0
+      ]
+    },
+    {
+      "File": "8084777d01c14ad48b652f1f7eec752a_010_STAGE_1_PLANET_1.stl",
+      "Triangles": 2384,
+      "BadEdges": 0,
+      "Dimensions": [
+        25.8612,
+        25.8612,
+        7.0
+      ]
+    },
+    {
+      "File": "8084777d01c14ad48b652f1f7eec752a_013_STAGE_1_PLANET_2.stl",
+      "Triangles": 2384,
+      "BadEdges": 0,
+      "Dimensions": [
+        25.8612,
+        25.8612,
+        7.0
+      ]
+    },
+    {
+      "File": "8084777d01c14ad48b652f1f7eec752a_016_STAGE_1_PLANET_3.stl",
+      "Triangles": 2384,
+      "BadEdges": 0,
+      "Dimensions": [
+        25.8612,
+        25.8612,
+        7.0
+      ]
+    },
+    {
+      "File": "SH_PARTITION_1.stl",
+      "Triangles": 2656,
+      "BadEdges": 0,
+      "Dimensions": [
+        92.3,
+        92.3,
+        6.0
+      ]
+    },
+    {
+      "File": "SH_MODULE_2.stl",
+      "Triangles": 7360,
+      "BadEdges": 0,
+      "Dimensions": [
+        92.3,
+        92.3,
+        21.2
+      ]
+    },
+    {
+      "File": "db9c6de4e02d4552a8664197142f0f8e_014_CYCLOID_DISC_A.stl",
+      "Triangles": 10984,
+      "BadEdges": 0,
+      "Dimensions": [
+        66.92334,
+        66.92334,
+        7.0
+      ]
+    },
+    {
+      "File": "db9c6de4e02d4552a8664197142f0f8e_016_CYCLOID_DISC_B.stl",
+      "Triangles": 10984,
+      "BadEdges": 0,
+      "Dimensions": [
+        67.64,
+        67.64,
+        7.0
+      ]
+    },
+    {
+      "File": "SH_PARTITION_2.stl",
+      "Triangles": 2608,
+      "BadEdges": 0,
+      "Dimensions": [
+        92.3,
+        92.3,
+        8.0
+      ]
+    },
+    {
+      "File": "SH_COVER.stl",
+      "Triangles": 1456,
+      "BadEdges": 0,
+      "Dimensions": [
+        92.3,
+        92.3,
+        8.0
+      ]
+    }
+  ]
+}

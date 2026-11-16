@@ -1,4 +1,4 @@
-using System;using System.Linq;using System.Drawing;using System.Windows.Media.Media3D;
+﻿using System;using System.Linq;using System.Drawing;using System.Windows.Media.Media3D;
 
 namespace GearLab {
 
@@ -39,12 +39,6 @@ namespace GearLab {
 
  public sealed partial class RobotDesignerForm {
 
-  // Вариант корпуса одного звена: 0 — РОБОТ1 (Г-образный), 1 — кассетный по референсу. Трубчатая «петля» в выбор не входит.
-  internal static readonly string[] BodyVariantNames={"РОБОТ1 · Г-образный","Кассетный · по референсу"};
-  internal static int BodyVariantOf(RobotJoint j){var g=j.BodyGenerator;if(g==null||!g.Enabled||!g.ReferenceDesign||g.IndustrialDesign||g.Variant=="Reference67")return -1;return g.BlenderDesign?0:1;}
-  internal static void ApplyBodyVariant(RobotJoint j,int variant){j.BodyStyle=RobotBodyStyle.Закрытый_трубчатый;if(j.BodyGenerator==null)j.BodyGenerator=new ProceduralBodySettings();var g=j.BodyGenerator;g.Connected=g.Enabled=g.AutoRegenerate=g.ReferenceDesign=true;g.IndustrialDesign=false;g.BlenderDesign=variant==0;if(variant==0)g.FrameWall=Math.Max(6.4,g.FrameWall);}
-  internal void SetBodyVariant(string jointId,int variant){if(variant<0||variant>=BodyVariantNames.Length)return;Mutate(()=>{var j=Document.Find(jointId);if(j!=null)ApplyBodyVariant(j,variant);});}
-
   internal void ApplyReferenceDesign(){Mutate(()=>{UpgradeReferenceSpacing(Document);foreach(var j in Document.Joints){j.BodyStyle=RobotBodyStyle.Закрытый_трубчатый;if(j.BodyGenerator==null)j.BodyGenerator=new ProceduralBodySettings();j.BodyGenerator.Connected=j.BodyGenerator.Enabled=j.BodyGenerator.AutoRegenerate=j.BodyGenerator.ReferenceDesign=true;j.BodyGenerator.BlenderDesign=false;}});}
 
   internal void ApplyBlenderDesign(){Mutate(()=>{foreach(var j in Document.Joints){j.BodyStyle=RobotBodyStyle.Закрытый_трубчатый;if(j.BodyGenerator==null)j.BodyGenerator=new ProceduralBodySettings();j.BodyGenerator.Connected=j.BodyGenerator.Enabled=j.BodyGenerator.AutoRegenerate=j.BodyGenerator.ReferenceDesign=j.BodyGenerator.BlenderDesign=true;j.BodyGenerator.FrameWall=Math.Max(6.4,j.BodyGenerator.FrameWall);}});}
@@ -53,7 +47,7 @@ namespace GearLab {
 
   void ToggleGripperOpening(){if(Document.ReferenceGripper)SetGripperOpening(Document.GripperOpening<10?26:2);}
   internal void SetGripperOpening(double opening){if(!MechanismCad.Finite(opening)||opening<0||opening>40)throw new ArgumentOutOfRangeException("opening");if(!Document.ReferenceGripper||Build==null||opening==Document.GripperOpening)return;EndPoseEdit();BeginPoseEdit();double delta=(opening-Document.GripperOpening)/2;Document.GripperOpening=opening;foreach(var e in Build.Entries.Values.Where(e=>e.GripperSide!=0))e.Shape.X+=e.GripperSide*delta;RefreshManualPose();EndPoseEdit();}
-  bool RestorePoseOnly(RobotDocument target){if(target.Joints.Count!=Document.Joints.Count||target.Joints.Where((j,i)=>j.Id!=Document.Joints[i].Id).Any())return false;double opening=Document.GripperOpening;var positions=Document.Joints.Select(j=>j.Position).ToArray();bool same;try{Document.GripperOpening=target.GripperOpening;for(int i=0;i<positions.Length;i++)Document.Joints[i].Position=target.Joints[i].Position;same=Document.Serialize()==target.Serialize();}finally{Document.GripperOpening=opening;for(int i=0;i<positions.Length;i++)Document.Joints[i].Position=positions[i];}if(!same)return false;double delta=(target.GripperOpening-opening)/2;Document.GripperOpening=target.GripperOpening;for(int i=0;i<positions.Length;i++)Document.Joints[i].Position=target.Joints[i].Position;foreach(var e in Build.Entries.Values.Where(e=>e.GripperSide!=0))e.Shape.X+=e.GripperSide*delta;RefreshManualPose();last=Document.Serialize();Text="GearLab 6.8.0 · "+Document.Name+(last!=saved?" *":"");return true;}
+  bool RestorePoseOnly(RobotDocument target){if(target.Joints.Count!=Document.Joints.Count||target.Joints.Where((j,i)=>j.Id!=Document.Joints[i].Id).Any())return false;double opening=Document.GripperOpening;var positions=Document.Joints.Select(j=>j.Position).ToArray();bool same;try{Document.GripperOpening=target.GripperOpening;for(int i=0;i<positions.Length;i++)Document.Joints[i].Position=target.Joints[i].Position;same=Document.Serialize()==target.Serialize();}finally{Document.GripperOpening=opening;for(int i=0;i<positions.Length;i++)Document.Joints[i].Position=positions[i];}if(!same)return false;double delta=(target.GripperOpening-opening)/2;Document.GripperOpening=target.GripperOpening;for(int i=0;i<positions.Length;i++)Document.Joints[i].Position=target.Joints[i].Position;foreach(var e in Build.Entries.Values.Where(e=>e.GripperSide!=0))e.Shape.X+=e.GripperSide*delta;RefreshManualPose();last=Document.Serialize();Text="GearLab 7.0.0 · "+Document.Name+(last!=saved?" *":"");return true;}
 
  }
 

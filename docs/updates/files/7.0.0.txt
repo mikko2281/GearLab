@@ -1,0 +1,33 @@
+﻿Версия 7.0.0 — изменения относительно 6.11.0 (рабочее дерево, не закоммичено).
+
+M	src/AssemblyInfo.cs
+M	src/CADStudioForm.cs
+M	src/GearCalculator.cs
+M	src/MainForm.cs
+M	src/PrintExport.cs
+M	src/ReferenceRobotDesign.cs
+M	src/ReleaseSupport.cs
+M	src/RobotCad.cs
+M	src/RobotDesignerForm.cs
+A	src/RobotInspect700.cs
+M	src/RobotJointControllers.cs
+M	src/RobotPoseHistory672.cs
+M	src/RobotProceduralWorkspace.cs
+M	src/RobotReducerKit.cs
+M	src/RobotReducerLoads.cs
+M	src/RobotSolver.cs
+M	src/RobotWorkspaceUX.cs
+A	src/Ui700Tests.cs
+M	src/UiTextCatalog.cs
+M	src/WorkspaceShell.cs
+M	web/index.html
+M	web/scene.js
+
+Документация:
+A	docs/updates/7.0.0.md
+A	docs/updates/files/7.0.0.txt
+A	docs/updates/patches/7.0.0.patch
+A	docs/RELEASE_7.0.0.md
+A	ЗАДАНИЕ_CODEX_РЕЛИЗ_7.0.0.md
+M	docs/updates/index.json
+M	ДЕРЕВО_ОБНОВЛЕНИЙ.md

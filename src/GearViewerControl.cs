@@ -18,11 +18,13 @@ namespace GearLab {
 
  public sealed class GearViewerControl:F.UserControl {
 
-  public readonly WpfScene Scene=new WpfScene();readonly ElementHost host=new ElementHost();readonly F.TreeView tree=new ComponentTree();readonly F.TextBox search=new F.TextBox();readonly F.ComboBox cutAxis=new EditorComboBox();readonly F.TrackBar cutPosition=new EditorTrackBar();readonly F.CheckBox reverse=new F.CheckBox();readonly F.Label cutLabel=new F.Label();readonly F.Timer cutDelay=new F.Timer();readonly F.CheckBox moveParts=new F.CheckBox();readonly F.Label selectedPart=new F.Label();readonly SafeNumber[] placement=new SafeNumber[3];bool syncingPlacement;bool syncing;Result result;bool pendingHide;public event Action VisibilityChanged;
+  public readonly WpfScene Scene=new WpfScene();readonly ElementHost host=new ElementHost();readonly F.TreeView tree=new ComponentTree();readonly F.TextBox search=new F.TextBox();readonly F.ComboBox cutAxis=new EditorComboBox();readonly F.TrackBar cutPosition=new EditorTrackBar();readonly F.CheckBox reverse=new F.CheckBox();readonly F.Label cutLabel=new F.Label();readonly F.Timer cutDelay=new F.Timer();readonly F.CheckBox moveParts=new F.CheckBox();readonly F.Label selectedPart=new F.Label();readonly SafeNumber[] placement=new SafeNumber[3];bool syncingPlacement;bool syncing;Result result;bool pendingHide;public event Action VisibilityChanged;F.SplitContainer layout;// 6.10.0: в узких вкладках панель компонентов скрыта — место отдаётся модели.
+  public bool SidePanelVisible{get{return layout==null||!layout.Panel2Collapsed;}set{if(layout!=null)layout.Panel2Collapsed=!value;}}
+  
 
   public GearViewerControl(){
 
-   BackColor=Color.FromArgb(246,249,252);Dock=F.DockStyle.Fill;var split=new F.SplitContainer{Size=new Size(850,600),SplitterDistance=600,Dock=F.DockStyle.Fill,FixedPanel=F.FixedPanel.Panel2,Panel1MinSize=100,Panel2MinSize=210,SplitterWidth=5};Controls.Add(split);host.Dock=F.DockStyle.Fill;host.Child=Scene.Root;split.Panel1.Controls.Add(host);
+   BackColor=Color.FromArgb(246,249,252);Dock=F.DockStyle.Fill;var split=new F.SplitContainer{Size=new Size(850,600),SplitterDistance=600,Dock=F.DockStyle.Fill,FixedPanel=F.FixedPanel.Panel2,Panel1MinSize=100,Panel2MinSize=210,SplitterWidth=5};layout=split;Controls.Add(split);host.Dock=F.DockStyle.Fill;host.Child=Scene.Root;split.Panel1.Controls.Add(host);
 
    var panel=new F.FlowLayoutPanel{Dock=F.DockStyle.Fill,FlowDirection=F.FlowDirection.TopDown,WrapContents=false,AutoScroll=true,Padding=new F.Padding(8),BackColor=Color.FromArgb(237,243,248)};split.Panel2.Controls.Add(panel);panel.Controls.Add(new F.Label{Text="КОМПОНЕНТЫ",Width=215,Height=24,Font=new Font("Segoe UI",10,FontStyle.Bold)});
 

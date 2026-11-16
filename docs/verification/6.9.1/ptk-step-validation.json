@@ -1,0 +1,335 @@
+{
+  "Ok": true,
+  "Parts": [
+    {
+      "Id": "SH_MOTOR_PLATE",
+      "Volume_mm3": 46074.534628309244,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_MOTOR_REFERENCE",
+      "Volume_mm3": 76944.33253279522,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_BEARING_0",
+      "Volume_mm3": 907.1348787240527,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_MODULE_1",
+      "Volume_mm3": 34061.263692592496,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_generator",
+      "Volume_mm3": 23081.658217042634,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_input_bearing",
+      "Volume_mm3": 376.99111843077515,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball0",
+      "Volume_mm3": 113.0973355292326,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball1",
+      "Volume_mm3": 113.09733552923258,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball2",
+      "Volume_mm3": 113.09733552923262,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball3",
+      "Volume_mm3": 113.0973355292326,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball4",
+      "Volume_mm3": 113.09733552923255,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball5",
+      "Volume_mm3": 113.0973355292326,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball6",
+      "Volume_mm3": 113.09733552923262,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball7",
+      "Volume_mm3": 113.0973355292326,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball8",
+      "Volume_mm3": 113.0973355292326,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball9",
+      "Volume_mm3": 113.09733552923262,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball10",
+      "Volume_mm3": 113.09733552923262,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball11",
+      "Volume_mm3": 113.0973355292326,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball12",
+      "Volume_mm3": 113.0973355292326,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball13",
+      "Volume_mm3": 113.09733552923255,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball14",
+      "Volume_mm3": 113.09733552923262,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball15",
+      "Volume_mm3": 113.09733552923255,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "24b8607c46e8423aac60a2c0e482df7f_wave_ball16",
+      "Volume_mm3": 113.09733552923255,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_PARTITION_1",
+      "Volume_mm3": 34232.8667224616,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_BEARING_1",
+      "Volume_mm3": 753.9822368615504,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_MODULE_2",
+      "Volume_mm3": 34151.35586497897,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "a3da78606b034cc892fd911c584e7f68_009_STAGE_1_SUN",
+      "Volume_mm3": 2753.8783730545974,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "a3da78606b034cc892fd911c584e7f68_010_STAGE_1_PLANET_1",
+      "Volume_mm3": 2836.345192983796,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "a3da78606b034cc892fd911c584e7f68_011_PLANET_BUSH",
+      "Volume_mm3": 181.42697574481042,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "a3da78606b034cc892fd911c584e7f68_012_PLANET_AXLE",
+      "Volume_mm3": 144.51326206513053,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "a3da78606b034cc892fd911c584e7f68_013_STAGE_1_PLANET_2",
+      "Volume_mm3": 2836.34518372244,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "a3da78606b034cc892fd911c584e7f68_014_PLANET_BUSH",
+      "Volume_mm3": 181.42697574481042,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "a3da78606b034cc892fd911c584e7f68_015_PLANET_AXLE",
+      "Volume_mm3": 144.5132620651305,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "a3da78606b034cc892fd911c584e7f68_016_STAGE_1_PLANET_3",
+      "Volume_mm3": 2836.3452102251745,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "a3da78606b034cc892fd911c584e7f68_017_PLANET_BUSH",
+      "Volume_mm3": 181.42697574481042,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "a3da78606b034cc892fd911c584e7f68_018_PLANET_AXLE",
+      "Volume_mm3": 144.5132620651305,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_PARTITION_2",
+      "Volume_mm3": 47598.14423508993,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_BEARING_2",
+      "Volume_mm3": 1055.5751316061705,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_COVER",
+      "Volume_mm3": 53461.110050513285,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_BEARING_COVER",
+      "Volume_mm3": 1055.5751316061705,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_JOINT_1",
+      "Volume_mm3": 18664.28017979252,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "a3da78606b034cc892fd911c584e7f68_SH_OUTPUT_CARRIER",
+      "Volume_mm3": 12058.840037986438,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_INPUT_SHAFT",
+      "Volume_mm3": 355.8324919088479,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_STUD_1",
+      "Volume_mm3": 431.1835917051999,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_NUT_1_0",
+      "Volume_mm3": 39.153838391318224,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_NUT_1_1",
+      "Volume_mm3": 39.1538383913182,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_STUD_2",
+      "Volume_mm3": 431.1835917051992,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_NUT_2_0",
+      "Volume_mm3": 39.15383839131825,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_NUT_2_1",
+      "Volume_mm3": 39.153838391318224,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_STUD_3",
+      "Volume_mm3": 431.1835917051991,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_NUT_3_0",
+      "Volume_mm3": 39.15383839131826,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_NUT_3_1",
+      "Volume_mm3": 39.153838391318224,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_STUD_4",
+      "Volume_mm3": 431.1835917051994,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_NUT_4_0",
+      "Volume_mm3": 39.15383839131825,
+      "Valid": true,
+      "Solids": 1
+    },
+    {
+      "Id": "SH_NUT_4_1",
+      "Volume_mm3": 39.153838391318224,
+      "Valid": true,
+      "Solids": 1
+    }
+  ]
+}

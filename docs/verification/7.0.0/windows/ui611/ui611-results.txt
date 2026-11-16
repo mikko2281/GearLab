@@ -1,0 +1,32 @@
+PASS library keeps newest first without duplicates
+PASS stage train is stored in the library
+PASS broken library file does not crash
+PASS new robot from a user reducer
+PASS robot has one joint
+PASS joint carries the cycloid reducer
+PASS joint ratio equals the reducer ratio
+PASS first joint is a vertical base rotation
+PASS gearbox envelope fits the reducer
+PASS reducer view opens after adding
+PASS second reducer becomes the next joint
+PASS next joint is attached to the end of the arm
+PASS next joint starts at the parent tip
+PASS second joint carries the planetary reducer
+PASS each joint has a reducer badge
+PASS badge shows order and ratio
+PASS clicking a badge selects that reducer in the list
+PASS reducer card offers configure and replace
+PASS replace a joint reducer with a stage train
+PASS joint now uses the stage train
+PASS train ratio applied to the joint
+PASS undo restores the previous reducer
+PASS robot with user reducers survives save and load
+PASS joint without a reducer model is marked as number only
+PASS reducer editor has «＋ Добавить в робота»
+PASS reducer editor places into the open robot
+PASS open robot gained a joint instead of being replaced
+PASS stage editor has «＋ В робота»
+PASS robot-linked stage editor hides «＋ В робота»
+PASS no error messages: 
+PASS reducer view can be closed
+PASS 31 assertions
